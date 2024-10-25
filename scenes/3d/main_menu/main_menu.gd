@@ -12,6 +12,8 @@ extends BaseScene
 func _ready() -> void:
 	ocean_btn.pressed.connect(_switch_to_ocean)
 
+	Global.player.set_underwater_particles_active(false)
+
 	if not Global.language_selected:
 		lang_btn_english.pressed.connect(_set_language.bind("en"))
 		lang_btn_portuguese.pressed.connect(_set_language.bind("pt"))

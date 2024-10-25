@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Global="*res://autoloads/Global.gd"
 
+[physics]
+
+common/enable_object_picking=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

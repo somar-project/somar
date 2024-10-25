@@ -32,6 +32,7 @@ monitoring = false
 script = ExtResource("2_ewjf2")
 
 [node name="BtnBackground" type="MeshInstance3D" parent="ReturnToMainMenuBtn"]
+sorting_offset = 1.0
 material_override = SubResource("ShaderMaterial_lt3kc")
 mesh = SubResource("QuadMesh_8sikk")
 skeleton = NodePath("../../..")
