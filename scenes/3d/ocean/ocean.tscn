@@ -1,0 +1,160 @@
+[gd_scene load_steps=23 format=3 uid="uid://c6y5y8pwspjr"]
+
+[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_m5san"]
+[ext_resource type="Texture2D" uid="uid://rmbtjgo2w6uy" path="res://scenes/3d/ocean/textures/sea_gradient_equi_2k.png" id="1_urxmo"]
+[ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_shader.gdshader" id="2_kol61"]
+[ext_resource type="Texture2D" uid="uid://coii7pwpejf7v" path="res://scenes/3d/ocean/textures/water_surface_mask.png" id="3_yx5cj"]
+[ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="4_e8mai"]
+[ext_resource type="Texture2D" uid="uid://cb5xdrl2cucm3" path="res://scenes/3d/ocean/textures/dolphin.png" id="6_g2lai"]
+[ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
+panorama = ExtResource("1_urxmo")
+
+[sub_resource type="Sky" id="Sky_5ww5n"]
+sky_material = SubResource("PanoramaSkyMaterial_qn1vh")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_2ljrs"]
+background_mode = 2
+sky = SubResource("Sky_5ww5n")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_sun_scatter = 0.1
+fog_density = 1.0
+fog_depth_curve = 0.129409
+fog_depth_begin = 3.0
+fog_depth_end = 25.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e0cat"]
+noise_type = 4
+seed = 5
+frequency = 0.04
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jcmkx"]
+seamless = true
+noise = SubResource("FastNoiseLite_e0cat")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fe7c8"]
+render_priority = 0
+shader = ExtResource("2_kol61")
+shader_parameter/albedo_color = Color(0, 0.309804, 0.309804, 1)
+shader_parameter/opacity = 0.5
+shader_parameter/scale = 1.1
+shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_jcmkx")
+shader_parameter/water_surface_mask = ExtResource("3_yx5cj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
+size = Vector2(40, 40)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n4es0"]
+seamless = true
+noise = SubResource("FastNoiseLite_e0cat")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_60by1"]
+render_priority = 0
+shader = ExtResource("4_e8mai")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/scale = 2.0
+shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_n4es0")
+shader_parameter/water_surface_mask = ExtResource("3_yx5cj")
+
+[sub_resource type="Curve3D" id="Curve3D_blbw4"]
+_data = {
+"points": PackedVector3Array(-0.164653, -0.0874647, 0.00288117, 0.164653, 0.0874647, -0.00288117, 0.000890031, 0, -1.8205, -0.294508, 0.0526589, -0.153903, 0.294508, -0.0526589, 0.153903, 0.912745, 0.215305, -1.63993, -0.20162, 0.127987, -0.351257, 0.20162, -0.127987, 0.351257, 1.8246, -0.123149, -0.827386, 0.0434349, 0.00205775, -0.224064, -0.0434349, -0.00205775, 0.224064, 2.20379, 0.0957662, -0.00581359, 0.142968, 0.0091946, -0.200501, -0.142968, -0.0091946, 0.200501, 1.90585, -0.0348186, 0.851872, 0.160522, -0.0102041, -0.0935128, -0.160522, 0.0102041, 0.0935128, 1.38222, 0.0600086, 1.4026, 0.265607, -0.0156957, -0.02309, -0.265607, 0.0156957, 0.02309, 0.389106, 0.0132047, 1.47482, 0.35666, 0.0327843, 0.0849332, -0.35666, -0.0327843, -0.0849332, -0.486637, 0.212258, 1.37551, 0.30694, -0.0158172, 0.263238, -0.30694, 0.0158172, -0.263238, -1.18181, -0.0360394, 1.07758, 0.0168602, 0.0129323, 0.221561, -0.0168602, -0.0129323, -0.221561, -1.47072, 0.114426, -0.276662, -0.124369, -0.0312581, 0.264592, 0.124369, 0.0312581, -0.264592, -1.30821, 0, -0.935726, -0.205179, -0.0186175, 0.161649, 0.205179, 0.0186175, -0.161649, -0.907359, 0.163358, -1.58093, -0.183749, -0.107051, 0.00262392, 0.183749, 0.107051, -0.00262392, 0.00107625, 0, -1.81991),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 13
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aygtc"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("6_g2lai")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_dqydd"]
+size = Vector2(2, 2)
+
+[sub_resource type="Animation" id="Animation_oqeos"]
+resource_name = "temp_dolphin_anim"
+length = 10.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TempDolphinPath/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_1d3e5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TempDolphinPath/PathFollow3D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_et5cr"]
+_data = {
+"RESET": SubResource("Animation_1d3e5"),
+"temp_dolphin_anim": SubResource("Animation_oqeos")
+}
+
+[node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
+script = ExtResource("1_m5san")
+player_position = NodePath("PlayerPosition")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2ljrs")
+
+[node name="WaterSurface" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8, 0)
+material_override = SubResource("ShaderMaterial_fe7c8")
+mesh = SubResource("QuadMesh_20yxg")
+
+[node name="WaterSurface2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.5, 0)
+material_override = SubResource("ShaderMaterial_60by1")
+mesh = SubResource("QuadMesh_20yxg")
+
+[node name="PlayerPosition" type="Marker3D" parent="."]
+
+[node name="TempDolphinPath" type="Path3D" parent="."]
+transform = Transform3D(-2, 0, 1.74846e-07, 0, 2, 0, -1.74846e-07, 0, -2, 0, 1.5, 0)
+curve = SubResource("Curve3D_blbw4")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="TempDolphinPath"]
+transform = Transform3D(0.999998, 0, 0, 0, 0.999996, 0, 0, 0, 0.999997, 0.000890031, 0, -1.8205)
+rotation_mode = 0
+tilt_enabled = false
+
+[node name="TempDolphinMesh" type="MeshInstance3D" parent="TempDolphinPath/PathFollow3D"]
+material_override = SubResource("StandardMaterial3D_aygtc")
+mesh = SubResource("QuadMesh_dqydd")
+
+[node name="ReturnToMainMenu" parent="." instance=ExtResource("7_jnhsx")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_et5cr")
+}
+autoplay = "temp_dolphin_anim"

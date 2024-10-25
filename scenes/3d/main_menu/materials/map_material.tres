@@ -1,0 +1,11 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://nmttx5gcuir0"]
+
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/map_shader.gdshader" id="1_vwl7b"]
+[ext_resource type="Texture2D" uid="uid://cabx71qra4wfg" path="res://scenes/3d/main_menu/textures/map_1k.png" id="2_bmfl4"]
+[ext_resource type="Texture2D" uid="uid://cuxirka4ili5v" path="res://scenes/3d/main_menu/textures/map_soft_mask_1k.png" id="3_1jb7q"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_vwl7b")
+shader_parameter/map_texture = ExtResource("2_bmfl4")
+shader_parameter/map_texture_mask = ExtResource("3_1jb7q")

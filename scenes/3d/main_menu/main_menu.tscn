@@ -1,0 +1,282 @@
+[gd_scene load_steps=19 format=3 uid="uid://p0yx1ovcqwpd"]
+
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
+[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
+[ext_resource type="Script" path="res://scenes/3d/main_menu/main_menu.gd" id="1_ybh1f"]
+[ext_resource type="Texture2D" uid="uid://dvt77u67twknl" path="res://scenes/3d/main_menu/textures/main_menu_equi_2k.png" id="2_qkgxn"]
+[ext_resource type="Material" uid="uid://nmttx5gcuir0" path="res://scenes/3d/main_menu/materials/map_material.tres" id="5_n3ins"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_476vf"]
+panorama = ExtResource("2_qkgxn")
+
+[sub_resource type="Sky" id="Sky_tbi8r"]
+sky_material = SubResource("PanoramaSkyMaterial_476vf")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_2u6yr"]
+background_mode = 2
+sky = SubResource("Sky_tbi8r")
+sky_rotation = Vector3(0, 3.14159, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vk5ku"]
+render_priority = 0
+shader = ExtResource("1_kdp3t")
+shader_parameter/size = Vector2(1, 0.5)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_xmunv"]
+size = Vector2(1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jnp15"]
+size = Vector3(1, 0.5, 0.015)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1m6m"]
+render_priority = 0
+shader = ExtResource("1_kdp3t")
+shader_parameter/size = Vector2(1, 0.5)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_l2ohu"]
+size = Vector2(3, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7sx4"]
+render_priority = 0
+shader = ExtResource("1_kdp3t")
+shader_parameter/size = Vector2(0.25, 0.25)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.17
+
+[sub_resource type="QuadMesh" id="QuadMesh_1k5y4"]
+size = Vector2(0.25, 0.25)
+
+[sub_resource type="Animation" id="Animation_r6dgk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MapMesh:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.01, 0.1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MapMesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -3, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_dl4ck"]
+resource_name = "show_map"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MapMesh:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.01, 0.1, 1), Vector3(0.025, 0.1, 1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MapMesh:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -3, 0), Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qa0wl"]
+_data = {
+"RESET": SubResource("Animation_r6dgk"),
+"show_map": SubResource("Animation_dl4ck")
+}
+
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("player_position")]
+script = ExtResource("1_ybh1f")
+player_position = NodePath("PlayerPosition")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2u6yr")
+
+[node name="LanguageButtons" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2.5)
+visible = false
+
+[node name="LanguageLbl" type="Label3D" parent="LanguageButtons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.533896, 0.00219977)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "Language / linguagem:"
+font_size = 128
+outline_size = 8
+
+[node name="EnglishBtn" type="Area3D" parent="LanguageButtons"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 0, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_mi14x")
+
+[node name="BtnBackground" type="MeshInstance3D" parent="LanguageButtons/EnglishBtn"]
+material_override = SubResource("ShaderMaterial_vk5ku")
+mesh = SubResource("QuadMesh_xmunv")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="LanguageButtons/EnglishBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "English"
+font_size = 128
+outline_size = 8
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="LanguageButtons/EnglishBtn"]
+shape = SubResource("BoxShape3D_jnp15")
+
+[node name="PortugueseBtn" type="Area3D" parent="LanguageButtons"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_mi14x")
+
+[node name="BtnBackground" type="MeshInstance3D" parent="LanguageButtons/PortugueseBtn"]
+material_override = SubResource("ShaderMaterial_q1m6m")
+mesh = SubResource("QuadMesh_xmunv")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="LanguageButtons/PortugueseBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "Português"
+font_size = 128
+outline_size = 8
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="LanguageButtons/PortugueseBtn"]
+shape = SubResource("BoxShape3D_jnp15")
+
+[node name="PressInstructionsLbl" type="Label3D" parent="LanguageButtons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.517525, 0.00219977)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "Look at a button to press
+Olhe para um botão para pressionar"
+font_size = 72
+outline_size = 4
+
+[node name="MapMenu" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.547, -2.5)
+visible = false
+
+[node name="MapMesh" type="MeshInstance3D" parent="MapMenu"]
+transform = Transform3D(0.01, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, -3, 0)
+material_override = ExtResource("5_n3ins")
+mesh = SubResource("QuadMesh_l2ohu")
+skeleton = NodePath("../..")
+
+[node name="OceanBtn" type="Area3D" parent="MapMenu"]
+unique_name_in_owner = true
+transform = Transform3D(0.01, 0, 0, 0, 0.01, 0, 0, 0, 0.01, -0.176, -0.479, 0.015)
+visible = false
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_mi14x")
+
+[node name="BtnBackground" type="MeshInstance3D" parent="MapMenu/OceanBtn"]
+material_override = SubResource("ShaderMaterial_s7sx4")
+mesh = SubResource("QuadMesh_1k5y4")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="MapMenu/OceanBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.238981, 0.00219965)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Ocean"
+font_size = 75
+outline_size = 4
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="MapMenu/OceanBtn"]
+shape = SubResource("BoxShape3D_jnp15")
+
+[node name="MapAnimationPlayer" type="AnimationPlayer" parent="MapMenu"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_qa0wl")
+}
+
+[node name="PlayerPosition" type="Marker3D" parent="."]

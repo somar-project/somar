@@ -1,0 +1,52 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="SMR0002"
+run/main_scene="res://scenes/main/main.tscn"
+config/features=PackedStringArray("4.3", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*res://autoloads/Global.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+reflections/sky_reflections/texture_array_reflections=false
+shading/overrides/force_vertex_shading=true
+shading/overrides/force_lambert_over_burley=true
+limits/opengl/max_renderable_elements=32768
+limits/opengl/max_renderable_lights=2
+limits/opengl/max_lights_per_object=2
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
+anti_aliasing/quality/msaa_3d=1
+environment/defaults/default_environment="res://scenes/3d/xr_player/default_environment.tres"
+
+[shader_globals]
+
+menu_btn_bg={
+"type": "color",
+"value": Color(1, 1, 1, 1)
+}
+menu_btn_border_color={
+"type": "color",
+"value": Color(0, 0.596078, 0.643137, 1)
+}
+
+[xr]
+
+openxr/enabled=true
+openxr/extensions/hand_tracking=false
+shaders/enabled=true
