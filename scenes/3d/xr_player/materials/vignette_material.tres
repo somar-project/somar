@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://6p4v5wm3wwqr"]
+
+[ext_resource type="Shader" path="res://scenes/3d/xr_player/materials/vignette_shader.gdshader" id="1_0hlco"]
+
+[resource]
+render_priority = 30
+shader = ExtResource("1_0hlco")
+shader_parameter/outer_radius = 5.0
+shader_parameter/main_alpha = 0.0

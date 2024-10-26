@@ -14,22 +14,28 @@ func _ready() -> void:
 
 	Global.player.set_underwater_particles_active(false)
 
+	# Adjust height
+	language_buttons.global_position.y = Global.player.camera.global_position.y
+	map_menu.global_position.y = Global.player.camera.global_position.y
+
 	if not Global.language_selected:
 		lang_btn_english.pressed.connect(_set_language.bind("en"))
 		lang_btn_portuguese.pressed.connect(_set_language.bind("pt"))
 
 		language_buttons.visible = true
+		Global.player.fade(true)
 	else:
 		language_buttons.queue_free()
-		_show_map_menu()
 
-	# Adjust height
-	language_buttons.global_position.y = Global.player.camera.global_position.y
-	map_menu.global_position.y = Global.player.camera.global_position.y
+		Global.player.fade(true)
+		await Global.player.fade_finished
+		_show_map_menu()
 
 
 func _switch_to_ocean() -> void:
-	Global.switch_to_scene("ocean")
+	Global.player.fade(false)
+	await Global.player.fade_finished
+	SceneManager.switch_to_scene("ocean")
 
 
 func _set_language(lang_code : String) -> void:

@@ -4,8 +4,10 @@ extends Area3D
 signal pressed
 
 @export var hover_trigger_time_override : float = 0
+@export var hover_press_initial_border_size : float = 0.02
+@export var hover_press_target_border_size : float = 0.25
 
-const HOVER_TRIGGER_TIME : float = 2.5
+const HOVER_TRIGGER_TIME : float = 2.0
 
 enum PressMode {
 	HOVER,
@@ -48,12 +50,12 @@ func hover() -> void:
 
 		hover_tween = create_tween()
 		hover_tween.set_trans(Tween.TRANS_CUBIC)
-		hover_tween.set_ease(Tween.EASE_IN)
+		hover_tween.set_ease(Tween.EASE_OUT)
 
 		hover_tween.tween_property(
 			btn_material,
 			"shader_parameter/border_size",
-			0.5,
+			hover_press_target_border_size,
 			hover_trigger_time)
 
 		hover_timer.start(hover_trigger_time)
@@ -64,7 +66,7 @@ func hover() -> void:
 
 		hover_tween = create_tween()
 		hover_tween.set_trans(Tween.TRANS_CUBIC)
-		hover_tween.set_ease(Tween.EASE_IN)
+		hover_tween.set_ease(Tween.EASE_OUT)
 
 		hover_tween.tween_property(
 			btn_material,
@@ -79,12 +81,12 @@ func stop_hover() -> void:
 
 		hover_tween = create_tween()
 		hover_tween.set_trans(Tween.TRANS_CUBIC)
-		hover_tween.set_ease(Tween.EASE_OUT)
+		hover_tween.set_ease(Tween.EASE_IN)
 
 		hover_tween.tween_property(
 			btn_material,
 			"shader_parameter/border_size",
-			0.02,
+			hover_press_initial_border_size,
 			0.2)
 
 

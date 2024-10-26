@@ -8,4 +8,6 @@ func _ready() -> void:
 
 
 func _handle_btn_pressed() -> void:
-	Global.switch_to_scene("main_menu")
+	Global.player.fade(false)
+	await Global.player.fade_finished
+	SceneManager.switch_to_scene("main_menu")

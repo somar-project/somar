@@ -7,5 +7,5 @@ extends Node3D
 
 func _ready() -> void:
 	Global.player = player
-	Global.player_transition_container = player_transition_container
-	Global.scene_container = scene_container
+	SceneManager.player_transition_container = player_transition_container
+	SceneManager.scene_container = scene_container
