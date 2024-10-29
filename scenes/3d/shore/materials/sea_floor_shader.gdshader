@@ -15,12 +15,9 @@ uniform float metallic : hint_range(0.0, 1.0, 0.01);
 
 uniform vec3 uv1_scale = vec3(1.0);
 uniform vec3 uv1_offset = vec3(0.0);
-uniform vec3 uv2_scale = vec3(1.0);
-uniform vec3 uv2_offset = vec3(0.0);
 
 void vertex() {
 	UV = UV * uv1_scale.xy + uv1_offset.xy;
-	UV2 = UV2 * uv2_scale.xy + uv2_offset.xy;
 }
 
 void fragment() {
