@@ -40,3 +40,4 @@ func switch_to_scene(scene_name : String) -> void:
 
     # Place player inside new scene
     Global.player.reparent(new_scene_instance.player_position)
+    Global.player.global_position = new_scene_instance.player_position.global_position

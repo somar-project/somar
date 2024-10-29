@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpt7q5gnv4ouc"]
+
+[ext_resource type="Script" path="res://scenes/3d/animals/dolphins/dolphin_base.gd" id="1_k2m3p"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_62766"]
+size = Vector3(0.6, 0.75, 1.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ubut8"]
+size = Vector3(0.6, 0.575, 0.6)
+
+[node name="BottlenoseDolphin" type="Node3D"]
+script = ExtResource("1_k2m3p")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.317987)
+mesh = SubResource("BoxMesh_62766")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.780692)
+mesh = SubResource("BoxMesh_ubut8")

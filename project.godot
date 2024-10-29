@@ -33,7 +33,7 @@ textures/vram_compression/import_etc2_astc=true
 reflections/sky_reflections/texture_array_reflections=false
 shading/overrides/force_vertex_shading=true
 shading/overrides/force_lambert_over_burley=true
-limits/opengl/max_renderable_elements=32768
+limits/opengl/max_renderable_elements=16384
 limits/opengl/max_renderable_lights=2
 limits/opengl/max_lights_per_object=2
 environment/defaults/default_clear_color=Color(0, 0, 0, 1)
@@ -54,5 +54,7 @@ menu_btn_border_color={
 [xr]
 
 openxr/enabled=true
+openxr/foveation_level=3
+openxr/foveation_dynamic=true
 openxr/extensions/hand_tracking=false
 shaders/enabled=true
