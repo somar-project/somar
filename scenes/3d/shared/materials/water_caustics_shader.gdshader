@@ -30,7 +30,7 @@ void fragment() {
 	
 	float color = min(0.999, cellular_noise_t.r);
 	color = log(0.999) / log(color);
-	color *= intensity * min((sin(TIME) / 2.0) + 1.0, 1.0);
+	color *= intensity * min((sin(TIME) / 2.0) + 1.1, 1.0);
 	
 	ALBEDO = cellular_noise_t.rgb;
 	ALPHA = color;

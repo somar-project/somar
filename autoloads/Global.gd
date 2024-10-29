@@ -6,6 +6,12 @@ var player : XROrigin3D
 
 var language_selected : bool = false
 
+enum MaterialQuality {
+    LOW,
+    HIGH
+}
+var material_quality : MaterialQuality = MaterialQuality.LOW
+
 
 func _ready() -> void:
     xr_interface = XRServer.find_interface("OpenXR")
