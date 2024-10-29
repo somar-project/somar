@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cb5xdrl2cucm3"
-path.s3tc="res://.godot/imported/dolphin.png-b14fb799c0838fa034d3ba172345654a.s3tc.ctex"
-path.etc2="res://.godot/imported/dolphin.png-b14fb799c0838fa034d3ba172345654a.etc2.ctex"
+uid="uid://bwwban3b8ool7"
+path.s3tc="res://.godot/imported/Gravel039_1K-PNG_Color_AO.png-caa62d4a8456e15295bc8ab36d121b5c.s3tc.ctex"
+path.etc2="res://.godot/imported/Gravel039_1K-PNG_Color_AO.png-caa62d4a8456e15295bc8ab36d121b5c.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/3d/ocean/textures/dolphin.png"
-dest_files=["res://.godot/imported/dolphin.png-b14fb799c0838fa034d3ba172345654a.s3tc.ctex", "res://.godot/imported/dolphin.png-b14fb799c0838fa034d3ba172345654a.etc2.ctex"]
+source_file="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png"
+dest_files=["res://.godot/imported/Gravel039_1K-PNG_Color_AO.png-caa62d4a8456e15295bc8ab36d121b5c.s3tc.ctex", "res://.godot/imported/Gravel039_1K-PNG_Color_AO.png-caa62d4a8456e15295bc8ab36d121b5c.etc2.ctex"]
 
 [params]
 

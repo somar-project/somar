@@ -1,0 +1,115 @@
+[gd_scene load_steps=21 format=3 uid="uid://c1sswtpcofyfs"]
+
+[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_rxc67"]
+[ext_resource type="Texture2D" uid="uid://bn3x6foekyg53" path="res://scenes/3d/shore/textures/shore_gradient_equi_2k.png" id="2_1gtse"]
+[ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_shader.gdshader" id="3_x4qtx"]
+[ext_resource type="Texture2D" uid="uid://dljj8yk8ly360" path="res://scenes/3d/ocean/textures/water_surface_mask_v2.png" id="4_6klol"]
+[ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="5_qr6ey"]
+[ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_iabag"]
+[ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
+[ext_resource type="Material" uid="uid://kbe54mi3ogmb" path="res://scenes/3d/shore/materials/shore_floor_material.tres" id="8_cip0i"]
+[ext_resource type="Material" uid="uid://bjcoqrxew78ux" path="res://scenes/3d/shore/materials/shore_sun_rays_material.tres" id="12_k44yp"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
+panorama = ExtResource("2_1gtse")
+
+[sub_resource type="Sky" id="Sky_5ww5n"]
+sky_material = SubResource("PanoramaSkyMaterial_qn1vh")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_2ljrs"]
+background_mode = 2
+sky = SubResource("Sky_5ww5n")
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(6.257e-06, 0.367833, 0.693773, 1)
+fog_sun_scatter = 0.1
+fog_density = 1.0
+fog_depth_curve = 0.615577
+fog_depth_begin = 0.0
+fog_depth_end = 20.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e0cat"]
+noise_type = 4
+seed = 5
+frequency = 0.04
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jcmkx"]
+seamless = true
+noise = SubResource("FastNoiseLite_e0cat")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qqkwn"]
+render_priority = 0
+shader = ExtResource("3_x4qtx")
+shader_parameter/albedo_color = Color(1.01075e-06, 0.418096, 0.418095, 1)
+shader_parameter/opacity = 0.45
+shader_parameter/scale = 1.1
+shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_jcmkx")
+shader_parameter/water_surface_mask = ExtResource("4_6klol")
+
+[sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
+size = Vector2(40, 40)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_capje"]
+noise_type = 4
+seed = 5
+frequency = 0.04
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n4es0"]
+seamless = true
+noise = SubResource("FastNoiseLite_capje")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4k7gt"]
+render_priority = 0
+shader = ExtResource("5_qr6ey")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/opacity = 1.0
+shader_parameter/scale = 2.0
+shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_n4es0")
+shader_parameter/water_surface_mask = ExtResource("4_6klol")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
+flip_faces = true
+bottom_radius = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
+
+[node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
+script = ExtResource("1_rxc67")
+player_position = NodePath("PlayerPosition")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_2ljrs")
+
+[node name="WaterSurface" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0)
+material_override = SubResource("ShaderMaterial_qqkwn")
+mesh = SubResource("QuadMesh_20yxg")
+
+[node name="WaterSurface2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.5, 0)
+material_override = SubResource("ShaderMaterial_4k7gt")
+mesh = SubResource("QuadMesh_20yxg")
+
+[node name="PlayerPosition" type="Marker3D" parent="."]
+
+[node name="ReturnToMainMenu" parent="." instance=ExtResource("7_iabag")]
+
+[node name="sea_floor" type="Node3D" parent="."]
+
+[node name="Plane" type="MeshInstance3D" parent="sea_floor"]
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
+material_override = ExtResource("8_cip0i")
+mesh = ExtResource("8_51r74")
+skeleton = NodePath("")
+
+[node name="SunRays" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
+material_override = ExtResource("12_k44yp")
+mesh = SubResource("CylinderMesh_r1s0e")
