@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=15 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cipgn16i6g2k3" path="res://utilities/shader_cache/shader_cache.tscn" id="4_d5jj2"]
 [ext_resource type="Material" uid="uid://rjdkfy8ohvi2" path="res://scenes/3d/xr_player/materials/underwater_particles_material.tres" id="6_yfcbf"]
 [ext_resource type="Material" uid="uid://6p4v5wm3wwqr" path="res://scenes/3d/xr_player/materials/vignette_material.tres" id="7_lhpba"]
+[ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/Glove.tscn" id="8_h8gw4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 20
@@ -91,11 +92,19 @@ material_override = ExtResource("7_lhpba")
 mesh = SubResource("QuadMesh_6cwgg")
 
 [node name="LeftController" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 tracker = &"left_hand"
 pose = &"aim"
 show_when_tracked = true
 
+[node name="LGlove" parent="LeftController" instance=ExtResource("8_h8gw4")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.003, -0.029, 0.054)
+
 [node name="RightController" type="XRController3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 tracker = &"right_hand"
 pose = &"aim"
 show_when_tracked = true
+
+[node name="RGlove" parent="RightController" instance=ExtResource("8_h8gw4")]
+transform = Transform3D(1, 0, 1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.003, -0.029, 0.054)

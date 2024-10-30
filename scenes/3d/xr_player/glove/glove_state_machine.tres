@@ -1,0 +1,100 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=18 format=3 uid="uid://kokeqeml5ltv"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bx5wa"]
+animation = &"fist"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vm5gw"]
+animation = &"grab"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qt7pg"]
+animation = &"rest"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4l18r"]
+animation = &"trigger"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2yl04"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mbv3f"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(1)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1nsp6"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(0)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7lshy"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(2)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r0par"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(1)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q51vr"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(3)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3ounn"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(2)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q306v"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(0)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r3yyw"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(3)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hajda"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(1)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6rns2"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(3)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7xjo7"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(2)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6sai4"]
+xfade_time = 0.3
+reset = false
+advance_mode = 2
+advance_expression = "is_state(0)"
+
+[resource]
+state_machine_type = 1
+states/fist/node = SubResource("AnimationNodeAnimation_bx5wa")
+states/fist/position = Vector2(553, 166)
+states/grab/node = SubResource("AnimationNodeAnimation_vm5gw")
+states/grab/position = Vector2(553, 38)
+states/rest/node = SubResource("AnimationNodeAnimation_qt7pg")
+states/rest/position = Vector2(375, 100)
+states/trigger/node = SubResource("AnimationNodeAnimation_4l18r")
+states/trigger/position = Vector2(725, 100)
+transitions = ["Start", "rest", SubResource("AnimationNodeStateMachineTransition_2yl04"), "rest", "grab", SubResource("AnimationNodeStateMachineTransition_mbv3f"), "grab", "rest", SubResource("AnimationNodeStateMachineTransition_1nsp6"), "grab", "trigger", SubResource("AnimationNodeStateMachineTransition_7lshy"), "trigger", "grab", SubResource("AnimationNodeStateMachineTransition_r0par"), "trigger", "fist", SubResource("AnimationNodeStateMachineTransition_q51vr"), "fist", "trigger", SubResource("AnimationNodeStateMachineTransition_3ounn"), "fist", "rest", SubResource("AnimationNodeStateMachineTransition_q306v"), "rest", "fist", SubResource("AnimationNodeStateMachineTransition_r3yyw"), "fist", "grab", SubResource("AnimationNodeStateMachineTransition_hajda"), "grab", "fist", SubResource("AnimationNodeStateMachineTransition_6rns2"), "rest", "trigger", SubResource("AnimationNodeStateMachineTransition_7xjo7"), "trigger", "rest", SubResource("AnimationNodeStateMachineTransition_6sai4")]

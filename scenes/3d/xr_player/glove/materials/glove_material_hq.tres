@@ -1,0 +1,20 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://g788pbrkpdin"]
+
+[ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_6ovlm"]
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_metal.gdshader" id="2_wbvti"]
+[ext_resource type="Texture2D" uid="uid://bk5apocotacu3" path="res://scenes/3d/xr_player/glove/textures/gloves_albedo_1024.png" id="3_7gmvy"]
+[ext_resource type="Texture2D" uid="uid://srsrxljdawud" path="res://scenes/3d/xr_player/glove/textures/gloves_normal_1024.png" id="4_rhma5"]
+[ext_resource type="Texture2D" uid="uid://soa5jpapann7" path="res://scenes/3d/xr_player/glove/textures/gloves_roughness_metalness_1024.png" id="5_6rwyf"]
+
+[resource]
+render_priority = 0
+next_pass = ExtResource("1_6ovlm")
+shader = ExtResource("2_wbvti")
+shader_parameter/albedo_color = Color(0.894879, 0.947474, 0.988553, 1)
+shader_parameter/normal_map_scale = 1.0
+shader_parameter/roughness_cale = 1.0
+shader_parameter/metalness_scale = 1.0
+shader_parameter/specular_scale = 0.3
+shader_parameter/albedo_texture = ExtResource("3_7gmvy")
+shader_parameter/normal_texture = ExtResource("4_rhma5")
+shader_parameter/roughness_metalness_texture = ExtResource("5_6rwyf")
