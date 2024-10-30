@@ -178,6 +178,7 @@ func _handle_breathing() -> void:
 	, 0.0, 1.0, animation_breathe_submerge_time)
 
 	await breathing_tween.finished
+	first_swim_loop = true
 	last_breath_time = Time.get_ticks_msec()
 	call_deferred("_swim_to_target")
 
@@ -206,21 +207,3 @@ func _breathe_update_bezier_curve_second_step() -> void:
 		debug_middle_0_shape.global_position = breathing_middle_pos_0
 		debug_middle_1_shape.global_position = breathing_middle_pos_1
 		debug_target_shape.global_position = breathing_target_pos
-
-
-func _quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:
-	var q0 : Vector3 = p0.lerp(p1, t)
-	var q1 : Vector3 = p1.lerp(p2, t)
-
-	var r : Vector3 = q0.lerp(q1, t)
-	return r
-
-
-func _rotate_vector_around_pivot(point : Vector3, pivot : Vector3, rotation_rad : float) -> Vector3:
-	var cos_theta : float = cos(rotation_rad)
-	var sin_theta : float = sin(rotation_rad)
-
-	var x : float = (cos_theta * (point.x - pivot.x) - sin_theta * (point.z - pivot.z) + pivot.x)
-	var z : float = (sin_theta * (point.x - pivot.x) + cos_theta * (point.z - pivot.z) + pivot.z)
-
-	return Vector3(x, point.y, z)

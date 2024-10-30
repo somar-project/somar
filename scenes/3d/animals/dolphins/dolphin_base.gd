@@ -39,6 +39,8 @@ var current_swim_speed : float
 
 var movement_tween : Tween
 
+var first_swim_loop : bool = true
+
 # debug
 var debug_initial_shape : MeshInstance3D
 var debug_middle_0_shape : MeshInstance3D
@@ -170,14 +172,21 @@ func _swim_to_target(loop : bool = true) -> void:
 
 	current_position = global_position
 
-	current_middle_point_0 = current_position
-	current_middle_point_1 = current_target
-
+	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
 	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0))
 
-	var distance_to_target : float = current_position.distance_to(current_target) * 0.6
-	current_middle_point_0 += direction * distance_to_target
+	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
+	if not first_swim_loop:
+		var dist_from_last_mid_point_to_target : float = current_position.distance_to(current_middle_point_1)
+		var dir_from_last_mid_point_to_target : Vector3 = current_middle_point_1.direction_to(current_position)
+		current_middle_point_0 = current_position
+		current_middle_point_0 += dir_from_last_mid_point_to_target * dist_from_last_mid_point_to_target
+	else:
+		current_middle_point_0 = current_position
+		current_middle_point_0 += direction * distance_to_target
+
+	current_middle_point_1 = current_target
 	current_middle_point_1 += direction * distance_to_target
 
 	current_swim_speed = randf_range(base_swim_speed, max_swim_speed)
@@ -216,6 +225,8 @@ func _swim_to_target(loop : bool = true) -> void:
 
 	, 0.0, 1.0, current_swim_speed)
 	await movement_tween.finished
+	if first_swim_loop:
+		first_swim_loop = false
 	_after_swiming_to_target(loop)
 
 
@@ -223,6 +234,13 @@ func _after_swiming_to_target(loop : bool) -> void:
 	if loop:
 		call_deferred("_swim_to_target")
 
+
+func _quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:
+	var q0 : Vector3 = p0.lerp(p1, t)
+	var q1 : Vector3 = p1.lerp(p2, t)
+
+	var r : Vector3 = q0.lerp(q1, t)
+	return r
 
 func _cubic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3, t : float) -> Vector3:
 	var q0 : Vector3 = p0.lerp(p1, t)
@@ -234,3 +252,13 @@ func _cubic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3, t : f
 
 	var s = r0.lerp(r1, t)
 	return s
+
+
+func _rotate_vector_around_pivot(point : Vector3, pivot : Vector3, rotation_rad : float) -> Vector3:
+	var cos_theta : float = cos(rotation_rad)
+	var sin_theta : float = sin(rotation_rad)
+
+	var x : float = (cos_theta * (point.x - pivot.x) - sin_theta * (point.z - pivot.z) + pivot.x)
+	var z : float = (sin_theta * (point.x - pivot.x) + cos_theta * (point.z - pivot.z) + pivot.z)
+
+	return Vector3(x, point.y, z)
