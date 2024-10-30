@@ -2,9 +2,9 @@
 
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_27kiu"]
 [ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_spec.gdshader" id="2_mjmrx"]
-[ext_resource type="Texture2D" uid="uid://cqlk8oju24bdb" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_color.png" id="3_2cv8e"]
-[ext_resource type="Texture2D" uid="uid://2ek7eujedlwx" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_normal.png" id="4_jh7x3"]
-[ext_resource type="Texture2D" uid="uid://jcbai7q8vpfp" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_rough_spec.png" id="5_2itfh"]
+[ext_resource type="Texture2D" uid="uid://cvttesbnmy22s" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_color_hq.png" id="3_dgxpw"]
+[ext_resource type="Texture2D" uid="uid://smgafg218ghu" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_normal_hq.png" id="4_4wlws"]
+[ext_resource type="Texture2D" uid="uid://cyg6csro2kbhs" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_rough_spec_hq.png" id="5_cacsr"]
 
 [resource]
 render_priority = 0
@@ -14,6 +14,6 @@ shader_parameter/albedo_color = Color(0.65098, 0.827451, 0.960784, 1)
 shader_parameter/normal_map_scale = 1.0
 shader_parameter/roughness_cale = 1.0
 shader_parameter/specular_scale = 1.0
-shader_parameter/albedo_texture = ExtResource("3_2cv8e")
-shader_parameter/normal_texture = ExtResource("4_jh7x3")
-shader_parameter/roughness_specular_texture = ExtResource("5_2itfh")
+shader_parameter/albedo_texture = ExtResource("3_dgxpw")
+shader_parameter/normal_texture = ExtResource("4_4wlws")
+shader_parameter/roughness_specular_texture = ExtResource("5_cacsr")

@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
-[ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/ocean/materials/ocean_sun_rays_material.tres" id="7_v64ny"]
+[ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="7_v64ny"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
 panorama = ExtResource("1_urxmo")

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_iabag"]
 [ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
 [ext_resource type="Material" uid="uid://kbe54mi3ogmb" path="res://scenes/3d/shore/materials/shore_floor_material.tres" id="8_cip0i"]
-[ext_resource type="Material" uid="uid://bjcoqrxew78ux" path="res://scenes/3d/shore/materials/shore_sun_rays_material.tres" id="12_k44yp"]
+[ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="9_twl3q"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
 panorama = ExtResource("2_1gtse")
@@ -116,5 +116,5 @@ skeleton = NodePath("")
 
 [node name="SunRays" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
-material_override = ExtResource("12_k44yp")
+material_override = ExtResource("9_twl3q")
 mesh = SubResource("CylinderMesh_r1s0e")

@@ -11101,10 +11101,7 @@ _data = {
 
 [node name="BottlenoseDolphin" type="Node3D" node_paths=PackedStringArray("animation_player")]
 script = ExtResource("1_ceecq")
-breathing_time = 5
 animation_breathe_name = "dolphin|breathe1"
-base_swim_speed = 3.0
-max_swim_speed = 6.0
 animation_player = NodePath("bottlenose_dolphin/AnimationPlayer")
 animation_swim_name = "dolphin|swim1"
 
