@@ -2,8 +2,8 @@
 class_name DolphinBase
 extends Node3D
 
-@export var base_swim_speed : float = 3.0
-@export var max_swim_speed : float = 6.0
+@export var base_swim_speed : float = 4.0
+@export var max_swim_speed : float = 4.5
 
 @export_category("Position")
 @export var min_distance_to_player : float = 4.0
@@ -19,6 +19,7 @@ extends Node3D
 @export var debug_enabled : bool = false
 @export var debug_override_player_position : Vector3 = Vector3.ZERO
 @export var debug_initialize : bool = false : set = _debug_initialize
+@export var debug_swim_loop : bool = false
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
 
 enum DolphinState {
@@ -61,7 +62,7 @@ func _debug_swim_to_target(_value : bool) -> void:
 	debug_swim_to_target = false
 
 	if Engine.is_editor_hint():
-		_swim_to_target(false)
+		_swim_to_target(debug_swim_loop)
 
 
 func _initialize() -> void:
@@ -164,7 +165,7 @@ func _get_current_target() -> void:
 func _swim_to_target(loop : bool = true) -> void:
 	_get_current_target()
 
-	if is_instance_valid(animation_player):
+	if is_instance_valid(animation_player) and animation_player.current_animation != animation_swim_name:
 		animation_player.play(animation_swim_name)
 
 	current_position = global_position
@@ -215,6 +216,10 @@ func _swim_to_target(loop : bool = true) -> void:
 
 	, 0.0, 1.0, current_swim_speed)
 	await movement_tween.finished
+	_after_swiming_to_target(loop)
+
+
+func _after_swiming_to_target(loop : bool) -> void:
 	if loop:
 		call_deferred("_swim_to_target")
 

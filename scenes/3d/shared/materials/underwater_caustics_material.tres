@@ -6,6 +6,8 @@
 noise_type = 2
 seed = 5
 fractal_type = 0
+cellular_jitter = 0.5
+cellular_return_type = 6
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v5r1k"]
 seamless = true
@@ -14,9 +16,10 @@ noise = SubResource("FastNoiseLite_xj1j0")
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_vxhnk"]
 noise_type = 2
 seed = 5
+frequency = 0.02
 fractal_type = 0
 cellular_distance_function = 1
-cellular_jitter = -1.0
+cellular_jitter = -2.0
 cellular_return_type = 5
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_siyka"]
@@ -26,8 +29,8 @@ noise = SubResource("FastNoiseLite_vxhnk")
 [resource]
 render_priority = 1
 shader = ExtResource("1_5lj6f")
-shader_parameter/intensity = 30.0
-shader_parameter/scale = 0.4
-shader_parameter/speed = 0.2
+shader_parameter/intensity = 6.0
+shader_parameter/scale = 0.45
+shader_parameter/speed = 0.18
 shader_parameter/cellular_noise_texture = SubResource("NoiseTexture2D_v5r1k")
 shader_parameter/movement_noise = SubResource("NoiseTexture2D_siyka")

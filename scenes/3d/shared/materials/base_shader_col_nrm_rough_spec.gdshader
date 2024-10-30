@@ -1,5 +1,7 @@
 shader_type spatial;
 
+uniform vec3 albedo_color : source_color = vec3(1.0);
+
 uniform sampler2D albedo_texture : source_color, filter_linear_mipmap, repeat_enable;
 uniform sampler2D normal_texture;
 uniform sampler2D roughness_specular_texture;
@@ -14,7 +16,7 @@ void fragment() {
 	vec4 normal_t = texture(normal_texture, UV);
 	vec4 roughness_specular_t = texture(roughness_specular_texture, UV);
 
-	ALBEDO = albedo_t.rgb;
+	ALBEDO = albedo_color * albedo_t.rgb;
 	NORMAL_MAP = normal_t.rgb;
 	ROUGHNESS = roughness_specular_t.r * roughness_cale;
 	SPECULAR = roughness_specular_t.g * specular_scale;

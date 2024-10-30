@@ -9,7 +9,7 @@
 render_priority = 0
 next_pass = ExtResource("1_xna8p")
 shader = ExtResource("1_kg3d5")
-shader_parameter/albedo = Color(0.66, 0.841333, 1, 1)
+shader_parameter/albedo = Color(0.64, 0.772, 1, 1)
 shader_parameter/roughness = 0.5
 shader_parameter/metallic_texture_channel = null
 shader_parameter/specular = 0.05

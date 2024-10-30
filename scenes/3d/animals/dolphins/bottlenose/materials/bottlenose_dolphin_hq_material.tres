@@ -10,6 +10,7 @@
 render_priority = 0
 next_pass = ExtResource("1_27kiu")
 shader = ExtResource("2_mjmrx")
+shader_parameter/albedo_color = Color(0.65098, 0.827451, 0.960784, 1)
 shader_parameter/normal_map_scale = 1.0
 shader_parameter/roughness_cale = 1.0
 shader_parameter/specular_scale = 1.0

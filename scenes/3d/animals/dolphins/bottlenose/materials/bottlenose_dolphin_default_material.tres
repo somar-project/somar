@@ -8,4 +8,5 @@
 render_priority = 0
 next_pass = ExtResource("1_iyagd")
 shader = ExtResource("1_pufv1")
+shader_parameter/albedo_color = Color(0.649329, 0.826295, 0.959795, 1)
 shader_parameter/albedo_texture = ExtResource("2_gkqjc")

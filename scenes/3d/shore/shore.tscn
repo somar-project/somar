@@ -97,6 +97,9 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.5
 material_override = SubResource("ShaderMaterial_4k7gt")
 mesh = SubResource("QuadMesh_20yxg")
 
+[node name="SurfacePosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.1, 0)
+
 [node name="PlayerPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
 
