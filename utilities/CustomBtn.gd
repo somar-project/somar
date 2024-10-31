@@ -6,6 +6,7 @@ signal pressed
 @export var hover_trigger_time_override : float = 0
 @export var hover_press_initial_border_size : float = 0.02
 @export var hover_press_target_border_size : float = 0.25
+@export var hover_press_target_click_border_size : float = 0.25
 
 const HOVER_TRIGGER_TIME : float = 2.0
 
@@ -31,6 +32,8 @@ func _ready() -> void:
 
 	hover_timer.timeout.connect(press)
 
+	press_mode = PressMode.HOVER if not Global.player.controller_input_enabled else PressMode.CLICK
+
 
 func change_press_mode(new_mode : PressMode) -> void:
 	if new_mode == press_mode:
@@ -40,11 +43,11 @@ func change_press_mode(new_mode : PressMode) -> void:
 
 
 func hover() -> void:
+	var hover_trigger_time : float = HOVER_TRIGGER_TIME
+	if hover_trigger_time_override > 0:
+		hover_trigger_time = hover_trigger_time_override
+
 	if press_mode == PressMode.HOVER:
-		var hover_trigger_time : float = HOVER_TRIGGER_TIME
-		if hover_trigger_time_override > 0:
-			hover_trigger_time = hover_trigger_time_override
-		
 		if hover_tween:
 			hover_tween.kill()
 
@@ -71,8 +74,8 @@ func hover() -> void:
 		hover_tween.tween_property(
 			btn_material,
 			"shader_parameter/border_size",
-			0.085,
-			0.3)
+			hover_press_target_border_size * 0.3,
+			hover_trigger_time * 0.3)
 
 func stop_hover() -> void:
 	hover_timer.stop()

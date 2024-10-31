@@ -4,14 +4,16 @@ signal fade_finished
 
 const DEFAULT_POINTER_MESH_POS : Vector3 = Vector3(0.0, 0.0, -2.5)
 
+@onready var tree : SceneTree = get_tree()
 @onready var camera : XRCamera3D = %XRCamera3D
 @onready var pointer_raycast : RayCast3D = %PointerRayCast
+@onready var controller_raycast : RayCast3D = %ControllerRayCast
 @onready var pointer_mesh : MeshInstance3D = %PointerMesh
 @onready var underwater_particles : GPUParticles3D = %UnderwaterParticles
-
+@onready var left_controller : XRController3D = %LeftController
+@onready var right_controller : XRController3D = %RightController
 @onready var splashscreen_container : Node3D = %Splashscreen
 @onready var shader_cache : Node3D = %ShaderCache
-
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 
 var current_raycast_collider : Object
@@ -19,9 +21,25 @@ var underwater_particles_intensity_tween : Tween
 var vignette_material : ShaderMaterial
 var fade_tween : Tween
 
+var input_enabled : bool = false : set = _handle_input_enabled
+var controller_input_enabled : bool = false
+var active_controller_idx : int = 0
+var active_controllers_count : int = 0
+
 
 func _ready() -> void:
 	vignette_material = vignette_mesh.material_override
+
+	if left_controller.get_is_active():
+		active_controllers_count += 1
+	if right_controller.get_is_active():
+		active_controllers_count += 1
+	
+	left_controller.tracking_changed.connect(_handle_tracking_changed.bind(0))
+	right_controller.tracking_changed.connect(_handle_tracking_changed.bind(1))
+
+	left_controller.button_pressed.connect(_handle_input.bind(0))
+	right_controller.button_pressed.connect(_handle_input.bind(1))
 
 	shader_cache.start()
 	await shader_cache.caching_finished
@@ -38,23 +56,28 @@ func _ready() -> void:
 
 
 func _process(_delta : float) -> void:
-	if pointer_raycast.is_colliding():
-		pointer_mesh.global_position = pointer_raycast.get_collision_point()
-
-		if not is_instance_valid(current_raycast_collider):
-			current_raycast_collider = pointer_raycast.get_collider()
-
-			if current_raycast_collider is CustomBtn:
-				current_raycast_collider.hover()
-	
-	else:
-		pointer_mesh.position = DEFAULT_POINTER_MESH_POS
-
-		if is_instance_valid(current_raycast_collider):
-			if current_raycast_collider is CustomBtn:
-				current_raycast_collider.stop_hover()
+	if input_enabled:
+		var current_raycast : RayCast3D = pointer_raycast
+		if controller_input_enabled:
+			current_raycast = controller_raycast
 		
-		current_raycast_collider = null
+		if current_raycast.is_colliding():
+			pointer_mesh.global_position = current_raycast.get_collision_point()
+
+			if not is_instance_valid(current_raycast_collider):
+				current_raycast_collider = current_raycast.get_collider()
+
+				if current_raycast_collider is CustomBtn:
+					current_raycast_collider.hover()
+		
+		else:
+			pointer_mesh.position = DEFAULT_POINTER_MESH_POS
+
+			if is_instance_valid(current_raycast_collider):
+				if current_raycast_collider is CustomBtn:
+					current_raycast_collider.stop_hover()
+			
+			current_raycast_collider = null
 
 
 func fade(fade_in : bool, fade_time : float = 0.3) -> void:
@@ -98,6 +121,19 @@ func fade(fade_in : bool, fade_time : float = 0.3) -> void:
 	fade_finished.emit()
 
 
+func _handle_input_enabled(value : bool) -> void:
+	input_enabled = value
+
+	print_debug("input enabled changed!")
+
+	if not input_enabled:
+		pointer_raycast.enabled = false
+		controller_raycast.enabled = false
+	else:
+		pointer_raycast.enabled = !controller_input_enabled
+		controller_raycast.enabled = controller_input_enabled
+
+
 func set_underwater_particles_active(emitting : bool = true) -> void:
 	underwater_particles.emitting = emitting
 
@@ -115,3 +151,44 @@ func set_underwater_particles_intensity(intensity : float = 0.02, interpolate : 
 			intensity,
 			0.2
 		)
+
+
+func _handle_input(input_name : String, controller_idx : int) -> void:
+	_set_active_controller(controller_idx)
+
+	match input_name:
+		"trigger_click":
+			if is_instance_valid(current_raycast_collider) and current_raycast_collider is CustomBtn:
+				current_raycast_collider.press()
+
+
+func _handle_tracking_changed(tracking : bool, controller_idx : int) -> void:
+	active_controllers_count += 1 if tracking else -1
+	
+	if active_controllers_count > 0:
+		tree.call_group("custom_btn", "change_press_mode", CustomBtn.PressMode.CLICK)
+		_set_controller_input(true)
+
+		if active_controllers_count == 1:
+			_set_active_controller(controller_idx)
+	
+	else:
+		tree.call_group("custom_btn", "change_press_mode", CustomBtn.PressMode.HOVER)
+		_set_controller_input(false)
+
+
+func _set_active_controller(idx : int) -> void:
+	if active_controller_idx != idx:
+		active_controller_idx = idx
+
+		if idx == 0:
+			controller_raycast.reparent(left_controller, false)
+		else:
+			controller_raycast.reparent(right_controller, false)
+
+
+func _set_controller_input(c_input_enabled : bool) -> void:
+	controller_input_enabled = c_input_enabled
+
+	pointer_raycast.enabled = !controller_input_enabled
+	controller_raycast.enabled = controller_input_enabled

@@ -6,7 +6,7 @@
 noise_type = 2
 seed = 5
 fractal_type = 0
-cellular_jitter = 0.5
+cellular_jitter = 0.7
 cellular_return_type = 6
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_v5r1k"]

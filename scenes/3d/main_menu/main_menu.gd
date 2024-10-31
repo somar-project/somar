@@ -26,9 +26,15 @@ func _ready() -> void:
 		Global.player.fade(true)
 	else:
 		language_buttons.queue_free()
-
 		Global.player.fade(true)
-		await Global.player.fade_finished
+
+	await Global.player.fade_finished
+	_after_fade_in()
+
+
+func _after_fade_in() -> void:
+	Global.player.input_enabled = true
+	if Global.language_selected:
 		_show_map_menu()
 
 

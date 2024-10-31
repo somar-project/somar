@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=27 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_rxc67"]
 [ext_resource type="Texture2D" uid="uid://bn3x6foekyg53" path="res://scenes/3d/shore/textures/shore_gradient_equi_2k.png" id="2_1gtse"]
@@ -6,9 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://dljj8yk8ly360" path="res://scenes/3d/ocean/textures/water_surface_mask_v2.png" id="4_6klol"]
 [ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="5_qr6ey"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_iabag"]
+[ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="7_qv88s"]
 [ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
-[ext_resource type="Material" uid="uid://kbe54mi3ogmb" path="res://scenes/3d/shore/materials/shore_floor_material.tres" id="8_cip0i"]
+[ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="8_lqk5h"]
+[ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="9_ahx2y"]
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="9_twl3q"]
+[ext_resource type="Texture2D" uid="uid://coii7pwpejf7v" path="res://scenes/3d/ocean/textures/water_surface_mask.png" id="10_f2rle"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
 panorama = ExtResource("2_1gtse")
@@ -20,6 +23,7 @@ process_mode = 3
 [sub_resource type="Environment" id="Environment_2ljrs"]
 background_mode = 2
 sky = SubResource("Sky_5ww5n")
+reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(6.257e-06, 0.367833, 0.693773, 1)
@@ -70,12 +74,39 @@ shader_parameter/scale = 2.0
 shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_n4es0")
 shader_parameter/water_surface_mask = ExtResource("4_6klol")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_h3gwe"]
+viewport_path = NodePath("ShadowsSubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mx7ru"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = ExtResource("7_qv88s")
+shader = ExtResource("8_lqk5h")
+shader_parameter/albedo = Color(0.64, 0.772, 1, 1)
+shader_parameter/shadow_min_opacity = 0.75
+shader_parameter/roughness = 0.5
+shader_parameter/specular = 0.05
+shader_parameter/metallic = 0.05
+shader_parameter/uv1_scale = Vector3(12, 12, 12)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/texture_albedo = ExtResource("9_ahx2y")
+shader_parameter/texture_mask = ExtResource("10_f2rle")
+shader_parameter/shadow_map = SubResource("ViewportTexture_h3gwe")
+
 [sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
 flip_faces = true
 bottom_radius = 1.0
 radial_segments = 16
 cap_top = false
 cap_bottom = false
+
+[sub_resource type="Environment" id="Environment_4adqr"]
+background_mode = 1
+background_color = Color(1, 1, 1, 1)
+background_energy_multiplier = 16.0
+ambient_light_source = 1
+reflected_light_source = 1
+tonemap_exposure = 0.0
 
 [node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_rxc67")
@@ -110,7 +141,7 @@ transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 
 
 [node name="Plane" type="MeshInstance3D" parent="sea_floor"]
 transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
-material_override = ExtResource("8_cip0i")
+material_override = SubResource("ShaderMaterial_mx7ru")
 mesh = ExtResource("8_51r74")
 skeleton = NodePath("")
 
@@ -118,3 +149,17 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
 material_override = ExtResource("9_twl3q")
 mesh = SubResource("CylinderMesh_r1s0e")
+
+[node name="ShadowsSubViewport" type="SubViewport" parent="."]
+gui_disable_input = true
+positional_shadow_atlas_size = 0
+canvas_cull_mask = 4293918720
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="ShadowsSubViewport"]
+transform = Transform3D(0.707107, -0.707107, -3.09086e-08, 0, -4.37114e-08, 1, -0.707107, -0.707107, -3.09086e-08, 0, 14.8157, 0)
+cull_mask = 2
+environment = SubResource("Environment_4adqr")
+projection = 1
+size = 23.0

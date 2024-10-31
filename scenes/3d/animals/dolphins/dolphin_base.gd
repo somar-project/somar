@@ -14,6 +14,7 @@ extends Node3D
 @export_category("Animation")
 @export var animation_player : AnimationPlayer
 @export var animation_swim_name : String = ""
+@export var clockwise : bool = true
 
 @export_category("Debug")
 @export var debug_enabled : bool = false
@@ -39,6 +40,7 @@ var current_swim_speed : float
 
 var movement_tween : Tween
 
+var clockwise_mult : float = 1.0
 var first_swim_loop : bool = true
 
 # debug
@@ -70,6 +72,9 @@ func _debug_swim_to_target(_value : bool) -> void:
 func _initialize() -> void:
 	initial_position = global_position
 	current_position = initial_position
+
+	if not clockwise:
+		clockwise_mult = -1.0
 
 	if not Engine.is_editor_hint():
 		player_position = Global.player.global_position
@@ -174,7 +179,7 @@ func _swim_to_target(loop : bool = true) -> void:
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
-	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0))
+	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0 * clockwise_mult))
 
 	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
 	if not first_swim_loop:

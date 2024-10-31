@@ -11104,6 +11104,7 @@ script = ExtResource("1_ceecq")
 animation_breathe_name = "dolphin|breathe1"
 animation_player = NodePath("bottlenose_dolphin/AnimationPlayer")
 animation_swim_name = "dolphin|swim1"
+clockwise = null
 
 [node name="bottlenose_dolphin" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -11765,6 +11766,7 @@ bones/92/rotation = Quaternion(0, 0, 0, 1)
 bones/92/scale = Vector3(1, 1, 1)
 
 [node name="dolphin_body" type="MeshInstance3D" parent="bottlenose_dolphin/dolphin/Skeleton3D"]
+layers = 2
 mesh = ExtResource("2_mktec")
 skin = SubResource("Skin_4t2ns")
 surface_material_override/0 = ExtResource("2_njnc8")

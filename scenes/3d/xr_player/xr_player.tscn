@@ -59,6 +59,7 @@ transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
 [node name="PointerRayCast" type="RayCast3D" parent="XRCamera3D"]
 unique_name_in_owner = true
+enabled = false
 target_position = Vector3(0, 0, -10)
 collision_mask = 4
 hit_back_faces = false
@@ -92,6 +93,7 @@ material_override = ExtResource("7_lhpba")
 mesh = SubResource("QuadMesh_6cwgg")
 
 [node name="LeftController" type="XRController3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 tracker = &"left_hand"
 pose = &"aim"
@@ -100,7 +102,17 @@ show_when_tracked = true
 [node name="LGlove" parent="LeftController" instance=ExtResource("8_h8gw4")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.003, -0.029, 0.054)
 
+[node name="ControllerRayCast" type="RayCast3D" parent="LeftController"]
+unique_name_in_owner = true
+enabled = false
+target_position = Vector3(0, 0, -10)
+collision_mask = 4
+hit_back_faces = false
+collide_with_areas = true
+collide_with_bodies = false
+
 [node name="RightController" type="XRController3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
 tracker = &"right_hand"
 pose = &"aim"

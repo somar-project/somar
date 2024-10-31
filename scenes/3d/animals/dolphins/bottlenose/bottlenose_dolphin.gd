@@ -58,7 +58,7 @@ func _handle_breathing() -> void:
 	breathing_target_pos = _rotate_vector_around_pivot(
 		breathing_target_pos,
 		player_position,
-		deg_to_rad(60.0)
+		deg_to_rad(60.0 * clockwise_mult)
 	)
 	breathing_target_pos.y = surface_marker.global_position.y
 
@@ -74,7 +74,7 @@ func _handle_breathing() -> void:
 	breathing_middle_pos_1 = _rotate_vector_around_pivot(
 		breathing_middle_pos_1,
 		breathing_target_pos,
-		deg_to_rad(45.0)
+		deg_to_rad(45.0 * clockwise_mult)
 	)
 
 	# Set surface final position to a bit in from of the point of initial surfacing
@@ -82,7 +82,7 @@ func _handle_breathing() -> void:
 	breathing_surface_target_pos = _rotate_vector_around_pivot(
 		breathing_surface_target_pos,
 		player_position,
-		deg_to_rad(125.0)
+		deg_to_rad(125.0 * clockwise_mult)
 	)
 	breathing_surface_target_pos.y = surface_marker.global_position.y
 
@@ -199,7 +199,7 @@ func _breathe_update_bezier_curve_second_step() -> void:
 	breathing_middle_pos_1 = _rotate_vector_around_pivot(
 		breathing_middle_pos_1,
 		breathing_target_pos,
-		deg_to_rad(45.0)
+		deg_to_rad(45.0 * clockwise_mult)
 	)
 
 	if debug_enabled:
