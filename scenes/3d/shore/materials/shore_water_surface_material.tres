@@ -16,8 +16,8 @@ noise = SubResource("FastNoiseLite_e0cat")
 [resource]
 render_priority = 0
 shader = ExtResource("1_v03e2")
-shader_parameter/albedo_color = Color(1.01075e-06, 0.418096, 0.418095, 1)
-shader_parameter/opacity = 0.45
-shader_parameter/scale = 1.1
+shader_parameter/albedo_color = Color(0, 0.762011, 0.762009, 1)
+shader_parameter/opacity = 0.2
+shader_parameter/scale = 4.4
 shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_jcmkx")
 shader_parameter/water_surface_mask = ExtResource("2_4ltag")

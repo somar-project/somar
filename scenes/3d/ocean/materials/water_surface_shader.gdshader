@@ -5,7 +5,7 @@ uniform vec4 albedo_color : source_color = vec4(1.0);
 uniform sampler2D water_layer_0;
 uniform sampler2D water_surface_mask;
 uniform float opacity : hint_range(0.0, 1.0, 0.05) = 0.5;
-uniform float scale : hint_range(0.0, 2.0, 0.01) = 0.8;
+uniform float scale : hint_range(0.0, 10.0, 0.01) = 0.8;
 
 
 float avg(vec4 color) {

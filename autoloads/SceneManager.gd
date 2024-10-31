@@ -3,7 +3,8 @@ extends Node
 enum PlayerContext {
     SPLASHSCREEN,
     MAIN_MENU,
-    OCEAN
+    OCEAN,
+    SHORE
 }
 var player_context : PlayerContext = PlayerContext.SPLASHSCREEN
 
@@ -12,7 +13,8 @@ var scene_container : Node3D
 
 var scene_list : Dictionary = {
     "main_menu": "res://scenes/3d/main_menu/main_menu.tscn",
-    "ocean": "res://scenes/3d/ocean/ocean.tscn"
+    "ocean": "res://scenes/3d/ocean/ocean.tscn",
+    "shore": "res://scenes/3d/shore/shore.tscn"
 }
 
 func switch_to_scene(scene_name : String) -> void:
@@ -21,6 +23,8 @@ func switch_to_scene(scene_name : String) -> void:
             player_context = PlayerContext.MAIN_MENU
         "ocean":
             player_context = PlayerContext.OCEAN
+        "shore":
+            player_context = PlayerContext.SHORE
         _:
             print_debug("ERROR: Invalid scene name.")
             return

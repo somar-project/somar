@@ -1,3 +1,82 @@
-[gd_scene format=3 uid="uid://ds3xv7eus20gg"]
+[gd_scene load_steps=12 format=3 uid="uid://ds3xv7eus20gg"]
+
+[ext_resource type="ArrayMesh" uid="uid://unt0jsnmc8df" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_016.res" id="1_e3f83"]
+[ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
+[ext_resource type="ArrayMesh" uid="uid://8pub4evutr67" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_017.res" id="2_bcmlm"]
+[ext_resource type="ArrayMesh" uid="uid://dmwlasyratoc8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_018.res" id="3_cbnsj"]
+[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="3_cjn7k"]
+[ext_resource type="ArrayMesh" uid="uid://dctunx06pasqc" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_019.res" id="4_idvc1"]
+[ext_resource type="ArrayMesh" uid="uid://bchjd4yydemwf" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_020.res" id="5_yym5p"]
+[ext_resource type="ArrayMesh" uid="uid://ctklxvk3tsjgm" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_021.res" id="6_smf0j"]
+[ext_resource type="Material" uid="uid://b68pcluwq500c" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_low_material.tres" id="7_b0dks"]
+[ext_resource type="ArrayMesh" uid="uid://d20xhyeh6rwp8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_022.res" id="7_v3tg7"]
+[ext_resource type="Material" uid="uid://ddwg6tv1r3h1x" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hq_material.tres" id="7_xb56l"]
 
 [node name="InflatablePatrolBoat" type="Node3D"]
+script = ExtResource("1_mu78g")
+
+[node name="inflatable_patrol_boat_optimized" type="Node3D" parent="."]
+transform = Transform3D(-0.08, 0, -6.99382e-09, 0, 0.08, 0, 6.99382e-09, 0, -0.08, 0, 0, 0)
+
+[node name="propellerR2_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, -5.86613, -1.33669, -54.4547)
+layers = 2
+mesh = ExtResource("1_e3f83")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="propeller_L2_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, 5.8877, -1.33672, -54.4547)
+layers = 2
+mesh = ExtResource("2_bcmlm")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="engine_L_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, 5.82204, 20.9879, -47.0435)
+layers = 2
+mesh = ExtResource("3_cbnsj")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="engine_R_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, -5.93179, 20.9879, -47.0435)
+layers = 2
+mesh = ExtResource("4_idvc1")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="propeller_R1_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, 7.48725e-08, 7.26238e-08, -7.48725e-08, -0.0148921, -0.488298, -7.26238e-08, -0.488298, 0.0148921, -5.86609, 1.32657, -57.4337)
+layers = 2
+mesh = ExtResource("5_yym5p")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="propeller_L1_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, 7.48725e-08, 7.26238e-08, -7.48725e-08, -0.0148921, -0.488298, -7.26238e-08, -0.488298, 0.0148921, 5.88775, 1.35358, -57.5232)
+layers = 2
+mesh = ExtResource("6_smf0j")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])
+
+[node name="hull_Baked" type="MeshInstance3D" parent="inflatable_patrol_boat_optimized"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, -0.263165, 0.0885062, 5.97791)
+layers = 2
+mesh = ExtResource("7_v3tg7")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("7_b0dks")
+script = ExtResource("3_cjn7k")
+high_quality_materials = Array[Material]([ExtResource("7_xb56l")])

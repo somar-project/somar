@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://da7uito5hcos"
-path.bptc="res://.godot/imported/caustics_texture_512.png-b7dc9b5449c3f97182e23d4aea486a9c.bptc.ctex"
-path.astc="res://.godot/imported/caustics_texture_512.png-b7dc9b5449c3f97182e23d4aea486a9c.astc.ctex"
+uid="uid://c70y7ehdl330y"
+path.bptc="res://.godot/imported/MergedBake_Bake1_PBR_Diffuse_512.png-38292f89d514c4bfe2a6c1f30d0a5e2d.bptc.ctex"
+path.astc="res://.godot/imported/MergedBake_Bake1_PBR_Diffuse_512.png-38292f89d514c4bfe2a6c1f30d0a5e2d.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/3d/shared/textures/caustics_texture_512.png"
-dest_files=["res://.godot/imported/caustics_texture_512.png-b7dc9b5449c3f97182e23d4aea486a9c.bptc.ctex", "res://.godot/imported/caustics_texture_512.png-b7dc9b5449c3f97182e23d4aea486a9c.astc.ctex"]
+source_file="res://scenes/3d/boats/inflatable_patrol/textures/MergedBake_Bake1_PBR_Diffuse_512.png"
+dest_files=["res://.godot/imported/MergedBake_Bake1_PBR_Diffuse_512.png-38292f89d514c4bfe2a6c1f30d0a5e2d.bptc.ctex", "res://.godot/imported/MergedBake_Bake1_PBR_Diffuse_512.png-38292f89d514c4bfe2a6c1f30d0a5e2d.astc.ctex"]
 
 [params]
 
