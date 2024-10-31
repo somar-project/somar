@@ -1,10 +1,10 @@
 [gd_scene load_steps=32 format=3 uid="uid://cmb7inmiduyap"]
 
-[ext_resource type="ArrayMesh" uid="uid://r2ae1p2bqbog" path="res://scenes/3d/xr_player/glove/mesh/gloves_animated_Mesh_005.res" id="1_8heke"]
-[ext_resource type="Material" uid="uid://g788pbrkpdin" path="res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres" id="1_8702a"]
-[ext_resource type="Material" uid="uid://cc7p32h5uo8gp" path="res://scenes/3d/xr_player/glove/materials/glove_material_low.tres" id="1_jgscm"]
-[ext_resource type="Script" path="res://scenes/3d/xr_player/glove/glove.gd" id="1_vyn37"]
-[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="3_6gggs"]
+[ext_resource type="Script" path="res://scenes/3d/xr_player/glove/glove.gd" id="1_ywjng"]
+[ext_resource type="ArrayMesh" uid="uid://r2ae1p2bqbog" path="res://scenes/3d/xr_player/glove/mesh/gloves_animated_Mesh_005.res" id="2_ktth0"]
+[ext_resource type="Material" uid="uid://cc7p32h5uo8gp" path="res://scenes/3d/xr_player/glove/materials/glove_material_low.tres" id="3_4b6rw"]
+[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="4_3bg08"]
+[ext_resource type="Material" uid="uid://g788pbrkpdin" path="res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres" id="5_lqdg8"]
 
 [sub_resource type="Skin" id="Skin_5700v"]
 resource_name = "Skin"
@@ -724,7 +724,7 @@ nodes/output/position = Vector2(420, 200)
 node_connections = [&"TimeScale", 0, &"StateMachine", &"output", 0, &"TimeScale"]
 
 [node name="Glove" type="Node3D"]
-script = ExtResource("1_vyn37")
+script = ExtResource("1_ywjng")
 
 [node name="gloves_animated" type="Node3D" parent="."]
 
@@ -908,11 +908,11 @@ bones/24/rotation = Quaternion(0.0337474, 0.0216061, -0.090345, 0.995104)
 bones/24/scale = Vector3(1, 1, 1)
 
 [node name="Glove" type="MeshInstance3D" parent="gloves_animated/Armature/Skeleton3D"]
-mesh = ExtResource("1_8heke")
+mesh = ExtResource("2_ktth0")
 skin = SubResource("Skin_5700v")
-surface_material_override/0 = ExtResource("1_jgscm")
-script = ExtResource("3_6gggs")
-high_quality_materials = Array[Material]([ExtResource("1_8702a")])
+surface_material_override/0 = ExtResource("3_4b6rw")
+script = ExtResource("4_3bg08")
+high_quality_materials = Array[Material]([ExtResource("5_lqdg8")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="gloves_animated"]
 libraries = {

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cipgn16i6g2k3" path="res://utilities/shader_cache/shader_cache.tscn" id="4_d5jj2"]
 [ext_resource type="Material" uid="uid://rjdkfy8ohvi2" path="res://scenes/3d/xr_player/materials/underwater_particles_material.tres" id="6_yfcbf"]
 [ext_resource type="Material" uid="uid://6p4v5wm3wwqr" path="res://scenes/3d/xr_player/materials/vignette_material.tres" id="7_lhpba"]
-[ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/Glove.tscn" id="8_h8gw4"]
+[ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 20

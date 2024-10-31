@@ -16,6 +16,11 @@ const DEFAULT_POINTER_MESH_POS : Vector3 = Vector3(0.0, 0.0, -2.5)
 @onready var shader_cache : Node3D = %ShaderCache
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 
+# Glove & caustics materials
+var GLOVE_HQ_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres")
+var GLOVE_LOW_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_low.tres")
+var WATER_CAUSTICS_MATERIAL : ShaderMaterial = preload("res://scenes/3d/shared/materials/underwater_caustics_material.tres")
+
 var current_raycast_collider : Object
 var underwater_particles_intensity_tween : Tween
 var vignette_material : ShaderMaterial
@@ -151,6 +156,15 @@ func set_underwater_particles_intensity(intensity : float = 0.02, interpolate : 
 			intensity,
 			0.2
 		)
+
+
+func set_glove_caustics(c_enabled : bool) -> void:
+	if c_enabled:
+		GLOVE_HQ_MATERIAL.next_pass = WATER_CAUSTICS_MATERIAL
+		GLOVE_LOW_MATERIAL.next_pass = WATER_CAUSTICS_MATERIAL
+	else:
+		GLOVE_HQ_MATERIAL.next_pass = null
+		GLOVE_LOW_MATERIAL.next_pass = null
 
 
 func _handle_input(input_name : String, controller_idx : int) -> void:

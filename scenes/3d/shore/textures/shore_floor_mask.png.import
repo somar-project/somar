@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://coii7pwpejf7v"
-path.bptc="res://.godot/imported/water_surface_mask.png-916bf7db95dfbe8583d0a34c0087567a.bptc.ctex"
-path.astc="res://.godot/imported/water_surface_mask.png-916bf7db95dfbe8583d0a34c0087567a.astc.ctex"
+path.bptc="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.bptc.ctex"
+path.astc="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/3d/ocean/textures/water_surface_mask.png"
-dest_files=["res://.godot/imported/water_surface_mask.png-916bf7db95dfbe8583d0a34c0087567a.bptc.ctex", "res://.godot/imported/water_surface_mask.png-916bf7db95dfbe8583d0a34c0087567a.astc.ctex"]
+source_file="res://scenes/3d/shore/textures/shore_floor_mask.png"
+dest_files=["res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.bptc.ctex", "res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.astc.ctex"]
 
 [params]
 

@@ -11104,7 +11104,6 @@ script = ExtResource("1_ceecq")
 animation_breathe_name = "dolphin|breathe1"
 animation_player = NodePath("bottlenose_dolphin/AnimationPlayer")
 animation_swim_name = "dolphin|swim1"
-clockwise = null
 
 [node name="bottlenose_dolphin" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
@@ -11781,4 +11780,4 @@ libraries = {
 
 [node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0667521, 0.322635)
-aabb = AABB(-0.508551, -0.579209, -1.36943, 1.0171, 1.15842, 2.73887)
+aabb = AABB(-0.508551, -0.659206, -1.36943, 1.0171, 1.31841, 2.73887)

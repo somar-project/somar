@@ -16,7 +16,7 @@ varying vec2 custom_uv;
 float normalize_range(vec2 from, vec2 to, float value){
 	float old_range = from.y - from.x;
 	float new_range = to.y - to.x;
-	
+
 	float new_val = (((value - from.x) * new_range) / old_range) + to.x;
 	return new_val;
 }
@@ -24,7 +24,7 @@ float normalize_range(vec2 from, vec2 to, float value){
 void vertex() {
 	world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz * scale;
 	model_normal = normalize((MODEL_NORMAL_MATRIX * NORMAL).xyz);
-	
+
 	custom_uv = world_pos.xz;
 	custom_uv.x += (TIME * speed);
 	custom_uv.y += (TIME * -speed + 0.1);
@@ -32,19 +32,19 @@ void vertex() {
 
 void fragment() {
 	vec4 movement_noise_t = texture(movement_noise, world_pos.xz);
-	
+
 	vec2 new_uv = custom_uv;
 	new_uv.x += movement_noise_t.r;
 	new_uv.y -= movement_noise_t.r;
-	
+
 	vec4 cellular_noise_t = texture(cellular_noise_texture, new_uv);
-	
+
 	float color = min(0.999, cellular_noise_t.r);
 	color = log(0.9985) / log(color);
 	color *= intensity * min((sin(TIME) / 2.0) + 1.1, 1.0);
-	
+
 	ALBEDO = cellular_noise_t.rgb;
-	
+
 	float world_y_nrm = normalize_range(
 		vec2(-0.75, 1.0),
 		vec2(0.0, 1.0),

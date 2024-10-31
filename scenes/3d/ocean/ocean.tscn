@@ -17,10 +17,11 @@ process_mode = 3
 [sub_resource type="Environment" id="Environment_2ljrs"]
 background_mode = 2
 sky = SubResource("Sky_5ww5n")
+reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0, 0, 0, 1)
-fog_sun_scatter = 0.1
+fog_light_color = Color(0, 0.283, 0.5427, 1)
+fog_sun_scatter = 0.08
 fog_density = 1.0
 fog_depth_curve = 0.129409
 fog_depth_begin = 3.0
@@ -52,10 +53,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8, 
 material_override = ExtResource("3_ufet6")
 mesh = SubResource("QuadMesh_20yxg")
 
-[node name="WaterSurface2" type="MeshInstance3D" parent="."]
+[node name="WaterSurfaceHighlights" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.5, 0)
 material_override = ExtResource("4_7wo7r")
 mesh = SubResource("QuadMesh_20yxg")
+
+[node name="SurfacePosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.5, 0)
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
 

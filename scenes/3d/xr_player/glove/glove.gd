@@ -12,7 +12,6 @@ enum GloveState {
 @export var state : GloveState = GloveState.REST
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Turn off until requested
 	if not Engine.is_editor_hint():

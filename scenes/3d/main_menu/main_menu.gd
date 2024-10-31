@@ -12,6 +12,7 @@ extends BaseScene
 func _ready() -> void:
 	ocean_btn.pressed.connect(_switch_to_ocean)
 
+	Global.player.set_glove_caustics(false)
 	Global.player.set_underwater_particles_active(false)
 
 	# Adjust height
