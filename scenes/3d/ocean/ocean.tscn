@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://c6y5y8pwspjr"]
 
-[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_m5san"]
 [ext_resource type="Texture2D" uid="uid://rmbtjgo2w6uy" path="res://scenes/3d/ocean/textures/sea_gradient_equi_2k.png" id="1_urxmo"]
+[ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
 [ext_resource type="PackedScene" uid="uid://dpt7q5gnv4ouc" path="res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn" id="7_fdvc0"]
@@ -40,7 +40,7 @@ cap_top = false
 cap_bottom = false
 
 [node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
-script = ExtResource("1_m5san")
+script = ExtResource("1_y2udb")
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

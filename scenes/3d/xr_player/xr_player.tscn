@@ -95,6 +95,7 @@ mesh = SubResource("QuadMesh_6cwgg")
 [node name="LeftController" type="XRController3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
+visible = false
 tracker = &"left_hand"
 pose = &"aim"
 show_when_tracked = true
@@ -114,6 +115,7 @@ collide_with_bodies = false
 [node name="RightController" type="XRController3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0)
+visible = false
 tracker = &"right_hand"
 pose = &"aim"
 show_when_tracked = true

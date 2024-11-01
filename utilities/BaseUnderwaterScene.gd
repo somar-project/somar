@@ -1,3 +1,4 @@
+@tool
 class_name BaseUnderwaterScene
 extends BaseScene
 
@@ -8,11 +9,12 @@ extends BaseScene
 @export var new_cycle_delay : float = 10.0
 @export_range(0.0, 1.0) var signal_flee_at_ratio : float = 0.5
 
-@onready var surface_position : Marker3D = %SurfacePosition
-@onready var path_quadrants_parent : Node3D = %PathQuadrants
-@onready var boats_parent : Node3D = %Boats
-
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
+
+# onready
+var surface_position : Marker3D
+var path_quadrants_parent : Node3D
+var boats_parent : Node3D
 
 var timer : Timer
 var boat_tween : Tween
@@ -38,6 +40,13 @@ func _get_configuration_warnings() -> PackedStringArray:
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	surface_position = %SurfacePosition
+	path_quadrants_parent = %PathQuadrants
+	boats_parent = %Boats
+	
 	timer = Timer.new()
 	add_child(timer)
 
@@ -93,7 +102,6 @@ func _initiate_boat_event() -> void:
 	final_boat_position.y = surface_position.global_position.y + current_boat.surface_offset
 
 	var distance_between_points : float = initial_boat_position.distance_to(final_boat_position)
-	print_debug("distance_between_points: ", distance_between_points)
 	var signal_distance : float = signal_flee_at_ratio * distance_between_points
 
 	var boat_speed_in_m_per_s : float = current_boat.speed / 3.6

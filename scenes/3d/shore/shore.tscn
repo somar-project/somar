@@ -1,6 +1,6 @@
 [gd_scene load_steps=29 format=3 uid="uid://c1sswtpcofyfs"]
 
-[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_rxc67"]
+[ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_wvgmc"]
 [ext_resource type="Texture2D" uid="uid://bn3x6foekyg53" path="res://scenes/3d/shore/textures/shore_gradient_equi_2k.png" id="2_1gtse"]
 [ext_resource type="Material" uid="uid://chbp2kvceqhml" path="res://scenes/3d/shore/materials/shore_water_surface_material.tres" id="3_tb2uy"]
 [ext_resource type="Material" uid="uid://cll86s32pe0b8" path="res://scenes/3d/shore/materials/shore_water_surface_highlights_material.tres" id="4_wn413"]
@@ -94,7 +94,7 @@ shading_mode = 0
 albedo_color = Color(0, 1, 1, 1)
 
 [node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
-script = ExtResource("1_rxc67")
+script = ExtResource("1_wvgmc")
 min_boat_even_spawn_delay = 5.0
 max_boat_even_spawn_delay = 6.0
 player_position = NodePath("PlayerPosition")
@@ -150,15 +150,19 @@ transform = Transform3D(0.707107, -0.707107, -3.09086e-08, 0, -4.37114e-08, 1, -
 cull_mask = 2
 environment = SubResource("Environment_4adqr")
 projection = 1
+current = true
 size = 23.0
 
 [node name="Dolphins" type="Node3D" parent="."]
 
 [node name="BottlenoseDolphin" parent="Dolphins" node_paths=PackedStringArray("surface_marker") instance=ExtResource("12_ndwav")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49913, 2.54895, 0)
+breathing_time = 30
 surface_marker = NodePath("../../SurfacePosition")
 base_swim_speed = 4.5
 max_swim_speed = 5.0
+min_distance_to_player = 4.5
+max_distance_to_player = 5.5
 
 [node name="PathQuadrants" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -191,20 +195,24 @@ visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, -2.5)
+visible = false
 material_override = SubResource("StandardMaterial3D_dch2c")
 mesh = SubResource("SphereMesh_7mvn4")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, -2.5)
+visible = false
 material_override = SubResource("StandardMaterial3D_7xyfq")
 mesh = SubResource("SphereMesh_7mvn4")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 2.5)
+visible = false
 material_override = SubResource("StandardMaterial3D_8m0mk")
 mesh = SubResource("SphereMesh_7mvn4")
 
 [node name="MeshInstance3D4" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 2.5)
+visible = false
 material_override = SubResource("StandardMaterial3D_swahw")
 mesh = SubResource("SphereMesh_7mvn4")

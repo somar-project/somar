@@ -21,6 +21,10 @@ Global="*res://autoloads/Global.gd"
 ResourceManager="*res://autoloads/ResourceManager.gd"
 SceneManager="*res://autoloads/SceneManager.gd"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/export_plugin/plugin.cfg")
+
 [physics]
 
 common/enable_object_picking=false

@@ -11777,7 +11777,3 @@ high_quality_materials = Array[Material]([ExtResource("2_88fky"), ExtResource("2
 libraries = {
 "": SubResource("AnimationLibrary_b0sa6")
 }
-
-[node name="VisibleOnScreenEnabler3D" type="VisibleOnScreenEnabler3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0667521, 0.322635)
-aabb = AABB(-0.508551, -0.659206, -1.36943, 1.0171, 1.31841, 2.73887)
