@@ -2,8 +2,8 @@
 class_name DolphinBase
 extends Node3D
 
-@export var base_swim_speed : float = 4.0
-@export var max_swim_speed : float = 4.5
+@export var min_swim_speed : float = 4.5
+@export var max_swim_speed : float = 5.0
 
 @export_category("Position")
 @export var min_distance_to_player : float = 4.0
@@ -194,7 +194,7 @@ func _swim_to_target(loop : bool = true) -> void:
 	current_middle_point_1 = current_target
 	current_middle_point_1 += direction * distance_to_target
 
-	current_swim_speed = randf_range(base_swim_speed, max_swim_speed)
+	current_swim_speed = randf_range(min_swim_speed, max_swim_speed)
 
 	if debug_enabled:
 		debug_initial_shape.global_position = current_position

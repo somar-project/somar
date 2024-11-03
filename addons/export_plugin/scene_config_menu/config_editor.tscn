@@ -1,0 +1,140 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgguranxrty84"]
+
+[ext_resource type="Script" path="res://addons/export_plugin/scene_config_menu/config_editor.gd" id="1_st416"]
+
+[node name="ConfigEditor" type="Panel"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+script = ExtResource("1_st416")
+
+[node name="InitialConfigContainer" type="CenterContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -89.0
+offset_top = -15.5
+offset_right = 89.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InitialConfigFileDialog" type="FileDialog" parent="InitialConfigContainer"]
+unique_name_in_owner = true
+title = "Open a Directory"
+ok_button_text = "Select Current Folder"
+file_mode = 2
+use_native_dialog = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="InitialConfigContainer"]
+layout_mode = 2
+
+[node name="InitialConfigBtn" type="Button" parent="InitialConfigContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add default config file"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SaveBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="ResetBtn" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Reset"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Ocean" type="HSplitContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 0
+
+[node name="OceanTree" type="Tree" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="OceanDefaultContainer" type="CenterContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanDefaultContainer"]
+layout_mode = 2
+text = "Select something!"
+
+[node name="OceanBottlenoseConfigEditorContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="AddBottlenoseDolphinBtn" type="Button" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Bottlenose Dolphin"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="BottlenoseDolphinItemsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBottlenoseConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
