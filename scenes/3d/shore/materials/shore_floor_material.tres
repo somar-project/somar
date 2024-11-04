@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="1_kg3d5"]
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_xna8p"]
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="2_tmq0u"]
-[ext_resource type="Texture2D" uid="uid://coii7pwpejf7v" path="res://scenes/3d/shore/textures/shore_floor_mask.png" id="3_iaipm"]
+[ext_resource type="Texture2D" uid="uid://crucasxnug76f" path="res://scenes/3d/shore/textures/shore_floor_mask.png" id="4_t01mf"]
 
 [resource]
 resource_local_to_scene = true
@@ -18,4 +18,4 @@ shader_parameter/metallic = 0.05
 shader_parameter/uv1_scale = Vector3(12, 12, 12)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = ExtResource("2_tmq0u")
-shader_parameter/texture_mask = ExtResource("3_iaipm")
+shader_parameter/texture_mask = ExtResource("4_t01mf")

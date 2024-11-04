@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://coii7pwpejf7v"
-path.bptc="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.bptc.ctex"
-path.astc="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.astc.ctex"
+uid="uid://crucasxnug76f"
+path.s3tc="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.s3tc.ctex"
+path.etc2="res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -13,12 +13,12 @@ metadata={
 [deps]
 
 source_file="res://scenes/3d/shore/textures/shore_floor_mask.png"
-dest_files=["res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.bptc.ctex", "res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.astc.ctex"]
+dest_files=["res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.s3tc.ctex", "res://.godot/imported/shore_floor_mask.png-0af725df002655ae17881c6adc0475fd.etc2.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=true
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

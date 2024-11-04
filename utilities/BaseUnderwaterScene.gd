@@ -2,18 +2,25 @@
 class_name BaseUnderwaterScene
 extends BaseScene
 
-@export var min_boat_even_spawn_delay : float = 90.0
-@export var max_boat_even_spawn_delay : float = 120.0
+@export var min_boat_event_spawn_delay : float = 60.0
+@export var max_boat_event_spawn_delay : float = 90.0
 @export var min_after_boat_wildlife_return_time : float = 10.0
 @export var max_after_boat_wildlife_return_time : float = 15.0
 @export var new_cycle_delay : float = 10.0
 @export_range(0.0, 1.0) var signal_flee_at_ratio : float = 0.5
+enum SceneType {
+	OCEAN,
+	SHORE
+}
+@export var scene_type : SceneType = SceneType.OCEAN
 
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
+const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 
 # onready
 var surface_position : Marker3D
 var path_quadrants_parent : Node3D
+var dolphins_parent : Node3D
 var boats_parent : Node3D
 
 var timer : Timer
@@ -33,6 +40,9 @@ func _get_configuration_warnings() -> PackedStringArray:
 	if not has_node("PathQuadrants"):
 		warnings.push_back("No Node3D called PathQuadrants found.")
 	
+	if not has_node("Dolphins"):
+		warnings.push_back("No Node3D called Dolphins found.")
+
 	if not has_node("Boats"):
 		warnings.push_back("No Node3D called Boats found.")
 
@@ -45,7 +55,10 @@ func _ready() -> void:
 	
 	surface_position = %SurfacePosition
 	path_quadrants_parent = %PathQuadrants
+	dolphins_parent = %Dolphins
 	boats_parent = %Boats
+
+	_initialize_saved_data()
 	
 	timer = Timer.new()
 	add_child(timer)
@@ -59,7 +72,7 @@ func _ready() -> void:
 	Global.player.set_underwater_particles_active(true)
 
 	timer.timeout.connect(_initiate_boat_event, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
-	timer.start(randf_range(min_boat_even_spawn_delay, max_boat_even_spawn_delay))
+	timer.start(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay))
 
 
 func _initiate_boat_event() -> void:
@@ -127,3 +140,40 @@ func _initiate_boat_event() -> void:
 
 func _signal_animals_to_flee() -> void:
 	print_debug("FLEE!")
+
+
+func _initialize_saved_data() -> void:
+	if scene_type == SceneType.OCEAN:
+		# Bottlenose dolphins
+		for bottlenose_dolphin_def : Dictionary in Global.editor_plugin_ocean_config.animals.dolphins.bottlenose:
+			var bottlenose_dolphin_entity : DolphinBase = BOTTLENOSE_DOLPHIN_SCENE.instantiate()
+
+			bottlenose_dolphin_entity.breathing_time = bottlenose_dolphin_def.breathing_time
+			bottlenose_dolphin_entity.clockwise = bottlenose_dolphin_def.clockwise
+			bottlenose_dolphin_entity.max_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
+			bottlenose_dolphin_entity.max_swim_speed = bottlenose_dolphin_def.max_swim_speed
+			bottlenose_dolphin_entity.max_target_depth = bottlenose_dolphin_def.max_target_depth
+			bottlenose_dolphin_entity.min_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
+			bottlenose_dolphin_entity.min_swim_speed = bottlenose_dolphin_def.min_swim_speed
+			bottlenose_dolphin_entity.min_target_depth = bottlenose_dolphin_def.min_target_depth
+			bottlenose_dolphin_entity.surface_marker = surface_position
+
+			dolphins_parent.add_child(bottlenose_dolphin_entity)
+
+			if is_equal_approx(bottlenose_dolphin_def.spawn_pos.x, 0.0) \
+			and is_equal_approx(bottlenose_dolphin_def.spawn_pos.y, 0.0):
+				var x_offset : float = randf_range(0.0, 1.0)
+				var z_offset : float = 1.0 - x_offset
+				bottlenose_dolphin_entity.global_position = Vector3(
+					x_offset * ((2 * randi_range(0, 1)) - 1), 
+					bottlenose_dolphin_def.spawn_height, 
+					z_offset * ((2 * randi_range(0, 1)) - 1)
+				)
+			else:
+				bottlenose_dolphin_entity.global_position = Vector3(
+					bottlenose_dolphin_def.spawn_pos.x,
+					bottlenose_dolphin_def.spawn_height,
+					bottlenose_dolphin_def.spawn_pos.y,
+				)
+	else:
+		pass

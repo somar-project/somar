@@ -9,8 +9,8 @@
 [ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
 [ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="8_lqk5h"]
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="9_ahx2y"]
+[ext_resource type="Texture2D" uid="uid://crucasxnug76f" path="res://scenes/3d/shore/textures/shore_floor_mask.png" id="9_eckpl"]
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="9_twl3q"]
-[ext_resource type="Texture2D" uid="uid://coii7pwpejf7v" path="res://scenes/3d/shore/textures/shore_floor_mask.png" id="10_f2rle"]
 [ext_resource type="PackedScene" uid="uid://dpt7q5gnv4ouc" path="res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn" id="12_ndwav"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="12_rwuhk"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="12_svdwg"]
@@ -28,7 +28,7 @@ sky = SubResource("Sky_5ww5n")
 reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(6.257e-06, 0.367833, 0.693773, 1)
+fog_light_color = Color(0, 0.243144, 0.472222, 1)
 fog_sun_scatter = 0.5
 fog_density = 1.0
 fog_depth_curve = 0.615577
@@ -53,11 +53,11 @@ shader_parameter/albedo = Color(0.64, 0.772, 1, 1)
 shader_parameter/shadow_min_opacity = 0.75
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.05
-shader_parameter/metallic = 0.05
+shader_parameter/metallic = 0.5
 shader_parameter/uv1_scale = Vector3(12, 12, 12)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = ExtResource("9_ahx2y")
-shader_parameter/texture_mask = ExtResource("10_f2rle")
+shader_parameter/texture_mask = ExtResource("9_eckpl")
 shader_parameter/shadow_map = SubResource("ViewportTexture_h3gwe")
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
@@ -95,8 +95,7 @@ albedo_color = Color(0, 1, 1, 1)
 
 [node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_wvgmc")
-min_boat_even_spawn_delay = 5.0
-max_boat_even_spawn_delay = 6.0
+scene_type = 1
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -154,13 +153,12 @@ current = true
 size = 23.0
 
 [node name="Dolphins" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="BottlenoseDolphin" parent="Dolphins" node_paths=PackedStringArray("surface_marker") instance=ExtResource("12_ndwav")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49913, 2.54895, 0)
 breathing_time = 30
 surface_marker = NodePath("../../SurfacePosition")
-base_swim_speed = 4.5
-max_swim_speed = 5.0
 min_distance_to_player = 4.5
 max_distance_to_player = 5.5
 

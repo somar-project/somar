@@ -2,8 +2,6 @@
 class_name BottlenoseConfigItem
 extends PanelContainer
 
-signal request_delete(scene_type : int, item_type : String, item_ref : Node)
-
 @onready var toggle_button : Button = %ToggleButton
 @onready var delete_button : Button = %DeleteButton
 @onready var content_container : MarginContainer = %ContentContainer
@@ -16,11 +14,11 @@ signal request_delete(scene_type : int, item_type : String, item_ref : Node)
 @onready var min_depth_variation_spin_box : SpinBox = %MinDepthVariationSpinBox
 @onready var max_depth_variation_spin_box : SpinBox = %MaxDepthVariationSpinBox
 @onready var breathing_time_spin_box : SpinBox = %BreathingTimeSpinBox
+@onready var spawn_pos_x_spin_box : SpinBox = %SpawnPosX
+@onready var spawn_pos_z_spin_box : SpinBox = %SpawnPosZ
 @onready var swim_clickwise_toggle : CheckButton = %SwimClockwiseToggle
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
-
-var id : String = ""
 
 var content_visible : bool = false
 var content_hidden_icon : Texture2D
@@ -32,9 +30,6 @@ var scene_type : SceneManager.PlayerContext
 func _ready() -> void:
 	if UTIL.is_in_edited_scene(self):
 		return
-	
-	# Let's hope there are no collisions...
-	id = str(randi_range(10000000, 99999999))
 	
 	content_hidden_icon = EditorInterface.get_editor_theme().get_icon("GuiTreeArrowRight", "EditorIcons")
 	content_visible_icon = EditorInterface.get_editor_theme().get_icon("GuiTreeArrowDown", "EditorIcons")
@@ -62,7 +57,6 @@ func _toggle_content() -> void:
 func initialize(p_scene_type : SceneManager.PlayerContext, data : Dictionary) -> void:
 	scene_type = p_scene_type
 
-	id = data.id
 	spawn_height_spin_box.value = data.spawn_height
 	min_swim_speed_spin_box.value = data.min_swim_speed
 	max_swim_speed_spin_box.value = data.max_swim_speed
@@ -71,12 +65,13 @@ func initialize(p_scene_type : SceneManager.PlayerContext, data : Dictionary) ->
 	min_depth_variation_spin_box.value = data.min_target_depth
 	max_depth_variation_spin_box.value = data.max_target_depth
 	breathing_time_spin_box.value = data.breathing_time
+	spawn_pos_x_spin_box.value = data.spawn_pos.x
+	spawn_pos_z_spin_box.value = data.spawn_pos.y
 	swim_clickwise_toggle.button_pressed = data.clockwise
 
 
 func get_data() -> Dictionary:
 	return {
-		"id": id,
 		"spawn_height": spawn_height_spin_box.value,
 		"min_swim_speed": min_swim_speed_spin_box.value,
 		"max_swim_speed": max_swim_speed_spin_box.value,
@@ -85,9 +80,13 @@ func get_data() -> Dictionary:
 		"min_target_depth": min_depth_variation_spin_box.value,
 		"max_target_depth": max_depth_variation_spin_box.value,
 		"breathing_time": breathing_time_spin_box.value,
+		"spawn_pos": Vector2(
+			spawn_pos_x_spin_box.value,
+			spawn_pos_z_spin_box.value
+		),
 		"clockwise": swim_clickwise_toggle.button_pressed
 	}
 
 
 func _delete() -> void:
-	request_delete.emit(scene_type, "bottlenose_dolphin", self)
+	queue_free()

@@ -19,5 +19,6 @@ shader = ExtResource("1_v03e2")
 shader_parameter/albedo_color = Color(0, 0.762011, 0.762009, 1)
 shader_parameter/opacity = 0.2
 shader_parameter/scale = 4.4
+shader_parameter/speed = 1.0
 shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_jcmkx")
 shader_parameter/water_surface_mask = ExtResource("2_4ltag")

@@ -6,6 +6,7 @@ uniform sampler2D water_layer_0;
 uniform sampler2D water_surface_mask;
 uniform float opacity : hint_range(0.0, 1.0, 0.05) = 0.5;
 uniform float scale : hint_range(0.0, 10.0, 0.01) = 0.8;
+uniform float speed : hint_range(0.0, 2.0) = 1.0;
 
 
 float avg(vec4 color) {
@@ -13,9 +14,6 @@ float avg(vec4 color) {
 }
 
 void fragment() {
-    // Flow Speed, increase to make the water flow faster.
-    float speed = 1.0;
-    
     // Normalized pixel coordinates (from 0 to 1)
     vec2 scaledUv = UV * scale;
 

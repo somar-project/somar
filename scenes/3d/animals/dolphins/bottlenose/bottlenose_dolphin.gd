@@ -27,6 +27,9 @@ func _ready() -> void:
 		breathing_timer = Timer.new()
 		last_breath_time = Time.get_ticks_msec()
 
+		tree = get_tree()
+		
+		await tree.process_frame
 		_initialize()
 		_swim_to_target()
 

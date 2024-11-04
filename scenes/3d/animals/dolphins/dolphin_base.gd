@@ -23,6 +23,8 @@ extends Node3D
 @export var debug_swim_loop : bool = false
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
 
+var tree : SceneTree
+
 enum DolphinState {
 	IDLE,
 	FLEEING
@@ -52,6 +54,9 @@ var debug_target_shape : MeshInstance3D
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
+		tree = get_tree()
+		
+		await tree.process_frame
 		_initialize()
 		_swim_to_target()
 

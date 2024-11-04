@@ -1,0 +1,73 @@
+[gd_scene load_steps=5 format=3 uid="uid://cep7ovi0dlw2c"]
+
+[ext_resource type="Script" path="res://addons/export_plugin/scene_config_menu/scenes/inflatable_patrol_boat_item.gd" id="1_xvqq8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj4ik"]
+bg_color = Color(0.188235, 0.215686, 0.262745, 1)
+
+[sub_resource type="Image" id="Image_427wc"]
+data = {
+"data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 72, 255, 255, 255, 78, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 78, 255, 255, 255, 102, 255, 255, 255, 84, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 84, 255, 255, 255, 102, 255, 255, 255, 84, 255, 255, 255, 9, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 93, 255, 255, 255, 102, 255, 255, 255, 78, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 93, 255, 255, 255, 102, 255, 255, 255, 78, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 9, 255, 255, 255, 85, 255, 255, 255, 102, 255, 255, 255, 84, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 78, 255, 255, 255, 102, 255, 255, 255, 84, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 71, 255, 255, 255, 78, 255, 255, 255, 8, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
+"format": "RGBA8",
+"height": 12,
+"mipmaps": false,
+"width": 12
+}
+
+[sub_resource type="ImageTexture" id="ImageTexture_xblgp"]
+image = SubResource("Image_427wc")
+
+[node name="InflatablePatrolBoatItem" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_lj4ik")
+script = ExtResource("1_xvqq8")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ToggleButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Inflatable patrol boat"
+icon = SubResource("ImageTexture_xblgp")
+alignment = 0
+
+[node name="EnabledButton" type="CheckButton" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Enabled: "
+
+[node name="ContentContainer" type="MarginContainer" parent="VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/ContentContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Speed:"
+
+[node name="SpeedSpinBox" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Speed of the boat in kilometers per hour. Default: 28"
+min_value = 1.0
+step = 0.5
+value = 28.0
+suffix = "km/h"

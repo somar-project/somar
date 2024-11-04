@@ -42,7 +42,7 @@ func _after_fade_in() -> void:
 func _switch_to_ocean() -> void:
 	Global.player.fade(false)
 	await Global.player.fade_finished
-	SceneManager.switch_to_scene("shore")
+	SceneManager.switch_to_scene("ocean")
 
 
 func _set_language(lang_code : String) -> void:

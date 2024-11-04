@@ -1,64 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpjkagi2k4we5"]
+[gd_scene load_steps=4 format=3 uid="uid://cpjkagi2k4we5"]
 
 [ext_resource type="Script" path="res://addons/export_plugin/scene_config_menu/scenes/bottlenose_dolphin_item.gd" id="1_ulseo"]
+[ext_resource type="Theme" uid="uid://c7osqhiu57ov4" path="res://addons/export_plugin/scene_config_menu/themes/buttons_theme.tres" id="2_ihah1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj4ik"]
 bg_color = Color(0.188235, 0.215686, 0.262745, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l21x4"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.62, 0.1364, 0.1364, 1)
-draw_center = false
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-border_color = Color(0.439216, 0.729412, 0.980392, 1)
-border_blend = true
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_left = 3.0
-expand_margin_right = 3.0
-expand_margin_bottom = 3.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wad6a"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.537335, 0.11193, 0.112259, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7um6p"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.816508, 0.208747, 0.203735, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fpejv"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(0.62, 0.1364, 0.1364, 1)
-corner_radius_top_left = 3
-corner_radius_top_right = 3
-corner_radius_bottom_right = 3
-corner_radius_bottom_left = 3
-expand_margin_top = 1.0
 
 [node name="BottlenoseDolphinItem" type="PanelContainer"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_lj4ik")
@@ -81,11 +27,8 @@ alignment = 0
 [node name="DeleteButton" type="Button" parent="VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_styles/focus = SubResource("StyleBoxFlat_l21x4")
-theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_wad6a")
-theme_override_styles/hover = SubResource("StyleBoxFlat_7um6p")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_wad6a")
-theme_override_styles/normal = SubResource("StyleBoxFlat_fpejv")
+theme = ExtResource("2_ihah1")
+theme_type_variation = &"RedButton"
 text = "Delete"
 
 [node name="ContentContainer" type="MarginContainer" parent="VBoxContainer"]
@@ -117,6 +60,7 @@ text = "Spawn height:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Controls at which height the entity will spawn. For reference, the player is placed at a height of 0.0, so setting this value to 1 for example, will spawn the entity 1 meter above the gound. Default: 2"
 max_value = 10.0
 step = 0.1
 value = 2.0
@@ -125,6 +69,7 @@ suffix = "meters"
 [node name="SwimClockwiseToggle" type="CheckButton" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+tooltip_text = "Controls if the entity will swim clockwise or counter-clockwise. Default: true"
 text = "Swim clockwise: "
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer"]
@@ -139,6 +84,7 @@ text = "Swim speed:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Minimum swim speed. The swim speed is the amount of time (in seconds) that it takes to complete half a rotation around the player. Default: 4.5"
 min_value = 1.0
 max_value = 10.0
 step = 0.1
@@ -149,6 +95,7 @@ suffix = "(min)"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Maximum swim speed. The swim speed is the amount of time (in seconds) that it takes to complete half a rotation around the player. Default: 5"
 min_value = 1.0
 max_value = 10.0
 step = 0.1
@@ -167,6 +114,7 @@ text = "Distance to player:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Minimum distance to player. The distance to player could be also described as the radius of the \"circle\" that the entity swims around, having the player as the center."
 min_value = 1.0
 max_value = 20.0
 step = 0.1
@@ -177,6 +125,7 @@ suffix = "(min)"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Maximum distance to player. The distance to player could be also described as the radius of the \"circle\" that the entity swims around, having the player as the center."
 min_value = 1.0
 max_value = 20.0
 step = 0.1
@@ -195,6 +144,7 @@ text = "Depth variation:"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Minimum depth variation. The depth variation is the vertical offset from the spawn height. For example, if the entity spawns at a height of 3 meters, and the minimum depth variation is -1, then the entity is allowed to go to 2 meters as well as 3. Default: -1"
 min_value = -10.0
 max_value = -0.5
 step = 0.1
@@ -205,6 +155,7 @@ suffix = "(lower)"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Maximum depth variation. The depth variation is the vertical offset from the spawn height. For example, if the entity spawns at a height of 2 meters, and the maximum depth variation is 2, then the entity is allowed to go to 4 meters as well as 2. Default: 1"
 min_value = 0.5
 max_value = 10.0
 step = 0.1
@@ -213,18 +164,52 @@ suffix = "(upper)"
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5"]
+[node name="Label" type="Label" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
 layout_mode = 2
 text = "Breathing time:"
 
-[node name="BreathingTimeSpinBox" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5"]
+[node name="BreathingTimeSpinBox" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "The breathing time controls how often the entity needs to swim to the surface to breathe. This may vary by a few seconds, since it can only surface when it completes half a rotation around the player. Default: 60"
 min_value = 1.0
 max_value = 1000.0
 step = 0.1
 value = 60.0
 suffix = "seconds"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5"]
+layout_mode = 2
+tooltip_text = "The initial spawn direction of the entity. For example, a spawn direction of x: 0 and z: -1 will spawn the dolphin right in front of the player.
+Leave as x: 0 and z: 0 to choose a random spawn direction."
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+layout_mode = 2
+text = "Spawn direction:"
+
+[node name="SpawnPosX" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+prefix = "x |"
+
+[node name="SpawnPosZ" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer5/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.1
+prefix = "z |"
