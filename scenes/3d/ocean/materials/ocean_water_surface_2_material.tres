@@ -1,17 +1,7 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b7ouij5aedu01"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7ouij5aedu01"]
 
 [ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="1_nnmum"]
-[ext_resource type="Texture2D" uid="uid://dljj8yk8ly360" path="res://scenes/3d/ocean/textures/water_surface_mask_v2.png" id="2_8vtgb"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_e0cat"]
-noise_type = 4
-seed = 5
-frequency = 0.04
-fractal_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_n4es0"]
-seamless = true
-noise = SubResource("FastNoiseLite_e0cat")
+[ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="2_k7u1s"]
 
 [resource]
 render_priority = 0
@@ -20,5 +10,4 @@ shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/opacity = 1.0
 shader_parameter/scale = 7.6
 shader_parameter/speed = 1.5
-shader_parameter/water_layer_0 = SubResource("NoiseTexture2D_n4es0")
-shader_parameter/water_surface_mask = ExtResource("2_8vtgb")
+shader_parameter/water_layer_0 = ExtResource("2_k7u1s")

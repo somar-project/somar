@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ds3xv7eus20gg"]
+[gd_scene load_steps=26 format=3 uid="uid://ds3xv7eus20gg"]
 
 [ext_resource type="ArrayMesh" uid="uid://unt0jsnmc8df" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_016.res" id="1_e3f83"]
 [ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
@@ -11,6 +11,9 @@
 [ext_resource type="ArrayMesh" uid="uid://ctklxvk3tsjgm" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_021.res" id="6_smf0j"]
 [ext_resource type="ArrayMesh" uid="uid://d20xhyeh6rwp8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_022.res" id="7_v3tg7"]
 [ext_resource type="Material" uid="uid://ddwg6tv1r3h1x" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hq_material.tres" id="7_xb56l"]
+[ext_resource type="Shader" path="res://scenes/3d/boats/trail/materials/boat_trail_shader.gdshader" id="12_44pyf"]
+[ext_resource type="Texture2D" uid="uid://caitsuvwv15l4" path="res://scenes/3d/boats/trail/textures/boat_main_trail.png" id="13_l61uf"]
+[ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="14_7pown"]
 
 [sub_resource type="Animation" id="Animation_43qqh"]
 length = 0.001
@@ -170,6 +173,49 @@ _data = {
 "boat_movement": SubResource("Animation_taeha")
 }
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fogyu"]
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cav8b"]
+seamless = true
+noise = SubResource("FastNoiseLite_fogyu")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfdf3"]
+render_priority = 1
+shader = ExtResource("12_44pyf")
+shader_parameter/albedo_color = Color(0.14445, 0.59002, 0.999984, 1)
+shader_parameter/speed = 0.5
+shader_parameter/opacity = 0.75
+shader_parameter/trail_texture = ExtResource("13_l61uf")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_cav8b")
+
+[sub_resource type="QuadMesh" id="QuadMesh_rh60v"]
+material = SubResource("ShaderMaterial_gfdf3")
+size = Vector2(20, 20)
+subdivide_width = 10
+subdivide_depth = 10
+orientation = 1
+
+[sub_resource type="Curve" id="Curve_dpvfu"]
+min_value = 0.1
+_data = [Vector2(0, 0.1), 0.0, 2.73748, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_3ihwb"]
+offsets = PackedFloat32Array(0, 0.08, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.952, 0.952, 0.952, 1, 0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_8ayb1"]
+material = ExtResource("14_7pown")
+height = 0.5
+radial_segments = 16
+rings = 8
+is_hemisphere = true
+
+[sub_resource type="Gradient" id="Gradient_76mt0"]
+offsets = PackedFloat32Array(0, 0.175862, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.952, 0.952, 0.952, 1, 0, 0, 0, 1)
+
 [node name="InflatablePatrolBoat" type="Node3D"]
 script = ExtResource("1_mu78g")
 
@@ -246,3 +292,40 @@ libraries = {
 "": SubResource("AnimationLibrary_l4kgc")
 }
 autoplay = "boat_movement"
+
+[node name="BoatTrail" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.384, -1.845)
+
+[node name="GPUParticles3D" type="CPUParticles3D" parent="BoatTrail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.0908439, 4.37114e-08)
+extra_cull_margin = 200.0
+amount = 40
+lifetime = 6.0
+fixed_fps = 30
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
+mesh = SubResource("QuadMesh_rh60v")
+spread = 10.0
+gravity = Vector3(0, 0.1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 0.9
+scale_amount_curve = SubResource("Curve_dpvfu")
+color_ramp = SubResource("Gradient_3ihwb")
+
+[node name="GPUParticles3D2" type="CPUParticles3D" parent="BoatTrail"]
+transform = Transform3D(1, 3.82137e-15, -8.74228e-08, -3.82137e-15, -1, -8.74228e-08, -8.74228e-08, 8.74228e-08, -1, -1, -0.426499, 4.37114e-08)
+extra_cull_margin = 200.0
+amount = 20
+lifetime = 1.5
+fixed_fps = 30
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
+mesh = SubResource("SphereMesh_8ayb1")
+spread = 40.0
+flatness = 0.9
+gravity = Vector3(0, 0.1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 1.2
+scale_amount_max = 1.4
+scale_amount_curve = SubResource("Curve_dpvfu")
+color_ramp = SubResource("Gradient_76mt0")

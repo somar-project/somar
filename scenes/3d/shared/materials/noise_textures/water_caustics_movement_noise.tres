@@ -1,0 +1,15 @@
+[gd_resource type="NoiseTexture2D" load_steps=2 format=3 uid="uid://c4ci7qx30ee61"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vxhnk"]
+noise_type = 2
+seed = 5
+frequency = 0.02
+fractal_type = 0
+cellular_distance_function = 1
+cellular_jitter = -2.0
+cellular_return_type = 5
+
+[resource]
+resource_name = "water_caustics_movement_noise"
+seamless = true
+noise = SubResource("FastNoiseLite_vxhnk")

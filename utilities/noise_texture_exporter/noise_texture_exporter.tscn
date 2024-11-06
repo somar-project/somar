@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://d331djvx5xufs"]
+
+[ext_resource type="Script" path="res://utilities/noise_texture_exporter/noise_texture_exporter.gd" id="1_eoec6"]
+[ext_resource type="Texture2D" uid="uid://ovksfka7vpgx" path="res://scenes/3d/shared/materials/noise_textures/water_caustics_cellular_noise.tres" id="2_bssf1"]
+[ext_resource type="Texture2D" uid="uid://c4ci7qx30ee61" path="res://scenes/3d/shared/materials/noise_textures/water_caustics_movement_noise.tres" id="3_fmd20"]
+
+[node name="NoiseTextureExporter" type="Node2D"]
+script = ExtResource("1_eoec6")
+noise_textures = Array[Resource]([ExtResource("2_bssf1"), ExtResource("3_fmd20")])

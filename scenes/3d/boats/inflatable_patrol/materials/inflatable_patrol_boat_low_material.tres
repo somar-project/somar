@@ -1,10 +1,11 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b68pcluwq500c"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="1_o4qa1"]
+[ext_resource type="Shader" uid="uid://bufpt1ntjbbl4" path="res://scenes/3d/boats/inflatable_patrol/materials/boat_color_w_height_shader.tres" id="1_slul2"]
 [ext_resource type="Texture2D" uid="uid://c70y7ehdl330y" path="res://scenes/3d/boats/inflatable_patrol/textures/MergedBake_Bake1_PBR_Diffuse_512.png" id="2_oq07m"]
 
 [resource]
 render_priority = 0
-shader = ExtResource("1_o4qa1")
+shader = ExtResource("1_slul2")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/height = 5.0
 shader_parameter/albedo_texture = ExtResource("2_oq07m")

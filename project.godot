@@ -60,6 +60,10 @@ menu_btn_border_color={
 "type": "color",
 "value": Color(0, 0.596078, 0.643137, 1)
 }
+water_surface_height={
+"type": "float",
+"value": 5.0
+}
 
 [xr]
 

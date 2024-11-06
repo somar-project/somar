@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=17 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
 [ext_resource type="Texture2D" uid="uid://bp45umagiut8u" path="res://scenes/3d/ocean/textures/sea_gradient_equi_1k.png" id="2_yvno7"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
+[ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="6_3vlo7"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="7_v64ny"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="8_aqbnn"]
@@ -22,12 +23,12 @@ sky = SubResource("Sky_5ww5n")
 reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0, 0.00616675, 0.37, 1)
-fog_sun_scatter = 0.4
+fog_light_color = Color(0.101961, 0.12549, 0.635294, 1)
+fog_sun_scatter = 0.7
 fog_density = 1.0
 fog_depth_curve = 0.129409
-fog_depth_begin = 3.0
-fog_depth_end = 25.0
+fog_depth_begin = 0.0
+fog_depth_end = 22.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
@@ -40,8 +41,19 @@ radial_segments = 16
 cap_top = false
 cap_bottom = false
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6ted"]
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("6_3vlo7")
+
+[sub_resource type="QuadMesh" id="QuadMesh_5wf6a"]
+material = SubResource("StandardMaterial3D_b6ted")
+size = Vector2(160, 160)
+
 [node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_y2udb")
+min_boat_event_spawn_delay = 10.0
+max_boat_event_spawn_delay = 11.0
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -50,26 +62,34 @@ transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2ljrs")
 
-[node name="WaterSurface" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8, 0)
-material_override = ExtResource("3_ufet6")
-mesh = SubResource("QuadMesh_20yxg")
-
-[node name="WaterSurfaceHighlights" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.5, 0)
-material_override = ExtResource("4_7wo7r")
-mesh = SubResource("QuadMesh_20yxg")
-
 [node name="SurfacePosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8.1, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 8, 0)
 
-[node name="PlayerPosition" type="Marker3D" parent="."]
+[node name="WaterSurface" type="MeshInstance3D" parent="SurfacePosition"]
+material_override = ExtResource("3_ufet6")
+mesh = SubResource("QuadMesh_20yxg")
+skeleton = NodePath("../..")
 
-[node name="SunRays" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
+[node name="WaterSurfaceHighlights" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = ExtResource("4_7wo7r")
+mesh = SubResource("QuadMesh_20yxg")
+skeleton = NodePath("../..")
+
+[node name="SunRays" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.49155e-07, 5.7)
 material_override = ExtResource("7_v64ny")
 mesh = SubResource("CylinderMesh_olltn")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+visible = false
+mesh = SubResource("QuadMesh_5wf6a")
+skeleton = NodePath("../..")
+
+[node name="PlayerPosition" type="Marker3D" parent="."]
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("7_jnhsx")]
 

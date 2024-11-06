@@ -28,18 +28,27 @@ sky = SubResource("Sky_5ww5n")
 reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
-fog_light_color = Color(0, 0.243144, 0.472222, 1)
+fog_light_color = Color(0.0196078, 0.368627, 0.741176, 1)
 fog_sun_scatter = 0.5
 fog_density = 1.0
 fog_depth_curve = 0.615577
 fog_depth_begin = 0.0
 fog_depth_end = 20.0
+adjustment_contrast = 1.5
+adjustment_saturation = 0.5
 
 [sub_resource type="QuadMesh" id="QuadMesh_3gmhg"]
 size = Vector2(160, 160)
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
+flip_faces = true
+bottom_radius = 1.0
+radial_segments = 16
+cap_top = false
+cap_bottom = false
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h3gwe"]
 viewport_path = NodePath("ShadowsSubViewport")
@@ -59,13 +68,6 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/texture_albedo = ExtResource("9_ahx2y")
 shader_parameter/texture_mask = ExtResource("9_eckpl")
 shader_parameter/shadow_map = SubResource("ViewportTexture_h3gwe")
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
-flip_faces = true
-bottom_radius = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
 
 [sub_resource type="Environment" id="Environment_4adqr"]
 background_mode = 1
@@ -100,23 +102,35 @@ player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
+light_energy = 1.1
+light_angular_distance = 10.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2ljrs")
 
-[node name="WaterSurface" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0)
-material_override = ExtResource("3_tb2uy")
-mesh = SubResource("QuadMesh_3gmhg")
-
-[node name="WaterSurfaceHighlights" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.5, 0)
-material_override = ExtResource("4_wn413")
-mesh = SubResource("QuadMesh_20yxg")
+[node name="InflatablePatrolBoat" parent="." instance=ExtResource("12_rwuhk")]
+transform = Transform3D(0.952369, 0, -0.304947, 0, 1, 0, 0.304947, 0, 0.952369, 5.12355, 4.232, 1.26171)
 
 [node name="SurfacePosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5.1, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0)
+
+[node name="WaterSurface" type="MeshInstance3D" parent="SurfacePosition"]
+material_override = ExtResource("3_tb2uy")
+mesh = SubResource("QuadMesh_3gmhg")
+skeleton = NodePath("../..")
+
+[node name="WaterSurfaceHighlights" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = ExtResource("4_wn413")
+mesh = SubResource("QuadMesh_20yxg")
+skeleton = NodePath("../..")
+
+[node name="SunRays" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.26763e-07, 2.9)
+material_override = ExtResource("9_twl3q")
+mesh = SubResource("CylinderMesh_r1s0e")
+skeleton = NodePath("../..")
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)
@@ -131,11 +145,6 @@ transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_mx7ru")
 mesh = ExtResource("8_51r74")
 skeleton = NodePath("")
-
-[node name="SunRays" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 0)
-material_override = ExtResource("9_twl3q")
-mesh = SubResource("CylinderMesh_r1s0e")
 
 [node name="ShadowsSubViewport" type="SubViewport" parent="."]
 gui_disable_input = true

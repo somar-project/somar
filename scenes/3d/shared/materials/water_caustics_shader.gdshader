@@ -1,8 +1,8 @@
 shader_type spatial;
 render_mode unshaded;
 
-uniform sampler2D cellular_noise_texture;
-uniform sampler2D movement_noise;
+uniform vec3 albedo_color : source_color = vec3(1.0);
+uniform sampler2D cellular_movement_noise_texture;
 uniform float intensity : hint_range(1.0, 100.0) = 50.0;
 
 uniform float scale : hint_range(0.01, 10.0) = 1.0;
@@ -31,19 +31,19 @@ void vertex() {
 }
 
 void fragment() {
-	vec4 movement_noise_t = texture(movement_noise, world_pos.xz);
+	vec4 movement_noise_t = texture(cellular_movement_noise_texture, world_pos.xz);
 
 	vec2 new_uv = custom_uv;
-	new_uv.x += movement_noise_t.r;
-	new_uv.y -= movement_noise_t.r;
+	new_uv.x += movement_noise_t.g;
+	new_uv.y -= movement_noise_t.g;
 
-	vec4 cellular_noise_t = texture(cellular_noise_texture, new_uv);
+	vec4 cellular_noise_t = texture(cellular_movement_noise_texture, new_uv);
 
 	float color = min(0.999, cellular_noise_t.r);
 	color = log(0.9985) / log(color);
 	color *= intensity * min((sin(TIME) / 2.0) + 1.1, 1.0);
 
-	ALBEDO = cellular_noise_t.rgb;
+	ALBEDO = albedo_color;
 
 	float world_y_nrm = normalize_range(
 		vec2(-0.75, 1.0),
