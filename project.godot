@@ -25,6 +25,10 @@ SceneManager="*res://autoloads/SceneManager.gd"
 
 enabled=PackedStringArray("res://addons/export_plugin/plugin.cfg")
 
+[global_group]
+
+change_with_input=""
+
 [physics]
 
 common/enable_object_picking=false

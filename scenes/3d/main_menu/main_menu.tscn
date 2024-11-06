@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://p0yx1ovcqwpd"]
+[gd_scene load_steps=20 format=3 uid="uid://p0yx1ovcqwpd"]
 
 [ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
 [ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
@@ -41,6 +41,9 @@ shader_parameter/border_size = 0.02
 shader_parameter/border_fade_in = 0.0
 shader_parameter/border_fade_out = 0.0
 shader_parameter/corner_radius = 0.3
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_87k1w"]
+size = Vector3(3.5, 2, 0.015)
 
 [sub_resource type="QuadMesh" id="QuadMesh_l2ohu"]
 size = Vector2(3, 2)
@@ -141,7 +144,7 @@ _data = {
 "show_map": SubResource("Animation_dl4ck")
 }
 
-[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("player_position")]
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("player_position") groups=["change_with_input"]]
 script = ExtResource("1_ybh1f")
 player_position = NodePath("PlayerPosition")
 
@@ -223,7 +226,17 @@ outline_size = 8
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="LanguageButtons/PortugueseBtn"]
 shape = SubResource("BoxShape3D_jnp15")
 
+[node name="BGArea" type="Area3D" parent="LanguageButtons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LanguageButtons/BGArea"]
+shape = SubResource("BoxShape3D_87k1w")
+
 [node name="PressInstructionsLbl" type="Label3D" parent="LanguageButtons"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.517525, 0.00219977)
 pixel_size = 0.001
 double_sided = false

@@ -1,0 +1,17 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dpalyf7rbbo6s"]
+
+[ext_resource type="Shader" path="res://scenes/3d/xr_player/materials/ray_shader.gdshader" id="1_l0h5q"]
+
+[sub_resource type="Gradient" id="Gradient_5ygjn"]
+offsets = PackedFloat32Array(0, 0.5, 0.51, 1)
+colors = PackedColorArray(0.481789, 0.481789, 0.481789, 1, 1, 1, 1, 1, 0.482353, 0.482353, 0.482353, 1, 0.482353, 0.482353, 0.482353, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_kpvs2"]
+gradient = SubResource("Gradient_5ygjn")
+fill_to = Vector2(0, 1)
+
+[resource]
+render_priority = 10
+shader = ExtResource("1_l0h5q")
+shader_parameter/albedo = Color(0, 0.733333, 0.776471, 1)
+shader_parameter/texture_albedo = SubResource("GradientTexture2D_kpvs2")

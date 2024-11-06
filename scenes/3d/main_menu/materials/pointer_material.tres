@@ -6,5 +6,5 @@
 [resource]
 render_priority = 10
 shader = ExtResource("1_mfiwa")
-shader_parameter/albedo = Color(0.996078, 0.901961, 0.745098, 1)
+shader_parameter/albedo = Color(0.180392, 0.152941, 0.462745, 1)
 shader_parameter/texture_albedo = ExtResource("2_70gf7")

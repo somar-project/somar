@@ -9,12 +9,14 @@ const DEFAULT_POINTER_MESH_POS : Vector3 = Vector3(0.0, 0.0, -2.5)
 @onready var pointer_raycast : RayCast3D = %PointerRayCast
 @onready var controller_raycast : RayCast3D = %ControllerRayCast
 @onready var pointer_mesh : MeshInstance3D = %PointerMesh
+@onready var ray_pivot : Node3D = %RayPivot
 @onready var underwater_particles : GPUParticles3D = %UnderwaterParticles
 @onready var left_controller : XRController3D = %LeftController
 @onready var right_controller : XRController3D = %RightController
 @onready var splashscreen_container : Node3D = %Splashscreen
 @onready var shader_cache : Node3D = %ShaderCache
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
+@onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
 
 # Glove & caustics materials
 var GLOVE_HQ_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres")
@@ -48,7 +50,8 @@ func _ready() -> void:
 
 	shader_cache.start()
 	await shader_cache.caching_finished
-	await get_tree().create_timer(3.0).timeout
+	logo_animation_player.play("logo_animation")
+	await logo_animation_player.animation_finished
 
 	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
@@ -56,6 +59,8 @@ func _ready() -> void:
 	await fade_finished
 
 	splashscreen_container.queue_free()
+
+	pointer_mesh.visible = true
 
 	SceneManager.switch_to_scene("main_menu")
 
@@ -69,14 +74,27 @@ func _process(_delta : float) -> void:
 		if current_raycast.is_colliding():
 			pointer_mesh.global_position = current_raycast.get_collision_point()
 
+			pointer_mesh.visible = true
+			if controller_input_enabled:
+				ray_pivot.visible = true
+				ray_pivot.look_at(current_raycast.global_position, Vector3.UP, true)
+			
+			var new_collider : Object = current_raycast.get_collider()
+
 			if not is_instance_valid(current_raycast_collider):
-				current_raycast_collider = current_raycast.get_collider()
+				current_raycast_collider = new_collider
 
 				if current_raycast_collider is CustomBtn:
 					current_raycast_collider.hover()
+				else:
+					current_raycast_collider = null
+			
+			elif current_raycast_collider is CustomBtn and not new_collider is CustomBtn:
+				current_raycast_collider.stop_hover()
+				current_raycast_collider = null
 		
 		else:
-			pointer_mesh.position = DEFAULT_POINTER_MESH_POS
+			pointer_mesh.visible = false
 
 			if is_instance_valid(current_raycast_collider):
 				if current_raycast_collider is CustomBtn:
@@ -85,7 +103,7 @@ func _process(_delta : float) -> void:
 			current_raycast_collider = null
 
 
-func fade(fade_in : bool, fade_time : float = 0.3) -> void:
+func fade(fade_in : bool, fade_time : float = 1.0) -> void:
 	if fade_tween:
 		fade_tween.kill()
 	
@@ -204,5 +222,13 @@ func _set_active_controller(idx : int) -> void:
 func _set_controller_input(c_input_enabled : bool) -> void:
 	controller_input_enabled = c_input_enabled
 
+	tree.call_group("change_with_input", "change_with_input", controller_input_enabled)
+
 	pointer_raycast.enabled = !controller_input_enabled
 	controller_raycast.enabled = controller_input_enabled
+	ray_pivot.visible = controller_input_enabled
+
+	if not controller_input_enabled:
+		pointer_mesh.mesh.size = Vector2(0.04, 0.04)
+	else:
+		pointer_mesh.mesh.size = Vector2(0.02, 0.02)

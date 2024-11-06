@@ -3,7 +3,7 @@ extends BaseScene
 @onready var lang_btn_english : CustomBtn = %EnglishBtn
 @onready var lang_btn_portuguese : CustomBtn = %PortugueseBtn
 @onready var ocean_btn : CustomBtn = %OceanBtn
-
+@onready var press_instructions_lbl : Label3D = %PressInstructionsLbl
 @onready var language_buttons : Node3D = %LanguageButtons
 @onready var map_menu : Node3D = %MapMenu
 @onready var map_animation_player : AnimationPlayer = %MapAnimationPlayer
@@ -11,6 +11,8 @@ extends BaseScene
 
 func _ready() -> void:
 	ocean_btn.pressed.connect(_switch_to_ocean)
+
+	change_with_input(Global.player.controller_input_enabled)
 
 	Global.player.set_glove_caustics(false)
 	Global.player.set_underwater_particles_active(false)
@@ -81,3 +83,10 @@ func _show_map_menu() -> void:
 		Vector3.ONE,
 		0.2
 	)
+
+
+func change_with_input(controller_input : bool) -> void:
+	if controller_input:
+		press_instructions_lbl.visible = false
+	else:
+		press_instructions_lbl.visible = true

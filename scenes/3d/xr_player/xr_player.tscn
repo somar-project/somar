@@ -1,23 +1,71 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=21 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
 [ext_resource type="Shader" path="res://scenes/3d/xr_player/materials/splashscreen_logo_shader.gdshader" id="2_u00bx"]
 [ext_resource type="Texture2D" uid="uid://cvqbgi7dt66rg" path="res://scenes/3d/xr_player/textures/somar_logo_1k.png" id="3_w25i8"]
 [ext_resource type="PackedScene" uid="uid://cipgn16i6g2k3" path="res://utilities/shader_cache/shader_cache.tscn" id="4_d5jj2"]
+[ext_resource type="Texture2D" uid="uid://drchxnkh61i53" path="res://scenes/3d/xr_player/textures/collabora_logo_1k.png" id="4_l8pby"]
 [ext_resource type="Material" uid="uid://rjdkfy8ohvi2" path="res://scenes/3d/xr_player/materials/underwater_particles_material.tres" id="6_yfcbf"]
 [ext_resource type="Material" uid="uid://6p4v5wm3wwqr" path="res://scenes/3d/xr_player/materials/vignette_material.tres" id="7_lhpba"]
+[ext_resource type="Material" uid="uid://dpalyf7rbbo6s" path="res://scenes/3d/xr_player/materials/ray_material.tres" id="7_w3nnu"]
 [ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 20
 shader = ExtResource("2_u00bx")
 shader_parameter/logo = ExtResource("3_w25i8")
+shader_parameter/logo_back = ExtResource("4_l8pby")
 
 [sub_resource type="QuadMesh" id="QuadMesh_oyqt1"]
 
+[sub_resource type="Animation" id="Animation_qvle0"]
+resource_name = "logo_animation"
+length = 5.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SplashScreenLogos:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.76667, 2.26667, 2.73333, 5.03333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, -0.174533, 0), Vector3(0, -3.14159, 0), Vector3(0, -3.14159, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2st74"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SplashScreenLogos:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1h4pu"]
+_data = {
+"RESET": SubResource("Animation_2st74"),
+"logo_animation": SubResource("Animation_qvle0")
+}
+
 [sub_resource type="QuadMesh" id="QuadMesh_anvmr"]
-size = Vector2(0.02, 0.02)
+size = Vector2(0.04, 0.04)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nf3in"]
+flip_faces = true
+top_radius = 0.005
+bottom_radius = 0.005
+height = 1.0
+radial_segments = 8
+cap_bottom = false
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s6lpa"]
 emission_shape_offset = Vector3(0, -0.1, 0)
@@ -43,7 +91,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
 
-[node name="SomarLogo" type="MeshInstance3D" parent="XRCamera3D/Splashscreen"]
+[node name="SplashScreenLogos" type="MeshInstance3D" parent="XRCamera3D/Splashscreen"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 material_override = SubResource("ShaderMaterial_v6qvq")
 mesh = SubResource("QuadMesh_oyqt1")
 
@@ -57,6 +106,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.91402)
 unique_name_in_owner = true
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
+[node name="LogoAnimationPlayer" type="AnimationPlayer" parent="XRCamera3D/Splashscreen"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_1h4pu")
+}
+
 [node name="PointerRayCast" type="RayCast3D" parent="XRCamera3D"]
 unique_name_in_owner = true
 enabled = false
@@ -69,9 +124,20 @@ collide_with_bodies = false
 [node name="PointerMesh" type="MeshInstance3D" parent="XRCamera3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+visible = false
 sorting_offset = 10.0
 material_override = ExtResource("2_bxq6t")
 mesh = SubResource("QuadMesh_anvmr")
+
+[node name="RayPivot" type="Node3D" parent="XRCamera3D/PointerMesh"]
+unique_name_in_owner = true
+visible = false
+
+[node name="RayMesh" type="MeshInstance3D" parent="XRCamera3D/PointerMesh/RayPivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0.6)
+material_override = ExtResource("7_w3nnu")
+mesh = SubResource("CylinderMesh_nf3in")
+skeleton = NodePath("../../../../LeftController/ControllerRayCast")
 
 [node name="UnderwaterParticles" type="GPUParticles3D" parent="XRCamera3D"]
 unique_name_in_owner = true
