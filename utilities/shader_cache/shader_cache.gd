@@ -13,6 +13,8 @@ const BASE_DIR : String = "res://"
 StandardMaterial3D"
 ## Skip files containing keywords. One per line.
 @export_multiline var skip_containing : String = ""
+## Skip files that don't have keywords. One per line.
+@export_multiline var skip_not_containing : String = ""
 ## Skip these folders. One per line.
 @export_multiline var skip_folders : String = ""
 ## Run the tool.
@@ -28,6 +30,7 @@ StandardMaterial3D"
 
 var local_scan_types : PackedStringArray = []
 var local_skip_containing : PackedStringArray = []
+var local_skip_not_containing : PackedStringArray = []
 var local_skip_folders : PackedStringArray = []
 
 var children : Array[Node] = []
@@ -36,6 +39,8 @@ var should_run : bool = false
 
 var cache_progress_total : int = 0
 var cache_progress_current : int = 0
+
+var skip_mode_containing : bool = true
 
 
 func _ready() -> void:
@@ -46,11 +51,15 @@ func _run(_value : bool) -> void:
 	if not Engine.is_editor_hint():
 		return
 	
+	if skip_containing.is_empty() and not skip_not_containing.is_empty():
+		skip_mode_containing = false
+	
 	var file_list : Array = []
 	var pre_local_scan_types : PackedStringArray = scan_types.split("\n", false)
 	for p_l_scan_type : String in pre_local_scan_types:
 		local_scan_types.push_back("gd_resource type=\"%s\"" % p_l_scan_type)
 	local_skip_containing = skip_containing.split("\n", false)
+	local_skip_not_containing = skip_not_containing.split("\n", false)
 	local_skip_folders = skip_folders.split("\n", false)
 	
 	_scan_sub_dir(directory, file_list)
@@ -79,10 +88,16 @@ func _scan_single_dir(path : String, file_list : Array) -> void:
 		
 		for file : String in files:
 			var skip : bool = true if file.contains(".remap") else false
-			for l_skip_containing : String in local_skip_containing:
-				if file.contains(l_skip_containing):
-					skip = true
-					break
+			if skip_mode_containing:
+				for l_skip_containing : String in local_skip_containing:
+					if file.contains(l_skip_containing):
+						skip = true
+						break
+			else:
+				for l_skip_containing : String in local_skip_not_containing:
+					if not file.contains(l_skip_containing):
+						skip = true
+						break
 			
 			if not skip and file.contains(".tres"):
 				var file_path : String = path + "/" + file
@@ -100,7 +115,10 @@ func _clean(_value : bool) -> void:
 	
 	local_scan_types.clear()
 	local_skip_containing.clear()
+	local_skip_not_containing.clear()
 	local_skip_folders.clear()
+
+	skip_mode_containing = false
 	
 	var _children : Array[Node] = get_children()
 	

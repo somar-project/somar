@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bx855ryq3ehp3" path="res://scenes/3d/main_menu/textures/pointer.png" id="2_70gf7"]
 
 [resource]
-render_priority = 10
+render_priority = 60
 shader = ExtResource("1_mfiwa")
 shader_parameter/albedo = Color(0.180392, 0.152941, 0.462745, 1)
 shader_parameter/texture_albedo = ExtResource("2_70gf7")

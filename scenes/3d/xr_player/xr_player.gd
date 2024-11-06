@@ -2,7 +2,7 @@ extends XROrigin3D
 
 signal fade_finished
 
-const DEFAULT_POINTER_MESH_POS : Vector3 = Vector3(0.0, 0.0, -2.5)
+const HQ_SHADER_CACHE_PATH : String = "res://utilities/shader_cache/hq_shader_cache.tscn"
 
 @onready var tree : SceneTree = get_tree()
 @onready var camera : XRCamera3D = %XRCamera3D
@@ -10,10 +10,12 @@ const DEFAULT_POINTER_MESH_POS : Vector3 = Vector3(0.0, 0.0, -2.5)
 @onready var controller_raycast : RayCast3D = %ControllerRayCast
 @onready var pointer_mesh : MeshInstance3D = %PointerMesh
 @onready var ray_pivot : Node3D = %RayPivot
+@onready var ray_mesh : MeshInstance3D = %RayMesh
 @onready var underwater_particles : GPUParticles3D = %UnderwaterParticles
 @onready var left_controller : XRController3D = %LeftController
 @onready var right_controller : XRController3D = %RightController
 @onready var splashscreen_container : Node3D = %Splashscreen
+@onready var shader_cache_container : Node3D = %ShaderCacheContainer
 @onready var shader_cache : Node3D = %ShaderCache
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 @onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
@@ -33,6 +35,17 @@ var controller_input_enabled : bool = false
 var active_controller_idx : int = 0
 var active_controllers_count : int = 0
 
+enum PointerMeshDistance {
+	NEAR,
+	NORMAL,
+	FAR
+}
+var pointer_mesh_distance : PointerMeshDistance = PointerMeshDistance.NEAR
+
+var hq_shader_cache : Node3D
+var shader_cache_count : int = 1
+var shader_cache_finished_count : int = 0
+
 
 func _ready() -> void:
 	vignette_material = vignette_mesh.material_override
@@ -48,21 +61,39 @@ func _ready() -> void:
 	left_controller.button_pressed.connect(_handle_input.bind(0))
 	right_controller.button_pressed.connect(_handle_input.bind(1))
 
+	if Global.material_quality == Global.MaterialQuality.HIGH:
+		shader_cache_count += 1
+		hq_shader_cache = load(HQ_SHADER_CACHE_PATH).instantiate()
+		shader_cache_container.add_child(hq_shader_cache)
+		hq_shader_cache.scale = Vector3(0.05, 0.05, 0.05)
+	
+	shader_cache.caching_finished.connect(_shader_cache_finished)
 	shader_cache.start()
-	await shader_cache.caching_finished
+
+	if shader_cache_count > 1:
+		hq_shader_cache.caching_finished.connect(_shader_cache_finished)
+		hq_shader_cache.start()
+
 	logo_animation_player.play("logo_animation")
-	await logo_animation_player.animation_finished
 
-	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
-	fade(false)
-	await fade_finished
+func _shader_cache_finished() -> void:
+	shader_cache_finished_count += 1
+	if shader_cache_finished_count == shader_cache_count:
 
-	splashscreen_container.queue_free()
+		shader_cache_container.queue_free()
+		
+		if logo_animation_player.is_playing():
+			await logo_animation_player.animation_finished
+		
+		XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
-	pointer_mesh.visible = true
+		fade(false)
+		await fade_finished
 
-	SceneManager.switch_to_scene("main_menu")
+		splashscreen_container.queue_free()
+
+		SceneManager.switch_to_scene("main_menu")
 
 
 func _process(_delta : float) -> void:
@@ -74,9 +105,14 @@ func _process(_delta : float) -> void:
 		if current_raycast.is_colliding():
 			pointer_mesh.global_position = current_raycast.get_collision_point()
 
+			var distance_to_point : float = pointer_mesh.global_position.distance_to(current_raycast.global_position)
+
 			pointer_mesh.visible = true
+			_adjust_pointer_mesh(distance_to_point)
+
 			if controller_input_enabled:
 				ray_pivot.visible = true
+				_adjust_input_ray_length(distance_to_point)
 				ray_pivot.look_at(current_raycast.global_position, Vector3.UP, true)
 			
 			var new_collider : Object = current_raycast.get_collider()
@@ -147,12 +183,12 @@ func fade(fade_in : bool, fade_time : float = 1.0) -> void:
 func _handle_input_enabled(value : bool) -> void:
 	input_enabled = value
 
-	print_debug("input enabled changed!")
-
 	if not input_enabled:
+		pointer_mesh.visible = false
 		pointer_raycast.enabled = false
 		controller_raycast.enabled = false
 	else:
+		pointer_mesh.visible = true
 		pointer_raycast.enabled = !controller_input_enabled
 		controller_raycast.enabled = controller_input_enabled
 
@@ -183,6 +219,37 @@ func set_glove_caustics(c_enabled : bool) -> void:
 	else:
 		GLOVE_HQ_MATERIAL.next_pass = null
 		GLOVE_LOW_MATERIAL.next_pass = null
+
+
+func _adjust_input_ray_length(distance_to_point : float) -> void:
+	var new_length : float = distance_to_point * 0.8
+	var new_y_scale : float = new_length / 1.0
+
+	ray_mesh.scale.y = new_y_scale
+	ray_mesh.position.z = 0.1 + (new_length / 2.0)
+
+func _adjust_pointer_mesh(distance_to_point : float, force : bool = false) -> void:
+	var new_pointer_mesh_dist : PointerMeshDistance
+
+	if distance_to_point <= 3.0:
+		new_pointer_mesh_dist = PointerMeshDistance.NEAR
+	elif distance_to_point <= 6.0:
+		new_pointer_mesh_dist = PointerMeshDistance.NORMAL
+	else:
+		new_pointer_mesh_dist = PointerMeshDistance.FAR
+
+	if force or new_pointer_mesh_dist != pointer_mesh_distance:
+		pointer_mesh_distance = new_pointer_mesh_dist
+
+		match pointer_mesh_distance:
+			PointerMeshDistance.NEAR:
+				pointer_mesh.mesh.size = Vector2(0.04, 0.04)
+			PointerMeshDistance.NORMAL:
+				pointer_mesh.mesh.size = Vector2(0.08, 0.08)
+			PointerMeshDistance.FAR:
+				pointer_mesh.mesh.size = Vector2(0.16, 0.16)
+			_:
+				pass
 
 
 func _handle_input(input_name : String, controller_idx : int) -> void:
@@ -227,8 +294,3 @@ func _set_controller_input(c_input_enabled : bool) -> void:
 	pointer_raycast.enabled = !controller_input_enabled
 	controller_raycast.enabled = controller_input_enabled
 	ray_pivot.visible = controller_input_enabled
-
-	if not controller_input_enabled:
-		pointer_mesh.mesh.size = Vector2(0.04, 0.04)
-	else:
-		pointer_mesh.mesh.size = Vector2(0.02, 0.02)

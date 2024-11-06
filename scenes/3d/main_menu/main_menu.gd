@@ -3,6 +3,7 @@ extends BaseScene
 @onready var lang_btn_english : CustomBtn = %EnglishBtn
 @onready var lang_btn_portuguese : CustomBtn = %PortugueseBtn
 @onready var ocean_btn : CustomBtn = %OceanBtn
+@onready var shore_btn : CustomBtn = %ShoreBtn
 @onready var press_instructions_lbl : Label3D = %PressInstructionsLbl
 @onready var language_buttons : Node3D = %LanguageButtons
 @onready var map_menu : Node3D = %MapMenu
@@ -10,7 +11,8 @@ extends BaseScene
 
 
 func _ready() -> void:
-	ocean_btn.pressed.connect(_switch_to_ocean)
+	ocean_btn.pressed.connect(_switch_to_scene.bind("ocean"), CONNECT_ONE_SHOT)
+	shore_btn.pressed.connect(_switch_to_scene.bind("shore"), CONNECT_ONE_SHOT)
 
 	change_with_input(Global.player.controller_input_enabled)
 
@@ -41,10 +43,10 @@ func _after_fade_in() -> void:
 		_show_map_menu()
 
 
-func _switch_to_ocean() -> void:
+func _switch_to_scene(scene_id : String) -> void:
 	Global.player.fade(false)
 	await Global.player.fade_finished
-	SceneManager.switch_to_scene("ocean")
+	SceneManager.switch_to_scene(scene_id)
 
 
 func _set_language(lang_code : String) -> void:
@@ -68,25 +70,13 @@ func _set_language(lang_code : String) -> void:
 
 func _show_map_menu() -> void:
 	map_menu.visible = true
-	map_animation_player.play("show_map")
-
-	await map_animation_player.animation_finished
-	ocean_btn.visible = true
-
-	var btn_animation_tween : Tween = create_tween()
-	btn_animation_tween.set_trans(Tween.TRANS_CUBIC)
-	btn_animation_tween.set_ease(Tween.EASE_IN)
-
-	btn_animation_tween.tween_property(
-		ocean_btn,
-		"scale",
-		Vector3.ONE,
-		0.2
-	)
+	map_animation_player.play("map_animation")
 
 
 func change_with_input(controller_input : bool) -> void:
 	if controller_input:
-		press_instructions_lbl.visible = false
+		if not map_menu.visible:
+			press_instructions_lbl.visible = false
 	else:
-		press_instructions_lbl.visible = true
+		if not map_menu.visible:
+			press_instructions_lbl.visible = true

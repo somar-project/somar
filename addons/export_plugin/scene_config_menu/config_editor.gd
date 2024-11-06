@@ -112,7 +112,7 @@ func _ready() -> void:
 	var save_data_err : Error = save_data.load(SAVE_DATA_PATH)
 
 	if save_data_err != OK:
-		print("ERROR: %s" % save_data_err)
+		print_debug("ERROR: %s" % save_data_err)
 	else:
 		if FileAccess.file_exists(_get_scenes_config_save_path()):
 			_initialize_main_editor_scene(true)

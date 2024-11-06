@@ -48,19 +48,22 @@ func _ready() -> void:
 
 
 func _load_editor_plugin_data() -> void:
-	editor_plugin_save_data = ConfigFile.new()
-	var save_data_err : Error = editor_plugin_save_data.load(EDITOR_PLUGIN_SAVE_DATA_PATH)
+	if FileAccess.file_exists(EDITOR_PLUGIN_SAVE_DATA_PATH):
+		editor_plugin_save_data = ConfigFile.new()
+		var save_data_err : Error = editor_plugin_save_data.load(EDITOR_PLUGIN_SAVE_DATA_PATH)
 
-	if save_data_err != OK:
-		print("ERROR: %s" % save_data_err)
-	else:
-		if FileAccess.file_exists(_get_scenes_config_save_path()):
-			editor_plugin_scenes_config = ConfigFile.new()
-			editor_plugin_scenes_config.load(_get_scenes_config_save_path())
-
-			editor_plugin_ocean_config = editor_plugin_scenes_config.get_value("ocean", "config", {})
+		if save_data_err != OK:
+			print_debug("ERROR: %s" % save_data_err)
 		else:
-			print_debug("ERROR: Unable to find scenes_config.cfg file.")
+			if FileAccess.file_exists(_get_scenes_config_save_path()):
+				editor_plugin_scenes_config = ConfigFile.new()
+				editor_plugin_scenes_config.load(_get_scenes_config_save_path())
+
+				editor_plugin_ocean_config = editor_plugin_scenes_config.get_value("ocean", "config", {})
+			else:
+				print_debug("ERROR: Unable to find scenes_config.cfg file.")
+	else:
+		print_debug("ERROR: the file %s is missing!" % EDITOR_PLUGIN_SAVE_DATA_PATH)
 
 func _get_scenes_config_save_path() -> String:
 	return "%s%s" % [

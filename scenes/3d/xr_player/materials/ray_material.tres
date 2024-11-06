@@ -11,7 +11,7 @@ gradient = SubResource("Gradient_5ygjn")
 fill_to = Vector2(0, 1)
 
 [resource]
-render_priority = 10
+render_priority = 60
 shader = ExtResource("1_l0h5q")
 shader_parameter/albedo = Color(0, 0.733333, 0.776471, 1)
 shader_parameter/texture_albedo = SubResource("GradientTexture2D_kpvs2")
