@@ -30,5 +30,5 @@ render_priority = 1
 shader = SubResource("Shader_0kftq")
 shader_parameter/albedo_color = Color(0.844794, 0.917377, 0.999999, 1)
 shader_parameter/speed = 0.5
-shader_parameter/opacity = 0.85
+shader_parameter/opacity = 0.8
 shader_parameter/trail_texture = ExtResource("1_4hk5o")

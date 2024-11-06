@@ -19,5 +19,6 @@ void fragment() {
 	vec4 particles_t = texture(particles_texture, UV);
 	
 	ALBEDO = particles_t.rgb;
+	FOG.a = 1.0;
 	ALPHA = opacity;
 }

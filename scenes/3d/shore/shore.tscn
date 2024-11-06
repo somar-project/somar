@@ -1,11 +1,13 @@
-[gd_scene load_steps=29 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=33 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_wvgmc"]
 [ext_resource type="Texture2D" uid="uid://bn3x6foekyg53" path="res://scenes/3d/shore/textures/shore_gradient_equi_2k.png" id="2_1gtse"]
 [ext_resource type="Material" uid="uid://chbp2kvceqhml" path="res://scenes/3d/shore/materials/shore_water_surface_material.tres" id="3_tb2uy"]
 [ext_resource type="Material" uid="uid://cll86s32pe0b8" path="res://scenes/3d/shore/materials/shore_water_surface_highlights_material.tres" id="4_wn413"]
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_7j3dv"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_iabag"]
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="7_qv88s"]
+[ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_2pji4"]
 [ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
 [ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="8_lqk5h"]
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="9_ahx2y"]
@@ -49,6 +51,15 @@ bottom_radius = 1.0
 radial_segments = 16
 cap_top = false
 cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2rj65"]
+render_priority = 0
+shader = ExtResource("7_7j3dv")
+shader_parameter/albedo_color = Color(0.380392, 0.380392, 0.380392, 1)
+shader_parameter/fake_sun_texture = ExtResource("8_2pji4")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ftmyj"]
+size = Vector2(6, 6)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_h3gwe"]
 viewport_path = NodePath("ShadowsSubViewport")
@@ -108,9 +119,6 @@ light_angular_distance = 10.0
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2ljrs")
 
-[node name="InflatablePatrolBoat" parent="." instance=ExtResource("12_rwuhk")]
-transform = Transform3D(0.952369, 0, -0.304947, 0, 1, 0, 0.304947, 0, 0.952369, 5.12355, 4.232, 1.26171)
-
 [node name="SurfacePosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0)
@@ -131,6 +139,11 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.2
 material_override = ExtResource("9_twl3q")
 mesh = SubResource("CylinderMesh_r1s0e")
 skeleton = NodePath("../..")
+
+[node name="FakeSun" type="MeshInstance3D" parent="SurfacePosition"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
+material_override = SubResource("ShaderMaterial_2rj65")
+mesh = SubResource("QuadMesh_ftmyj")
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.03, 0)

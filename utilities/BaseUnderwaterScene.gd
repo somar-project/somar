@@ -2,6 +2,7 @@
 class_name BaseUnderwaterScene
 extends BaseScene
 
+@export var boat_spawn_distance : float = 160.0
 @export var min_boat_event_spawn_delay : float = 60.0
 @export var max_boat_event_spawn_delay : float = 90.0
 @export var min_after_boat_wildlife_return_time : float = 10.0
@@ -14,6 +15,7 @@ enum SceneType {
 }
 @export var scene_type : SceneType = SceneType.OCEAN
 
+const CURVE_RADIUS : float = 40.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 
@@ -109,6 +111,10 @@ func _initiate_boat_event() -> void:
 
 	var initial_boat_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
 	var final_boat_position : Vector3 = opposite_quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+
+	var boat_direction : Vector3 = initial_boat_position.direction_to(final_boat_position)
+	initial_boat_position += (boat_spawn_distance - CURVE_RADIUS) * boat_direction
+	final_boat_position += (boat_spawn_distance - CURVE_RADIUS) * -boat_direction
 
 	# Correct height
 	initial_boat_position.y = surface_position.global_position.y + current_boat.surface_offset
