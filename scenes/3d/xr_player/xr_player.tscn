@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
-render_priority = 20
+render_priority = 100
 shader = ExtResource("2_u00bx")
 shader_parameter/logo = ExtResource("3_w25i8")
 shader_parameter/logo_back = ExtResource("4_l8pby")

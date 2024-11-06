@@ -4,9 +4,9 @@
 [ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
 [ext_resource type="Script" path="res://scenes/3d/main_menu/main_menu.gd" id="1_ybh1f"]
 [ext_resource type="Texture2D" uid="uid://1cwryh8ym7jv" path="res://scenes/3d/main_menu/textures/main_menu_equi_v2_1k.png" id="2_hjdxi"]
+[ext_resource type="ArrayMesh" uid="uid://dsdgpd3koa1x4" path="res://scenes/3d/main_menu/mesh/map_MapMesh.res" id="5_8gjuf"]
 [ext_resource type="Material" uid="uid://da4c7rkave6nk" path="res://scenes/3d/main_menu/materials/main_menu_map_low_material.tres" id="6_2u573"]
 [ext_resource type="Material" uid="uid://ft218cpips15" path="res://scenes/3d/main_menu/materials/main_menu_map_hq_material.tres" id="6_jvo68"]
-[ext_resource type="ArrayMesh" uid="uid://dto313hrht2xy" path="res://scenes/3d/main_menu/mesh/map_MespSphereMesh.res" id="6_yojt7"]
 [ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="7_bmo7o"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_476vf"]
@@ -272,7 +272,7 @@ visible = false
 transform = Transform3D(-4.37114e-10, 0, -0.01, 0, 0.01, 0, 0.01, 0, -4.37114e-10, 0, 0, -51)
 
 [node name="MapMesh" type="MeshInstance3D" parent="MapMenu/map"]
-mesh = ExtResource("6_yojt7")
+mesh = ExtResource("5_8gjuf")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("6_2u573")
 script = ExtResource("7_bmo7o")
@@ -280,7 +280,7 @@ high_quality_materials = Array[Material]([ExtResource("6_jvo68")])
 
 [node name="OceanBtn" type="Area3D" parent="MapMenu/map"]
 unique_name_in_owner = true
-transform = Transform3D(-0.005, 0, 0.00866025, 0, 0.01, 0, -0.00866025, 0, -0.005, 40.5702, -0.344947, 5.67333)
+transform = Transform3D(-0.005, 0, 0.00866025, 0, 0.01, 0, -0.00866025, 0, -0.005, 41, -0.345, 5.562)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -310,7 +310,7 @@ shape = SubResource("CylinderShape3D_3wlfw")
 
 [node name="ShoreBtn" type="Area3D" parent="MapMenu/map"]
 unique_name_in_owner = true
-transform = Transform3D(0.005, 0, 0.00866025, 0, 0.01, 0, -0.00866025, 0, 0.005, 40.57, -0.0689745, -5.93148)
+transform = Transform3D(0.005, 0, 0.00866025, 0, 0.01, 0, -0.00866025, 0, 0.005, 41, -0.069, -5.931)
 collision_layer = 4
 collision_mask = 0
 monitoring = false
@@ -345,6 +345,18 @@ monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MapMenu/map/BGArea"]
 shape = SubResource("SphereShape3D_pjo1e")
+
+[node name="LicenseLbl" type="Label3D" parent="MapMenu/map"]
+transform = Transform3D(-4.37114e-08, -0.0871557, 0.996195, 0, 0.996195, 0.0871557, -1, 3.8097e-09, -4.35451e-08, 41.5, -7.5, 0.002)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH
+(Contains modified Copernicus Sentinel data 2016 & 2017)"
+font_size = 350
+outline_size = 24
 
 [node name="MapAnimationPlayer" type="AnimationPlayer" parent="MapMenu"]
 unique_name_in_owner = true
