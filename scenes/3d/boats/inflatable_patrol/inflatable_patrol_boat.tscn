@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://ds3xv7eus20gg"]
+[gd_scene load_steps=25 format=3 uid="uid://ds3xv7eus20gg"]
 
 [ext_resource type="ArrayMesh" uid="uid://unt0jsnmc8df" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_016.res" id="1_e3f83"]
 [ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
@@ -9,8 +9,18 @@
 [ext_resource type="ArrayMesh" uid="uid://bchjd4yydemwf" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_020.res" id="5_yym5p"]
 [ext_resource type="ArrayMesh" uid="uid://ctklxvk3tsjgm" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_021.res" id="6_smf0j"]
 [ext_resource type="ArrayMesh" uid="uid://d20xhyeh6rwp8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_022.res" id="7_v3tg7"]
+[ext_resource type="ArrayMesh" uid="uid://t4sx2yvmoc36" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_bottom_Mesh_010.res" id="10_c8bb7"]
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/boat_front_foam_shader.gdshader" id="12_65jm4"]
 [ext_resource type="Material" uid="uid://dp4l7aag6x7kh" path="res://scenes/3d/boats/trail/materials/trail_material.tres" id="12_755m4"]
+[ext_resource type="Texture2D" uid="uid://caitsuvwv15l4" path="res://scenes/3d/boats/trail/textures/boat_main_trail.png" id="13_gp5iu"]
 [ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="14_7pown"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_t3aig"]
+render_priority = 0
+shader = ExtResource("12_65jm4")
+shader_parameter/speed = 2.0
+shader_parameter/opacity = 0.5
+shader_parameter/albedo_texture = ExtResource("13_gp5iu")
 
 [sub_resource type="Animation" id="Animation_43qqh"]
 length = 0.001
@@ -259,6 +269,15 @@ layers = 2
 mesh = ExtResource("7_v3tg7")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("3_hxune")
+
+[node name="inflatable_patrol_boat_bottom" type="Node3D" parent="MovementPivot"]
+transform = Transform3D(-0.085, 0, 1.20797e-08, 0, 0.085, 0, -1.28346e-08, 0, -0.08, 0, -0.0717504, -0.0270203)
+
+[node name="hull_Baked_002" type="MeshInstance3D" parent="MovementPivot/inflatable_patrol_boat_bottom"]
+transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, -0.263165, 0.0885062, 5.97791)
+material_override = SubResource("ShaderMaterial_t3aig")
+mesh = ExtResource("10_c8bb7")
+skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

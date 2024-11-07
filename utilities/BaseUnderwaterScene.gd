@@ -80,7 +80,6 @@ func _ready() -> void:
 
 
 func _initiate_boat_event() -> void:
-	print_debug("INITIATING BOAT EVENT!")
 	if timer.timeout.is_connected(_signal_animals_to_flee):
 		timer.timeout.disconnect(_signal_animals_to_flee)
 
@@ -99,17 +98,16 @@ func _initiate_boat_event() -> void:
 
 	match quadrant_id:
 		0:
-			print_debug("SPAWNING ON RED QUADRANT")
 			opposite_quadrant = path_quadrants_parent.get_child(2)
 		1:
-			print_debug("SPAWNING ON GREEN QUADRANT")
 			opposite_quadrant = path_quadrants_parent.get_child(3)
 		2:
-			print_debug("SPAWNING ON BLUE QUADRANT")
 			opposite_quadrant = path_quadrants_parent.get_child(0)
 		3:
-			print_debug("SPAWNING ON CYAN QUADRANT")
 			opposite_quadrant = path_quadrants_parent.get_child(1)
+		_:
+			print_debug("ERROR: invalid quadrant id.")
+			return
 
 	var initial_boat_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
 	var final_boat_position : Vector3 = opposite_quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])

@@ -7,4 +7,7 @@
 render_priority = 0
 shader = ExtResource("2_hljbi")
 shader_parameter/albedo_color = Color(0.2992, 0.378987, 0.44, 1)
+shader_parameter/specular = 0.3
+shader_parameter/metallic = 0.3
+shader_parameter/roughness = 0.75
 shader_parameter/albedo_texture = ExtResource("3_qhyrl")
