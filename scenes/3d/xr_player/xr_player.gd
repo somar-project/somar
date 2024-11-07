@@ -3,6 +3,7 @@ extends XROrigin3D
 signal fade_finished
 
 const HQ_SHADER_CACHE_PATH : String = "res://utilities/shader_cache/hq_shader_cache.tscn"
+const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 
 @onready var tree : SceneTree = get_tree()
 @onready var camera : XRCamera3D = %XRCamera3D
@@ -19,6 +20,7 @@ const HQ_SHADER_CACHE_PATH : String = "res://utilities/shader_cache/hq_shader_ca
 @onready var shader_cache : Node3D = %ShaderCache
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 @onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
+@onready var return_to_mm_btn_lbl : Label3D = %ReturnToMMBtnLbl
 
 # Glove & caustics materials
 var GLOVE_HQ_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres")
@@ -46,6 +48,9 @@ var hq_shader_cache : Node3D
 var shader_cache_count : int = 1
 var shader_cache_finished_count : int = 0
 
+var last_menu_btn_press_time : int = 0
+var return_to_mm_lbl_timer : Timer
+
 
 func _ready() -> void:
 	vignette_material = vignette_mesh.material_override
@@ -54,6 +59,11 @@ func _ready() -> void:
 		active_controllers_count += 1
 	if right_controller.get_is_active():
 		active_controllers_count += 1
+	
+	return_to_mm_lbl_timer = Timer.new()
+	add_child(return_to_mm_lbl_timer)
+
+	return_to_mm_lbl_timer.timeout.connect(_hide_return_to_mm_lbl)
 	
 	left_controller.tracking_changed.connect(_handle_tracking_changed.bind(0))
 	right_controller.tracking_changed.connect(_handle_tracking_changed.bind(1))
@@ -253,12 +263,21 @@ func _adjust_pointer_mesh(distance_to_point : float, force : bool = false) -> vo
 
 
 func _handle_input(input_name : String, controller_idx : int) -> void:
-	_set_active_controller(controller_idx)
+	if "_click" in input_name:
+		if _set_active_controller(controller_idx):
+			return
 
 	match input_name:
 		"trigger_click":
 			if is_instance_valid(current_raycast_collider) and current_raycast_collider is CustomBtn:
 				current_raycast_collider.press()
+		
+		"menu_button":
+			if input_enabled:
+				if SceneManager.player_context == SceneManager.PlayerContext.MAIN_MENU:
+					signal_menu_btn_pressed()
+				else:
+					_handle_menu_btn_pressed()
 
 
 func _handle_tracking_changed(tracking : bool, controller_idx : int) -> void:
@@ -276,7 +295,7 @@ func _handle_tracking_changed(tracking : bool, controller_idx : int) -> void:
 		_set_controller_input(false)
 
 
-func _set_active_controller(idx : int) -> void:
+func _set_active_controller(idx : int) -> bool:
 	if active_controller_idx != idx:
 		active_controller_idx = idx
 
@@ -284,6 +303,10 @@ func _set_active_controller(idx : int) -> void:
 			controller_raycast.reparent(left_controller, false)
 		else:
 			controller_raycast.reparent(right_controller, false)
+		
+		return true
+	
+	return false
 
 
 func _set_controller_input(c_input_enabled : bool) -> void:
@@ -294,3 +317,29 @@ func _set_controller_input(c_input_enabled : bool) -> void:
 	pointer_raycast.enabled = !controller_input_enabled
 	controller_raycast.enabled = controller_input_enabled
 	ray_pivot.visible = controller_input_enabled
+
+
+func _handle_menu_btn_pressed() -> void:
+	var time_now : int = Time.get_ticks_msec()
+
+	if (time_now - last_menu_btn_press_time) <= MENU_DOUBLE_PRESS_TIME_MS:
+		if not return_to_mm_lbl_timer.is_stopped():
+			return_to_mm_lbl_timer.stop()
+		
+		_hide_return_to_mm_lbl()
+		input_enabled = false
+		
+		Global.player.fade(false)
+		await Global.player.fade_finished
+		SceneManager.switch_to_scene("main_menu")
+
+	else:
+		last_menu_btn_press_time = time_now
+		return_to_mm_btn_lbl.visible = true
+		return_to_mm_lbl_timer.start(MENU_DOUBLE_PRESS_TIME_MS / 1000)
+
+func _hide_return_to_mm_lbl() -> void:
+	return_to_mm_btn_lbl.visible = false
+
+func signal_menu_btn_pressed() -> void:
+	tree.call_group("menu_btn_listeners", "menu_btn_pressed")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://p0yx1ovcqwpd"]
+[gd_scene load_steps=27 format=3 uid="uid://p0yx1ovcqwpd"]
 
 [ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
 [ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
@@ -71,55 +71,27 @@ shader_parameter/border_fade_in = 0.0
 shader_parameter/border_fade_out = 0.0
 shader_parameter/corner_radius = 0.17
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mes7w"]
+render_priority = 0
+shader = ExtResource("1_kdp3t")
+shader_parameter/size = Vector2(4, 1)
+shader_parameter/border_size = 0.08
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_6lkmw"]
+size = Vector2(4, 1)
+
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjo1e"]
 radius = 40.0
-
-[sub_resource type="Animation" id="Animation_gqor6"]
-resource_name = "map_animation"
-length = 1.67
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("map/ShoreBtn:scale")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.36667, 1.66667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.01, 0.01, 0.01), Vector3(0.01, 0.01, 0.01), Vector3(1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("map/OceanBtn:scale")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1.06667, 1.36667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.01, 0.01, 0.01), Vector3(0.01, 0.01, 0.01), Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("map:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.966667),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0.01, 0.01, 0.01), Vector3(0.667284, 0.667284, 0.667284), Vector3(1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_2pcjv"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("map/ShoreBtn:scale")
+tracks/0/path = NodePath("%ShoreBtn:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -131,7 +103,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("map/OceanBtn:scale")
+tracks/1/path = NodePath("%OceanBtn:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -140,17 +112,33 @@ tracks/1/keys = {
 "update": 0,
 "values": [Vector3(0.01, 0.01, 0.01)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("map:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+
+[sub_resource type="Animation" id="Animation_gqor6"]
+resource_name = "map_animation"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%ShoreBtn:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector3(0.01, 0.01, 0.01)]
+"values": [Vector3(0.01, 0.01, 0.01), Vector3(1.1, 1.1, 1.1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%OceanBtn:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0.01, 0.01, 0.01), Vector3(1.1, 1.1, 1.1), Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_owat2"]
@@ -159,15 +147,19 @@ _data = {
 "map_animation": SubResource("Animation_gqor6")
 }
 
-[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("player_position") groups=["change_with_input"]]
+[node name="MainMenu" type="Node3D" node_paths=PackedStringArray("player_position") groups=["change_with_input", "menu_btn_listeners"]]
 script = ExtResource("1_ybh1f")
 player_position = NodePath("PlayerPosition")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_2u6yr")
 
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
+
 [node name="LanguageButtons" type="Node3D" parent="."]
 unique_name_in_owner = true
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, -2.5)
 visible = false
 
@@ -266,10 +258,11 @@ outline_size = 4
 
 [node name="MapMenu" type="Node3D" parent="."]
 unique_name_in_owner = true
+process_mode = 4
 visible = false
 
 [node name="map" type="Node3D" parent="MapMenu"]
-transform = Transform3D(-4.37114e-10, 0, -0.01, 0, 0.01, 0, 0.01, 0, -4.37114e-10, 0, 0, -51)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, -52)
 
 [node name="MapMesh" type="MeshInstance3D" parent="MapMenu/map"]
 mesh = ExtResource("5_8gjuf")
@@ -337,6 +330,38 @@ outline_size = 32
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="MapMenu/map/ShoreBtn"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CylinderShape3D_3wlfw")
+
+[node name="ChangeLanguageBtn" type="Area3D" parent="MapMenu/map"]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, -0.0871557, 0.996195, 0, 0.996195, 0.0871557, -1, 3.8097e-09, -4.35451e-08, 41, -5.2, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("1_mi14x")
+hover_press_initial_border_size = 0.08
+hover_press_target_border_size = 0.5
+hover_press_target_click_border_size = 0.2
+
+[node name="BtnBackground" type="MeshInstance3D" parent="MapMenu/map/ChangeLanguageBtn"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_mes7w")
+mesh = SubResource("QuadMesh_6lkmw")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="MapMenu/map/ChangeLanguageBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "Change language"
+font_size = 350
+outline_size = 32
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="MapMenu/map/ChangeLanguageBtn"]
+shape = SubResource("BoxShape3D_jnp15")
 
 [node name="BGArea" type="Area3D" parent="MapMenu/map"]
 collision_layer = 4

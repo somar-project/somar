@@ -161,6 +161,20 @@ sorting_offset = 3.0
 material_override = ExtResource("7_lhpba")
 mesh = SubResource("QuadMesh_6cwgg")
 
+[node name="ReturnToMMBtnLbl" type="Label3D" parent="XRCamera3D"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.713639, -2.5)
+visible = false
+pixel_size = 0.001
+double_sided = false
+no_depth_test = true
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Press menu button again to return to main menu."
+font_size = 87
+outline_size = 4
+
 [node name="LeftController" type="XRController3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)

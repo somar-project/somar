@@ -5,7 +5,7 @@ render_mode unshaded, depth_prepass_alpha;
 global uniform vec4 menu_btn_bg;
 global uniform vec4 menu_btn_border_color;
 uniform vec2 size = vec2(1.0, 1.0);
-uniform float border_size: hint_range(0.0, 0.5) = 0.1;
+uniform float border_size: hint_range(0.0, 1.0) = 0.1;
 uniform float border_fade_in: hint_range(0.0, 10.0) = 0.0;
 uniform float border_fade_out: hint_range(0.0, 10.0) = 0.0;
 uniform float corner_radius = 0.0;
