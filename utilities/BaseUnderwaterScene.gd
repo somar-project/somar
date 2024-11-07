@@ -60,6 +60,8 @@ func _ready() -> void:
 	dolphins_parent = %Dolphins
 	boats_parent = %Boats
 
+	RenderingServer.global_shader_parameter_set("water_surface_height", surface_position.global_position.y)
+
 	_initialize_saved_data()
 	
 	timer = Timer.new()
@@ -149,37 +151,38 @@ func _signal_animals_to_flee() -> void:
 
 
 func _initialize_saved_data() -> void:
-	if scene_type == SceneType.OCEAN:
-		# Bottlenose dolphins
-		for bottlenose_dolphin_def : Dictionary in Global.editor_plugin_ocean_config.animals.dolphins.bottlenose:
-			var bottlenose_dolphin_entity : DolphinBase = BOTTLENOSE_DOLPHIN_SCENE.instantiate()
+	var src_data : Dictionary = Global.editor_plugin_ocean_config
+	if scene_type == SceneType.SHORE:
+		src_data = Global.editor_plugin_shore_config
 
-			bottlenose_dolphin_entity.breathing_time = bottlenose_dolphin_def.breathing_time
-			bottlenose_dolphin_entity.clockwise = bottlenose_dolphin_def.clockwise
-			bottlenose_dolphin_entity.max_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
-			bottlenose_dolphin_entity.max_swim_speed = bottlenose_dolphin_def.max_swim_speed
-			bottlenose_dolphin_entity.max_target_depth = bottlenose_dolphin_def.max_target_depth
-			bottlenose_dolphin_entity.min_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
-			bottlenose_dolphin_entity.min_swim_speed = bottlenose_dolphin_def.min_swim_speed
-			bottlenose_dolphin_entity.min_target_depth = bottlenose_dolphin_def.min_target_depth
-			bottlenose_dolphin_entity.surface_marker = surface_position
+	# Bottlenose dolphins
+	for bottlenose_dolphin_def : Dictionary in src_data.animals.dolphins.bottlenose:
+		var bottlenose_dolphin_entity : DolphinBase = BOTTLENOSE_DOLPHIN_SCENE.instantiate()
 
-			dolphins_parent.add_child(bottlenose_dolphin_entity)
+		bottlenose_dolphin_entity.breathing_time = bottlenose_dolphin_def.breathing_time
+		bottlenose_dolphin_entity.clockwise = bottlenose_dolphin_def.clockwise
+		bottlenose_dolphin_entity.max_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
+		bottlenose_dolphin_entity.max_swim_speed = bottlenose_dolphin_def.max_swim_speed
+		bottlenose_dolphin_entity.max_target_depth = bottlenose_dolphin_def.max_target_depth
+		bottlenose_dolphin_entity.min_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
+		bottlenose_dolphin_entity.min_swim_speed = bottlenose_dolphin_def.min_swim_speed
+		bottlenose_dolphin_entity.min_target_depth = bottlenose_dolphin_def.min_target_depth
+		bottlenose_dolphin_entity.surface_marker = surface_position
 
-			if is_equal_approx(bottlenose_dolphin_def.spawn_pos.x, 0.0) \
-			and is_equal_approx(bottlenose_dolphin_def.spawn_pos.y, 0.0):
-				var x_offset : float = randf_range(0.0, 1.0)
-				var z_offset : float = 1.0 - x_offset
-				bottlenose_dolphin_entity.global_position = Vector3(
-					x_offset * ((2 * randi_range(0, 1)) - 1), 
-					bottlenose_dolphin_def.spawn_height, 
-					z_offset * ((2 * randi_range(0, 1)) - 1)
-				)
-			else:
-				bottlenose_dolphin_entity.global_position = Vector3(
-					bottlenose_dolphin_def.spawn_pos.x,
-					bottlenose_dolphin_def.spawn_height,
-					bottlenose_dolphin_def.spawn_pos.y,
-				)
-	else:
-		pass
+		dolphins_parent.add_child(bottlenose_dolphin_entity)
+
+		if is_equal_approx(bottlenose_dolphin_def.spawn_pos.x, 0.0) \
+		and is_equal_approx(bottlenose_dolphin_def.spawn_pos.y, 0.0):
+			var x_offset : float = randf_range(0.0, 1.0)
+			var z_offset : float = 1.0 - x_offset
+			bottlenose_dolphin_entity.global_position = Vector3(
+				x_offset * ((2 * randi_range(0, 1)) - 1), 
+				bottlenose_dolphin_def.spawn_height, 
+				z_offset * ((2 * randi_range(0, 1)) - 1)
+			)
+		else:
+			bottlenose_dolphin_entity.global_position = Vector3(
+				bottlenose_dolphin_def.spawn_pos.x,
+				bottlenose_dolphin_def.spawn_height,
+				bottlenose_dolphin_def.spawn_pos.y,
+			)

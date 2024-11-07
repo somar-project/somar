@@ -174,3 +174,97 @@ theme_override_constants/separation = 15
 [node name="OceanInflatablePatrolBoatItem" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanBoatsConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer/OceanBoatsItemsContainer" instance=ExtResource("3_3n0ie")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="Shore" type="HSplitContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_tab_index = 1
+
+[node name="ShoreTree" type="Tree" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="ShoreDefaultContainer" type="CenterContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreDefaultContainer"]
+layout_mode = 2
+text = "Select something!"
+
+[node name="ShoreBottlenoseConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ShoreAddBottlenoseDolphinBtn" type="Button" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Bottlenose Dolphin"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="ShoreBottlenoseDolphinItemsContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="ShoreBoatsConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBoatsConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBoatsConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBoatsConfigEditorContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ShoreBoatsItemsContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBoatsConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="ShoreInflatablePatrolBoatItem" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBoatsConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer/ShoreBoatsItemsContainer" instance=ExtResource("3_3n0ie")]
+unique_name_in_owner = true
+layout_mode = 2

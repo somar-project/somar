@@ -60,6 +60,7 @@ func _load_editor_plugin_data() -> void:
 				editor_plugin_scenes_config.load(_get_scenes_config_save_path())
 
 				editor_plugin_ocean_config = editor_plugin_scenes_config.get_value("ocean", "config", {})
+				editor_plugin_shore_config = editor_plugin_scenes_config.get_value("shore", "config", {})
 			else:
 				print_debug("ERROR: Unable to find scenes_config.cfg file.")
 	else:
