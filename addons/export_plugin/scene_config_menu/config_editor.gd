@@ -192,7 +192,7 @@ func _handle_initial_config_dir_selected(dir : String) -> void:
 		initial_config_container.visible = false
 		
 		_initialize_main_editor_scene(false)
-		print("Initial Config Saved!")
+		print("Initial config saved!")
 	
 	else:
 		print_debug("ERROR: unable to save config data! (%s)" % save_err)

@@ -89,6 +89,8 @@ tonemap_exposure = 0.0
 
 [node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_wvgmc")
+min_boat_event_spawn_delay = 10.0
+max_boat_event_spawn_delay = 11.0
 scene_type = 1
 player_position = NodePath("PlayerPosition")
 

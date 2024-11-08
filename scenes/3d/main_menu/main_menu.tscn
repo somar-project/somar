@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://p0yx1ovcqwpd"]
+[gd_scene load_steps=28 format=3 uid="uid://p0yx1ovcqwpd"]
 
 [ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
 [ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
@@ -82,6 +82,9 @@ shader_parameter/corner_radius = 0.3
 
 [sub_resource type="QuadMesh" id="QuadMesh_6lkmw"]
 size = Vector2(4, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ts23c"]
+size = Vector3(4, 1, 0.015)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjo1e"]
 radius = 40.0
@@ -356,12 +359,12 @@ render_priority = 2
 outline_render_priority = 1
 modulate = Color(0.160784, 0.207843, 0.537255, 1)
 outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
-text = "Change language"
+text = "MM_MAP_CHANGE_LANG_BTN"
 font_size = 350
 outline_size = 32
 
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="MapMenu/map/ChangeLanguageBtn"]
-shape = SubResource("BoxShape3D_jnp15")
+shape = SubResource("BoxShape3D_ts23c")
 
 [node name="BGArea" type="Area3D" parent="MapMenu/map"]
 collision_layer = 4

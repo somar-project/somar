@@ -30,6 +30,10 @@ enabled=PackedStringArray("res://addons/export_plugin/plugin.cfg")
 change_with_input=""
 menu_btn_listeners=""
 
+[internationalization]
+
+locale/translations=PackedStringArray("res://localization/localization.en.translation", "res://localization/localization.pt.translation")
+
 [physics]
 
 common/enable_object_picking=false
