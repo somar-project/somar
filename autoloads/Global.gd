@@ -39,6 +39,8 @@ func _ready() -> void:
 		Engine.max_fps = selected_refresh_rate
 		Engine.physics_ticks_per_second = selected_refresh_rate
 
+		xr_interface.pose_recentered.connect(_recenter)
+
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		get_viewport().use_xr = true
 
@@ -71,3 +73,7 @@ func _get_scenes_config_save_path() -> String:
 			editor_plugin_save_data.get_value("scene_config_data", "save_path", "res://"),
 			editor_plugin_save_data.get_value("scene_config_data", "save_file_name", "scenes_config.cfg")
 		]
+
+
+func _recenter() -> void:
+	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)

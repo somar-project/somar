@@ -163,7 +163,7 @@ mesh = SubResource("QuadMesh_6cwgg")
 
 [node name="ReturnToMMBtnLbl" type="Label3D" parent="XRCamera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.713639, -2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.714, -2.75)
 visible = false
 pixel_size = 0.001
 double_sided = false
