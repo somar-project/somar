@@ -22,6 +22,6 @@ void fragment() {
 	
 	FOG.a = 0.5;
 	ALBEDO = albedo_t.rgb * opacity;
-	ALPHA = 1.0 * (water_surface_height - world_vertex.y);
+	ALPHA = 1.0 * (water_surface_height - 0.2 - world_vertex.y);
 	ALPHA_SCISSOR_THRESHOLD = 0.0;
 }

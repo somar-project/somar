@@ -7,8 +7,10 @@ signal pressed
 @export var hover_press_initial_border_size : float = 0.02
 @export var hover_press_target_border_size : float = 0.25
 @export var hover_press_target_click_border_size : float = 0.25
+@export var mesh_override : MeshInstance3D
 
 const HOVER_TRIGGER_TIME : float = 2.0
+const HOVER_PRESS_DISTANCE : float = 0.5
 
 enum PressMode {
 	HOVER,
@@ -25,7 +27,10 @@ var hover_tween : Tween
 func _ready() -> void:
 	add_to_group("custom_btn")
 
-	btn_material = $BtnBackground.material_override
+	if not mesh_override:
+		btn_material = $BtnBackground.material_override
+	else:
+		btn_material = mesh_override.material_override
 
 	hover_timer = Timer.new()
 	add_child(hover_timer)
@@ -93,5 +98,13 @@ func stop_hover() -> void:
 			0.2)
 
 
-func press() -> void:
+func press(at : Vector3 = Vector3.ZERO, with_controller : bool = false) -> void:
+	if with_controller:
+		AudioManager.play_click_sfx(at)
+	else:
+		var camera_pos : Vector3 = Global.player.camera.global_position
+		var direction : Vector3 = camera_pos.direction_to(global_position)
+		var pos : Vector3 = camera_pos + (direction * HOVER_PRESS_DISTANCE)
+		AudioManager.play_click_sfx(pos)
+
 	pressed.emit()

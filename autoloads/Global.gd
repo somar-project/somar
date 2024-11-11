@@ -6,8 +6,6 @@ var xr_interface : XRInterface
 
 var player : XROrigin3D
 
-var language_selected : bool = false
-
 enum MaterialQuality {
 	LOW,
 	HIGH
@@ -24,7 +22,7 @@ var editor_plugin_shore_config : Dictionary
 func _ready() -> void:
 	randomize()
 
-	if OS.get_model_name() == "Quest":
+	if _is_quest():
 		material_quality = MaterialQuality.HIGH
 	
 	xr_interface = XRServer.find_interface("OpenXR")
@@ -73,6 +71,15 @@ func _get_scenes_config_save_path() -> String:
 			editor_plugin_save_data.get_value("scene_config_data", "save_path", "res://"),
 			editor_plugin_save_data.get_value("scene_config_data", "save_file_name", "scenes_config.cfg")
 		]
+
+
+func _is_quest() -> bool:
+	var model_name : String = OS.get_model_name().to_lower()
+	var video_adapter : String = RenderingServer.get_video_adapter_name().to_lower()
+	if "quest" in model_name and "adreno" in video_adapter:
+		return true
+	
+	return false
 
 
 func _recenter() -> void:

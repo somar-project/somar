@@ -20,7 +20,7 @@ height = 0.0384233
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_tw23b"]
 height = 0.038
-radius = 1.0
+radius = 1.25
 
 [node name="ReturnToMainMenu" type="Node3D" groups=["change_with_input"]]
 script = ExtResource("1_0ma4e")

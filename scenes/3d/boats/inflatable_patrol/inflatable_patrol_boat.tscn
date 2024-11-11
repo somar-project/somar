@@ -274,7 +274,7 @@ surface_material_override/0 = ExtResource("3_hxune")
 transform = Transform3D(-0.085, 0, 1.20797e-08, 0, 0.085, 0, -1.28346e-08, 0, -0.08, 0, -0.0717504, -0.0270203)
 
 [node name="hull_Baked_002" type="MeshInstance3D" parent="MovementPivot/inflatable_patrol_boat_bottom"]
-transform = Transform3D(-0.488525, -1.43604e-08, -1.36275e-08, 1.43604e-08, -0.0255676, -0.487856, 1.36275e-08, -0.487856, 0.0255676, -0.263165, 0.0885062, 5.97791)
+transform = Transform3D(-0.489, -4.70174e-08, -1.36408e-08, 1.60678e-08, -0.0257495, -0.48833, 4.59528e-08, -0.491326, 0.0255925, -0.263165, 0.0885062, 6.20526)
 material_override = SubResource("ShaderMaterial_t3aig")
 mesh = ExtResource("10_c8bb7")
 skeleton = NodePath("")
@@ -288,7 +288,7 @@ autoplay = "boat_movement"
 [node name="BoatTrail" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.384, -3.76767)
 
-[node name="CPUParticles3D" type="CPUParticles3D" parent="BoatTrail"]
+[node name="FoamParticles" type="CPUParticles3D" parent="BoatTrail"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, -0.0908439, 4.37114e-08)
 extra_cull_margin = 200.0
 amount = 40
@@ -304,7 +304,7 @@ scale_amount_min = 0.9
 scale_amount_curve = SubResource("Curve_86a8y")
 color_ramp = SubResource("Gradient_3ihwb")
 
-[node name="CPUParticles3D2" type="CPUParticles3D" parent="BoatTrail"]
+[node name="FoamParticles1" type="CPUParticles3D" parent="BoatTrail"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.063, -0.25, 0)
 extra_cull_margin = 200.0
 amount = 50

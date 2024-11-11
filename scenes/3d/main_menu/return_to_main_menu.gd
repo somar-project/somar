@@ -10,9 +10,10 @@ func _ready() -> void:
 
 
 func _handle_btn_pressed() -> void:
+	AudioManager.fade(false, AudioManager.AudioBus.UNDERWATER)
 	Global.player.fade(false)
 	await Global.player.fade_finished
-	SceneManager.switch_to_scene("main_menu")
+	SceneManager.switch_to_scene("map_menu")
 
 
 func change_with_input(controller_input : bool) -> void:

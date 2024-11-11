@@ -47,8 +47,9 @@ func _after_swiming_to_target(loop : bool) -> void:
 
 
 func _handle_breathing() -> void:
-	if is_instance_valid(animation_player):
-		animation_player.play(animation_breathe_name)
+	state = DolphinState.BREATHING
+	# if is_instance_valid(animation_player):
+	# 	animation_player.play(animation_breathe_name)
 
 	# Compute final target
 	_get_current_target()

@@ -12,7 +12,7 @@ const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 @onready var pointer_mesh : MeshInstance3D = %PointerMesh
 @onready var ray_pivot : Node3D = %RayPivot
 @onready var ray_mesh : MeshInstance3D = %RayMesh
-@onready var underwater_particles : GPUParticles3D = %UnderwaterParticles
+@onready var underwater_particles : CPUParticles3D = %UnderwaterParticles
 @onready var left_controller : XRController3D = %LeftController
 @onready var right_controller : XRController3D = %RightController
 @onready var splashscreen_container : Node3D = %Splashscreen
@@ -31,6 +31,7 @@ var current_raycast_collider : Object
 var underwater_particles_intensity_tween : Tween
 var vignette_material : ShaderMaterial
 var fade_tween : Tween
+var ambient_fade_tween : Tween
 
 var input_enabled : bool = false : set = _handle_input_enabled
 var controller_input_enabled : bool = false
@@ -103,7 +104,7 @@ func _shader_cache_finished() -> void:
 
 		splashscreen_container.queue_free()
 
-		SceneManager.switch_to_scene("main_menu")
+		SceneManager.switch_to_scene("language_menu")
 
 
 func _process(_delta : float) -> void:
@@ -155,6 +156,7 @@ func fade(fade_in : bool, fade_time : float = 1.0) -> void:
 	
 	var outer_r_target : float = 0.0
 	var main_a_target : float = 1.0
+	var fade_ease : Tween.EaseType = Tween.EASE_OUT
 
 	if fade_in:
 		vignette_material.set_shader_parameter("outer_radius", 0.0)
@@ -162,6 +164,8 @@ func fade(fade_in : bool, fade_time : float = 1.0) -> void:
 
 		outer_r_target = 5.0
 		main_a_target = 0.0
+
+		fade_ease = Tween.EASE_IN
 	else:
 		vignette_material.set_shader_parameter("outer_radius", 5.0)
 		vignette_material.set_shader_parameter("main_alpha", 0.0)
@@ -169,6 +173,8 @@ func fade(fade_in : bool, fade_time : float = 1.0) -> void:
 	vignette_mesh.visible = true
 	
 	fade_tween = create_tween()
+	fade_tween.set_trans(Tween.TRANS_CUBIC)
+	fade_tween.set_ease(fade_ease)
 	fade_tween.set_parallel(true)
 	fade_tween.tween_property(
 		vignette_material,
@@ -221,7 +227,6 @@ func set_underwater_particles_intensity(intensity : float = 0.02, interpolate : 
 			0.2
 		)
 
-
 func set_glove_caustics(c_enabled : bool) -> void:
 	if c_enabled:
 		GLOVE_HQ_MATERIAL.next_pass = WATER_CAUSTICS_MATERIAL
@@ -270,11 +275,12 @@ func _handle_input(input_name : String, controller_idx : int) -> void:
 	match input_name:
 		"trigger_click":
 			if is_instance_valid(current_raycast_collider) and current_raycast_collider is CustomBtn:
-				current_raycast_collider.press()
+				var at : Vector3 = _get_active_controller().global_position
+				current_raycast_collider.press(at, true)
 		
 		"menu_button":
 			if input_enabled:
-				if SceneManager.player_context == SceneManager.PlayerContext.MAIN_MENU:
+				if SceneManager.player_context == SceneManager.PlayerContext.MAP_MENU:
 					signal_menu_btn_pressed()
 				else:
 					_handle_menu_btn_pressed()
@@ -308,6 +314,12 @@ func _set_active_controller(idx : int) -> bool:
 	
 	return false
 
+func _get_active_controller() -> XRController3D:
+	if active_controller_idx == 0:
+		return left_controller
+	else:
+		return right_controller
+
 
 func _set_controller_input(c_input_enabled : bool) -> void:
 	controller_input_enabled = c_input_enabled
@@ -329,9 +341,10 @@ func _handle_menu_btn_pressed() -> void:
 		_hide_return_to_mm_lbl()
 		input_enabled = false
 		
+		AudioManager.fade(false, AudioManager.AudioBus.UNDERWATER)
 		Global.player.fade(false)
 		await Global.player.fade_finished
-		SceneManager.switch_to_scene("main_menu")
+		SceneManager.switch_to_scene("map_menu")
 
 	else:
 		last_menu_btn_press_time = time_now

@@ -20,6 +20,12 @@ config/icon="res://icon.svg"
 Global="*res://autoloads/Global.gd"
 ResourceManager="*res://autoloads/ResourceManager.gd"
 SceneManager="*res://autoloads/SceneManager.gd"
+AudioManager="*res://autoloads/AudioManager.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
 
 [editor_plugins]
 

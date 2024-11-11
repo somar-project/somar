@@ -1,0 +1,360 @@
+[gd_scene load_steps=23 format=3 uid="uid://kp675oye12no"]
+
+[ext_resource type="Script" path="res://scenes/3d/main_menu/map/map_scene.gd" id="1_gmoac"]
+[ext_resource type="Texture2D" uid="uid://bctpc6245g6r5" path="res://scenes/3d/main_menu/map/textures/map_scene_skybox_1k.png" id="2_smvuo"]
+[ext_resource type="Material" uid="uid://ft218cpips15" path="res://scenes/3d/main_menu/map/materials/main_menu_map_hq_material.tres" id="3_8ytoh"]
+[ext_resource type="ArrayMesh" uid="uid://dxh0vpjch70fo" path="res://scenes/3d/main_menu/map/mesh/map_subdiv_MapMesh_subdiv.res" id="3_kj00k"]
+[ext_resource type="Material" uid="uid://da4c7rkave6nk" path="res://scenes/3d/main_menu/map/materials/main_menu_map_low_material.tres" id="3_sv1kv"]
+[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="5_mr1yy"]
+[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="5_tjyeu"]
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="6_sbrvh"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_53ny0"]
+panorama = ExtResource("2_smvuo")
+
+[sub_resource type="Sky" id="Sky_jtvfp"]
+sky_material = SubResource("PanoramaSkyMaterial_53ny0")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_x7grc"]
+background_mode = 2
+sky = SubResource("Sky_jtvfp")
+reflected_light_source = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veoma"]
+render_priority = 0
+shader = ExtResource("6_sbrvh")
+shader_parameter/size = Vector2(0.25, 0.25)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.17
+
+[sub_resource type="QuadMesh" id="QuadMesh_w1wg7"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_d4y56"]
+height = 0.05083
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wvm6j"]
+render_priority = 0
+shader = ExtResource("6_sbrvh")
+shader_parameter/size = Vector2(0.6, 0.6)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.7
+
+[sub_resource type="QuadMesh" id="QuadMesh_xhagw"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_wn0rk"]
+height = 0.0384233
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6ipm"]
+size = Vector3(20, 0.1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tj5yq"]
+size = Vector3(20, 2.5, 0.1)
+
+[sub_resource type="Animation" id="Animation_bmjx5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UIContainer/OceanBtn/Node3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UIContainer/ShoreBtn/Node3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UIContainer/ChooseDestinationLbl:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UIContainer/ChooseDestinationLbl:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1, -1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_0ihxd"]
+resource_name = "show_markers"
+length = 0.97
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("UIContainer/OceanBtn/Node3D:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.366667, 0.666667, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(0.1, 0.1, 0.1), Vector3(1.1, 1.1, 1.1), Vector3(1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("UIContainer/ShoreBtn/Node3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.566667, 0.866667, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(0.1, 0.1, 0.1), Vector3(1.1, 1.1, 1.1), Vector3(1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("UIContainer/ChooseDestinationLbl:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.233333, 0.366667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5708, 0), Vector3(3.92699, 1.5708, 0), Vector3(3.14159, 1.5708, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("UIContainer/ChooseDestinationLbl:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-1, -1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rrcqf"]
+_data = {
+"RESET": SubResource("Animation_bmjx5"),
+"show_markers": SubResource("Animation_0ihxd")
+}
+
+[node name="MapScene" type="Node3D" node_paths=PackedStringArray("player_position") groups=["change_with_input", "menu_btn_listeners"]]
+script = ExtResource("1_gmoac")
+player_position = NodePath("PlayerPosition")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_x7grc")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
+
+[node name="map_subdiv" type="Node3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 1.35, -8)
+
+[node name="MapMesh_subdiv" type="MeshInstance3D" parent="map_subdiv"]
+transform = Transform3D(0.0999848, 0.0174524, 0, -0.00174524, 0.999848, 0, 0, 0, 1, 0, 0, 0)
+mesh = ExtResource("3_kj00k")
+skeleton = NodePath("")
+surface_material_override/0 = ExtResource("3_sv1kv")
+script = ExtResource("5_tjyeu")
+high_quality_materials = Array[Material]([ExtResource("3_8ytoh")])
+
+[node name="UIContainer" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 6.915, -0.5)
+
+[node name="OceanBtn" type="Area3D" parent="UIContainer" node_paths=PackedStringArray("mesh_override")]
+unique_name_in_owner = true
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 7.628, 0.000430107, -6.45652)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_mr1yy")
+hover_press_target_border_size = 0.125
+mesh_override = NodePath("Node3D/BtnBackground")
+
+[node name="Node3D" type="Node3D" parent="UIContainer/OceanBtn"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="BtnBackground" type="MeshInstance3D" parent="UIContainer/OceanBtn/Node3D"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_veoma")
+mesh = SubResource("QuadMesh_w1wg7")
+skeleton = NodePath("../../../../..")
+
+[node name="BtnLabel" type="Label3D" parent="UIContainer/OceanBtn/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.894208, 0.00200081)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Area 1"
+font_size = 350
+outline_size = 32
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="UIContainer/OceanBtn"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_d4y56")
+
+[node name="BtnLabel2" type="Label3D" parent="UIContainer/OceanBtn"]
+transform = Transform3D(1, 0, 0, 0, 7.665, 0, 0, 0, 1, 0, -1.03371, 0.00200081)
+pixel_size = 0.001
+double_sided = false
+modulate = Color(0, 0.596078, 0.643137, 1)
+outline_modulate = Color(0, 0.596078, 0.643137, 1)
+text = "|"
+font_size = 350
+outline_size = 32
+
+[node name="ShoreBtn" type="Area3D" parent="UIContainer" node_paths=PackedStringArray("mesh_override")]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 7.87805, 0.000430107, 6.29303)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_mr1yy")
+hover_press_target_border_size = 0.125
+mesh_override = NodePath("Node3D/BtnBackground")
+
+[node name="Node3D" type="Node3D" parent="UIContainer/ShoreBtn"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="BtnBackground" type="MeshInstance3D" parent="UIContainer/ShoreBtn/Node3D"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_veoma")
+mesh = SubResource("QuadMesh_w1wg7")
+skeleton = NodePath("../../../../..")
+
+[node name="BtnLabel" type="Label3D" parent="UIContainer/ShoreBtn/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.76837e-07, 0.894208, 0.00200081)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Area 2"
+font_size = 350
+outline_size = 32
+
+[node name="BtnLabel2" type="Label3D" parent="UIContainer/ShoreBtn"]
+transform = Transform3D(1, 0, 0, 0, 7.665, 0, 0, 0, 1, 9.53674e-07, -1.04367, 0.00200176)
+pixel_size = 0.001
+double_sided = false
+modulate = Color(0, 0.596078, 0.643137, 1)
+outline_modulate = Color(0, 0.596078, 0.643137, 1)
+text = "|"
+font_size = 350
+outline_size = 32
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="UIContainer/ShoreBtn"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_d4y56")
+
+[node name="ChooseDestinationLbl" type="Label3D" parent="UIContainer"]
+transform = Transform3D(4.37114e-08, 0, 1, 0, -1, 0, 1, 0, -4.37114e-08, 8, 0.375, 0)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0, 0.596078, 0.643137, 1)
+outline_modulate = Color(0, 0.596078, 0.643137, 1)
+text = "Choose your destination!"
+font_size = 447
+outline_size = 31
+
+[node name="PlayerPosition" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.56, 0)
+
+[node name="LicenseLbl" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 5.52334, -0.702152)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+outline_modulate = Color(1, 1, 1, 1)
+text = "Sentinel-2 cloudless - https://s2maps.eu by EOX IT Services GmbH
+(Contains modified Copernicus Sentinel data 2016 & 2017)"
+font_size = 43
+outline_size = 3
+
+[node name="ChangeLanguageBtnContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.56, 0)
+
+[node name="ChangeLanguageBtn" type="Area3D" parent="ChangeLanguageBtnContainer"]
+unique_name_in_owner = true
+transform = Transform3D(0.8, 0, 0, 0, -2.38419e-07, 0.8, 0, -0.8, -2.38419e-07, 0, 0, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_mr1yy")
+hover_press_target_border_size = 0.3
+
+[node name="BtnBackground" type="MeshInstance3D" parent="ChangeLanguageBtnContainer/ChangeLanguageBtn"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_wvm6j")
+mesh = SubResource("QuadMesh_xhagw")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="ChangeLanguageBtnContainer/ChangeLanguageBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "MM_MAP_CHANGE_LANG_BTN"
+font_size = 150
+outline_size = 10
+autowrap_mode = 2
+width = 700.0
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="ChangeLanguageBtnContainer/ChangeLanguageBtn"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CylinderShape3D_wn0rk")
+
+[node name="BGArea" type="Area3D" parent="ChangeLanguageBtnContainer"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0404669, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ChangeLanguageBtnContainer/BGArea"]
+shape = SubResource("BoxShape3D_s6ipm")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="ChangeLanguageBtnContainer/BGArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.25, -10)
+shape = SubResource("BoxShape3D_tj5yq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_rrcqf")
+}

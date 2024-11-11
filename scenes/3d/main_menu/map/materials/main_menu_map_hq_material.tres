@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://ft218cpips15"]
+
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/map/materials/main_menu_map_hq_shader.gdshader" id="1_j80am"]
+[ext_resource type="Texture2D" uid="uid://c36divkj44cin" path="res://scenes/3d/main_menu/textures/SOMAR_locations_map_8k.png" id="2_foanw"]
+[ext_resource type="Texture2D" uid="uid://bwj8cfu7p7wx6" path="res://scenes/3d/main_menu/map/textures/SOMAR_locations_map_height_1k.png" id="3_qfpdd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_j80am")
+shader_parameter/height_scale = 5.5
+shader_parameter/fresnel_color = Color(0.34902, 0.454902, 0.580392, 1)
+shader_parameter/fresnel_amount = 6.0
+shader_parameter/fresnel_intensity = 2.0
+shader_parameter/albedo_texture = ExtResource("2_foanw")
+shader_parameter/height_texture = ExtResource("3_qfpdd")

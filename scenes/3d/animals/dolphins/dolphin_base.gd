@@ -12,6 +12,12 @@ extends Node3D
 @export var max_target_depth : float = 1.0
 
 @export_category("Animation")
+enum DolphinState {
+	IDLE = 0,
+	SWIMMING = 1,
+	BREATHING = 2
+}
+@export var state : DolphinState = DolphinState.IDLE
 @export var animation_player : AnimationPlayer
 @export var animation_swim_name : String = ""
 @export var clockwise : bool = true
@@ -24,12 +30,6 @@ extends Node3D
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
 
 var tree : SceneTree
-
-enum DolphinState {
-	IDLE,
-	FLEEING
-}
-var state : DolphinState = DolphinState.IDLE
 
 var player_position : Vector3 = Vector3.ZERO
 var initial_position : Vector3
@@ -175,10 +175,11 @@ func _get_current_target() -> void:
 
 
 func _swim_to_target(loop : bool = true) -> void:
+	state = DolphinState.SWIMMING
 	_get_current_target()
 
-	if is_instance_valid(animation_player) and animation_player.current_animation != animation_swim_name:
-		animation_player.play(animation_swim_name)
+	# if is_instance_valid(animation_player) and animation_player.current_animation != animation_swim_name:
+	# 	animation_player.play(animation_swim_name)
 
 	current_position = global_position
 
@@ -243,6 +244,10 @@ func _swim_to_target(loop : bool = true) -> void:
 func _after_swiming_to_target(loop : bool) -> void:
 	if loop:
 		call_deferred("_swim_to_target")
+
+
+func is_state(state_idx : int) -> bool:
+	return state_idx == state
 
 
 func _quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:

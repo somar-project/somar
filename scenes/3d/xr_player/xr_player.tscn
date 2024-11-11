@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=22 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
@@ -6,10 +6,12 @@
 [ext_resource type="Texture2D" uid="uid://cvqbgi7dt66rg" path="res://scenes/3d/xr_player/textures/somar_logo_1k.png" id="3_w25i8"]
 [ext_resource type="PackedScene" uid="uid://cipgn16i6g2k3" path="res://utilities/shader_cache/shader_cache.tscn" id="4_d5jj2"]
 [ext_resource type="Texture2D" uid="uid://drchxnkh61i53" path="res://scenes/3d/xr_player/textures/collabora_logo_1k.png" id="4_l8pby"]
+[ext_resource type="PackedScene" uid="uid://dabtp6yj17yab" path="res://utilities/shader_cache/particles_shader_cache.tscn" id="6_u7mu1"]
 [ext_resource type="Material" uid="uid://rjdkfy8ohvi2" path="res://scenes/3d/xr_player/materials/underwater_particles_material.tres" id="6_yfcbf"]
 [ext_resource type="Material" uid="uid://6p4v5wm3wwqr" path="res://scenes/3d/xr_player/materials/vignette_material.tres" id="7_lhpba"]
 [ext_resource type="Material" uid="uid://dpalyf7rbbo6s" path="res://scenes/3d/xr_player/materials/ray_material.tres" id="7_w3nnu"]
 [ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
+[ext_resource type="AudioStream" uid="uid://gaxxcehek2nw" path="res://scenes/3d/xr_player/audio/background_ambient_v2.wav" id="10_fuxwj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 100
@@ -67,13 +69,6 @@ height = 1.0
 radial_segments = 8
 cap_bottom = false
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_s6lpa"]
-emission_shape_offset = Vector3(0, -0.1, 0)
-direction = Vector3(0, 1, 0.1)
-initial_velocity_min = 0.05
-initial_velocity_max = 0.2
-gravity = Vector3(0, 0, 0)
-
 [sub_resource type="QuadMesh" id="QuadMesh_1dery"]
 size = Vector2(0.25, 0.25)
 
@@ -106,7 +101,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.91402)
 unique_name_in_owner = true
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
-[node name="ParticlesShaderCache" type="Node3D" parent="XRCamera3D/Splashscreen/ShaderCacheContainer"]
+[node name="ParticlesShaderCache" parent="XRCamera3D/Splashscreen/ShaderCacheContainer" instance=ExtResource("6_u7mu1")]
 
 [node name="LogoAnimationPlayer" type="AnimationPlayer" parent="XRCamera3D/Splashscreen"]
 unique_name_in_owner = true
@@ -142,7 +137,7 @@ material_override = ExtResource("7_w3nnu")
 mesh = SubResource("CylinderMesh_nf3in")
 skeleton = NodePath("../../../../LeftController/ControllerRayCast")
 
-[node name="UnderwaterParticles" type="GPUParticles3D" parent="XRCamera3D"]
+[node name="UnderwaterParticles" type="CPUParticles3D" parent="XRCamera3D"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.25)
 material_override = ExtResource("6_yfcbf")
@@ -151,8 +146,12 @@ amount = 3
 lifetime = 6.0
 randomness = 0.5
 fixed_fps = 45
-process_material = SubResource("ParticleProcessMaterial_s6lpa")
-draw_pass_1 = SubResource("QuadMesh_1dery")
+visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
+mesh = SubResource("QuadMesh_1dery")
+direction = Vector3(0, 1, 0.1)
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.05
+initial_velocity_max = 0.2
 
 [node name="VignetteMesh" type="MeshInstance3D" parent="XRCamera3D"]
 unique_name_in_owner = true
@@ -174,6 +173,11 @@ outline_modulate = Color(1, 1, 1, 1)
 text = "XR_PLAYER_MENU_BTN_PRESS"
 font_size = 87
 outline_size = 4
+
+[node name="AmbientAudioPlayer" type="AudioStreamPlayer" parent="XRCamera3D"]
+stream = ExtResource("10_fuxwj")
+autoplay = true
+bus = &"Background"
 
 [node name="LeftController" type="XRController3D" parent="."]
 unique_name_in_owner = true

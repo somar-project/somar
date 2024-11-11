@@ -16,4 +16,5 @@ void fragment() {
 	vec4 albedo_t = texture(albedo_texture, UV);
 	vec3 basic_fresnel = fresnel_glow(fresnel_amount, fresnel_intensity, fresnel_color, NORMAL, VIEW);
 	ALBEDO = albedo_t.rgb + basic_fresnel;
+	//ALBEDO = albedo_t.rgb;
 }
