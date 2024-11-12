@@ -14,5 +14,6 @@ void fragment() {
 	vec2 xy = 2.0 * vec2(abs(UV.x-0.5), abs(UV.y-0.5));
 	float v = ( sqrt( (xy.x * xy.x) + (xy.y * xy.y) ) / outer_radius );
 	ALBEDO = vec3(0,0,0);
+	FOG.a = 1.0;
 	ALPHA = v * main_alpha;
 }

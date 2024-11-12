@@ -21,6 +21,7 @@ const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 @onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
 @onready var return_to_mm_btn_lbl : Label3D = %ReturnToMMBtnLbl
+@onready var submerge_audio_player : AudioStreamPlayer = %SubmergeAudioPlayer
 
 # Glove & caustics materials
 var GLOVE_HQ_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres")

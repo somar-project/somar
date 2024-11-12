@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=23 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
@@ -12,6 +12,7 @@
 [ext_resource type="Material" uid="uid://dpalyf7rbbo6s" path="res://scenes/3d/xr_player/materials/ray_material.tres" id="7_w3nnu"]
 [ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
 [ext_resource type="AudioStream" uid="uid://gaxxcehek2nw" path="res://scenes/3d/xr_player/audio/background_ambient_v2.wav" id="10_fuxwj"]
+[ext_resource type="AudioStream" uid="uid://bvnq7rqm5s8nw" path="res://scenes/3d/xr_player/audio/submerge_sfx.wav" id="12_hucca"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 100
@@ -178,6 +179,11 @@ outline_size = 4
 stream = ExtResource("10_fuxwj")
 autoplay = true
 bus = &"Background"
+
+[node name="SubmergeAudioPlayer" type="AudioStreamPlayer" parent="XRCamera3D"]
+unique_name_in_owner = true
+stream = ExtResource("12_hucca")
+bus = &"SFX"
 
 [node name="LeftController" type="XRController3D" parent="."]
 unique_name_in_owner = true

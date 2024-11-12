@@ -76,3 +76,8 @@ func play_click_sfx(at : Vector3) -> void:
 	if is_instance_valid(click_audio_player):
 		click_audio_player.global_position = at
 		click_audio_player.play()
+
+
+func play_submerge_sfx() -> void:
+	if Global.player:
+		Global.player.submerge_audio_player.play()

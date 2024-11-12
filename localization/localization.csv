@@ -2,4 +2,5 @@ keys;en;pt
 XR_PLAYER_MENU_BTN_PRESS;"Press menu button again
 to return to main menu.";"Prima novamente o botão de menu
 para regressar ao menu principal."
-MM_MAP_CHANGE_LANG_BTN;Alterar a língua;Change language
+MM_MAP_CHANGE_LANG_BTN;Change language;Alterar a língua
+MM_MAP_CHOOSE_DESTINATION;Choose your destination!;Escolha o seu destino!

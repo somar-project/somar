@@ -71,6 +71,10 @@ func _ready() -> void:
 	curve_points = PERIMETER_PATH_CURVE.get_baked_points()
 
 	Global.player.set_glove_caustics(true)
+
+	AudioManager.play_submerge_sfx()
+	await tree.create_timer(1.3).timeout
+
 	Global.player.fade(true)
 	AudioManager.fade(true, AudioManager.AudioBus.UNDERWATER)
 	await Global.player.fade_finished
