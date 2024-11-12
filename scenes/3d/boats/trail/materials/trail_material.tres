@@ -13,8 +13,8 @@ noise = SubResource("FastNoiseLite_fogyu")
 [resource]
 render_priority = 1
 shader = ExtResource("1_5jik1")
-shader_parameter/albedo_color = Color(0.40672, 0.692728, 0.999996, 1)
+shader_parameter/albedo_color = Color(0.41, 0.459167, 1, 1)
 shader_parameter/speed = 0.5
-shader_parameter/opacity = 0.75
+shader_parameter/opacity = 0.8
 shader_parameter/trail_texture = ExtResource("2_c5jm0")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_cav8b")

@@ -73,7 +73,7 @@ func _ready() -> void:
 	Global.player.set_glove_caustics(true)
 
 	AudioManager.play_submerge_sfx()
-	await tree.create_timer(1.3).timeout
+	await tree.create_timer(1.0).timeout
 
 	Global.player.fade(true)
 	AudioManager.fade(true, AudioManager.AudioBus.UNDERWATER)

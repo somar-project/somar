@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=22 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
 [ext_resource type="Texture2D" uid="uid://bp45umagiut8u" path="res://scenes/3d/ocean/textures/sea_gradient_equi_1k.png" id="2_yvno7"]
@@ -11,6 +11,7 @@
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="8_aqbnn"]
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
+[ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="12_xgx7v"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
 panorama = ExtResource("2_yvno7")
@@ -139,3 +140,7 @@ unique_name_in_owner = true
 [node name="InflatablePatrolBoat" parent="Boats" instance=ExtResource("9_omrdy")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
+
+[node name="HumpbackWhalePath" parent="." instance=ExtResource("12_xgx7v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+move_time = 180.0

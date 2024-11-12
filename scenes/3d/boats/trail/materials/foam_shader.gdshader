@@ -14,6 +14,5 @@ void fragment() {
 	vec4 trail_t = texture(trail_texture, new_uv);
 
 	FOG.a = 0.8;
-	//ALBEDO = albedo_color;
 	ALBEDO = vec3(COLOR.r * opacity) * albedo_color * trail_t.r;
 }

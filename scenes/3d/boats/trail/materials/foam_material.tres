@@ -1,34 +1,12 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b5qf4j7fccqec"]
 
 [ext_resource type="Texture2D" uid="uid://ccie77ae80fo2" path="res://scenes/3d/shared/textures/water_caustics_noise_joined.png" id="1_4hk5o"]
-
-[sub_resource type="Shader" id="Shader_0kftq"]
-code = "shader_type spatial;
-render_mode cull_disabled, unshaded, blend_add;
-
-uniform vec3 albedo_color : source_color = vec3(1.0);
-uniform sampler2D trail_texture : repeat_enable;
-uniform float speed : hint_range(0.0, 1.0) = 0.5;
-uniform float opacity : hint_range(0.0, 1.0) = 1.0;
-
-
-void fragment() {
-	vec2 new_uv = UV;
-	new_uv.x -= TIME * speed;
-
-	vec4 trail_t = texture(trail_texture, new_uv);
-	vec4 trail_t_a = texture(trail_texture, UV);
-
-	FOG.a = 0.8;
-	ALBEDO = albedo_color;
-	ALPHA = (COLOR.r * opacity) * trail_t_a.r;
-}
-"
+[ext_resource type="Shader" path="res://scenes/3d/boats/trail/materials/foam_shader.gdshader" id="1_cpjxf"]
 
 [resource]
 render_priority = 1
-shader = SubResource("Shader_0kftq")
-shader_parameter/albedo_color = Color(0.360316, 0.671083, 0.999992, 1)
+shader = ExtResource("1_cpjxf")
+shader_parameter/albedo_color = Color(0.41, 0.6165, 1, 1)
 shader_parameter/speed = 0.5
 shader_parameter/opacity = 0.8
 shader_parameter/trail_texture = ExtResource("1_4hk5o")
