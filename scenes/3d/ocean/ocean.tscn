@@ -26,10 +26,10 @@ reflected_light_source = 1
 fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.101961, 0.12549, 0.635294, 1)
-fog_density = 1.0
-fog_depth_curve = 0.129409
+fog_density = 0.95
+fog_depth_curve = 0.403422
 fog_depth_begin = 0.0
-fog_depth_end = 22.0
+fog_depth_end = 40.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
