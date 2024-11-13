@@ -1,0 +1,25 @@
+[gd_resource type="Environment" load_steps=4 format=3 uid="uid://bn8eowi3cxda3"]
+
+[ext_resource type="Texture2D" uid="uid://bn3x6foekyg53" path="res://scenes/3d/shore/textures/shore_gradient_equi_2k.png" id="1_7yopw"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
+panorama = ExtResource("1_7yopw")
+
+[sub_resource type="Sky" id="Sky_5ww5n"]
+sky_material = SubResource("PanoramaSkyMaterial_qn1vh")
+process_mode = 3
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_5ww5n")
+reflected_light_source = 1
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.0196078, 0.368627, 0.741176, 1)
+fog_sun_scatter = 0.5
+fog_density = 1.0
+fog_depth_curve = 0.615577
+fog_depth_begin = 0.0
+fog_depth_end = 20.0
+adjustment_contrast = 1.5
+adjustment_saturation = 0.5

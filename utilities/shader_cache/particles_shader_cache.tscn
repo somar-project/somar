@@ -48,7 +48,7 @@ script = ExtResource("1_jrcbb")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 extra_cull_margin = 200.0
 emitting = false
-amount = 1
+amount = 50
 lifetime = 6.0
 fixed_fps = 30
 visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
@@ -64,7 +64,7 @@ color_ramp = SubResource("Gradient_ci5fx")
 [node name="FoamParticles1" type="CPUParticles3D" parent="."]
 extra_cull_margin = 200.0
 emitting = false
-amount = 1
+amount = 40
 lifetime = 2.0
 fixed_fps = 30
 visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
@@ -84,7 +84,7 @@ color_ramp = SubResource("Gradient_attbj")
 [node name="UnderwaterParticles" type="CPUParticles3D" parent="."]
 material_override = ExtResource("4_v88ff")
 emitting = false
-amount = 1
+amount = 3
 lifetime = 6.0
 randomness = 0.5
 fixed_fps = 45

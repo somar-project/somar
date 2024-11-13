@@ -3,7 +3,7 @@
 [resource]
 bake_interval = 1.0
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, -20, -40, 0, 0, -20, 0, 0, 15, 0, 0, 0, 0, -40),
+"points": PackedVector3Array(0, 0, 0, 0, 0, -10, -20, 0, 0, -10, 0, 0, 15, 0, 0, 0, 0, -20),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2

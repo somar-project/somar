@@ -1,7 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=19 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
-[ext_resource type="Texture2D" uid="uid://bp45umagiut8u" path="res://scenes/3d/ocean/textures/sea_gradient_equi_1k.png" id="2_yvno7"]
+[ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
 [ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="6_3vlo7"]
@@ -12,25 +12,6 @@
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="12_xgx7v"]
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_qn1vh"]
-panorama = ExtResource("2_yvno7")
-
-[sub_resource type="Sky" id="Sky_5ww5n"]
-sky_material = SubResource("PanoramaSkyMaterial_qn1vh")
-process_mode = 3
-
-[sub_resource type="Environment" id="Environment_2ljrs"]
-background_mode = 2
-sky = SubResource("Sky_5ww5n")
-reflected_light_source = 1
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.101961, 0.12549, 0.635294, 1)
-fog_density = 0.95
-fog_depth_curve = 0.403422
-fog_depth_begin = 0.0
-fog_depth_end = 40.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
@@ -63,15 +44,15 @@ size = Vector2(8, 8)
 
 [node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_y2udb")
-min_boat_event_spawn_delay = 10.0
-max_boat_event_spawn_delay = 11.0
+min_boat_event_spawn_delay = 15.0
+max_boat_event_spawn_delay = 20.0
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.173648, 0.984808, 0, -0.984808, -0.173648, 0, 17.7126, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_2ljrs")
+environment = ExtResource("2_hkvrg")
 
 [node name="SurfacePosition" type="Marker3D" parent="."]
 unique_name_in_owner = true

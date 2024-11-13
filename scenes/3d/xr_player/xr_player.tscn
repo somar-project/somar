@@ -103,6 +103,7 @@ unique_name_in_owner = true
 transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
 
 [node name="ParticlesShaderCache" parent="XRCamera3D/Splashscreen/ShaderCacheContainer" instance=ExtResource("6_u7mu1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="LogoAnimationPlayer" type="AnimationPlayer" parent="XRCamera3D/Splashscreen"]
 unique_name_in_owner = true

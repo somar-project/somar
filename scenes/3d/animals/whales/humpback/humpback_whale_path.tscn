@@ -24,6 +24,7 @@ use_model_front = true
 unique_name_in_owner = true
 stream = ExtResource("4_wytck")
 attenuation_model = 1
+volume_db = 3.0
 unit_size = 20.0
 max_distance = 100.0
 bus = &"Whales"

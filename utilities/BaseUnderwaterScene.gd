@@ -15,7 +15,7 @@ enum SceneType {
 }
 @export var scene_type : SceneType = SceneType.OCEAN
 
-const CURVE_RADIUS : float = 40.0
+const CURVE_RADIUS : float = 20.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 
