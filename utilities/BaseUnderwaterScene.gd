@@ -34,6 +34,9 @@ var current_boat : BoatBase
 
 var curve_points : PackedVector3Array
 
+var whales : Array[Node3D] = []
+var whale_idx : int = 0
+
 
 # This method verifies the node
 func _get_configuration_warnings() -> PackedStringArray:
@@ -86,8 +89,7 @@ func _ready() -> void:
 	timer.timeout.connect(_initiate_boat_event, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
 	timer.start(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay))
 
-	# TODO: make this dynamic
-	blue_whale_path.play()
+	_play_whale()
 
 
 func _initiate_boat_event() -> void:
@@ -195,3 +197,28 @@ func _initialize_saved_data() -> void:
 				bottlenose_dolphin_def.spawn_height,
 				bottlenose_dolphin_def.spawn_pos.y,
 			)
+	
+	if src_data.animals.whales.humpback.enabled:
+		whales.push_back(humpback_whale_path)
+	if src_data.animals.whales.blue.enabled:
+		whales.push_back(blue_whale_path)
+	
+	if not whales.is_empty():
+		whales.shuffle()
+
+
+func _play_whale() -> void:
+	if not whales.is_empty():
+		var current_whale : Node3D = whales[whale_idx]
+		current_whale.process_mode = Node.PROCESS_MODE_INHERIT
+		current_whale.visible = true
+		current_whale.play()
+		current_whale.whale_path_finished.connect(_handle_whale_finished, CONNECT_ONE_SHOT)
+
+func _handle_whale_finished() -> void:
+	whale_idx += 1
+
+	if whale_idx >= whales.size():
+		whale_idx = 0
+	
+	_play_whale()

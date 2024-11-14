@@ -7,6 +7,7 @@ uniform sampler2D albedo_texture : source_color, filter_linear_mipmap, repeat_en
 uniform sampler2D normal_texture;
 uniform sampler2D roughness_specular_texture;
 
+uniform float alpha_scissor_threshold : hint_range(0.0, 1.0) = 0.5;
 uniform float normal_map_scale : hint_range(-2.0, 2.0) = 1.0;
 uniform float roughness_cale : hint_range(-2.0, 2.0) = 1.0;
 uniform float specular_scale : hint_range(-2.0, 2.0) = 1.0;
@@ -23,4 +24,5 @@ void fragment() {
 	SPECULAR = roughness_specular_t.g * specular_scale;
 	NORMAL_MAP_DEPTH = normal_map_scale;
 	ALPHA = albedo_t.a;
+	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;
 }

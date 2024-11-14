@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=26 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_wvgmc"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
@@ -15,7 +15,8 @@
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="9_twl3q"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="12_rwuhk"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="12_svdwg"]
-[ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_plane.tscn" id="16_byjh6"]
+[ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="16_wn450"]
+[ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="17_tovah"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3gmhg"]
 size = Vector2(160, 160)
@@ -168,5 +169,15 @@ unique_name_in_owner = true
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
 
-[node name="InfoPlane" parent="." instance=ExtResource("16_byjh6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.28466, -0.710991)
+[node name="HumpbackWhalePath" parent="." instance=ExtResource("16_wn450")]
+unique_name_in_owner = true
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+visible = false
+move_time = 180.0
+
+[node name="BlueWhalePath" parent="." instance=ExtResource("17_tovah")]
+unique_name_in_owner = true
+process_mode = 4
+visible = false
+move_time = 200.0

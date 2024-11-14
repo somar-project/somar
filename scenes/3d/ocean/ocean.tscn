@@ -125,11 +125,13 @@ visible = false
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("12_xgx7v")]
 unique_name_in_owner = true
+process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
 visible = false
 move_time = 180.0
 
 [node name="BlueWhalePath" parent="." instance=ExtResource("13_fim7d")]
 unique_name_in_owner = true
+process_mode = 4
 visible = false
 move_time = 200.0

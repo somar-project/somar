@@ -19,12 +19,14 @@ transform = Transform3D(-1, 0, 0, 0, 0.975289, 0.221621, 0, 0.221657, -0.975133,
 rotation_mode = 4
 use_model_front = true
 
-[node name="BlueWhale" parent="WhalePath/WhalePathFollow" instance=ExtResource("3_ncc35")]
+[node name="Whale" parent="WhalePath/WhalePathFollow" instance=ExtResource("3_ncc35")]
+unique_name_in_owner = true
+visible = false
 
 [node name="WhaleAudio" type="AudioStreamPlayer3D" parent="WhalePath/WhalePathFollow"]
 unique_name_in_owner = true
 attenuation_model = 1
-volume_db = 3.0
+volume_db = 4.5
 unit_size = 20.0
 max_distance = 100.0
 bus = &"Whales"

@@ -18,6 +18,9 @@ extends Panel
 @onready var ocean_add_bottlenose_dolphin_btn : Button = %OceanAddBottlenoseDolphinBtn
 @onready var ocean_bottlenose_dolphin_items_container : VBoxContainer = %OceanBottlenoseDolphinItemsContainer
 @onready var ocean_inflatable_patrol_boat_item : InflatablePatrolConfigItem = %OceanInflatablePatrolBoatItem
+@onready var ocean_whales_config_editor_container : MarginContainer = %OceanWhalesConfigEditorContainer
+@onready var ocean_humpback_whale_item : HumpbackWhaleConfigItem = %OceanHumpbackWhaleItem
+@onready var ocean_blue_whale_item : BlueWhaleConfigItem = %OceanBlueWhaleItem
 
 # SHORE
 @onready var shore_main_container : HSplitContainer = %Shore
@@ -28,6 +31,9 @@ extends Panel
 @onready var shore_add_bottlenose_dolphin_btn : Button = %ShoreAddBottlenoseDolphinBtn
 @onready var shore_bottlenose_dolphin_items_container : VBoxContainer = %ShoreBottlenoseDolphinItemsContainer
 @onready var shore_inflatable_patrol_boat_item : InflatablePatrolConfigItem = %ShoreInflatablePatrolBoatItem
+@onready var shore_whales_config_editor_container : MarginContainer = %ShoreWhalesConfigEditorContainer
+@onready var shore_humpback_whale_item : HumpbackWhaleConfigItem = %ShoreHumpbackWhaleItem
+@onready var shore_blue_whale_item : BlueWhaleConfigItem = %ShoreBlueWhaleItem
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
 
@@ -42,6 +48,16 @@ var DEFAULT_OCEAN_DICT : Dictionary = {
 		"new_cycle_delay": 10.0
 	},
 	"animals": {
+		"whales": {
+			"humpback": {
+				"enabled": true,
+				"travel_time": 180.0
+			},
+			"blue": {
+				"enabled": true,
+				"travel_time": 200.0
+			}
+		},
 		"dolphins": {
 			"bottlenose": [
 				{
@@ -76,6 +92,16 @@ var DEFAULT_SHORE_DICT : Dictionary = {
 		"new_cycle_delay": 10.0
 	},
 	"animals": {
+		"whales": {
+			"humpback": {
+				"enabled": true,
+				"travel_time": 180.0
+			},
+			"blue": {
+				"enabled": true,
+				"travel_time": 200.0
+			}
+		},
 		"dolphins": {
 			"bottlenose": [
 				{
@@ -238,6 +264,10 @@ func _create_tree(type : String) -> void:
 	var animals_branch : TreeItem = tree_ref.create_item(root)
 	animals_branch.set_text(0, "Animals")
 
+	var whales_branch : TreeItem = tree_ref.create_item(animals_branch)
+	whales_branch.set_text(0, "Whales")
+	whales_branch.set_meta("id", "%s/animals/whales" % type)
+
 	var dolphins_branch : TreeItem = tree_ref.create_item(animals_branch)
 	dolphins_branch.set_text(0, "Dolphins")
 
@@ -262,6 +292,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 	var main_container_ref : HSplitContainer = ocean_main_container
 	var bottlenose_config_editor_container : MarginContainer = ocean_bottlenose_config_editor_container
 	var boats_config_editor_container : MarginContainer = ocean_boats_config_editor_container
+	var whales_config_editor_container : MarginContainer = ocean_whales_config_editor_container
 	var default_container : CenterContainer = ocean_default_container
 
 	if scene_type == SceneManager.PlayerContext.SHORE:
@@ -269,6 +300,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 		main_container_ref = shore_main_container
 		bottlenose_config_editor_container = shore_bottlenose_config_editor_container
 		boats_config_editor_container = shore_boats_config_editor_container
+		whales_config_editor_container = shore_whales_config_editor_container
 		default_container = shore_default_container
 
 	var selected_item : TreeItem = tree_ref.get_selected()
@@ -279,6 +311,8 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 			child.visible = false
 
 	match selected_item_id:
+		"ocean/animals/whales", "shore/animals/whales":
+			whales_config_editor_container.visible = true
 		"ocean/animals/dolphins/bottlenose", "shore/animals/dolphins/bottlenose":
 			bottlenose_config_editor_container.visible = true
 		"ocean/boats", "shore/boats":
@@ -321,6 +355,16 @@ func _process_saved_data() -> void:
 		ocean_config.boats.inflatable_patrol
 	)
 
+	ocean_humpback_whale_item.initialize(
+		SceneManager.PlayerContext.OCEAN,
+		ocean_config.animals.whales.humpback
+	)
+
+	ocean_blue_whale_item.initialize(
+		SceneManager.PlayerContext.OCEAN,
+		ocean_config.animals.whales.blue
+	)
+
 	# SHORE
 	for current_shore_bottlenose_item : Node in shore_bottlenose_dolphin_items_container.get_children():
 		current_shore_bottlenose_item.queue_free()
@@ -333,6 +377,16 @@ func _process_saved_data() -> void:
 	shore_inflatable_patrol_boat_item.initialize(
 		SceneManager.PlayerContext.SHORE,
 		shore_config.boats.inflatable_patrol
+	)
+
+	shore_humpback_whale_item.initialize(
+		SceneManager.PlayerContext.SHORE,
+		shore_config.animals.whales.humpback
+	)
+
+	shore_blue_whale_item.initialize(
+		SceneManager.PlayerContext.SHORE,
+		shore_config.animals.whales.blue
 	)
 
 func _save_data() -> void:
@@ -356,10 +410,14 @@ func _save_data() -> void:
 func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 	var bottlenose_dolphin_items_container : VBoxContainer = ocean_bottlenose_dolphin_items_container
 	var inflatable_patrol_boat_item : InflatablePatrolConfigItem = ocean_inflatable_patrol_boat_item
+	var humpback_whale_item : HumpbackWhaleConfigItem = ocean_humpback_whale_item
+	var blue_whale_item : BlueWhaleConfigItem = ocean_blue_whale_item
 
 	if type == SceneManager.PlayerContext.SHORE:
 		bottlenose_dolphin_items_container = shore_bottlenose_dolphin_items_container
 		inflatable_patrol_boat_item = shore_inflatable_patrol_boat_item
+		humpback_whale_item = shore_humpback_whale_item
+		blue_whale_item = shore_blue_whale_item
 	
 	# TODO: when general data is implemented, remove these defaults
 	var return_data : Dictionary = {
@@ -371,6 +429,10 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 			"new_cycle_delay": 10.0
 		},
 		"animals": {
+			"whales": {
+				"humpback": {},
+				"blue": {}
+			},
 			"dolphins": {
 				"bottlenose": []
 			}
@@ -388,6 +450,10 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 
 	# Update boats info
 	return_data.boats.inflatable_patrol = inflatable_patrol_boat_item.get_data()
+
+	# Update whales info
+	return_data.animals.whales.humpback = humpback_whale_item.get_data()
+	return_data.animals.whales.blue = blue_whale_item.get_data()
 
 	return return_data
 

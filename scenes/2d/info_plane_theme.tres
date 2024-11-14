@@ -1,13 +1,18 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://detpa4qnk63je"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://detpa4qnk63je"]
 
 [ext_resource type="FontFile" uid="uid://cbkdh5trsa05g" path="res://misc_assets/fonts/inter_tight/InterTight-Bold.ttf" id="1_kiuew"]
 [ext_resource type="FontFile" uid="uid://7iv5p5kr2x2s" path="res://misc_assets/fonts/inter_tight/InterTight-Regular.ttf" id="1_lv2wa"]
+[ext_resource type="FontFile" uid="uid://cvkc73nmun0us" path="res://misc_assets/fonts/inter_tight/InterTight-SemiBold.ttf" id="2_acbjm"]
 
 [resource]
 ContentLabel/base_type = &"Label"
-ContentLabel/colors/font_color = Color(0.825059, 0.897949, 0.95955, 1)
+ContentLabel/colors/font_color = Color(0.784703, 0.874425, 0.949949, 1)
 ContentLabel/font_sizes/font_size = 40
 ContentLabel/fonts/font = ExtResource("1_lv2wa")
+SubtitleLabel/base_type = &"Label"
+SubtitleLabel/colors/font_color = Color(0.65098, 0.94902, 0.913725, 1)
+SubtitleLabel/font_sizes/font_size = 40
+SubtitleLabel/fonts/font = ExtResource("2_acbjm")
 TitleLabel/base_type = &"Label"
 TitleLabel/font_sizes/font_size = 72
 TitleLabel/fonts/font = ExtResource("1_kiuew")
