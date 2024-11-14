@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=20 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="12_xgx7v"]
+[ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="13_fim7d"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
@@ -123,5 +124,12 @@ transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("12_xgx7v")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
+visible = false
 move_time = 180.0
+
+[node name="BlueWhalePath" parent="." instance=ExtResource("13_fim7d")]
+unique_name_in_owner = true
+visible = false
+move_time = 200.0

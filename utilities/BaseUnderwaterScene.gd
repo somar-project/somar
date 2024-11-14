@@ -15,6 +15,9 @@ enum SceneType {
 }
 @export var scene_type : SceneType = SceneType.OCEAN
 
+@onready var humpback_whale_path : Node3D = %HumpbackWhalePath
+@onready var blue_whale_path : Node3D = %BlueWhalePath
+
 const CURVE_RADIUS : float = 20.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
@@ -82,6 +85,9 @@ func _ready() -> void:
 
 	timer.timeout.connect(_initiate_boat_event, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
 	timer.start(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay))
+
+	# TODO: make this dynamic
+	blue_whale_path.play()
 
 
 func _initiate_boat_event() -> void:

@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://djddlfqnd8xw3"
-path.bptc="res://.godot/imported/Humpbackwhale_diff_1k.png-dc432b98f3e189aa5b6229a0dcd4ebec.bptc.ctex"
-path.astc="res://.godot/imported/Humpbackwhale_diff_1k.png-dc432b98f3e189aa5b6229a0dcd4ebec.astc.ctex"
+uid="uid://c56p7mvcepk2q"
+path.bptc="res://.godot/imported/bluewhale_color_1k.png-76994b893d4f6daa30e4db792176ae2f.bptc.ctex"
+path.astc="res://.godot/imported/bluewhale_color_1k.png-76994b893d4f6daa30e4db792176ae2f.astc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/3d/animals/whales/humpback/textures/Humpbackwhale_diff_1k.png"
-dest_files=["res://.godot/imported/Humpbackwhale_diff_1k.png-dc432b98f3e189aa5b6229a0dcd4ebec.bptc.ctex", "res://.godot/imported/Humpbackwhale_diff_1k.png-dc432b98f3e189aa5b6229a0dcd4ebec.astc.ctex"]
+source_file="res://scenes/3d/animals/whales/blue/textures/bluewhale_color_1k.png"
+dest_files=["res://.godot/imported/bluewhale_color_1k.png-76994b893d4f6daa30e4db792176ae2f.bptc.ctex", "res://.godot/imported/bluewhale_color_1k.png-76994b893d4f6daa30e4db792176ae2f.astc.ctex"]
 
 [params]
 
