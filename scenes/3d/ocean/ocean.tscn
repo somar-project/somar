@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=18 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="6_3vlo7"]
 [ext_resource type="Shader" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_hx7jq"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
-[ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="7_v64ny"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="8_aqbnn"]
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
@@ -16,14 +15,6 @@
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_olltn"]
-flip_faces = true
-bottom_radius = 1.0
-height = 1.8
-radial_segments = 16
-cap_top = false
-cap_bottom = false
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6ted"]
 transparency = 1
@@ -68,12 +59,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 material_override = ExtResource("4_7wo7r")
 mesh = SubResource("QuadMesh_20yxg")
-skeleton = NodePath("../..")
-
-[node name="SunRays" type="MeshInstance3D" parent="SurfacePosition"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.49155e-07, 5.7)
-material_override = ExtResource("7_v64ny")
-mesh = SubResource("CylinderMesh_olltn")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SurfacePosition"]

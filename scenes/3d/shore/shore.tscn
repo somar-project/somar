@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=24 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_wvgmc"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
@@ -12,7 +12,6 @@
 [ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="8_lqk5h"]
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="9_ahx2y"]
 [ext_resource type="Texture2D" uid="uid://crucasxnug76f" path="res://scenes/3d/shore/textures/shore_floor_mask.png" id="9_eckpl"]
-[ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="9_twl3q"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="12_rwuhk"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="12_svdwg"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="16_wn450"]
@@ -23,13 +22,6 @@ size = Vector2(160, 160)
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_r1s0e"]
-flip_faces = true
-bottom_radius = 1.0
-radial_segments = 16
-cap_top = false
-cap_bottom = false
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2rj65"]
 render_priority = 0
@@ -95,12 +87,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
 material_override = ExtResource("4_wn413")
 mesh = SubResource("QuadMesh_20yxg")
-skeleton = NodePath("../..")
-
-[node name="SunRays" type="MeshInstance3D" parent="SurfacePosition"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 1.26763e-07, 2.9)
-material_override = ExtResource("9_twl3q")
-mesh = SubResource("CylinderMesh_r1s0e")
 skeleton = NodePath("../..")
 
 [node name="FakeSun" type="MeshInstance3D" parent="SurfacePosition"]

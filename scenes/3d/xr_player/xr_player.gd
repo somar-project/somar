@@ -22,6 +22,7 @@ const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 @onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
 @onready var return_to_mm_btn_lbl : Label3D = %ReturnToMMBtnLbl
 @onready var submerge_audio_player : AudioStreamPlayer = %SubmergeAudioPlayer
+@onready var sun_rays : MeshInstance3D = %SunRays
 
 # Glove & caustics materials
 var GLOVE_HQ_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres")
@@ -109,6 +110,8 @@ func _shader_cache_finished() -> void:
 
 
 func _process(_delta : float) -> void:
+	sun_rays.global_position = Vector3(camera.global_position.x, camera.global_position.y + 0.5, camera.global_position.z)
+
 	if input_enabled:
 		var current_raycast : RayCast3D = pointer_raycast
 		if controller_input_enabled:
@@ -235,6 +238,10 @@ func set_glove_caustics(c_enabled : bool) -> void:
 	else:
 		GLOVE_HQ_MATERIAL.next_pass = null
 		GLOVE_LOW_MATERIAL.next_pass = null
+
+
+func set_sun_rays_enabled(s_enabled : bool) -> void:
+	sun_rays.visible = s_enabled
 
 
 func _adjust_input_ray_length(distance_to_point : float) -> void:

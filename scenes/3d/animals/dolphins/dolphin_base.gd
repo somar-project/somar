@@ -7,9 +7,9 @@ extends Node3D
 
 @export_category("Position")
 @export var min_distance_to_player : float = 4.0
-@export var max_distance_to_player : float = 5.0
-@export var min_target_depth : float = -1.0
-@export var max_target_depth : float = 1.0
+@export var max_distance_to_player : float = 8.0
+@export var height_min : float = 0.5
+@export var height_max : float = 3.0
 
 @export_category("Animation")
 enum DolphinState {
@@ -20,6 +20,7 @@ enum DolphinState {
 @export var state : DolphinState = DolphinState.IDLE
 @export var animation_player : AnimationPlayer
 @export var animation_swim_name : String = ""
+@export var swim_speed : float = 8.0
 @export var clockwise : bool = true
 
 @export_category("Debug")
@@ -28,6 +29,9 @@ enum DolphinState {
 @export var debug_initialize : bool = false : set = _debug_initialize
 @export var debug_swim_loop : bool = false
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
+
+@onready var obstacle_area : Area3D = %ObstacleArea3D
+@onready var raycast : RayCast3D = %RayCast3D
 
 var tree : SceneTree
 
@@ -39,6 +43,8 @@ var current_middle_point_0 : Vector3
 var current_middle_point_1 : Vector3
 var current_target : Vector3
 var current_swim_speed : float
+
+var last_swim_dir : Vector3 = Vector3(0.0, 1000.0, 0.0)
 
 var movement_tween : Tween
 
@@ -153,35 +159,17 @@ func _correct_initial_position() -> void:
 		global_position -= direction * diff
 
 
-func _get_current_target() -> void:
-	current_target = Vector3(
-			global_position.x * -1.0,
-			randf_range(
-				initial_position.y + min_target_depth, 
-				initial_position.y + max_target_depth
-			),
-			global_position.z * -1.0
-		)
-	
-	var dir_to_player : Vector3 = (current_target - player_position).normalized()
-	var distance_to_player : float = current_target.distance_to(player_position)
-
-	var min_offset : float = min_distance_to_player - distance_to_player
-	var max_offset : float = max_distance_to_player - distance_to_player
-
-	var distance_offset : float = randf_range(min_offset, max_offset)
-
-	current_target += dir_to_player * distance_offset
-
-
 func _swim_to_target(loop : bool = true) -> void:
 	state = DolphinState.SWIMMING
-	_get_current_target()
-
-	# if is_instance_valid(animation_player) and animation_player.current_animation != animation_swim_name:
-	# 	animation_player.play(animation_swim_name)
-
 	current_position = global_position
+	current_target = _pick_target()
+
+	var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
+	var flat_current_target : Vector3 = Vector3(current_target.x, 0.0, current_target.z)
+
+	while flat_current_position.distance_to(flat_current_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
+		current_target = _pick_target()
+		flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
@@ -192,7 +180,7 @@ func _swim_to_target(loop : bool = true) -> void:
 		var dist_from_last_mid_point_to_target : float = current_position.distance_to(current_middle_point_1)
 		var dir_from_last_mid_point_to_target : Vector3 = current_middle_point_1.direction_to(current_position)
 		current_middle_point_0 = current_position
-		current_middle_point_0 += dir_from_last_mid_point_to_target * dist_from_last_mid_point_to_target
+		current_middle_point_0 += dir_from_last_mid_point_to_target * ((distance_to_target + dist_from_last_mid_point_to_target) / 2.0)
 	else:
 		current_middle_point_0 = current_position
 		current_middle_point_0 += direction * distance_to_target
@@ -200,7 +188,8 @@ func _swim_to_target(loop : bool = true) -> void:
 	current_middle_point_1 = current_target
 	current_middle_point_1 += direction * distance_to_target
 
-	current_swim_speed = randf_range(min_swim_speed, max_swim_speed)
+	current_swim_speed = (distance_to_target * 2.5) / (swim_speed / 3.6)
+	
 
 	if debug_enabled:
 		debug_initial_shape.global_position = current_position
@@ -238,12 +227,103 @@ func _swim_to_target(loop : bool = true) -> void:
 	await movement_tween.finished
 	if first_swim_loop:
 		first_swim_loop = false
+	
 	_after_swiming_to_target(loop)
 
 
 func _after_swiming_to_target(loop : bool) -> void:
 	if loop:
 		call_deferred("_swim_to_target")
+
+
+func _pick_target() -> Vector3:
+	var should_change_clockwise : bool = true if randi_range(0, 9) == 6 else false
+
+	if last_swim_dir.y > 999.0:
+		should_change_clockwise = false
+
+	if not should_change_clockwise:
+		var current_q : int = _get_quadrant()
+		var target_direction : Vector3 = _get_target_quadrant_dir(current_q, clockwise)
+
+		last_swim_dir = target_direction
+
+		var target : Vector3 = target_direction * randf_range(min_distance_to_player, max_distance_to_player)
+		target.y = randf_range(height_min, height_max)
+
+		return target
+	
+	else:
+		var radius_diff : float = max_distance_to_player - min_distance_to_player
+		var target : Vector3 = last_swim_dir * randf_range((max_distance_to_player + radius_diff), (max_distance_to_player + (radius_diff * 2)))
+		target.y = randf_range(height_min, height_max)
+
+		clockwise = !clockwise
+		if not clockwise:
+			clockwise_mult = -1.0
+		else:
+			clockwise_mult = 1.0
+
+		return target
+
+
+func _get_quadrant() -> int:
+	var current_pos : Vector3 = global_position
+
+	# Either 0 or 3
+	if current_pos.x < 0:
+		if current_pos.z < 0:
+			return 0
+		else:
+			return 3
+	
+	else:
+		if current_pos.z < 0:
+			return 1
+		else:
+			return 2
+
+func _get_target_quadrant_dir(current_quadrant : int, swimming_clockwise : bool) -> Vector3:
+	var target_q_dir : Vector2
+
+	if current_quadrant == 0:
+		if swimming_clockwise:
+			target_q_dir.x = randf_range(0.0, 1.0)
+			target_q_dir.y = (1.0 - target_q_dir.x) * -1.0
+		else:
+			target_q_dir.x = randf_range(0.0, -1.0)
+			target_q_dir.y = (1.0 - abs(target_q_dir.x))
+	
+	elif current_quadrant == 1:
+		if swimming_clockwise:
+			target_q_dir.x = randf_range(0.0, 1.0)
+			target_q_dir.y = (1.0 - target_q_dir.x)
+		else:
+			target_q_dir.x = randf_range(0.0, -1.0)
+			target_q_dir.y = (1.0 + target_q_dir.x) * -1.0
+	
+	elif current_quadrant == 2:
+		if swimming_clockwise:
+			target_q_dir.x = randf_range(0.0, -1.0)
+			target_q_dir.y = (1.0 - abs(target_q_dir.x))
+		else:
+			target_q_dir.x = randf_range(0.0, 1.0)
+			target_q_dir.y = (1.0 - target_q_dir.x) * -1.0
+	
+	else:
+		if swimming_clockwise:
+			target_q_dir.x = randf_range(0.0, -1.0)
+			target_q_dir.y = (1.0 + target_q_dir.x) * -1.0
+		else:
+			target_q_dir.x = randf_range(0.0, 1.0)
+			target_q_dir.y = (1.0 - target_q_dir.x)
+	
+	return Vector3(target_q_dir.x, 0.0, target_q_dir.y).normalized()
+
+
+func _process(_delta : float) -> void:
+	# TODO: implement collision avoidance here
+	pass
 
 
 func is_state(state_idx : int) -> bool:

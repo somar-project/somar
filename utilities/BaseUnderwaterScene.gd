@@ -77,6 +77,7 @@ func _ready() -> void:
 	curve_points = PERIMETER_PATH_CURVE.get_baked_points()
 
 	Global.player.set_glove_caustics(true)
+	Global.player.set_sun_rays_enabled(true)
 
 	AudioManager.play_submerge_sfx()
 	await tree.create_timer(1.0).timeout
@@ -170,32 +171,30 @@ func _initialize_saved_data() -> void:
 	for bottlenose_dolphin_def : Dictionary in src_data.animals.dolphins.bottlenose:
 		var bottlenose_dolphin_entity : DolphinBase = BOTTLENOSE_DOLPHIN_SCENE.instantiate()
 
-		bottlenose_dolphin_entity.breathing_time = bottlenose_dolphin_def.breathing_time
 		bottlenose_dolphin_entity.clockwise = bottlenose_dolphin_def.clockwise
-		bottlenose_dolphin_entity.max_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
-		bottlenose_dolphin_entity.max_swim_speed = bottlenose_dolphin_def.max_swim_speed
-		bottlenose_dolphin_entity.max_target_depth = bottlenose_dolphin_def.max_target_depth
+		bottlenose_dolphin_entity.max_distance_to_player = bottlenose_dolphin_def.max_distance_to_player
 		bottlenose_dolphin_entity.min_distance_to_player = bottlenose_dolphin_def.min_distance_to_player
-		bottlenose_dolphin_entity.min_swim_speed = bottlenose_dolphin_def.min_swim_speed
-		bottlenose_dolphin_entity.min_target_depth = bottlenose_dolphin_def.min_target_depth
-		bottlenose_dolphin_entity.surface_marker = surface_position
+		bottlenose_dolphin_entity.swim_speed = bottlenose_dolphin_def.swim_speed
+		bottlenose_dolphin_entity.height_min = bottlenose_dolphin_def.height_min
+		bottlenose_dolphin_entity.height_max = bottlenose_dolphin_def.height_max
+		# bottlenose_dolphin_entity.surface_marker = surface_position
 
 		dolphins_parent.add_child(bottlenose_dolphin_entity)
 
-		if is_equal_approx(bottlenose_dolphin_def.spawn_pos.x, 0.0) \
-		and is_equal_approx(bottlenose_dolphin_def.spawn_pos.y, 0.0):
+		if is_equal_approx(bottlenose_dolphin_def.spawn_direction.x, 0.0) \
+		and is_equal_approx(bottlenose_dolphin_def.spawn_direction.y, 0.0):
 			var x_offset : float = randf_range(0.0, 1.0)
 			var z_offset : float = 1.0 - x_offset
 			bottlenose_dolphin_entity.global_position = Vector3(
 				x_offset * ((2 * randi_range(0, 1)) - 1), 
-				bottlenose_dolphin_def.spawn_height, 
+				bottlenose_dolphin_def.height_min, 
 				z_offset * ((2 * randi_range(0, 1)) - 1)
 			)
 		else:
 			bottlenose_dolphin_entity.global_position = Vector3(
-				bottlenose_dolphin_def.spawn_pos.x,
-				bottlenose_dolphin_def.spawn_height,
-				bottlenose_dolphin_def.spawn_pos.y,
+				bottlenose_dolphin_def.spawn_direction.x,
+				bottlenose_dolphin_def.height_min,
+				bottlenose_dolphin_def.spawn_direction.y,
 			)
 	
 	if src_data.animals.whales.humpback.enabled:

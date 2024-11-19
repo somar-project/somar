@@ -61,16 +61,13 @@ var DEFAULT_OCEAN_DICT : Dictionary = {
 		"dolphins": {
 			"bottlenose": [
 				{
-					"spawn_height": 2.0,
-					"min_swim_speed": 4.5,
-					"max_swim_speed": 4.5,
+					"height_min": 0.5,
+					"height_max": 3.0,
+					"swim_speed": 8.0,
 					"min_distance_to_player": 4.0,
-					"max_distance_to_player": 5.0,
-					"min_target_depth": -1.0,
-					"max_target_depth": 1.0,
+					"max_distance_to_player": 8.0,
 					"clockwise": true,
-					"breathing_time": 60.0,
-					"spawn_pos": Vector2(0.0, 0.0)
+					"spawn_direction": Vector2(0.0, 0.0)
 				}
 			]
 		}
@@ -105,16 +102,13 @@ var DEFAULT_SHORE_DICT : Dictionary = {
 		"dolphins": {
 			"bottlenose": [
 				{
-					"spawn_height": 2.0,
-					"min_swim_speed": 4.5,
-					"max_swim_speed": 4.5,
+					"height_min": 0.5,
+					"height_max": 3.0,
+					"swim_speed": 8.0,
 					"min_distance_to_player": 4.0,
-					"max_distance_to_player": 5.0,
-					"min_target_depth": -1.0,
-					"max_target_depth": 1.0,
+					"max_distance_to_player": 8.0,
 					"clockwise": true,
-					"breathing_time": 60.0,
-					"spawn_pos": Vector2(0.0, 0.0)
+					"spawn_direction": Vector2(0.0, 0.0)
 				}
 			]
 		}

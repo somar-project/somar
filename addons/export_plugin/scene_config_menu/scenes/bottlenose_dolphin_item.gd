@@ -6,16 +6,13 @@ extends PanelContainer
 @onready var delete_button : Button = %DeleteButton
 @onready var content_container : MarginContainer = %ContentContainer
 
-@onready var spawn_height_spin_box : SpinBox = %SpawnHeightSpinBox
-@onready var min_swim_speed_spin_box : SpinBox = %MinSwimSpeedSpinBox
-@onready var max_swim_speed_spin_box : SpinBox = %MaxSwimSpeedSpinBox
+@onready var height_min_spin_box : SpinBox = %HeightMinSpinBox
+@onready var height_max_spin_box : SpinBox = %HeightMaxSpinBox
+@onready var swim_speed_spin_box : SpinBox = %SwimSpeedSpinBox
 @onready var min_distance_to_player_spin_box : SpinBox = %MinDistanceToPlayerSpinBox
 @onready var max_distance_to_player_spin_box : SpinBox = %MaxDistanceToPlayerSpinBox
-@onready var min_depth_variation_spin_box : SpinBox = %MinDepthVariationSpinBox
-@onready var max_depth_variation_spin_box : SpinBox = %MaxDepthVariationSpinBox
-@onready var breathing_time_spin_box : SpinBox = %BreathingTimeSpinBox
-@onready var spawn_pos_x_spin_box : SpinBox = %SpawnPosX
-@onready var spawn_pos_z_spin_box : SpinBox = %SpawnPosZ
+@onready var spawn_dir_x_spin_box : SpinBox = %SpawnDirX
+@onready var spawn_dir_z_spin_box : SpinBox = %SpawnDirZ
 @onready var swim_clickwise_toggle : CheckButton = %SwimClockwiseToggle
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
@@ -57,32 +54,26 @@ func _toggle_content() -> void:
 func initialize(p_scene_type : SceneManager.PlayerContext, data : Dictionary) -> void:
 	scene_type = p_scene_type
 
-	spawn_height_spin_box.value = data.spawn_height
-	min_swim_speed_spin_box.value = data.min_swim_speed
-	max_swim_speed_spin_box.value = data.max_swim_speed
+	height_min_spin_box.value = data.height_min
+	height_max_spin_box.value = data.height_max
+	swim_speed_spin_box.value = data.swim_speed
 	min_distance_to_player_spin_box.value = data.min_distance_to_player
 	max_distance_to_player_spin_box.value = data.max_distance_to_player
-	min_depth_variation_spin_box.value = data.min_target_depth
-	max_depth_variation_spin_box.value = data.max_target_depth
-	breathing_time_spin_box.value = data.breathing_time
-	spawn_pos_x_spin_box.value = data.spawn_pos.x
-	spawn_pos_z_spin_box.value = data.spawn_pos.y
+	spawn_dir_x_spin_box.value = data.spawn_direction.x
+	spawn_dir_z_spin_box.value = data.spawn_direction.y
 	swim_clickwise_toggle.button_pressed = data.clockwise
 
 
 func get_data() -> Dictionary:
 	return {
-		"spawn_height": spawn_height_spin_box.value,
-		"min_swim_speed": min_swim_speed_spin_box.value,
-		"max_swim_speed": max_swim_speed_spin_box.value,
+		"height_min": height_min_spin_box.value,
+		"height_max": height_max_spin_box.value,
+		"swim_speed": swim_speed_spin_box.value,
 		"min_distance_to_player": min_distance_to_player_spin_box.value,
 		"max_distance_to_player": max_distance_to_player_spin_box.value,
-		"min_target_depth": min_depth_variation_spin_box.value,
-		"max_target_depth": max_depth_variation_spin_box.value,
-		"breathing_time": breathing_time_spin_box.value,
-		"spawn_pos": Vector2(
-			spawn_pos_x_spin_box.value,
-			spawn_pos_z_spin_box.value
+		"spawn_direction": Vector2(
+			spawn_dir_x_spin_box.value,
+			spawn_dir_z_spin_box.value
 		),
 		"clockwise": swim_clickwise_toggle.button_pressed
 	}

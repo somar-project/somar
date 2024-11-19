@@ -14,6 +14,7 @@ func _ready() -> void:
 
 	Global.player.set_glove_caustics(false)
 	Global.player.set_underwater_particles_active(false)
+	Global.player.set_sun_rays_enabled(false)
 
 	lang_btn_english.pressed.connect(_set_language.bind("en"))
 	lang_btn_portuguese.pressed.connect(_set_language.bind("pt"))
