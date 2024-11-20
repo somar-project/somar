@@ -14,8 +14,7 @@ extends Node3D
 @export_category("Animation")
 enum DolphinState {
 	IDLE = 0,
-	SWIMMING = 1,
-	BREATHING = 2
+	SWIMMING = 1
 }
 @export var state : DolphinState = DolphinState.IDLE
 @export var animation_player : AnimationPlayer
@@ -29,9 +28,11 @@ enum DolphinState {
 @export var debug_initialize : bool = false : set = _debug_initialize
 @export var debug_swim_loop : bool = false
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
+@export var debug_slow_down : bool = false : set = _debug_slow_down
+@export var debug_speed_up : bool = false : set = _debug_speed_up
 
 @onready var obstacle_area : Area3D = %ObstacleArea3D
-@onready var raycast : RayCast3D = %RayCast3D
+@onready var obstacle_avoidance_area : Area3D = %ObstacleAvoidanceArea3D
 
 var tree : SceneTree
 
@@ -47,6 +48,7 @@ var current_swim_speed : float
 var last_swim_dir : Vector3 = Vector3(0.0, 1000.0, 0.0)
 
 var movement_tween : Tween
+var speed_change_tween : Tween
 
 var clockwise_mult : float = 1.0
 var first_swim_loop : bool = true
@@ -61,6 +63,7 @@ var debug_target_shape : MeshInstance3D
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		tree = get_tree()
+		obstacle_avoidance_area.area_entered.connect(_handle_obstacle_detected)
 		
 		await tree.process_frame
 		_initialize()
@@ -78,6 +81,18 @@ func _debug_swim_to_target(_value : bool) -> void:
 
 	if Engine.is_editor_hint():
 		_swim_to_target(debug_swim_loop)
+
+func _debug_slow_down(_value : bool) -> void:
+	debug_slow_down = false
+
+	if Engine.is_editor_hint():
+		slow_down()
+
+func _debug_speed_up(_value : bool) -> void:
+	debug_speed_up = false
+
+	if Engine.is_editor_hint():
+		speed_up()
 
 
 func _initialize() -> void:
@@ -161,6 +176,9 @@ func _correct_initial_position() -> void:
 
 func _swim_to_target(loop : bool = true) -> void:
 	state = DolphinState.SWIMMING
+	obstacle_avoidance_area.monitoring = true
+	obstacle_area.monitorable = true
+
 	current_position = global_position
 	current_target = _pick_target()
 
@@ -321,9 +339,68 @@ func _get_target_quadrant_dir(current_quadrant : int, swimming_clockwise : bool)
 	return Vector3(target_q_dir.x, 0.0, target_q_dir.y).normalized()
 
 
-func _process(_delta : float) -> void:
-	# TODO: implement collision avoidance here
-	pass
+func _handle_obstacle_detected(p_obstacle_area : Area3D) -> void:
+	if state == DolphinState.SWIMMING and p_obstacle_area != obstacle_area:
+		if p_obstacle_area.owner is DolphinBase:
+
+			obstacle_avoidance_area.monitoring = false
+			obstacle_area.monitorable = false
+
+			p_obstacle_area.owner.speed_up()
+			slow_down()
+
+func speed_up() -> void:
+	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
+		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
+
+		if time_left > 0.7:
+			if speed_change_tween:
+				speed_change_tween.kill()
+			
+			obstacle_avoidance_area.monitoring = true
+			obstacle_area.monitorable = true
+			
+			speed_change_tween = create_tween()
+
+			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+				movement_tween.set_speed_scale(new_speed_s),
+				1.0,
+				1.6,
+				0.35
+			)
+			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+				movement_tween.set_speed_scale(new_speed_s),
+				1.6,
+				1.0,
+				0.35
+			)
+
+func slow_down() -> void:
+	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
+		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
+
+		if time_left > 0.7:
+			if speed_change_tween:
+				speed_change_tween.kill()
+			
+			speed_change_tween = create_tween()
+
+			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+				movement_tween.set_speed_scale(new_speed_s),
+				1.0,
+				0.4,
+				0.35
+			)
+			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+				movement_tween.set_speed_scale(new_speed_s),
+				0.4,
+				1.0,
+				0.35
+			)
+
+			await speed_change_tween.finished
+			obstacle_avoidance_area.monitoring = true
+			obstacle_area.monitorable = true
 
 
 func is_state(state_idx : int) -> bool:

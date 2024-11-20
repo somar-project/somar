@@ -145,6 +145,8 @@ func _initiate_boat_event() -> void:
 	current_boat.global_position = initial_boat_position
 	current_boat.look_at(final_boat_position)
 
+	current_boat.play_sfx()
+
 	timer.start(time_to_reach_signal_distance)
 	timer.timeout.connect(_signal_animals_to_flee, CONNECT_ONE_SHOT)
 
@@ -156,6 +158,9 @@ func _initiate_boat_event() -> void:
 	boat_tween.tween_property(current_boat, "scale", Vector3.ONE, time_to_reach_final_distance * 0.3)
 	boat_tween.tween_property(current_boat, "global_position", final_boat_position, time_to_reach_final_distance)
 	boat_tween.tween_property(current_boat, "scale", Vector3(0.1, 0.1, 0.1), time_to_reach_final_distance * 0.3).set_delay(time_to_reach_final_distance * 0.7)
+
+	await boat_tween.finished
+	current_boat.queue_free()
 
 
 func _signal_animals_to_flee() -> void:

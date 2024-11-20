@@ -7,19 +7,21 @@ uniform sampler2D noise_texture;
 uniform float speed : hint_range(0.0, 1.0) = 0.5;
 uniform float opacity : hint_range(0.0, 1.0) = 1.0;
 
+varying vec2 new_uv;
+
 
 void vertex() {
-	vec2 new_uv = UV;
-	new_uv.x += TIME * speed * 0.2;
-	vec4 noise_t = texture(noise_texture, new_uv);
+	vec2 noise_uv = UV;
+	noise_uv.x += TIME * speed * 0.2;
+	vec4 noise_t = texture(noise_texture, noise_uv);
+	
+	new_uv = UV;
+	new_uv.x -= TIME * speed;
 	
 	VERTEX.y += noise_t.r / 2.0;
 }
 
 void fragment() {
-	vec2 new_uv = UV;
-	new_uv.x -= TIME * speed;
-	
 	vec4 trail_t = texture(trail_texture, new_uv);
 	vec4 trail_t_a = texture(trail_texture, UV);
 	
