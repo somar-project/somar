@@ -84,3 +84,13 @@ func _is_quest() -> bool:
 
 func _recenter() -> void:
 	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
+
+
+func rotate_vector_around_pivot(point : Vector3, pivot : Vector3, rotation_rad : float) -> Vector3:
+	var cos_theta : float = cos(rotation_rad)
+	var sin_theta : float = sin(rotation_rad)
+
+	var x : float = (cos_theta * (point.x - pivot.x) - sin_theta * (point.z - pivot.z) + pivot.x)
+	var z : float = (sin_theta * (point.x - pivot.x) + cos_theta * (point.z - pivot.z) + pivot.z)
+
+	return Vector3(x, point.y, z)

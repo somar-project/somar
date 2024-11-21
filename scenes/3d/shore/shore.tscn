@@ -1,6 +1,6 @@
-[gd_scene load_steps=26 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=25 format=3 uid="uid://c1sswtpcofyfs"]
 
-[ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_wvgmc"]
+[ext_resource type="Script" path="res://scenes/3d/shore/shore.gd" id="1_5fr5e"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
 [ext_resource type="Material" uid="uid://chbp2kvceqhml" path="res://scenes/3d/shore/materials/shore_water_surface_material.tres" id="3_tb2uy"]
 [ext_resource type="Material" uid="uid://cll86s32pe0b8" path="res://scenes/3d/shore/materials/shore_water_surface_highlights_material.tres" id="4_wn413"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="9_ahx2y"]
 [ext_resource type="Texture2D" uid="uid://cf52dgvdtgl6t" path="res://scenes/3d/shore/textures/shore_floor_mask_inv.png" id="11_iaate"]
 [ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="12_12eq2"]
-[ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="12_rwuhk"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="12_svdwg"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="16_wn450"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="17_tovah"]
@@ -43,7 +42,7 @@ render_priority = 0
 next_pass = ExtResource("7_qv88s")
 shader = ExtResource("8_lqk5h")
 shader_parameter/albedo = Color(0.64, 0.772, 1, 1)
-shader_parameter/border_color = Color(0.0352941, 0.368627, 0.733333, 1)
+shader_parameter/border_color = Color(0.0509804, 0.286275, 0.552941, 1)
 shader_parameter/shadow_min_opacity = 0.75
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.05
@@ -63,7 +62,7 @@ reflected_light_source = 1
 tonemap_exposure = 0.0
 
 [node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
-script = ExtResource("1_wvgmc")
+script = ExtResource("1_5fr5e")
 min_boat_event_spawn_delay = 10.0
 max_boat_event_spawn_delay = 11.0
 scene_type = 1
@@ -79,7 +78,7 @@ environment = ExtResource("2_l7j2l")
 
 [node name="SurfacePosition" type="Marker3D" parent="."]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 5, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 6, 0)
 
 [node name="WaterSurface" type="MeshInstance3D" parent="SurfacePosition"]
 material_override = ExtResource("3_tb2uy")
@@ -98,10 +97,10 @@ material_override = SubResource("ShaderMaterial_2rj65")
 mesh = SubResource("QuadMesh_ftmyj")
 
 [node name="PlayerPosition" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("7_iabag")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="sea_floor" type="Node3D" parent="."]
 transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, 0, -0.03, 0)
@@ -157,12 +156,6 @@ metadata/quadrant_id = 3
 
 [node name="Boats" type="Node3D" parent="."]
 unique_name_in_owner = true
-
-[node name="InflatablePatrolBoat" parent="Boats" instance=ExtResource("12_rwuhk")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-visible = false
-stop_at_ratio = 0.4
-hull_bottom_material_initial_opacity = null
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("16_wn450")]
 unique_name_in_owner = true

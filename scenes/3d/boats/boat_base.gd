@@ -3,11 +3,13 @@ class_name BoatBase
 extends Node3D
 
 signal mid_pos_target_reached
+signal reached_ratio(ratio : float)
 
 ## In km/h
 @export var speed : float = 28.0 # about 15 knots
 @export var surface_offset : float = -0.768
 @export var stop_at_ratio : float = 0.5
+@export var signal_at_ratios : Array[float] = []
 @export var dolphin_curious_positions_parent : Node3D
 
 @export_category("Animation")
@@ -35,7 +37,6 @@ enum BoatState {
 const CURVE_RADIUS : float = 20.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 
-var timer : Timer
 var boat_tween : Tween
 var curve_points : PackedVector3Array
 
@@ -51,9 +52,6 @@ var mid_stop_pos : Vector3 = Vector3.ZERO
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
-		timer = Timer.new()
-		add_child(timer)
-
 		engine_loop_audio_player.stream = engine_loop_audio
 
 		boat_speed_in_m_per_s = speed / 3.6
@@ -63,9 +61,6 @@ func _ready() -> void:
 
 
 func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_quadrants_parent : Node3D, quadrant_idx : int = -1) -> void:
-	# if timer.timeout.is_connected(_signal_animals_to_flee):
-	# 	timer.timeout.disconnect(_signal_animals_to_flee)
-
 	var quadrant : Path3D
 	if quadrant_idx < 0:
 		quadrant = path_quadrants_parent.get_child(randi_range(0, 3))
@@ -104,35 +99,39 @@ func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_q
 	global_position = initial_boat_position
 	look_at(final_boat_position)
 
+	if not signal_at_ratios.is_empty():
+		for ratio : float in signal_at_ratios:
+			if ratio <= stop_at_ratio:
+				var signal_distance : float = ratio * distance_between_points
+				var time_to_signal : float = signal_distance / boat_speed_in_m_per_s
+
+				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
+
 	_start_initial_movement()
 
-	# var distance_between_points : float = initial_boat_position.distance_to(final_boat_position)
-	# var signal_distance : float = start_stopping_at_ratio * distance_between_points
 
-	# var boat_speed_in_m_per_s : float = speed / 3.6
-	# var time_to_reach_signal_distance : float = signal_distance / boat_speed_in_m_per_s
-	# var time_to_reach_final_distance : float = distance_between_points / boat_speed_in_m_per_s
+func initialize_at(origin : Vector3, direction : Vector3, total_distance : float, surface_position : Marker3D) -> void:
+	initial_boat_position = origin
+	final_boat_position = initial_boat_position + (direction * total_distance)
 
-	# visible = true
-	# global_position = initial_boat_position
-	# look_at(final_boat_position)
+	# Correct height
+	initial_boat_position.y = surface_position.global_position.y + surface_offset
+	final_boat_position.y = surface_position.global_position.y + surface_offset
 
-	# play_sfx()
+	boat_direction = direction
+	distance_between_points = total_distance
 
-	# timer.start(time_to_reach_signal_distance)
-	# timer.timeout.connect(_signal_animals_to_flee, CONNECT_ONE_SHOT)
+	global_position = initial_boat_position
+	look_at(final_boat_position)
 
-	# if boat_tween:
-	# 	boat_tween.kill()
-	
-	# boat_tween = create_tween()
-	# boat_tween.set_parallel(true)
-	# boat_tween.tween_property(self, "scale", Vector3.ONE, time_to_reach_final_distance * 0.3)
-	# boat_tween.tween_property(self, "global_position", final_boat_position, time_to_reach_final_distance)
-	# boat_tween.tween_property(self, "scale", Vector3(0.1, 0.1, 0.1), time_to_reach_final_distance * 0.3).set_delay(time_to_reach_final_distance * 0.7)
+	if not signal_at_ratios.is_empty():
+		for ratio : float in signal_at_ratios:
+			if ratio <= stop_at_ratio:
+				var signal_distance : float = ratio * distance_between_points
+				var time_to_signal : float = signal_distance / boat_speed_in_m_per_s
+				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
 
-	# await boat_tween.finished
-	# queue_free()
+	_start_initial_movement()
 
 
 func _start_initial_movement() -> void:
@@ -145,7 +144,7 @@ func _start_initial_movement() -> void:
 	var final_pos : Vector3 = initial_boat_position + (boat_direction * stop_distance)
 	var time_to_stop : float = stop_distance / boat_speed_in_m_per_s
 
-	engine_loop_audio_player.play()
+	engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
 
 	if boat_tween:
 		boat_tween.kill()
@@ -166,7 +165,7 @@ func _start_initial_movement() -> void:
 	)
 
 	await boat_tween.finished
-	engine_loop_audio_player.stop()
+	engine_loop_audio_player.call_deferred("stop")
 	_stop_drift()
 
 
@@ -221,6 +220,10 @@ func _stop_drift() -> void:
 
 	await boat_tween.finished
 	mid_pos_target_reached.emit()
+
+
+func _signal_ratio(ratio : float) -> void:
+	reached_ratio.emit(ratio)
 
 
 func is_state(state_idx : int) -> bool:
