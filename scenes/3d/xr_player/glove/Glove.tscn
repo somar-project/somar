@@ -912,6 +912,7 @@ mesh = ExtResource("2_ktth0")
 skin = SubResource("Skin_5700v")
 surface_material_override/0 = ExtResource("3_4b6rw")
 script = ExtResource("4_3bg08")
+low_quality_materials = Array[Material]([ExtResource("3_4b6rw")])
 high_quality_materials = Array[Material]([ExtResource("5_lqdg8")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="gloves_animated"]

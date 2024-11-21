@@ -17064,6 +17064,7 @@ surface_material_override/1 = ExtResource("2_8lfbg")
 surface_material_override/2 = ExtResource("2_8lfbg")
 surface_material_override/3 = ExtResource("2_8lfbg")
 script = ExtResource("3_mikg6")
+low_quality_materials = Array[Material]([ExtResource("2_8lfbg"), ExtResource("2_8lfbg"), ExtResource("2_8lfbg"), ExtResource("2_8lfbg")])
 high_quality_materials = Array[Material]([ExtResource("4_qul07"), ExtResource("4_qul07"), ExtResource("4_qul07"), ExtResource("4_qul07")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="blue_whale"]

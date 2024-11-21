@@ -35,6 +35,7 @@ enabled=PackedStringArray("res://addons/export_plugin/plugin.cfg")
 
 change_with_input=""
 menu_btn_listeners=""
+dolphin=""
 
 [internationalization]
 

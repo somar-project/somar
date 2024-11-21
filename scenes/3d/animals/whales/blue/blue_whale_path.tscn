@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cpst4kskfr8gj"]
 
 [ext_resource type="Script" path="res://scenes/3d/animals/whales/whale_path.gd" id="1_3q8es"]
-[ext_resource type="Curve3D" uid="uid://uqbwg4xiay3w" path="res://scenes/3d/animals/whales/humpback/paths/path_1.tres" id="2_b0jl7"]
 [ext_resource type="AudioStream" uid="uid://8qgeb87k4r21" path="res://scenes/3d/animals/whales/blue/audio/blue_whale_call.wav" id="2_rreg3"]
 [ext_resource type="PackedScene" uid="uid://dnnemhl23km37" path="res://scenes/3d/animals/whales/blue/blue_whale.tscn" id="3_ncc35"]
+[ext_resource type="Curve3D" uid="uid://cxg5jmc653e0q" path="res://scenes/3d/animals/whales/humpback/paths/path_0.tres" id="3_u3e05"]
 
 [node name="BlueWhalePath" type="Node3D"]
 script = ExtResource("1_3q8es")
@@ -11,11 +11,11 @@ audios = Array[AudioStream]([ExtResource("2_rreg3")])
 
 [node name="WhalePath" type="Path3D" parent="."]
 unique_name_in_owner = true
-curve = ExtResource("2_b0jl7")
+curve = ExtResource("3_u3e05")
 
 [node name="WhalePathFollow" type="PathFollow3D" parent="WhalePath"]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 0, 0, 1.00016, 0, 0, 0, -1, 45, 0, 100)
+transform = Transform3D(-0.999998, 0, 0, 0, 1.00016, 0, 0, 0, -1, -45, 0, 100)
 rotation_mode = 4
 use_model_front = true
 

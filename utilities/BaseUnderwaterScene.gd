@@ -18,8 +18,6 @@ enum SceneType {
 @onready var humpback_whale_path : Node3D = %HumpbackWhalePath
 @onready var blue_whale_path : Node3D = %BlueWhalePath
 
-const CURVE_RADIUS : float = 20.0
-const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 
 # onready
@@ -29,10 +27,6 @@ var dolphins_parent : Node3D
 var boats_parent : Node3D
 
 var timer : Timer
-var boat_tween : Tween
-var current_boat : BoatBase
-
-var curve_points : PackedVector3Array
 
 var whales : Array[Node3D] = []
 var whale_idx : int = 0
@@ -73,9 +67,6 @@ func _ready() -> void:
 	timer = Timer.new()
 	add_child(timer)
 
-	# The 4 quadrants share the same curve, so this is only needed once
-	curve_points = PERIMETER_PATH_CURVE.get_baked_points()
-
 	Global.player.set_glove_caustics(true)
 	Global.player.set_sun_rays_enabled(true)
 
@@ -87,84 +78,7 @@ func _ready() -> void:
 	await Global.player.fade_finished
 	Global.player.set_underwater_particles_active(true)
 
-	timer.timeout.connect(_initiate_boat_event, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
-	timer.start(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay))
-
 	_play_whale()
-
-
-func _initiate_boat_event() -> void:
-	if timer.timeout.is_connected(_signal_animals_to_flee):
-		timer.timeout.disconnect(_signal_animals_to_flee)
-
-	# Choose random boat
-	var total_boats : int = boats_parent.get_child_count()
-	if total_boats > 1:
-		var selected_boat_idx : int = randi_range(0, total_boats-1)
-		current_boat = boats_parent.get_child(selected_boat_idx)
-	else:
-		current_boat = boats_parent.get_child(0)
-
-	# Choose random quadrant
-	var quadrant : Path3D = path_quadrants_parent.get_child(randi_range(0, 3))
-	var quadrant_id : int = quadrant.get_meta("quadrant_id", 0)
-	var opposite_quadrant : Path3D
-
-	match quadrant_id:
-		0:
-			opposite_quadrant = path_quadrants_parent.get_child(2)
-		1:
-			opposite_quadrant = path_quadrants_parent.get_child(3)
-		2:
-			opposite_quadrant = path_quadrants_parent.get_child(0)
-		3:
-			opposite_quadrant = path_quadrants_parent.get_child(1)
-		_:
-			print_debug("ERROR: invalid quadrant id.")
-			return
-
-	var initial_boat_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
-	var final_boat_position : Vector3 = opposite_quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
-
-	var boat_direction : Vector3 = initial_boat_position.direction_to(final_boat_position)
-	initial_boat_position += (boat_spawn_distance - CURVE_RADIUS) * boat_direction
-	final_boat_position += (boat_spawn_distance - CURVE_RADIUS) * -boat_direction
-
-	# Correct height
-	initial_boat_position.y = surface_position.global_position.y + current_boat.surface_offset
-	final_boat_position.y = surface_position.global_position.y + current_boat.surface_offset
-
-	var distance_between_points : float = initial_boat_position.distance_to(final_boat_position)
-	var signal_distance : float = signal_flee_at_ratio * distance_between_points
-
-	var boat_speed_in_m_per_s : float = current_boat.speed / 3.6
-	var time_to_reach_signal_distance : float = signal_distance / boat_speed_in_m_per_s
-	var time_to_reach_final_distance : float = distance_between_points / boat_speed_in_m_per_s
-
-	current_boat.visible = true
-	current_boat.global_position = initial_boat_position
-	current_boat.look_at(final_boat_position)
-
-	current_boat.play_sfx()
-
-	timer.start(time_to_reach_signal_distance)
-	timer.timeout.connect(_signal_animals_to_flee, CONNECT_ONE_SHOT)
-
-	if boat_tween:
-		boat_tween.kill()
-	
-	boat_tween = create_tween()
-	boat_tween.set_parallel(true)
-	boat_tween.tween_property(current_boat, "scale", Vector3.ONE, time_to_reach_final_distance * 0.3)
-	boat_tween.tween_property(current_boat, "global_position", final_boat_position, time_to_reach_final_distance)
-	boat_tween.tween_property(current_boat, "scale", Vector3(0.1, 0.1, 0.1), time_to_reach_final_distance * 0.3).set_delay(time_to_reach_final_distance * 0.7)
-
-	await boat_tween.finished
-	current_boat.queue_free()
-
-
-func _signal_animals_to_flee() -> void:
-	print_debug("FLEE!")
 
 
 func _initialize_saved_data() -> void:

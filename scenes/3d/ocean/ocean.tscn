@@ -1,6 +1,6 @@
 [gd_scene load_steps=18 format=3 uid="uid://c6y5y8pwspjr"]
 
-[ext_resource type="Script" path="res://utilities/BaseUnderwaterScene.gd" id="1_y2udb"]
+[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_qkda0"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
@@ -35,7 +35,7 @@ shader_parameter/fake_sun_texture = ExtResource("8_plpqe")
 size = Vector2(8, 8)
 
 [node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
-script = ExtResource("1_y2udb")
+script = ExtResource("1_qkda0")
 min_boat_event_spawn_delay = 15.0
 max_boat_event_spawn_delay = 20.0
 player_position = NodePath("PlayerPosition")

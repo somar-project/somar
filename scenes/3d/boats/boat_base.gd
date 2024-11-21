@@ -1,11 +1,227 @@
+@tool
 class_name BoatBase
 extends Node3D
+
+signal mid_pos_target_reached
 
 ## In km/h
 @export var speed : float = 28.0 # about 15 knots
 @export var surface_offset : float = -0.768
+@export var stop_at_ratio : float = 0.5
+@export var dolphin_curious_positions_parent : Node3D
+
+@export_category("Animation")
+enum BoatState {
+	IDLE = 0,
+	MOVING = 1
+}
+@export var state : BoatState = BoatState.IDLE
+@export var stop_drift_curve : Curve
+
+@export_category("Effects")
+@export var bubbles_particles : CPUParticles3D
+@export var foam_plane_material : ShaderMaterial
+@export var hull_bottom_material : ShaderMaterial
+@export_range(0.0, 1.0) var hull_bottom_material_initial_opacity : float = 0.5
+
+@export_category("Audio")
+@export var engine_loop_audio : AudioStream
+@export var engine_stop_audio : AudioStream
+@export var engine_start_audio : AudioStream
+
+@onready var engine_loop_audio_player : AudioStreamPlayer3D = %EngineLoopAudioPlayer
+@onready var engine_start_stop_audio_player : AudioStreamPlayer3D = %EngineStartStopAudioPlayer
+
+const CURVE_RADIUS : float = 20.0
+const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
+
+var timer : Timer
+var boat_tween : Tween
+var curve_points : PackedVector3Array
+
+var boat_speed_in_m_per_s : float
+
+var boat_direction : Vector3
+var initial_boat_position : Vector3
+var final_boat_position : Vector3
+var distance_between_points : float
+
+var mid_stop_pos : Vector3 = Vector3.ZERO
 
 
-# TEMPORARY
-func play_sfx() -> void:
-    $BoatAudioPlayer.play()
+func _ready() -> void:
+	if not Engine.is_editor_hint():
+		timer = Timer.new()
+		add_child(timer)
+
+		engine_loop_audio_player.stream = engine_loop_audio
+
+		boat_speed_in_m_per_s = speed / 3.6
+
+		# The 4 quadrants share the same curve, so this is only needed once
+		curve_points = PERIMETER_PATH_CURVE.get_baked_points()
+
+
+func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_quadrants_parent : Node3D, quadrant_idx : int = -1) -> void:
+	# if timer.timeout.is_connected(_signal_animals_to_flee):
+	# 	timer.timeout.disconnect(_signal_animals_to_flee)
+
+	var quadrant : Path3D
+	if quadrant_idx < 0:
+		quadrant = path_quadrants_parent.get_child(randi_range(0, 3))
+	else:
+		quadrant = path_quadrants_parent.get_child(quadrant_idx)
+	
+	var quadrant_id : int = quadrant.get_meta("quadrant_id", 0)
+	var opposite_quadrant : Path3D
+
+	match quadrant_id:
+		0:
+			opposite_quadrant = path_quadrants_parent.get_child(2)
+		1:
+			opposite_quadrant = path_quadrants_parent.get_child(3)
+		2:
+			opposite_quadrant = path_quadrants_parent.get_child(0)
+		3:
+			opposite_quadrant = path_quadrants_parent.get_child(1)
+		_:
+			print_debug("ERROR: invalid quadrant id.")
+			return
+
+	initial_boat_position = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+	final_boat_position = opposite_quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+
+	boat_direction = initial_boat_position.direction_to(final_boat_position)
+	initial_boat_position += (boat_spawn_distance - CURVE_RADIUS) * -boat_direction
+	final_boat_position += (boat_spawn_distance - CURVE_RADIUS) * boat_direction
+
+	# Correct height
+	initial_boat_position.y = surface_position.global_position.y + surface_offset
+	final_boat_position.y = surface_position.global_position.y + surface_offset
+
+	distance_between_points = initial_boat_position.distance_to(final_boat_position)
+
+	global_position = initial_boat_position
+	look_at(final_boat_position)
+
+	_start_initial_movement()
+
+	# var distance_between_points : float = initial_boat_position.distance_to(final_boat_position)
+	# var signal_distance : float = start_stopping_at_ratio * distance_between_points
+
+	# var boat_speed_in_m_per_s : float = speed / 3.6
+	# var time_to_reach_signal_distance : float = signal_distance / boat_speed_in_m_per_s
+	# var time_to_reach_final_distance : float = distance_between_points / boat_speed_in_m_per_s
+
+	# visible = true
+	# global_position = initial_boat_position
+	# look_at(final_boat_position)
+
+	# play_sfx()
+
+	# timer.start(time_to_reach_signal_distance)
+	# timer.timeout.connect(_signal_animals_to_flee, CONNECT_ONE_SHOT)
+
+	# if boat_tween:
+	# 	boat_tween.kill()
+	
+	# boat_tween = create_tween()
+	# boat_tween.set_parallel(true)
+	# boat_tween.tween_property(self, "scale", Vector3.ONE, time_to_reach_final_distance * 0.3)
+	# boat_tween.tween_property(self, "global_position", final_boat_position, time_to_reach_final_distance)
+	# boat_tween.tween_property(self, "scale", Vector3(0.1, 0.1, 0.1), time_to_reach_final_distance * 0.3).set_delay(time_to_reach_final_distance * 0.7)
+
+	# await boat_tween.finished
+	# queue_free()
+
+
+func _start_initial_movement() -> void:
+	state = BoatState.MOVING
+
+	var drift_time : float = 1.0 + engine_stop_audio.get_length()
+	var drift_distance : float = boat_speed_in_m_per_s * drift_time
+
+	var stop_distance : float = (stop_at_ratio * distance_between_points) - drift_distance
+	var final_pos : Vector3 = initial_boat_position + (boat_direction * stop_distance)
+	var time_to_stop : float = stop_distance / boat_speed_in_m_per_s
+
+	engine_loop_audio_player.play()
+
+	if boat_tween:
+		boat_tween.kill()
+	
+	boat_tween = create_tween()
+	boat_tween.set_parallel(true)
+	boat_tween.tween_property(
+		self,
+		"scale",
+		Vector3.ONE,
+		0.1
+	)
+	boat_tween.tween_property(
+		self,
+		"global_position",
+		final_pos,
+		time_to_stop
+	)
+
+	await boat_tween.finished
+	engine_loop_audio_player.stop()
+	_stop_drift()
+
+
+func _stop_drift() -> void:
+	state = BoatState.IDLE
+
+	initial_boat_position = global_position
+
+	var drift_time : float = 1.0 + engine_stop_audio.get_length()
+	var drift_distance : float = boat_speed_in_m_per_s * drift_time
+	var final_pos : Vector3 = global_position + (boat_direction * drift_distance)
+
+	mid_stop_pos = final_pos
+
+	var stop_emitting_bubbles_at : float = maxf((drift_time - bubbles_particles.lifetime), 0.05)
+
+	engine_start_stop_audio_player.stream = engine_stop_audio
+	engine_start_stop_audio_player.play()
+
+	if boat_tween:
+		boat_tween.kill()
+	
+	boat_tween = create_tween()
+	boat_tween.set_parallel(true)
+	boat_tween.tween_callback(func() -> void:
+		bubbles_particles.emitting = false
+	).set_delay(stop_emitting_bubbles_at)
+	boat_tween.tween_property(
+		self,
+		"global_position",
+		final_pos,
+		drift_time
+	).set_custom_interpolator(func(v : float) -> float:
+		return stop_drift_curve.sample_baked(v)
+	)
+	boat_tween.tween_property(
+		foam_plane_material,
+		"shader_parameter/mask_uv_x_offset",
+		1.0,
+		drift_time
+	).set_custom_interpolator(func(v : float) -> float:
+		return stop_drift_curve.sample_baked(v)
+	)
+	boat_tween.tween_property(
+		hull_bottom_material,
+		"shader_parameter/opacity",
+		0.0,
+		drift_time
+	).set_custom_interpolator(func(v : float) -> float:
+		return stop_drift_curve.sample_baked(v)
+	)
+
+	await boat_tween.finished
+	mid_pos_target_reached.emit()
+
+
+func is_state(state_idx : int) -> bool:
+	return state_idx == state

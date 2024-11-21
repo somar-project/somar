@@ -160,15 +160,23 @@ func _create_meshes(material_paths : Array) -> void:
 	print("MATERIAL COUNT: %s" % material_paths.size())
 
 
-func start() -> void:
+func start(immediate : bool = true) -> void:
 	children = get_children()
 	if not children.is_empty():
-		cache_progress_total = children.size() / 2
-		cache_progress_current = 0
-		
-		idx = 0
-		should_run = true
-		set_process(true)
+
+		if immediate:
+			for child : Node in children:
+				child.visible = true
+			
+			await get_tree().process_frame
+			caching_finished.emit()
+		else:
+			cache_progress_total = children.size() / 2
+			cache_progress_current = 0
+			
+			idx = 0
+			should_run = true
+			set_process(true)
 
 
 func _process(_delta : float) -> void:

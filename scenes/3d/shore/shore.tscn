@@ -112,6 +112,7 @@ mesh = ExtResource("8_51r74")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("9_2w87t")
 script = ExtResource("12_12eq2")
+low_quality_materials = Array[Material]([ExtResource("9_2w87t")])
 high_quality_materials = Array[Material]([SubResource("ShaderMaterial_mx7ru")])
 
 [node name="ShadowsSubViewport" type="SubViewport" parent="."]
@@ -160,6 +161,8 @@ unique_name_in_owner = true
 [node name="InflatablePatrolBoat" parent="Boats" instance=ExtResource("12_rwuhk")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
+stop_at_ratio = 0.4
+hull_bottom_material_initial_opacity = null
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("16_wn450")]
 unique_name_in_owner = true

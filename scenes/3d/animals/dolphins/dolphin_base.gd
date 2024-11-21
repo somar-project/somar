@@ -2,6 +2,8 @@
 class_name DolphinBase
 extends Node3D
 
+signal target_reached
+
 @export var min_swim_speed : float = 4.5
 @export var max_swim_speed : float = 5.0
 
@@ -14,7 +16,8 @@ extends Node3D
 @export_category("Animation")
 enum DolphinState {
 	IDLE = 0,
-	SWIMMING = 1
+	SWIMMING = 1,
+	SWIMMING_IDLE = 2
 }
 @export var state : DolphinState = DolphinState.IDLE
 @export var animation_player : AnimationPlayer
@@ -67,7 +70,7 @@ func _ready() -> void:
 		
 		await tree.process_frame
 		_initialize()
-		_swim_to_target()
+		swim_to_target()
 
 
 func _debug_initialize(_value : bool) -> void:
@@ -80,7 +83,7 @@ func _debug_swim_to_target(_value : bool) -> void:
 	debug_swim_to_target = false
 
 	if Engine.is_editor_hint():
-		_swim_to_target(debug_swim_loop)
+		swim_to_target(Vector3.ZERO, true, debug_swim_loop)
 
 func _debug_slow_down(_value : bool) -> void:
 	debug_slow_down = false
@@ -174,20 +177,28 @@ func _correct_initial_position() -> void:
 		global_position -= direction * diff
 
 
-func _swim_to_target(loop : bool = true) -> void:
-	state = DolphinState.SWIMMING
-	obstacle_avoidance_area.monitoring = true
-	obstacle_area.monitorable = true
+func swim_to_target(target : Vector3 = Vector3.ZERO, random_target : bool = true, loop : bool = true) -> void:
+	# state = DolphinState.SWIMMING
+	obstacle_avoidance_area.set_deferred("monitoring", true)
+	obstacle_area.set_deferred("monitorable", true)
 
 	current_position = global_position
-	current_target = _pick_target()
+	current_target = target
+	if random_target:
+		current_target = _pick_target()
 
 	var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
 	var flat_current_target : Vector3 = Vector3(current_target.x, 0.0, current_target.z)
 
-	while flat_current_position.distance_to(flat_current_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
-		current_target = _pick_target()
-		flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
+	if random_target:
+		while flat_current_position.distance_to(flat_current_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
+			current_target = _pick_target()
+			flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
+	
+	if current_target.y > current_position.y:
+		state = DolphinState.SWIMMING
+	else:
+		state = DolphinState.SWIMMING_IDLE
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
@@ -249,9 +260,96 @@ func _swim_to_target(loop : bool = true) -> void:
 	_after_swiming_to_target(loop)
 
 
+func swim_to_target_boat(boat_position : Vector3, target : Vector3 = Vector3.ZERO, random_target : bool = true, loop : bool = true) -> void:
+	# state = DolphinState.SWIMMING
+	obstacle_avoidance_area.set_deferred("monitoring", true)
+	obstacle_area.set_deferred("monitorable", true)
+
+	current_position = global_position
+	current_target = target
+	if random_target:
+		current_target = _pick_target()
+
+	var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
+	var flat_current_target : Vector3 = Vector3(current_target.x, 0.0, current_target.z)
+
+	if random_target:
+		while flat_current_position.distance_to(flat_current_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
+			current_target = _pick_target()
+			flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
+	
+	if current_target.y > current_position.y:
+		state = DolphinState.SWIMMING
+	else:
+		state = DolphinState.SWIMMING_IDLE
+
+	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
+	var direction : Vector3 = (current_position - current_target).normalized()
+	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0 * clockwise_mult))
+
+	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
+	if not first_swim_loop:
+		var dist_from_last_mid_point_to_target : float = current_position.distance_to(current_middle_point_1)
+		var dir_from_last_mid_point_to_target : Vector3 = current_middle_point_1.direction_to(current_position)
+		current_middle_point_0 = current_position
+		current_middle_point_0 += dir_from_last_mid_point_to_target * ((distance_to_target + dist_from_last_mid_point_to_target) / 2.0)
+	else:
+		current_middle_point_0 = current_position
+		current_middle_point_0 += direction * distance_to_target
+	
+	var boat_to_point_dir : Vector3 = (boat_position + Vector3(0.0, 0.5, 0.0)).direction_to(current_target)
+
+	current_middle_point_1 = current_target
+	current_middle_point_1 += boat_to_point_dir * distance_to_target
+	# current_middle_point_1 += direction * distance_to_target
+
+	current_swim_speed = (distance_to_target * 2.5) / (swim_speed / 3.6)
+
+	if debug_enabled:
+		debug_initial_shape.global_position = current_position
+		debug_middle_0_shape.global_position = current_middle_point_0
+		debug_middle_1_shape.global_position = current_middle_point_1
+		debug_target_shape.global_position = current_target
+
+	if movement_tween:
+		movement_tween.kill()
+	
+	movement_tween = create_tween()
+	# movement_tween.set_ease(Tween.EASE_OUT)
+	movement_tween.tween_method(func(time : float) -> void:
+		var new_pos : Vector3 = _cubic_bezier(
+			current_position,
+			current_middle_point_0,
+			current_middle_point_1,
+			current_target,
+			time
+		)
+
+		global_position = new_pos
+
+		if time < 0.999:
+			var next_pos : Vector3 = _cubic_bezier(
+				current_position,
+				current_middle_point_0,
+				current_middle_point_1,
+				current_target,
+				time + 0.001
+			)
+			look_at(next_pos)
+		
+	, 0.0, 1.0, current_swim_speed)
+	await movement_tween.finished
+	if first_swim_loop:
+		first_swim_loop = false
+	
+	_after_swiming_to_target(loop)
+
+
 func _after_swiming_to_target(loop : bool) -> void:
+	target_reached.emit()
+
 	if loop:
-		call_deferred("_swim_to_target")
+		call_deferred("swim_to_target")
 
 
 func _pick_target() -> Vector3:
@@ -266,15 +364,15 @@ func _pick_target() -> Vector3:
 
 		last_swim_dir = target_direction
 
-		var target : Vector3 = target_direction * randf_range(min_distance_to_player, max_distance_to_player)
-		target.y = randf_range(height_min, height_max)
+		var target : Vector3 = player_position + (target_direction * randf_range(min_distance_to_player, max_distance_to_player))
+		target.y += randf_range(height_min, height_max)
 
 		return target
 	
 	else:
 		var radius_diff : float = max_distance_to_player - min_distance_to_player
-		var target : Vector3 = last_swim_dir * randf_range((max_distance_to_player + radius_diff), (max_distance_to_player + (radius_diff * 2)))
-		target.y = randf_range(height_min, height_max)
+		var target : Vector3 = player_position + (last_swim_dir * randf_range((max_distance_to_player + radius_diff), (max_distance_to_player + (radius_diff * 2))))
+		target.y += randf_range(height_min, height_max)
 
 		clockwise = !clockwise
 		if not clockwise:
@@ -340,11 +438,11 @@ func _get_target_quadrant_dir(current_quadrant : int, swimming_clockwise : bool)
 
 
 func _handle_obstacle_detected(p_obstacle_area : Area3D) -> void:
-	if state == DolphinState.SWIMMING and p_obstacle_area != obstacle_area:
+	if state != DolphinState.IDLE and p_obstacle_area != obstacle_area:
 		if p_obstacle_area.owner is DolphinBase:
 
-			obstacle_avoidance_area.monitoring = false
-			obstacle_area.monitorable = false
+			obstacle_avoidance_area.set_deferred("monitoring", false)
+			obstacle_area.set_deferred("monitorable", false)
 
 			p_obstacle_area.owner.speed_up()
 			slow_down()
@@ -353,33 +451,33 @@ func speed_up() -> void:
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
 		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
 
-		if time_left > 0.7:
+		if time_left > 0.6:
 			if speed_change_tween:
 				speed_change_tween.kill()
 			
-			obstacle_avoidance_area.monitoring = true
-			obstacle_area.monitorable = true
+			obstacle_avoidance_area.set_deferred("monitoring", true)
+			obstacle_area.set_deferred("monitorable", true)
 			
 			speed_change_tween = create_tween()
 
 			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
 				movement_tween.set_speed_scale(new_speed_s),
 				1.0,
-				1.6,
-				0.35
+				1.5,
+				0.3
 			)
 			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
 				movement_tween.set_speed_scale(new_speed_s),
-				1.6,
+				1.5,
 				1.0,
-				0.35
+				0.3
 			)
 
 func slow_down() -> void:
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
 		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
 
-		if time_left > 0.7:
+		if time_left > 0.6:
 			if speed_change_tween:
 				speed_change_tween.kill()
 			
@@ -388,19 +486,19 @@ func slow_down() -> void:
 			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
 				movement_tween.set_speed_scale(new_speed_s),
 				1.0,
-				0.4,
-				0.35
+				0.5,
+				0.3
 			)
 			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
 				movement_tween.set_speed_scale(new_speed_s),
-				0.4,
+				0.5,
 				1.0,
-				0.35
+				0.3
 			)
 
 			await speed_change_tween.finished
-			obstacle_avoidance_area.monitoring = true
-			obstacle_area.monitorable = true
+			obstacle_avoidance_area.set_deferred("monitoring", true)
+			obstacle_area.set_deferred("monitorable", true)
 
 
 func is_state(state_idx : int) -> bool:
@@ -424,7 +522,6 @@ func _cubic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3, t : f
 
 	var s = r0.lerp(r1, t)
 	return s
-
 
 func _rotate_vector_around_pivot(point : Vector3, pivot : Vector3, rotation_rad : float) -> Vector3:
 	var cos_theta : float = cos(rotation_rad)
