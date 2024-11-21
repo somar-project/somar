@@ -14,6 +14,7 @@ enum SceneType {
 	SHORE
 }
 @export var scene_type : SceneType = SceneType.OCEAN
+@export var dolphin_audio_manager : DolphinAudioManager
 
 @onready var humpback_whale_path : Node3D = %HumpbackWhalePath
 @onready var blue_whale_path : Node3D = %BlueWhalePath
@@ -65,6 +66,9 @@ func _ready() -> void:
 	RenderingServer.global_shader_parameter_set("water_surface_height", surface_position.global_position.y)
 
 	_initialize_saved_data()
+
+	for dolphin : DolphinBase in dolphins_parent.get_children():
+		dolphin_audio_manager.dolphins.push_back(dolphin)
 	
 	timer = Timer.new()
 	add_child(timer)

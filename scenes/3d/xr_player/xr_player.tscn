@@ -196,6 +196,7 @@ skeleton = NodePath("../..")
 
 [node name="AmbientAudioPlayer" type="AudioStreamPlayer" parent="XRCamera3D"]
 stream = ExtResource("10_fuxwj")
+volume_db = 2.0
 autoplay = true
 bus = &"Background"
 

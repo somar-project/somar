@@ -4,6 +4,7 @@ extends Node3D
 
 signal mid_pos_target_reached
 signal reached_ratio(ratio : float)
+signal boat_hidden
 
 ## In km/h
 @export var speed : float = 28.0 # about 15 knots
@@ -19,6 +20,7 @@ enum BoatState {
 }
 @export var state : BoatState = BoatState.IDLE
 @export var stop_drift_curve : Curve
+@export var start_drift_curve : Curve
 
 @export_category("Effects")
 @export var bubbles_particles : CPUParticles3D
@@ -172,8 +174,6 @@ func _start_initial_movement() -> void:
 func _stop_drift() -> void:
 	state = BoatState.IDLE
 
-	initial_boat_position = global_position
-
 	var drift_time : float = 1.0 + engine_stop_audio.get_length()
 	var drift_distance : float = boat_speed_in_m_per_s * drift_time
 	var final_pos : Vector3 = global_position + (boat_direction * drift_distance)
@@ -220,6 +220,104 @@ func _stop_drift() -> void:
 
 	await boat_tween.finished
 	mid_pos_target_reached.emit()
+
+
+func start_final_movement(delay : float = 0.0) -> void:
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+
+	var drift_time : float = engine_start_audio.get_length() - 3.5 # 3.5 is idle time before moving the boat
+	var drift_distance : float = boat_speed_in_m_per_s * drift_time
+	var final_pos : Vector3 = global_position + (boat_direction * drift_distance)
+
+	var distance_to_end : float = global_position.distance_to(final_boat_position)
+	var time_to_end : float = distance_to_end / boat_speed_in_m_per_s
+
+	engine_start_stop_audio_player.stream = engine_start_audio
+	engine_start_stop_audio_player.play()
+
+	if not signal_at_ratios.is_empty():
+		for ratio : float in signal_at_ratios:
+			if ratio > stop_at_ratio:
+				var stop_at_distance : float = stop_at_ratio * distance_between_points
+				var time_already_spent : float = stop_at_distance / boat_speed_in_m_per_s
+
+				var signal_distance : float = ratio * distance_between_points
+				var time_to_signal : float = (signal_distance / boat_speed_in_m_per_s) - time_already_spent
+				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
+
+	await get_tree().create_timer(3.5).timeout
+	state = BoatState.MOVING
+
+	if boat_tween:
+		boat_tween.kill()
+	
+	boat_tween = create_tween()
+	boat_tween.set_parallel(true)
+	boat_tween.tween_callback(func() -> void:
+		bubbles_particles.emitting = true
+	).set_delay(2.6)
+	boat_tween.tween_property(
+		self,
+		"global_position",
+		final_pos,
+		drift_time
+	).set_custom_interpolator(func(v : float) -> float:
+		return start_drift_curve.sample_baked(v)
+	)
+	boat_tween.tween_property(
+		foam_plane_material,
+		"shader_parameter/mask_uv_x_offset",
+		0.0,
+		(drift_time / 3.0) * 2.0
+	).set_custom_interpolator(func(v : float) -> float:
+		return start_drift_curve.sample_baked(v)
+	)
+	boat_tween.tween_property(
+		hull_bottom_material,
+		"shader_parameter/opacity",
+		hull_bottom_material_initial_opacity,
+		drift_time / 2.0
+	).set_custom_interpolator(func(v : float) -> float:
+		return start_drift_curve.sample_baked(v)
+	)
+	boat_tween.tween_callback(func() -> void:
+		engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
+	).set_delay(drift_time)
+	boat_tween.tween_property(
+		self,
+		"global_position",
+		final_boat_position,
+		time_to_end
+	).set_delay(drift_time)
+
+
+func hide_boat(time : float = 1.5) -> void:
+	bubbles_particles.emitting = false
+
+	var hide_tween : Tween = create_tween()
+	hide_tween.tween_property(
+		foam_plane_material,
+		"shader_parameter/mask_uv_x_offset",
+		0.0,
+		time / 2.0
+	)
+	hide_tween.tween_property(
+		hull_bottom_material,
+		"shader_parameter/opacity",
+		hull_bottom_material_initial_opacity,
+		time / 2.0
+	)
+	hide_tween.tween_property(
+		self,
+		"scale",
+		Vector3(0.1, 0.1, 0.1),
+		time
+	)
+
+	await hide_tween.finished
+	visible = false
+	boat_hidden.emit()
 
 
 func _signal_ratio(ratio : float) -> void:

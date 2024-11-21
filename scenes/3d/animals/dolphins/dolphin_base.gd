@@ -21,10 +21,11 @@ enum DolphinState {
 	SWIMMING_FAST = 3
 }
 @export var state : DolphinState = DolphinState.IDLE
-@export var animation_player : AnimationPlayer
-@export var animation_swim_name : String = ""
 @export var swim_speed : float = 8.0
 @export var clockwise : bool = true
+
+@export_category("Audio")
+@export var audio_stream_player : AudioStreamPlayer3D
 
 @export_category("Debug")
 @export var debug_enabled : bool = false
@@ -264,8 +265,8 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 
 
 func swim_to_target_flee(target : Vector3 = Vector3.ZERO) -> void:
-	obstacle_avoidance_area.set_deferred("monitoring", true)
-	obstacle_area.set_deferred("monitorable", true)
+	obstacle_avoidance_area.set_deferred("monitoring", false)
+	obstacle_area.set_deferred("monitorable", false)
 
 	current_position = global_position
 	current_target = target
@@ -429,11 +430,11 @@ func speed_up() -> void:
 		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
 
 		if time_left > 0.6:
+			obstacle_avoidance_area.set_deferred("monitoring", false)
+			obstacle_area.set_deferred("monitorable", false)
+
 			if speed_change_tween:
 				speed_change_tween.kill()
-			
-			obstacle_avoidance_area.set_deferred("monitoring", true)
-			obstacle_area.set_deferred("monitorable", true)
 			
 			speed_change_tween = create_tween()
 
@@ -449,6 +450,10 @@ func speed_up() -> void:
 				1.0,
 				0.3
 			)
+
+			await speed_change_tween.finished
+			obstacle_avoidance_area.set_deferred("monitoring", true)
+			obstacle_area.set_deferred("monitorable", true)
 
 func slow_down() -> void:
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():

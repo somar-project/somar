@@ -36,14 +36,8 @@ size = Vector2(8, 8)
 
 [node name="Ocean" type="Node3D" node_paths=PackedStringArray("player_position")]
 script = ExtResource("1_qkda0")
-boat_spawn_distance = null
 min_boat_event_spawn_delay = 15.0
 max_boat_event_spawn_delay = 20.0
-min_after_boat_wildlife_return_time = null
-max_after_boat_wildlife_return_time = null
-new_cycle_delay = null
-signal_flee_at_ratio = null
-scene_type = null
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -113,7 +107,6 @@ unique_name_in_owner = true
 [node name="InflatablePatrolBoat" parent="Boats" instance=ExtResource("9_omrdy")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
-signal_at_ratios = Array[float]([])
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("12_xgx7v")]
 unique_name_in_owner = true

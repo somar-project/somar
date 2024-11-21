@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=34 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://scenes/3d/shore/shore.gd" id="1_5fr5e"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
@@ -17,6 +17,15 @@
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="12_svdwg"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="16_wn450"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="17_tovah"]
+[ext_resource type="Script" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="18_t7q0w"]
+[ext_resource type="AudioStream" uid="uid://dfjmsfm37c0l8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_0.wav" id="19_xb5qs"]
+[ext_resource type="AudioStream" uid="uid://0ct8v5g2mijp" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_1.wav" id="20_lbsdn"]
+[ext_resource type="AudioStream" uid="uid://cyx53sgwlp7mn" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_2.wav" id="21_lnxh3"]
+[ext_resource type="AudioStream" uid="uid://csqhfox0ir51n" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_0.wav" id="22_8p3xt"]
+[ext_resource type="AudioStream" uid="uid://0tr3dtatj5ir" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_1.wav" id="23_8oaql"]
+[ext_resource type="AudioStream" uid="uid://bdwt8vkl5cbcb" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_2.wav" id="24_7akrk"]
+[ext_resource type="AudioStream" uid="uid://dcan8o5l8ibpt" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_3.wav" id="25_j1kiq"]
+[ext_resource type="AudioStream" uid="uid://bs241gqauk1hg" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_4.wav" id="26_bkgtk"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3gmhg"]
 size = Vector2(160, 160)
@@ -61,11 +70,12 @@ ambient_light_source = 1
 reflected_light_source = 1
 tonemap_exposure = 0.0
 
-[node name="Shore" type="Node3D" node_paths=PackedStringArray("player_position")]
+[node name="Shore" type="Node3D" node_paths=PackedStringArray("dolphin_audio_manager", "player_position")]
 script = ExtResource("1_5fr5e")
 min_boat_event_spawn_delay = 10.0
 max_boat_event_spawn_delay = 11.0
 scene_type = 1
+dolphin_audio_manager = NodePath("DolphinAudioManager")
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -169,3 +179,11 @@ unique_name_in_owner = true
 process_mode = 4
 visible = false
 move_time = 200.0
+
+[node name="DolphinAudioManager" type="Node3D" parent="."]
+script = ExtResource("18_t7q0w")
+clicking_sounds = Array[AudioStream]([ExtResource("19_xb5qs"), ExtResource("20_lbsdn"), ExtResource("21_lnxh3")])
+clicking_rate = 0.35
+clicking_cooldown = 0.8
+whistles_sounds = Array[AudioStream]([ExtResource("22_8p3xt"), ExtResource("23_8oaql"), ExtResource("24_7akrk"), ExtResource("25_j1kiq"), ExtResource("26_bkgtk")])
+whistling_rate = 0.7

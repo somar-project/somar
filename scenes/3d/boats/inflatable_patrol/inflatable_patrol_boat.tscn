@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://ds3xv7eus20gg"]
+[gd_scene load_steps=38 format=3 uid="uid://ds3xv7eus20gg"]
 
 [ext_resource type="ArrayMesh" uid="uid://unt0jsnmc8df" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_016.res" id="1_e3f83"]
 [ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
@@ -8,6 +8,7 @@
 [ext_resource type="Material" uid="uid://b68pcluwq500c" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_low_material.tres" id="3_hxune"]
 [ext_resource type="ArrayMesh" uid="uid://dctunx06pasqc" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_019.res" id="4_idvc1"]
 [ext_resource type="ArrayMesh" uid="uid://bchjd4yydemwf" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_020.res" id="5_yym5p"]
+[ext_resource type="AudioStream" uid="uid://f5nxjqy836mh" path="res://scenes/3d/boats/inflatable_patrol/audio/starting_sfx.wav" id="6_5x6br"]
 [ext_resource type="ArrayMesh" uid="uid://ctklxvk3tsjgm" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_021.res" id="6_smf0j"]
 [ext_resource type="ArrayMesh" uid="uid://d20xhyeh6rwp8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_022.res" id="7_v3tg7"]
 [ext_resource type="ArrayMesh" uid="uid://t4sx2yvmoc36" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_bottom_Mesh_010.res" id="10_c8bb7"]
@@ -20,6 +21,10 @@
 
 [sub_resource type="Curve" id="Curve_tpl33"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_nkpm1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="Animation" id="Animation_43qqh"]
@@ -275,14 +280,15 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="InflatablePatrolBoat" type="Node3D" node_paths=PackedStringArray("dolphin_curious_positions_parent", "bubbles_particles")]
 script = ExtResource("1_mu78g")
-signal_at_ratios = null
 dolphin_curious_positions_parent = NodePath("DolphinCuriousPositions")
 stop_drift_curve = SubResource("Curve_tpl33")
+start_drift_curve = SubResource("Curve_nkpm1")
 bubbles_particles = NodePath("BoatTrail/BubblesParticles")
 foam_plane_material = ExtResource("17_y75em")
 hull_bottom_material = ExtResource("13_jnejq")
 engine_loop_audio = ExtResource("15_paq1w")
 engine_stop_audio = ExtResource("3_6aigu")
+engine_start_audio = ExtResource("6_5x6br")
 
 [node name="MovementPivot" type="Node3D" parent="."]
 
@@ -436,12 +442,12 @@ unique_name_in_owner = true
 stream = ExtResource("15_paq1w")
 unit_size = 15.0
 max_db = 6.0
-max_distance = 100.0
+max_distance = 110.0
 bus = &"Boats"
 
 [node name="EngineStartStopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
 unit_size = 15.0
 max_db = 6.0
-max_distance = 100.0
+max_distance = 110.0
 bus = &"Boats"
