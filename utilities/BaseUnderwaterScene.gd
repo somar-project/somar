@@ -15,6 +15,7 @@ enum SceneType {
 }
 @export var scene_type : SceneType = SceneType.OCEAN
 @export var dolphin_audio_manager : DolphinAudioManager
+@export var whale_event_delay : float = 0.0
 
 @onready var humpback_whale_path : Node3D = %HumpbackWhalePath
 @onready var blue_whale_path : Node3D = %BlueWhalePath
@@ -133,6 +134,9 @@ func _initialize_saved_data() -> void:
 
 func _play_whale() -> void:
 	if not whales.is_empty():
+		if whale_event_delay > 0.0:
+			await tree.create_timer(whale_event_delay).timeout
+
 		var current_whale : Node3D = whales[whale_idx]
 		current_whale.process_mode = Node.PROCESS_MODE_INHERIT
 		current_whale.visible = true

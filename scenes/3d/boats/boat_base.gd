@@ -51,6 +51,8 @@ var distance_between_points : float
 
 var mid_stop_pos : Vector3 = Vector3.ZERO
 
+var initial_no_stop : bool = false
+
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -109,7 +111,10 @@ func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_q
 
 				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
 
-	_start_initial_movement()
+	if not initial_no_stop:
+		_start_initial_movement()
+	else:
+		_start_initial_movement_no_stop()
 
 
 func initialize_at(origin : Vector3, direction : Vector3, total_distance : float, surface_position : Marker3D) -> void:
@@ -133,7 +138,10 @@ func initialize_at(origin : Vector3, direction : Vector3, total_distance : float
 				var time_to_signal : float = signal_distance / boat_speed_in_m_per_s
 				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
 
-	_start_initial_movement()
+	if not initial_no_stop:
+		_start_initial_movement()
+	else:
+		_start_initial_movement_no_stop()
 
 
 func _start_initial_movement() -> void:
@@ -169,6 +177,33 @@ func _start_initial_movement() -> void:
 	await boat_tween.finished
 	engine_loop_audio_player.call_deferred("stop")
 	_stop_drift()
+
+func _start_initial_movement_no_stop() -> void:
+	state = BoatState.MOVING
+
+	var stop_distance : float = (stop_at_ratio * distance_between_points)
+	var final_pos : Vector3 = initial_boat_position + (boat_direction * stop_distance)
+	var time_to_stop : float = stop_distance / boat_speed_in_m_per_s
+
+	engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
+
+	if boat_tween:
+		boat_tween.kill()
+	
+	boat_tween = create_tween()
+	boat_tween.set_parallel(true)
+	boat_tween.tween_property(
+		self,
+		"scale",
+		Vector3.ONE,
+		0.1
+	)
+	boat_tween.tween_property(
+		self,
+		"global_position",
+		final_pos,
+		time_to_stop
+	)
 
 
 func _stop_drift() -> void:

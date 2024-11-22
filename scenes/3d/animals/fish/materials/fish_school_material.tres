@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bsi4hp2wc7giv"]
+
+[ext_resource type="Shader" path="res://scenes/3d/animals/fish/materials/fish_shader.gdshader" id="1_wlcrf"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_wlcrf")
+shader_parameter/time_scale = 5.0
+shader_parameter/time_scale_2 = 0.003
+shader_parameter/yaw = 30.0
+shader_parameter/roll = 30.0
+shader_parameter/scale = 0.01
+shader_parameter/fish_length = 0.07
+shader_parameter/mask_black = 0.0
+shader_parameter/mask_white = 1.0

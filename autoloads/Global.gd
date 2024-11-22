@@ -86,6 +86,24 @@ func _recenter() -> void:
 	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
 
+func quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:
+	var q0 : Vector3 = p0.lerp(p1, t)
+	var q1 : Vector3 = p1.lerp(p2, t)
+
+	var r : Vector3 = q0.lerp(q1, t)
+	return r
+
+func cubic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3, t : float) -> Vector3:
+	var q0 : Vector3 = p0.lerp(p1, t)
+	var q1 : Vector3 = p1.lerp(p2, t)
+	var q2 : Vector3 = p2.lerp(p3, t)
+
+	var r0 : Vector3 = q0.lerp(q1, t)
+	var r1 : Vector3 = q1.lerp(q2, t)
+
+	var s = r0.lerp(r1, t)
+	return s
+
 func rotate_vector_around_pivot(point : Vector3, pivot : Vector3, rotation_rad : float) -> Vector3:
 	var cos_theta : float = cos(rotation_rad)
 	var sin_theta : float = sin(rotation_rad)

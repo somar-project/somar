@@ -2,8 +2,8 @@
 
 [ext_resource type="ArrayMesh" uid="uid://dwf0cuijcjqc0" path="res://scenes/3d/animals/whales/humpback/mesh/Mesh_003.res" id="1_lmfcc"]
 [ext_resource type="Material" uid="uid://bf2grlmtfsc76" path="res://scenes/3d/animals/whales/humpback/materials/humpback_whale_hq_mat.tres" id="2_1y01r"]
+[ext_resource type="Material" uid="uid://drtfb1yyosqfu" path="res://scenes/3d/animals/whales/humpback/materials/humpback_whale_low_mat.tres" id="2_jksuj"]
 [ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="4_0r186"]
-[ext_resource type="Material" uid="uid://c08jd57ttiggi" path="res://scenes/3d/animals/whales/blue/materials/blue_whale_low_mat.tres" id="4_5a2be"]
 
 [sub_resource type="Skin" id="Skin_sl5r8"]
 resource_name = "Skin"
@@ -18199,12 +18199,12 @@ bones/122/scale = Vector3(1, 1, 1)
 [node name="hampbackwhale_skin" type="MeshInstance3D" parent="Humpback_whale/whale/Skeleton3D"]
 mesh = ExtResource("1_lmfcc")
 skin = SubResource("Skin_sl5r8")
-surface_material_override/0 = ExtResource("4_5a2be")
-surface_material_override/1 = ExtResource("4_5a2be")
-surface_material_override/2 = ExtResource("4_5a2be")
-surface_material_override/3 = ExtResource("4_5a2be")
+surface_material_override/0 = ExtResource("2_jksuj")
+surface_material_override/1 = ExtResource("2_jksuj")
+surface_material_override/2 = ExtResource("2_jksuj")
+surface_material_override/3 = ExtResource("2_jksuj")
 script = ExtResource("4_0r186")
-low_quality_materials = Array[Material]([ExtResource("4_5a2be"), ExtResource("4_5a2be"), ExtResource("4_5a2be"), ExtResource("4_5a2be")])
+low_quality_materials = Array[Material]([ExtResource("2_jksuj"), ExtResource("2_jksuj"), ExtResource("2_jksuj"), ExtResource("2_jksuj")])
 high_quality_materials = Array[Material]([ExtResource("2_1y01r"), ExtResource("2_1y01r"), ExtResource("2_1y01r"), ExtResource("2_1y01r")])
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Humpback_whale"]

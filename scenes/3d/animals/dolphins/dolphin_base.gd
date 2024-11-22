@@ -58,6 +58,9 @@ var speed_change_tween : Tween
 var clockwise_mult : float = 1.0
 var first_swim_loop : bool = true
 
+var follow_speed : float = 2.0
+var follow_node : Node3D
+
 # debug
 var debug_initial_shape : MeshInstance3D
 var debug_middle_0_shape : MeshInstance3D
@@ -66,6 +69,8 @@ var debug_target_shape : MeshInstance3D
 
 
 func _ready() -> void:
+	set_process(false)
+
 	if not Engine.is_editor_hint():
 		tree = get_tree()
 		obstacle_avoidance_area.area_entered.connect(_handle_obstacle_detected)
@@ -236,7 +241,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	movement_tween = create_tween()
 
 	movement_tween.tween_method(func(time : float) -> void:
-		var new_pos : Vector3 = _cubic_bezier(
+		var new_pos : Vector3 = Global.cubic_bezier(
 			current_position,
 			current_middle_point_0,
 			current_middle_point_1,
@@ -247,7 +252,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 		global_position = new_pos
 
 		if time < 0.999:
-			var next_pos : Vector3 = _cubic_bezier(
+			var next_pos : Vector3 = Global.cubic_bezier(
 				current_position,
 				current_middle_point_0,
 				current_middle_point_1,
@@ -298,7 +303,7 @@ func swim_to_target_flee(target : Vector3 = Vector3.ZERO) -> void:
 	movement_tween = create_tween()
 
 	movement_tween.tween_method(func(time : float) -> void:
-		var new_pos : Vector3 = _cubic_bezier(
+		var new_pos : Vector3 = Global.cubic_bezier(
 			current_position,
 			current_middle_point_0,
 			current_middle_point_1,
@@ -309,7 +314,7 @@ func swim_to_target_flee(target : Vector3 = Vector3.ZERO) -> void:
 		global_position = new_pos
 
 		if time < 0.999:
-			var next_pos : Vector3 = _cubic_bezier(
+			var next_pos : Vector3 = Global.cubic_bezier(
 				current_position,
 				current_middle_point_0,
 				current_middle_point_1,
@@ -487,20 +492,26 @@ func is_state(state_idx : int) -> bool:
 	return state_idx == state
 
 
-func _quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:
-	var q0 : Vector3 = p0.lerp(p1, t)
-	var q1 : Vector3 = p1.lerp(p2, t)
+func stop() -> void:
+	if movement_tween:
+		movement_tween.kill()
 
-	var r : Vector3 = q0.lerp(q1, t)
-	return r
+func resume() -> void:
+	first_swim_loop = false
+	current_middle_point_1 = global_position + (3.0 * global_transform.basis.z)
+	swim_to_target()
 
-func _cubic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, p3 : Vector3, t : float) -> Vector3:
-	var q0 : Vector3 = p0.lerp(p1, t)
-	var q1 : Vector3 = p1.lerp(p2, t)
-	var q2 : Vector3 = p2.lerp(p3, t)
+func follow(node : Node3D) -> void:
+	follow_node = node
+	state = DolphinState.SWIMMING_FAST
+	set_process(true)
 
-	var r0 : Vector3 = q0.lerp(q1, t)
-	var r1 : Vector3 = q1.lerp(q2, t)
+func stop_following() -> void:
+	follow_node = null
+	set_process(false)
 
-	var s = r0.lerp(r1, t)
-	return s
+func _process(delta : float) -> void:
+	if is_instance_valid(follow_node):
+		global_transform = global_transform.interpolate_with(follow_node.global_transform, follow_speed * delta)
+	else:
+		set_process(false)
