@@ -2,8 +2,11 @@
 class_name SchoolFishPathFollow3D
 extends PathFollow3D
 
+signal loop_finished
+
 @export var movement_curve : Curve
 @export var vertical_movement_curve : Curve
+@export var base_v_offset : float = 0.0
 @export var loops : bool = true
 @export var loop_time : float = 10.0
 @export var autoplay : bool = false
@@ -45,10 +48,13 @@ func start(reset : bool = false) -> void:
 		return movement_curve.sample_baked(v)
 	)
 	loop_tween.tween_method(func(offset : float) -> void:
-		v_offset = vertical_movement_curve.sample_baked(offset)
+		v_offset = base_v_offset + vertical_movement_curve.sample_baked(offset)
 	, 0.0, 1.0, loop_time)
 
 	await loop_tween.finished
+
+	loop_finished.emit()
+
 	if loops:
 		start(true)
 

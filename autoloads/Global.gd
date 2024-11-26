@@ -29,25 +29,27 @@ func _ready() -> void:
 	
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
-	
-		var available_refresh_rates : Array = xr_interface.get_available_display_refresh_rates()
-		var selected_refresh_rate : int = 72
-		if available_refresh_rates.has(90.0) and _is_quest():
-			selected_refresh_rate = 90
-		
-		xr_interface.display_refresh_rate = float(selected_refresh_rate)
-		Engine.max_fps = selected_refresh_rate
-		Engine.physics_ticks_per_second = selected_refresh_rate
-
+		xr_interface.session_begun.connect(_on_openxr_session_begun)
 		xr_interface.pose_recentered.connect(_recenter)
 
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 		get_viewport().use_xr = true
-		get_viewport().msaa_3d = msaa_quality
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 
 		_load_editor_plugin_data()
 	else:
 		print("OpenXR not initialized, please check if your headset is connected")
+
+func _on_openxr_session_begun() -> void:
+	var available_refresh_rates : Array = xr_interface.get_available_display_refresh_rates()
+	var selected_refresh_rate : int = 72
+	if available_refresh_rates.has(90.0) and _is_quest():
+		selected_refresh_rate = 90
+	
+	xr_interface.display_refresh_rate = float(selected_refresh_rate)
+	Engine.max_fps = selected_refresh_rate
+	Engine.physics_ticks_per_second = selected_refresh_rate
+
+	get_viewport().msaa_3d = msaa_quality
 
 
 func _load_editor_plugin_data() -> void:
@@ -77,12 +79,13 @@ func _get_scenes_config_save_path() -> String:
 
 
 func _is_quest() -> bool:
-	var model_name : String = OS.get_model_name().to_lower()
-	var video_adapter : String = RenderingServer.get_video_adapter_name().to_lower()
-	if "quest" in model_name and "adreno" in video_adapter:
-		return true
+	return true
+	# var model_name : String = OS.get_model_name().to_lower()
+	# var video_adapter : String = RenderingServer.get_video_adapter_name().to_lower()
+	# if "quest" in model_name and "adreno" in video_adapter:
+	# 	return true
 	
-	return false
+	# return false
 
 
 func _recenter() -> void:

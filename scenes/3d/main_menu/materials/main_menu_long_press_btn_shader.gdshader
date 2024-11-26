@@ -23,7 +23,7 @@ void fragment() {
 	float border_scale = 1.0 + 2.0 * corner_radius;
 	float d = rectangle((UV - 0.5) * size * border_scale);
 	float border_width = (border_size + border_fade_in + border_fade_out) * border_scale;
-	
+
 	if (d >= corner_radius - border_width && d <= corner_radius) {
 		float rel_d = (d - corner_radius + border_width) / border_width;
 		float alpha = min((rel_d / (border_fade_in * border_scale / border_width)), (1.0 - (rel_d)) / (border_fade_out * border_scale / border_width));

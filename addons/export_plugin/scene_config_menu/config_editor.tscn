@@ -144,6 +144,43 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 15
 
+[node name="OceanCommonConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="OceanAddCommonDolphinBtn" type="Button" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Common Dolphin"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="OceanCommonDolphinItemsContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanCommonConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
 [node name="OceanBoatsConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
 unique_name_in_owner = true
 visible = false
@@ -336,6 +373,43 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
 
 [node name="ShoreBottlenoseDolphinItemsContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreBottlenoseConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 15
+
+[node name="ShoreCommonConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="ShoreAddCommonDolphinBtn" type="Button" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Add Common Dolphin"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="ShoreCommonDolphinItemsContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreCommonConfigEditorContainer/VBoxContainer/ScrollContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

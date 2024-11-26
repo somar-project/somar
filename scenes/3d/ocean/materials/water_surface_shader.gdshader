@@ -26,16 +26,16 @@ void fragment() {
     // Add 0.1 to both uv vectors to avoid the layers stacking perfectly and creating a huge unnatural highlight
     vec4 water1 = texture(water_layer_0, scaled_uv_0);
     vec4 water2 = texture(water_layer_0, scaled_uv_1);
-	
+
 	vec4 water_mask = texture(water_layer_0, UV);
-    
+
     // Average the colors of the water layers (convert from 1 channel to 4 channel
     water1.rgb = vec3(avg(water1));
     water2.rgb = vec3(avg(water2));
 
     // Output to screen
     vec4 final_color = (water1 + water2) * albedo_color;
-	
+
 	ALBEDO = final_color.rgb;
 	ALPHA = opacity * water_mask.a;
 }

@@ -10,6 +10,7 @@ uniform float roughness : hint_range(0.0, 1.0) = 1.0;
 
 uniform float time_scale : hint_range(0.0, 10.0) = 1.0;
 uniform float time_scale_2 : hint_range(0.0, 10.0) = 1.0;
+uniform float time_scale_3 : hint_range(0.0, 10.0) = 1.0;
 uniform float yaw : hint_range(0.0, 100.0) = 0.01;
 uniform float roll : hint_range(0.0, 100.0) = 0.01;
 uniform float scale : hint_range(0.0, 100.0) = 0.01;
@@ -47,7 +48,7 @@ void vertex() {
 	VERTEX.y += cos(time) * time_scale_2_mod;
 	VERTEX.z -= sin(time) * time_scale_2_mod;
 	
-	VERTEX.x += INSTANCE_CUSTOM.x * width_scale;
+	VERTEX.x += (INSTANCE_CUSTOM.x * width_scale) + (sin(time * INSTANCE_CUSTOM.w) * time_scale_3 * 0.1);
 	VERTEX.y += INSTANCE_CUSTOM.y * height_scale;
 	VERTEX = rotate_vector_around_pivot(VERTEX, vec3(0.0), ((2.0*PI) * rotation) + INSTANCE_CUSTOM.z);
 }

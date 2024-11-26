@@ -24,6 +24,7 @@ enum SceneType {
 const CURVE_RADIUS : float = 20.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
+const COMMON_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/common/common_dolphin.tscn")
 
 # onready
 var surface_position : Marker3D
@@ -137,6 +138,39 @@ func _initialize_saved_data() -> void:
 				bottlenose_dolphin_def.spawn_direction.x,
 				bottlenose_dolphin_def.height_min,
 				bottlenose_dolphin_def.spawn_direction.y,
+			)
+	
+	# Common dolphins
+	for common_dolphin_def : Dictionary in src_data.animals.dolphins.common:
+		var common_dolphin_entity : DolphinBase = COMMON_DOLPHIN_SCENE.instantiate()
+
+		common_dolphin_entity.clockwise = common_dolphin_def.clockwise
+		common_dolphin_entity.max_distance_to_player = common_dolphin_def.max_distance_to_player
+		common_dolphin_entity.min_distance_to_player = common_dolphin_def.min_distance_to_player
+		common_dolphin_entity.swim_speed = common_dolphin_def.swim_speed
+		common_dolphin_entity.height_min = common_dolphin_def.height_min
+		common_dolphin_entity.height_max = common_dolphin_def.height_max
+		common_dolphin_entity.breathing_cooldown = common_dolphin_def.breathing_cooldown
+		common_dolphin_entity.is_young = common_dolphin_def.is_young
+		common_dolphin_entity.is_mother = common_dolphin_def.is_mother
+		common_dolphin_entity.surface_marker = surface_position
+
+		dolphins_parent.add_child(common_dolphin_entity)
+
+		if is_equal_approx(common_dolphin_def.spawn_direction.x, 0.0) \
+		and is_equal_approx(common_dolphin_def.spawn_direction.y, 0.0):
+			var x_offset : float = randf_range(0.0, 1.0)
+			var z_offset : float = 1.0 - x_offset
+			common_dolphin_entity.global_position = Vector3(
+				x_offset * ((2 * randi_range(0, 1)) - 1), 
+				common_dolphin_def.height_min, 
+				z_offset * ((2 * randi_range(0, 1)) - 1)
+			)
+		else:
+			common_dolphin_entity.global_position = Vector3(
+				common_dolphin_def.spawn_direction.x,
+				common_dolphin_def.height_min,
+				common_dolphin_def.spawn_direction.y,
 			)
 	
 	if src_data.animals.whales.humpback.enabled:

@@ -26,6 +26,9 @@ extends Panel
 @onready var ocean_boat_event_delay_max_spin_box : SpinBox = %OceanBoatEventDelayMaxSpinBox
 @onready var ocean_whale_event_delay_spin_box : SpinBox = %OceanWhaleEventDelaySpinBox
 @onready var ocean_boat_loops_spin_box : SpinBox = %OceanBoatLoopsSpinBox
+@onready var ocean_common_config_editor_container : MarginContainer = %OceanCommonConfigEditorContainer
+@onready var ocean_add_common_dolphin_btn : Button = %OceanAddCommonDolphinBtn
+@onready var ocean_common_dolphin_items_container : VBoxContainer = %OceanCommonDolphinItemsContainer
 
 # SHORE
 @onready var shore_main_container : HSplitContainer = %Shore
@@ -44,6 +47,9 @@ extends Panel
 @onready var shore_boat_event_delay_max_spin_box : SpinBox = %ShoreBoatEventDelayMaxSpinBox
 @onready var shore_dolphin_curiosity_duration_min_spin_box : SpinBox = %ShoreMinDolphinCuriosityDurationSpinBox
 @onready var shore_dolphin_curiosity_duration_max_spin_box : SpinBox = %ShoreMaxDolphinCuriosityDurationSpinBox
+@onready var shore_common_config_editor_container : MarginContainer = %ShoreCommonConfigEditorContainer
+@onready var shore_add_common_dolphin_btn : Button = %ShoreAddCommonDolphinBtn
+@onready var shore_common_dolphin_items_container : VBoxContainer = %ShoreCommonDolphinItemsContainer
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
 
@@ -52,58 +58,59 @@ const SAVE_DATA_PATH : String = "res://addons/export_plugin/scene_config_menu/sc
 var DEFAULT_OCEAN_DICT : Dictionary = {
     "animals": {
         "dolphins": {
-            "bottlenose": [{
+			"bottlenose": [],
+            "common": [{
+                    "breathing_cooldown": 30.0,
                     "clockwise": true,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 4.0,
                     "height_min": 0.5,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 6.0,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 8.0,
                     "min_distance_to_player": 4.0,
                     "spawn_direction": Vector2(0.2, -0.8),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 30.0,
                     "clockwise": false,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 4.0,
                     "height_min": 0.5,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 6.0,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 7.5,
                     "min_distance_to_player": 4.0,
                     "spawn_direction": Vector2(0.8, -0.2),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 30.0,
                     "clockwise": true,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 4.5,
                     "height_min": 0.5,
-					"breathing_cooldown": 30.0,
+                    "is_mother": false,
+                    "is_young": false,
                     "max_distance_to_player": 8.0,
                     "min_distance_to_player": 4.5,
                     "spawn_direction": Vector2(-0.3, -0.7),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 30.0,
                     "clockwise": true,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 4.5,
                     "height_min": 0.0,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 8.0,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 8.5,
                     "min_distance_to_player": 4.5,
                     "spawn_direction": Vector2(-0.5, -0.5),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 30.0,
                     "clockwise": false,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 5.0,
                     "height_min": 0.5,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 8.0,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 9.0,
                     "min_distance_to_player": 4.0,
                     "spawn_direction": Vector2(0, -1),
                     "swim_speed": 8.2
@@ -139,51 +146,63 @@ var DEFAULT_SHORE_DICT : Dictionary = {
     "animals": {
         "dolphins": {
             "bottlenose": [{
+                    "breathing_cooldown": 30.0,
                     "clockwise": true,
-					"is_young": false,
-					"is_mother": true,
                     "height_max": 4.0,
                     "height_min": 0.8,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 6.0,
-                    "min_distance_to_player": 4.0,
+                    "is_mother": true,
+                    "is_young": false,
+                    "max_distance_to_player": 6.5,
+                    "min_distance_to_player": 4.5,
                     "spawn_direction": Vector2(0, 0),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 35.0,
                     "clockwise": true,
-					"is_young": true,
-					"is_mother": false,
                     "height_max": 4.0,
                     "height_min": 0.8,
-					"breathing_cooldown": 30.0,
-                    "max_distance_to_player": 6.0,
+                    "is_mother": false,
+                    "is_young": true,
+                    "max_distance_to_player": 7.0,
                     "min_distance_to_player": 4.0,
                     "spawn_direction": Vector2(0, 0),
                     "swim_speed": 10.0
                 }, {
+                    "breathing_cooldown": 40.0,
                     "clockwise": false,
-					"is_young": false,
-					"is_mother": false,
                     "height_max": 4.5,
                     "height_min": 0.8,
-					"breathing_cooldown": 30.0,
+                    "is_mother": false,
+                    "is_young": false,
                     "max_distance_to_player": 8.0,
                     "min_distance_to_player": 5.0,
                     "spawn_direction": Vector2(0, 0),
                     "swim_speed": 8.0
                 }, {
+                    "breathing_cooldown": 45.0,
                     "clockwise": false,
-					"is_young": false,
-					"is_mother": false,
-					"breathing_cooldown": 30.0,
                     "height_max": 4.0,
                     "height_min": 0.8,
-                    "max_distance_to_player": 7.0,
-                    "min_distance_to_player": 4.5,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 7.5,
+                    "min_distance_to_player": 5.0,
                     "spawn_direction": Vector2(0, 0),
                     "swim_speed": 8.0
+                }, {
+                    "breathing_cooldown": 30.0,
+                    "clockwise": false,
+                    "height_max": 2.5,
+                    "height_min": 0.8,
+                    "is_mother": false,
+                    "is_young": false,
+                    "max_distance_to_player": 8.0,
+                    "min_distance_to_player": 5.0,
+                    "spawn_direction": Vector2(0, 0),
+                    "swim_speed": 7.5
                 }
-            ]
+            ],
+			"common": []
         },
         "whales": {
             "blue": {
@@ -211,6 +230,7 @@ var DEFAULT_SHORE_DICT : Dictionary = {
 }
 
 const BOTTLENOSE_DOLPHIN_ITEM : PackedScene = preload("res://addons/export_plugin/scene_config_menu/scenes/bottlenose_dolphin_item.tscn")
+const COMMON_DOLPHIN_ITEM : PackedScene = preload("res://addons/export_plugin/scene_config_menu/scenes/common_dolphin_item.tscn")
 
 var save_data : ConfigFile
 var scenes_config : ConfigFile
@@ -322,8 +342,14 @@ func _initialize_main_editor_scene(load_plugin_config : bool) -> void:
 	if not ocean_add_bottlenose_dolphin_btn.pressed.is_connected(_add_bottlenose_dolphin_item):
 		ocean_add_bottlenose_dolphin_btn.pressed.connect(_add_bottlenose_dolphin_item.bind(SceneManager.PlayerContext.OCEAN))
 	
+	if not ocean_add_common_dolphin_btn.pressed.is_connected(_add_common_dolphin_item):
+		ocean_add_common_dolphin_btn.pressed.connect(_add_common_dolphin_item.bind(SceneManager.PlayerContext.OCEAN))
+	
 	if not shore_add_bottlenose_dolphin_btn.pressed.is_connected(_add_bottlenose_dolphin_item):
 		shore_add_bottlenose_dolphin_btn.pressed.connect(_add_bottlenose_dolphin_item.bind(SceneManager.PlayerContext.SHORE))
+	
+	if not shore_add_common_dolphin_btn.pressed.is_connected(_add_common_dolphin_item):
+		shore_add_common_dolphin_btn.pressed.connect(_add_common_dolphin_item.bind(SceneManager.PlayerContext.SHORE))
 	
 	_process_saved_data()
 
@@ -358,6 +384,10 @@ func _create_tree(type : String) -> void:
 	bottlenose_branch.set_text(0, "Bottlenose")
 	bottlenose_branch.set_meta("id", "%s/animals/dolphins/bottlenose" % type)
 
+	var common_branch : TreeItem = tree_ref.create_item(dolphins_branch)
+	common_branch.set_text(0, "Common")
+	common_branch.set_meta("id", "%s/animals/dolphins/common" % type)
+
 	# Boats
 	var boats_branch : TreeItem = tree_ref.create_item(root)
 	boats_branch.set_text(0, "Boats")
@@ -374,6 +404,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 	var tree_ref : Tree = ocean_tree
 	var main_container_ref : HSplitContainer = ocean_main_container
 	var bottlenose_config_editor_container : MarginContainer = ocean_bottlenose_config_editor_container
+	var common_config_editor_container : MarginContainer = ocean_common_config_editor_container
 	var boats_config_editor_container : MarginContainer = ocean_boats_config_editor_container
 	var whales_config_editor_container : MarginContainer = ocean_whales_config_editor_container
 	var general_config_editor_container : MarginContainer = ocean_general_config_editor_container
@@ -383,6 +414,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 		tree_ref = shore_tree
 		main_container_ref = shore_main_container
 		bottlenose_config_editor_container = shore_bottlenose_config_editor_container
+		common_config_editor_container = shore_common_config_editor_container
 		boats_config_editor_container = shore_boats_config_editor_container
 		whales_config_editor_container = shore_whales_config_editor_container
 		general_config_editor_container = shore_general_config_editor_container
@@ -402,6 +434,8 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 			whales_config_editor_container.visible = true
 		"ocean/animals/dolphins/bottlenose", "shore/animals/dolphins/bottlenose":
 			bottlenose_config_editor_container.visible = true
+		"ocean/animals/dolphins/common", "shore/animals/dolphins/common":
+			common_config_editor_container.visible = true
 		"ocean/boats", "shore/boats":
 			boats_config_editor_container.visible = true
 		_:
@@ -411,13 +445,22 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 func _add_bottlenose_dolphin_item(scene_type : SceneManager.PlayerContext) -> void:
 	var bottlenose_dolphin_item : BottlenoseConfigItem = BOTTLENOSE_DOLPHIN_ITEM.instantiate()
 
-	# TODO: Add shore here
 	if scene_type == SceneManager.PlayerContext.OCEAN:
 		ocean_bottlenose_dolphin_items_container.add_child(bottlenose_dolphin_item)
 		bottlenose_dolphin_item.scene_type = scene_type
 	else:
 		shore_bottlenose_dolphin_items_container.add_child(bottlenose_dolphin_item)
 		bottlenose_dolphin_item.scene_type = scene_type
+
+func _add_common_dolphin_item(scene_type : SceneManager.PlayerContext) -> void:
+	var common_dolphin_item : CommonDolphinConfigItem = COMMON_DOLPHIN_ITEM.instantiate()
+
+	if scene_type == SceneManager.PlayerContext.OCEAN:
+		ocean_common_dolphin_items_container.add_child(common_dolphin_item)
+		common_dolphin_item.scene_type = scene_type
+	else:
+		shore_bottlenose_dolphin_items_container.add_child(common_dolphin_item)
+		common_dolphin_item.scene_type = scene_type
 
 
 func _get_scenes_config_save_path() -> String:
@@ -441,6 +484,11 @@ func _process_saved_data() -> void:
 		var bottlenose_dolphin_item : BottlenoseConfigItem = BOTTLENOSE_DOLPHIN_ITEM.instantiate()
 		ocean_bottlenose_dolphin_items_container.add_child(bottlenose_dolphin_item)
 		bottlenose_dolphin_item.initialize(SceneManager.PlayerContext.OCEAN, bottlenose_dolphin_def)
+	
+	for common_dolphin_def : Dictionary in ocean_config.animals.dolphins.common:
+		var common_dolphin_item : CommonDolphinConfigItem = COMMON_DOLPHIN_ITEM.instantiate()
+		ocean_common_dolphin_items_container.add_child(common_dolphin_item)
+		common_dolphin_item.initialize(SceneManager.PlayerContext.OCEAN, common_dolphin_def)
 	
 	ocean_inflatable_patrol_boat_item.initialize(
 		SceneManager.PlayerContext.OCEAN,
@@ -470,6 +518,11 @@ func _process_saved_data() -> void:
 		var bottlenose_dolphin_item : BottlenoseConfigItem = BOTTLENOSE_DOLPHIN_ITEM.instantiate()
 		shore_bottlenose_dolphin_items_container.add_child(bottlenose_dolphin_item)
 		bottlenose_dolphin_item.initialize(SceneManager.PlayerContext.SHORE, bottlenose_dolphin_def)
+	
+	for common_dolphin_def : Dictionary in shore_config.animals.dolphins.common:
+		var common_dolphin_item : CommonDolphinConfigItem = COMMON_DOLPHIN_ITEM.instantiate()
+		shore_common_dolphin_items_container.add_child(common_dolphin_item)
+		common_dolphin_item.initialize(SceneManager.PlayerContext.OCEAN, common_dolphin_def)
 	
 	shore_inflatable_patrol_boat_item.initialize(
 		SceneManager.PlayerContext.SHORE,
@@ -506,12 +559,14 @@ func _save_data() -> void:
 
 func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 	var bottlenose_dolphin_items_container : VBoxContainer = ocean_bottlenose_dolphin_items_container
+	var common_dolphin_items_container : VBoxContainer = ocean_common_dolphin_items_container
 	var inflatable_patrol_boat_item : InflatablePatrolConfigItem = ocean_inflatable_patrol_boat_item
 	var humpback_whale_item : HumpbackWhaleConfigItem = ocean_humpback_whale_item
 	var blue_whale_item : BlueWhaleConfigItem = ocean_blue_whale_item
 
 	if type == SceneManager.PlayerContext.SHORE:
 		bottlenose_dolphin_items_container = shore_bottlenose_dolphin_items_container
+		common_dolphin_items_container = shore_common_dolphin_items_container
 		inflatable_patrol_boat_item = shore_inflatable_patrol_boat_item
 		humpback_whale_item = shore_humpback_whale_item
 		blue_whale_item = shore_blue_whale_item
@@ -524,7 +579,8 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 				"blue": {}
 			},
 			"dolphins": {
-				"bottlenose": []
+				"bottlenose": [],
+				"common": []
 			}
 		},
 		"boats": {
@@ -535,6 +591,10 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 	var new_bottlenose_array : Array = []
 	for bottlenose_dolphin_item : BottlenoseConfigItem in bottlenose_dolphin_items_container.get_children():
 		new_bottlenose_array.push_back(bottlenose_dolphin_item.get_data())
+	
+	var new_common_array : Array = []
+	for common_dolphin_item : CommonDolphinConfigItem in common_dolphin_items_container.get_children():
+		new_common_array.push_back(common_dolphin_item.get_data())
 
 	if type == SceneManager.PlayerContext.OCEAN:
 		return_data.general = {
@@ -552,6 +612,7 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 		}
 	
 	return_data.animals.dolphins.bottlenose = new_bottlenose_array
+	return_data.animals.dolphins.common = new_common_array
 
 	# Update boats info
 	return_data.boats.inflatable_patrol = inflatable_patrol_boat_item.get_data()

@@ -3,7 +3,11 @@ extends BaseUnderwaterScene
 @export var initial_dolphins_pos : Marker3D
 @export var boat_intercept_pos : Marker3D
 @export var school_fish_path_follow : SchoolFishPathFollow3D
+@export var school_fish : Node3D
 @export var boat_idle_path : Path3D
+
+@export var hunting_cooldown_min : float = 2.0
+@export var hunting_cooldown_max : float = 4.0
 
 const INFLATABLE_PATROL_BOAT_SCENE : PackedScene = preload("res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn")
 
@@ -14,16 +18,26 @@ var boat_idle_loop_time : float
 
 var boat_idle_loop_count : int = 0
 
+var hunting : bool = true
+var hunting_update_rate : int = 22
+
 
 func _ready() -> void:
 	super()
 
-	await get_tree().create_timer(1.0).timeout
+	await initial_ui.ui_closed
+
+	hunting_update_rate = int(Engine.max_fps / 4.0)
+	school_fish.detecting_dolphins = true
+
+	var boat_event_delay : float = randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay)
+	school_fish_path_follow.loop_time = boat_event_delay + 10.0
+	school_fish_path_follow.start(true)
 
 	for dolphin : DolphinBase in dolphins_parent.get_children():
-		dolphin.player_position = initial_dolphins_pos.global_position
+		dolphin.hunting = true
 
-	await tree.create_timer(32.0).timeout
+	await tree.create_timer(boat_event_delay).timeout
 	_start_boat_event()
 
 
@@ -49,11 +63,9 @@ func _start_boat_event() -> void:
 
 func _handle_boat_ratio_reached(ratio : float) -> void:
 	if is_equal_approx(ratio, 0.35):
-		tree.call_group("feed_areas", "remove")
 		school_fish_path_follow.stop()
 
-		var fish_school : Node3D = school_fish_path_follow.get_child(0)
-		_move_fish_school(fish_school)
+		_move_fish_school(school_fish)
 
 	elif is_equal_approx(ratio, 0.53):
 		boat_idle_path.global_position = initial_boat.global_position
@@ -95,6 +107,13 @@ func _move_boat_idle() -> void:
 
 
 func _move_fish_school(fish_school : Node3D) -> void:
+	for dolphin : DolphinBase in dolphins_parent.get_children():
+		dolphin.hunting = false
+
+	hunting = false
+	set_process(false)
+	school_fish.detecting_dolphins = false
+
 	var current_position : Vector3 = fish_school.global_position
 
 	var direction : Vector3 = -fish_school.global_transform.basis.z
@@ -104,7 +123,7 @@ func _move_fish_school(fish_school : Node3D) -> void:
 	var current_target : Vector3 = current_position + (direction * target_distance)
 	current_target.y = fish_school.global_position.y + randf_range(-0.2, 0.2)
 
-	var current_swim_speed : float = target_distance / (7.0 / 3.6)
+	var current_swim_speed : float = target_distance / (4.0 / 3.6)
 
 	fish_school.look_at(current_target)
 
@@ -190,3 +209,11 @@ func _move_boat_to_whale_path() -> void:
 
 	await boat_idle_tween.finished
 	# _stop_drift()
+
+
+func _process(_delta : float) -> void:
+	# Update 4 times a second
+	if Engine.get_process_frames() % hunting_update_rate == 0:
+		if hunting:
+			for dolphin : DolphinBase in dolphins_parent.get_children():
+				dolphin.player_position = school_fish.global_position + Vector3(0.0, school_fish.height, 0.0)

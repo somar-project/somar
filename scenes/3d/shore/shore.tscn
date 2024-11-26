@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://cll86s32pe0b8" path="res://scenes/3d/shore/materials/shore_water_surface_highlights_material.tres" id="4_wn413"]
 [ext_resource type="Shader" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_7j3dv"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_iabag"]
-[ext_resource type="PackedScene" uid="uid://vuoju6i7tukd" path="res://scenes/3d/shore/ui/initial_ui.tscn" id="7_qdum6"]
+[ext_resource type="PackedScene" uid="uid://vuoju6i7tukd" path="res://scenes/3d/shore/ui/shore_initial_ui.tscn" id="7_qdum6"]
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="7_qv88s"]
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_2pji4"]
 [ext_resource type="ArrayMesh" uid="uid://di10f6f4p558b" path="res://scenes/3d/shore/mesh/sea_floor_Plane.res" id="8_51r74"]
@@ -112,6 +112,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 
 [node name="InitialUI" parent="." instance=ExtResource("7_qdum6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8)
+script = null
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("7_iabag")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)

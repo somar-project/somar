@@ -5,7 +5,7 @@ extends Node3D
 @export var mesh : Mesh
 @export var material : ShaderMaterial
 
-@export_category("Cylinder")
+@export_category("Shape")
 @export var inner_radius : float = 1.0
 @export var outer_radius : float = 2.0
 @export var height : float = 2.5
@@ -13,6 +13,10 @@ extends Node3D
 @export_category("Movement")
 ## The time in seconds that takes to perform a full rotation around the center.
 @export var full_rotation_time : float = 3.0
+@export var boost_scale_max : float = 4.0
+@export var boost_time_scale_2 : float = 0.1
+@export var boost_time_scale_3 : float = 1.0
+@export var boost_duration : float = 1.0
 
 @export var speed_curve : Curve
 @export_range(0.0, 2.0) var speed_variation_scale : float = 1.0
@@ -22,6 +26,9 @@ extends Node3D
 
 @export var width_curve : Curve
 @export_range(0.0, 2.0) var width_variation_scale : float = 1.0
+
+@export_category("Nodes")
+@export var area_3d : Area3D
 
 @export_category("Editor only")
 @export var create : bool = false : set = _create
@@ -40,10 +47,25 @@ var height_time_offset : float = 0.0
 var width_time_offset : float = 0.0
 var pulsing : bool = false
 
+var detecting_dolphins : bool = false
+
+
+func _ready() -> void:
+	if not Engine.is_editor_hint() and area_3d:
+		area_3d.area_entered.connect(_handle_dolphin_area_detected)
+		_move()
+		set_process(true)
 
 func _create(_value : bool) -> void:
 	if not Engine.is_editor_hint():
 		return
+	
+	if not _value:
+		return
+	
+	area_3d.global_position.y = (height / 2.0) * 0.8
+	area_3d.get_child(0).shape.radius = outer_radius * 0.8
+	area_3d.get_child(0).shape.height = height * 0.8
 	
 	var multimesh : MultiMesh = MultiMesh.new()
 
@@ -72,18 +94,57 @@ func _stop(_v : bool) -> void:
 
 func _pulse(_v : bool) -> void:
 	if Engine.is_editor_hint():
-		pulsing = true
-		var pulse_tween : Tween = create_tween()
-		pulse_tween.tween_method(func(p_scale : float) -> void:
-			if movement_tween and movement_tween.is_valid():
-				movement_tween.set_speed_scale(p_scale)
-		, 1.0, 3.5, 0.15)
-		pulse_tween.tween_method(func(p_scale : float) -> void:
-			if movement_tween and movement_tween.is_valid():
-				movement_tween.set_speed_scale(p_scale)
-		, 3.5, 1.0, 0.15)
-		await pulse_tween.finished
-		pulsing = false
+		do_pulse()
+
+
+func do_pulse() -> void:
+	pulsing = true
+
+	var original_time_scale_2 : float = material.get_shader_parameter("time_scale_2")
+	var original_time_scale_3 : float = material.get_shader_parameter("time_scale_3")
+
+	var pulse_tween : Tween = create_tween()
+
+	pulse_tween.set_trans(Tween.TRANS_CUBIC)
+	pulse_tween.set_ease(Tween.EASE_OUT)
+	pulse_tween.set_parallel(true)
+
+	pulse_tween.tween_method(func(p_scale : float) -> void:
+		if movement_tween and movement_tween.is_valid():
+			movement_tween.set_speed_scale(p_scale)
+	, 1.0, boost_scale_max, (boost_duration / 2.0))
+	pulse_tween.tween_property(
+		material,
+		"shader_parameter/time_scale_2",
+		boost_time_scale_2,
+		(boost_duration / 2.0)
+	)
+	pulse_tween.tween_property(
+		material,
+		"shader_parameter/time_scale_3",
+		boost_time_scale_3,
+		(boost_duration / 2.0)
+	)
+
+	pulse_tween.tween_method(func(p_scale : float) -> void:
+		if movement_tween and movement_tween.is_valid():
+			movement_tween.set_speed_scale(p_scale)
+	, boost_scale_max, 1.0, (boost_duration / 2.0)).set_delay((boost_duration / 2.0))
+	pulse_tween.tween_property(
+		material,
+		"shader_parameter/time_scale_2",
+		original_time_scale_2,
+		(boost_duration / 2.0)
+	).set_delay((boost_duration / 2.0))
+	pulse_tween.tween_property(
+		material,
+		"shader_parameter/time_scale_3",
+		original_time_scale_3,
+		(boost_duration / 2.0)
+	).set_delay((boost_duration / 2.0))
+	await pulse_tween.finished
+	pulsing = false
+	detecting_dolphins = true
 
 
 func get_random_point() -> Color:
@@ -130,3 +191,18 @@ func _process(delta : float) -> void:
 	material.set_shader_parameter("width_scale", width_curve.sample_baked(height_time_offset))
 	if movement_tween and not pulsing:
 		movement_tween.set_speed_scale(speed_curve.sample_baked(speed_time_offset))
+
+
+func _handle_dolphin_area_detected(area : Area3D) -> void:
+	if not detecting_dolphins:
+		return
+	
+	detecting_dolphins = false
+	var dolphin : DolphinBase = area.owner
+
+	if dolphin.has_method("enable_catching_fish"):
+		dolphin.enable_catching_fish()
+		do_pulse()
+	
+	else:
+		detecting_dolphins = true
