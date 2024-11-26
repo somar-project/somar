@@ -79,13 +79,12 @@ func _get_scenes_config_save_path() -> String:
 
 
 func _is_quest() -> bool:
-	return true
-	# var model_name : String = OS.get_model_name().to_lower()
-	# var video_adapter : String = RenderingServer.get_video_adapter_name().to_lower()
-	# if "quest" in model_name and "adreno" in video_adapter:
-	# 	return true
+	var model_name : String = OS.get_model_name().to_lower()
+	var video_adapter : String = RenderingServer.get_video_adapter_name().to_lower()
+	if "quest" in model_name and "adreno" in video_adapter:
+		return true
 	
-	# return false
+	return false
 
 
 func _recenter() -> void:
