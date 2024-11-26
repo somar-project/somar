@@ -1,7 +1,6 @@
 extends BaseUnderwaterScene
 
-@export var min_secondary_boats_spawn_time : float = 10.0
-@export var max_secondary_boats_spawn_time : float = 12.0
+@export var shadows_sub_viewport : SubViewport
 @export var secondary_boats_amount : int = 2
 @export var secondary_boats_offset : float = 4.5
 @export_range(0.0, 1.0) var dolphins_curious_amount_rate : float = 0.5
@@ -19,6 +18,11 @@ var final_boat_hide_signal_connected : bool = false
 
 func _ready() -> void:
 	super()
+
+	if Global.material_quality == Global.MaterialQuality.HIGH:
+		shadows_sub_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+
+	await initial_ui.ui_closed
 
 	dolphin_audio_manager.start()
 
@@ -60,6 +64,7 @@ func _start_boat_event() -> void:
 
 
 func _make_dolphins_stop() -> void:
+	print_debug("STOPPING DOLPHINS!")
 	if not is_equal_approx(dolphins_curious_amount_rate, 1.0):
 		var total_dolphins : int = dolphins_parent.get_child_count()
 		var total_curious_dolphins : int = int(total_dolphins * dolphins_curious_amount_rate)
@@ -75,6 +80,7 @@ func _make_dolphins_stop() -> void:
 		
 		for selected_idx : int in selected_dolphin_indexes:
 			var dolphin : DolphinBase = dolphins_parent.get_child(selected_idx)
+			dolphin.breathing_cooldown *= 2.0
 			dolphin.force_stop = true
 			dolphin.target_reached.connect(_move_dolphin_to_boat.bind(dolphin), CONNECT_ONE_SHOT)
 		
@@ -87,14 +93,16 @@ func _make_dolphins_stop() -> void:
 				dolphin.player_position = corrected_initial_boat_pos
 				dolphin.height_max = -1.0
 				dolphin.height_min = -2.5
+				dolphin.breathing_cooldown *= 2.0
 	
 	else:
 		for dolphin : DolphinBase in dolphins_parent.get_children():
+			dolphin.breathing_cooldown *= 2.0
 			dolphin.force_stop = true
 			dolphin.target_reached.connect(_move_dolphin_to_boat.bind(dolphin), CONNECT_ONE_SHOT)
 	
 	tree.create_timer(
-		randf_range(min_secondary_boats_spawn_time, max_secondary_boats_spawn_time)
+		randf_range(min_dolphins_curiosity_duration, max_dolphins_curiosity_duration)
 	).timeout.connect(_show_secondary_boats, CONNECT_ONE_SHOT)
 
 
@@ -152,7 +160,7 @@ func _show_secondary_boats() -> void:
 
 		if not added_signal:
 			added_signal = true
-			secondary_boat.signal_at_ratios.push_back(0.3) # TODO, make configurable
+			secondary_boat.signal_at_ratios.push_back(0.3) # TODO, maybe make configurable
 			secondary_boat.reached_ratio.connect(_handle_boat_ratio_reached, CONNECT_ONE_SHOT)
 
 		secondary_boat.initialize_at(

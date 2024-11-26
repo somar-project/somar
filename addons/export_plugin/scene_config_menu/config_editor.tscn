@@ -200,6 +200,86 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 
+[node name="OceanGeneralConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Boat event delay:"
+
+[node name="OceanBoatEventDelayMinSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Minimum time to wait for the initial boat event. Default: 60 seconds."
+max_value = 1000.0
+step = 0.5
+value = 60.0
+suffix = "seconds (min)"
+
+[node name="OceanBoatEventDelayMaxSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Maximum time to wait for the initial boat event. Default: 70 seconds."
+max_value = 1000.0
+step = 0.5
+value = 70.0
+suffix = "seconds (max)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Whale event delay:"
+
+[node name="OceanWhaleEventDelaySpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Time to wait before starting the movement of the whale. Default: 10 seconds."
+max_value = 1000.0
+step = 0.5
+value = 10.0
+suffix = "seconds"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "Boat loops:"
+
+[node name="OceanBoatLoopsSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Ocean/OceanGeneralConfigEditorContainer/VBoxContainer/HBoxContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Number of loops that the boat will do before stopping in the whale's path. Default: 2"
+max_value = 10.0
+value = 2.0
+
 [node name="Shore" type="HSplitContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer"]
 unique_name_in_owner = true
 visible = false
@@ -316,6 +396,79 @@ layout_mode = 2
 [node name="ShoreBlueWhaleItem" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreWhalesConfigEditorContainer/VBoxContainer" instance=ExtResource("5_tnbi5")]
 unique_name_in_owner = true
 layout_mode = 2
+
+[node name="ShoreGeneralConfigEditorContainer" type="MarginContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.8
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Boat event delay:"
+
+[node name="ShoreBoatEventDelayMinSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Minimum time to wait for the initial boat event. Default: 60 seconds."
+max_value = 1000.0
+step = 0.5
+value = 60.0
+suffix = "seconds (min)"
+
+[node name="ShoreBoatEventDelayMaxSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Maximum time to wait for the initial boat event. Default: 70 seconds."
+max_value = 1000.0
+step = 0.5
+value = 70.0
+suffix = "seconds (max)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "Dolphins curiosity duration"
+
+[node name="ShoreMinDolphinCuriosityDurationSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Minimum time to wait before bringing the other boats to make the dolphins flee. Default: 20 seconds."
+max_value = 1000.0
+step = 0.5
+value = 20.0
+suffix = "seconds (min)"
+
+[node name="ShoreMaxDolphinCuriosityDurationSpinBox" type="SpinBox" parent="MainContainer/VBoxContainer/VBoxContainer/TabContainer/Shore/ShoreGeneralConfigEditorContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Maximum time to wait before bringing the other boats to make the dolphins flee. Default: 25 seconds."
+max_value = 1000.0
+step = 0.5
+value = 25.0
+suffix = "seconds (max)"
 
 [node name="SyncConfirmDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true

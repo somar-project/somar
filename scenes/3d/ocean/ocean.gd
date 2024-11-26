@@ -13,7 +13,6 @@ var boat_idle_tween : Tween
 var boat_idle_loop_time : float
 
 var boat_idle_loop_count : int = 0
-var boat_idle_loop_total : int = 1
 
 
 func _ready() -> void:
@@ -24,7 +23,7 @@ func _ready() -> void:
 	for dolphin : DolphinBase in dolphins_parent.get_children():
 		dolphin.player_position = initial_dolphins_pos.global_position
 
-	await tree.create_timer(30.0).timeout
+	await tree.create_timer(32.0).timeout
 	_start_boat_event()
 
 
@@ -86,7 +85,7 @@ func _move_boat_idle() -> void:
 
 	await boat_idle_tween.finished
 
-	if boat_idle_loop_count < boat_idle_loop_total:
+	if boat_idle_loop_count < (boat_loops - 1):
 		boat_idle_loop_count += 1
 		_move_boat_idle()
 	
@@ -134,8 +133,8 @@ func _move_boat_to_whale_path() -> void:
 	var boat_middle_point_0 : Vector3 = boat_current_pos + (boat_dir * (boat_dist / 3.0))
 	var boat_middle_point_1 : Vector3 = boat_target_pos + (dir_to_boat * (boat_dist / 3.0))
 
-	var drift_time : float = 1.0 + initial_boat.engine_stop_audio.get_length()
-	var drift_distance : float = initial_boat.boat_speed_in_m_per_s * drift_time
+	# var drift_time : float = 1.0 + initial_boat.engine_stop_audio.get_length()
+	# var drift_distance : float = initial_boat.boat_speed_in_m_per_s * drift_time
 
 	# var time_to_stop : float = (boat_dist - drift_distance) / initial_boat.boat_speed_in_m_per_s
 	var time_to_stop : float = (boat_dist * 1.5) / initial_boat.boat_speed_in_m_per_s

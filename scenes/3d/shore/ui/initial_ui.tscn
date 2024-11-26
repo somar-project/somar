@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=3 uid="uid://vuoju6i7tukd"]
+
+[ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="1_i6drj"]
+[ext_resource type="Script" path="res://scenes/3d/shore/ui/initial_ui.gd" id="1_omk70"]
+[ext_resource type="PackedScene" uid="uid://cqp6kw1yipv8d" path="res://scenes/2d/test/test_2d_scene.tscn" id="2_daaj8"]
+[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="3_g5235"]
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_rdp4u"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qh7bd"]
+render_priority = 0
+shader = ExtResource("4_rdp4u")
+shader_parameter/size = Vector2(1, 0.5)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_a8nwf"]
+size = Vector2(0.5, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2k0qx"]
+size = Vector3(0.5, 0.25, 0.015)
+
+[node name="InitialUI" type="Node3D"]
+script = ExtResource("1_omk70")
+
+[node name="InfoPanel" parent="." instance=ExtResource("1_i6drj")]
+scene = ExtResource("2_daaj8")
+
+[node name="CloseBtn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.806571, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_g5235")
+
+[node name="BtnBackground" type="MeshInstance3D" parent="CloseBtn"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_qh7bd")
+mesh = SubResource("QuadMesh_a8nwf")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="CloseBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "Close"
+font_size = 128
+outline_size = 8
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="CloseBtn"]
+shape = SubResource("BoxShape3D_2k0qx")

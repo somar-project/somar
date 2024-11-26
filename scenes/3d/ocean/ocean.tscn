@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=33 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_qkda0"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
@@ -11,10 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="12_xgx7v"]
-[ext_resource type="PackedScene" uid="uid://h1ru61tg5mdp" path="res://scenes/3d/animals/fish/FishSchool.tscn" id="13_6xwcx"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="13_fim7d"]
 [ext_resource type="Script" path="res://utilities/SchoolFishPathFollow3D.gd" id="13_n4p2q"]
-[ext_resource type="Script" path="res://utilities/FeedAreaPathFollow3D.gd" id="15_5xgk3"]
 [ext_resource type="Script" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="16_4kyfy"]
 [ext_resource type="AudioStream" uid="uid://dfjmsfm37c0l8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_0.wav" id="17_2uqol"]
 [ext_resource type="AudioStream" uid="uid://0ct8v5g2mijp" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_1.wav" id="18_5tnc7"]
@@ -24,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://bdwt8vkl5cbcb" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_2.wav" id="22_r0dbj"]
 [ext_resource type="AudioStream" uid="uid://dcan8o5l8ibpt" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_3.wav" id="23_mq2xs"]
 [ext_resource type="AudioStream" uid="uid://bs241gqauk1hg" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_4.wav" id="24_1qwch"]
+[ext_resource type="PackedScene" uid="uid://dpt6c2273vgld" path="res://scenes/3d/animals/fish/v2/SchoolOfFish.tscn" id="24_cmt7h"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
 size = Vector2(160, 160)
@@ -62,9 +61,6 @@ min_value = -0.5
 max_value = 0.5
 _data = [Vector2(0, 0), 0.0, 3.0, 0, 0, Vector2(0.1, 0.5), 0.0, 0.0, 0, 0, Vector2(0.2, 0), 0.0, 0.0, 0, 0, Vector2(0.3, -0.5), 0.0, 0.0, 0, 0, Vector2(0.4, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 3.0, 0.0, 0, 0, Vector2(0.6, 0), 3.0, 0.0, 0, 0, Vector2(0.7, -0.5), 3.0, 0.0, 0, 0, Vector2(0.8, 0), 3.0, 0.0, 0, 0, Vector2(0.9, 0.5), 3.0, 0.0, 0, 0, Vector2(1, 0), 3.0, 0.0, 0, 0]
 point_count = 11
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_lqu3l"]
-radius = 0.6
 
 [sub_resource type="Curve3D" id="Curve3D_yolo5"]
 _data = {
@@ -123,7 +119,7 @@ mesh = SubResource("QuadMesh_mmgpg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.5)
 
 [node name="BoatInterceptPos" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -32)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35)
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("7_jnhsx")]
 
@@ -172,210 +168,23 @@ process_mode = 4
 visible = false
 move_time = 200.0
 
+[node name="SchoolOfFish" parent="." instance=ExtResource("24_cmt7h")]
+transform = Transform3D(0.999918, 0, 0, 0, 0.99999, 0, 0, 0, 0.750066, 0, 2.11217, -3)
+
 [node name="FishSchoolPath3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.62918, 0)
 curve = SubResource("Curve3D_lv1u2")
 
 [node name="SchoolFishPathFollow3D" type="PathFollow3D" parent="FishSchoolPath3D"]
-transform = Transform3D(0.7041, 0.571661, 0.421077, 0, 0.593059, -0.805172, -0.709892, 0.566997, 0.417641, -2.23435, 0, 0.823095)
+transform = Transform3D(0.334797, 0.0181213, -0.942111, 0, 0.999815, 0.0192318, 0.942126, -0.00643965, 0.334792, -0.975809, 0.692208, -4.76895)
+progress = 63.1683
+v_offset = 0.202759
 rotation_mode = 4
 script = ExtResource("13_n4p2q")
 movement_curve = SubResource("Curve_tfa61")
 vertical_movement_curve = SubResource("Curve_j6l5g")
 loop_time = 23.0
 autoplay = true
-
-[node name="FishSchool" parent="FishSchoolPath3D/SchoolFishPathFollow3D" instance=ExtResource("13_6xwcx")]
-transform = Transform3D(3.5, 0, 0, 0, 3.5, 0, 0, 0, 3.5, 0, 0, 0)
-
-[node name="FeedAreaPathFollow3D" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704204, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709997, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D2" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.1
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D2"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D2/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D3" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.2
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D3"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D3/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D4" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.3
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D4"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D4/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D5" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.4
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D5"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D5/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D6" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.5
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D6"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D6/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D7" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.6
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D7"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D7/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D8" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.7
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D8"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D8/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D9" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.8
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D9"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D9/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
-
-[node name="FeedAreaPathFollow3D10" type="PathFollow3D" parent="FishSchoolPath3D" node_paths=PackedStringArray("area_3d")]
-transform = Transform3D(0.704202, 0.571661, 0.42107, 0, 0.593059, -0.80516, -0.709995, 0.566997, 0.417635, -2.23435, 0, 0.823095)
-rotation_mode = 4
-script = ExtResource("15_5xgk3")
-start_pos = 0.9
-final_offset = 0.3
-speed = 3.2
-cooldown = 1.5
-area_3d = NodePath("Area3D")
-
-[node name="Area3D" type="Area3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D10"]
-collision_layer = 0
-collision_mask = 1024
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FishSchoolPath3D/FeedAreaPathFollow3D10/Area3D"]
-shape = SubResource("SphereShape3D_lqu3l")
 
 [node name="DolphinAudioManager" type="Node3D" parent="."]
 script = ExtResource("16_4kyfy")
@@ -389,7 +198,6 @@ whistling_rate = 0.7
 curve = SubResource("Curve3D_yolo5")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="BoatIdlePath"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 rotation_mode = 4
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="BoatIdlePath/PathFollow3D"]

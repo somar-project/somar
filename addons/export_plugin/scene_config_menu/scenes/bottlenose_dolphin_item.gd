@@ -13,7 +13,10 @@ extends PanelContainer
 @onready var max_distance_to_player_spin_box : SpinBox = %MaxDistanceToPlayerSpinBox
 @onready var spawn_dir_x_spin_box : SpinBox = %SpawnDirX
 @onready var spawn_dir_z_spin_box : SpinBox = %SpawnDirZ
+@onready var breathing_cooldown_spin_box : SpinBox = %BreathingCooldownSpinBox
 @onready var swim_clickwise_toggle : CheckButton = %SwimClockwiseToggle
+@onready var young_toggle : CheckButton = %YoungToggle
+@onready var mother_toggle : CheckButton = %MotherToggle
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
 
@@ -61,7 +64,10 @@ func initialize(p_scene_type : SceneManager.PlayerContext, data : Dictionary) ->
 	max_distance_to_player_spin_box.value = data.max_distance_to_player
 	spawn_dir_x_spin_box.value = data.spawn_direction.x
 	spawn_dir_z_spin_box.value = data.spawn_direction.y
+	breathing_cooldown_spin_box.value = data.breathing_cooldown
 	swim_clickwise_toggle.button_pressed = data.clockwise
+	young_toggle.button_pressed = data.is_young
+	mother_toggle.button_pressed = data.is_mother
 
 
 func get_data() -> Dictionary:
@@ -75,7 +81,10 @@ func get_data() -> Dictionary:
 			spawn_dir_x_spin_box.value,
 			spawn_dir_z_spin_box.value
 		),
-		"clockwise": swim_clickwise_toggle.button_pressed
+		"breathing_cooldown": breathing_cooldown_spin_box.value,
+		"clockwise": swim_clickwise_toggle.button_pressed,
+		"is_young": young_toggle.button_pressed,
+		"is_mother": mother_toggle.button_pressed
 	}
 
 

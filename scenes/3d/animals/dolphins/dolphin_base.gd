@@ -4,28 +4,42 @@ extends Node3D
 
 signal target_reached
 
-@export var min_swim_speed : float = 4.5
-@export var max_swim_speed : float = 5.0
-
-@export_category("Position")
+@export_category("Movement")
+@export var is_young : bool = false
+@export var is_mother : bool = false
 @export var min_distance_to_player : float = 4.0
 @export var max_distance_to_player : float = 8.0
 @export var height_min : float = 0.5
 @export var height_max : float = 3.0
+@export var min_swim_speed : float = 4.5
+@export var max_swim_speed : float = 5.0
+@export var breathing_cooldown : float = 30.0
+@export var breathing_surface_offset : float = -0.1
 
 @export_category("Animation")
 enum DolphinState {
 	IDLE = 0,
 	SWIMMING = 1,
 	SWIMMING_IDLE = 2,
-	SWIMMING_FAST = 3
+	SWIMMING_FAST = 3,
+	EAT = 4
 }
 @export var state : DolphinState = DolphinState.IDLE
 @export var swim_speed : float = 8.0
+@export var calf_swim_speed : float = 5.0
 @export var clockwise : bool = true
 
 @export_category("Audio")
 @export var audio_stream_player : AudioStreamPlayer3D
+@export var blowhole_audio_stream_player : AudioStreamPlayer3D
+
+@export_category("Nodes")
+@export var surface_marker : Marker3D
+@export var main_dolphin : Node3D
+@export var calf : Node3D
+@export var calf_target_pos : Marker3D
+@export var obstacle_area : Area3D
+@export var obstacle_avoidance_area : Area3D
 
 @export_category("Debug")
 @export var debug_enabled : bool = false
@@ -35,9 +49,6 @@ enum DolphinState {
 @export var debug_swim_to_target : bool = false : set = _debug_swim_to_target
 @export var debug_slow_down : bool = false : set = _debug_slow_down
 @export var debug_speed_up : bool = false : set = _debug_speed_up
-
-@onready var obstacle_area : Area3D = %ObstacleArea3D
-@onready var obstacle_avoidance_area : Area3D = %ObstacleAvoidanceArea3D
 
 var tree : SceneTree
 
@@ -58,8 +69,13 @@ var speed_change_tween : Tween
 var clockwise_mult : float = 1.0
 var first_swim_loop : bool = true
 
-var follow_speed : float = 2.0
+var follow_speed : float = 1.2
 var follow_node : Node3D
+
+var just_changed_direction : bool = false
+
+var breathing_timer : Timer
+var should_breathe : bool = false
 
 # debug
 var debug_initial_shape : MeshInstance3D
@@ -69,8 +85,7 @@ var debug_target_shape : MeshInstance3D
 
 
 func _ready() -> void:
-	set_process(false)
-
+	# set_process(false)
 	if not Engine.is_editor_hint():
 		tree = get_tree()
 		obstacle_avoidance_area.area_entered.connect(_handle_obstacle_detected)
@@ -109,11 +124,24 @@ func _initialize() -> void:
 	initial_position = global_position
 	current_position = initial_position
 
+	breathing_timer = Timer.new()
+	add_child(breathing_timer)
+	if not breathing_timer.timeout.is_connected(_handle_breathing_timer_finished):
+		breathing_timer.timeout.connect(_handle_breathing_timer_finished)
+	breathing_timer.start(breathing_cooldown + randf_range(-5.0, 5.0))
+
 	if not clockwise:
 		clockwise_mult = -1.0
 
 	if not Engine.is_editor_hint():
 		player_position = Global.player.global_position
+	
+	if is_mother:
+		calf.process_mode = Node.PROCESS_MODE_INHERIT
+		calf.visible = true
+	
+	if is_young:
+		main_dolphin.scale = Vector3(0.75, 0.75, 0.75)
 
 	if debug_enabled:
 		debug_initial_shape = MeshInstance3D.new()
@@ -193,10 +221,10 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	if random_target:
 		current_target = _pick_target()
 
-	var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
-	var flat_current_target : Vector3 = Vector3(current_target.x, 0.0, current_target.z)
-
 	if random_target:
+		var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
+		var flat_current_target : Vector3 = Vector3(current_target.x, 0.0, current_target.z)
+
 		while flat_current_position.distance_to(flat_current_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
 			current_target = _pick_target()
 			flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
@@ -208,6 +236,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
+	# var direction : Vector3 = current_position.direction_to(current_target)
 	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0 * clockwise_mult))
 
 	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
@@ -224,8 +253,13 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	if to_boat:
 		middle_point_1_dir = (boat_pos + Vector3(0.0, 0.5, 0.0)).direction_to(current_target)
 
+	var mp_1_mult : float = 1.0
+	if just_changed_direction:
+		just_changed_direction = false
+		mp_1_mult = 2.0
+
 	current_middle_point_1 = current_target
-	current_middle_point_1 += middle_point_1_dir * distance_to_target
+	current_middle_point_1 += middle_point_1_dir * distance_to_target * mp_1_mult
 
 	current_swim_speed = (distance_to_target * 2.5) / (swim_speed / 3.6)
 	
@@ -331,14 +365,52 @@ func swim_to_target_flee(target : Vector3 = Vector3.ZERO) -> void:
 func _after_swiming_to_target(loop : bool) -> void:
 	target_reached.emit()
 
+	if should_breathe and loop:
+		should_breathe = false
+		last_swim_dir.y = 1000.0
+
+		var height_diff : float = surface_marker.global_position.y - player_position.y + breathing_surface_offset
+		var prev_height_min : float = height_min
+		var prev_height_max : float = height_max
+
+		height_min = height_diff
+		height_max = height_diff
+
+		var new_target : Vector3 = _pick_target()
+
+		var flat_current_position : Vector3 = Vector3(current_position.x, 0.0, current_position.z)
+		var flat_new_target : Vector3 = Vector3(new_target.x, 0.0, new_target.z)
+
+		while flat_current_position.distance_to(flat_new_target) < ((min_distance_to_player + max_distance_to_player) / 2.0):
+			new_target = _pick_target()
+			flat_new_target = Vector3(new_target.x, 0.0, new_target.z)
+		
+		var dir_target : Vector3 = player_position
+		dir_target.y = surface_marker.global_position.y
+
+		height_min = prev_height_min
+		height_max = prev_height_max
+
+		just_changed_direction = true
+
+		target_reached.connect(_handle_surface_reached, CONNECT_ONE_SHOT)
+		call_deferred("swim_to_target", dir_target, new_target, false, true, true)
+		# call_deferred("swim_to_target", Vector3.ZERO, new_target, false, false, true)
+		return
+
 	if loop:
 		call_deferred("swim_to_target")
 
 
-func _pick_target() -> Vector3:
+func _handle_surface_reached() -> void:
+	blowhole_audio_stream_player.pitch_scale = randf_range(0.95, 1.1)
+	blowhole_audio_stream_player.play()
+
+
+func _pick_target(force_same_direction : bool = false) -> Vector3:
 	var should_change_clockwise : bool = true if randi_range(0, 9) == 6 else false
 
-	if last_swim_dir.y > 999.0:
+	if force_same_direction or last_swim_dir.y > 999.0:
 		should_change_clockwise = false
 
 	if not should_change_clockwise:
@@ -356,6 +428,8 @@ func _pick_target() -> Vector3:
 		var radius_diff : float = max_distance_to_player - min_distance_to_player
 		var target : Vector3 = player_position + (last_swim_dir * randf_range((max_distance_to_player + radius_diff), (max_distance_to_player + (radius_diff * 2))))
 		target.y += randf_range(height_min, height_max)
+
+		just_changed_direction = true
 
 		clockwise = !clockwise
 		if not clockwise:
@@ -492,6 +566,10 @@ func is_state(state_idx : int) -> bool:
 	return state_idx == state
 
 
+func _handle_breathing_timer_finished() -> void:
+	should_breathe = true
+
+
 func stop() -> void:
 	if movement_tween:
 		movement_tween.kill()
@@ -504,14 +582,17 @@ func resume() -> void:
 func follow(node : Node3D) -> void:
 	follow_node = node
 	state = DolphinState.SWIMMING_FAST
-	set_process(true)
+	# set_process(true)
 
 func stop_following() -> void:
 	follow_node = null
-	set_process(false)
+	# set_process(false)
 
 func _process(delta : float) -> void:
+	if is_mother:
+		calf.global_transform = calf.global_transform.interpolate_with(calf_target_pos.global_transform, calf_swim_speed * delta)
+
 	if is_instance_valid(follow_node):
 		global_transform = global_transform.interpolate_with(follow_node.global_transform, follow_speed * delta)
-	else:
-		set_process(false)
+	# else:
+	# 	set_process(false)

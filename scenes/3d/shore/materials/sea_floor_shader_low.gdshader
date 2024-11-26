@@ -21,9 +21,9 @@ void fragment() {
 
 	vec4 albedo_tex = texture(texture_albedo, base_uv);
 	vec4 mask_tex = texture(texture_mask, UV2);
-	
+
 	vec3 alb = albedo.rgb * albedo_tex.rgb;
-	
+
 	ALBEDO = mix(alb, border_color.rgb, mask_tex.rgb);
 
 	METALLIC = metallic;

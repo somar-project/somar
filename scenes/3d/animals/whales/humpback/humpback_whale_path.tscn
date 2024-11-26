@@ -16,7 +16,7 @@ curve = ExtResource("2_4v865")
 
 [node name="WhalePathFollow" type="PathFollow3D" parent="WhalePath"]
 unique_name_in_owner = true
-transform = Transform3D(-1, 0, 0, 0, 0.975289, 0.221621, 0, 0.221657, -0.975133, 45, 0, 100)
+transform = Transform3D(-1, 0, 0, 0, 1.00016, 0, 0, 0, -1, 45, 0, 100)
 rotation_mode = 4
 use_model_front = true
 

@@ -4,11 +4,9 @@ extends BaseScene
 
 @export var boat_spawn_distance : float = 160.0
 @export var min_boat_event_spawn_delay : float = 60.0
-@export var max_boat_event_spawn_delay : float = 90.0
-@export var min_after_boat_wildlife_return_time : float = 10.0
-@export var max_after_boat_wildlife_return_time : float = 15.0
-@export var new_cycle_delay : float = 10.0
-@export_range(0.0, 1.0) var signal_flee_at_ratio : float = 0.5
+@export var max_boat_event_spawn_delay : float = 70.0
+@export var min_dolphins_curiosity_duration : float = 60.0
+@export var max_dolphins_curiosity_duration : float = 70.0
 enum SceneType {
 	OCEAN,
 	SHORE
@@ -16,6 +14,9 @@ enum SceneType {
 @export var scene_type : SceneType = SceneType.OCEAN
 @export var dolphin_audio_manager : DolphinAudioManager
 @export var whale_event_delay : float = 0.0
+@export var boat_loops : int = 2
+@export var initial_ui : Node3D
+@export var final_ui : Node3D
 
 @onready var humpback_whale_path : Node3D = %HumpbackWhalePath
 @onready var blue_whale_path : Node3D = %BlueWhalePath
@@ -92,6 +93,18 @@ func _initialize_saved_data() -> void:
 	var src_data : Dictionary = Global.editor_plugin_ocean_config
 	if scene_type == SceneType.SHORE:
 		src_data = Global.editor_plugin_shore_config
+	
+	# General
+	if scene_type == SceneType.OCEAN:
+		min_boat_event_spawn_delay = src_data.general.min_boat_event_spawn_delay
+		max_boat_event_spawn_delay = src_data.general.max_boat_event_spawn_delay
+		whale_event_delay = src_data.general.whale_event_delay
+		boat_loops = src_data.general.boat_loops
+	else:
+		min_boat_event_spawn_delay = src_data.general.min_boat_event_spawn_delay
+		max_boat_event_spawn_delay = src_data.general.max_boat_event_spawn_delay
+		min_dolphins_curiosity_duration = src_data.general.min_dolphins_curiosity_duration
+		max_dolphins_curiosity_duration = src_data.general.max_dolphins_curiosity_duration
 
 	# Bottlenose dolphins
 	for bottlenose_dolphin_def : Dictionary in src_data.animals.dolphins.bottlenose:
@@ -103,7 +116,10 @@ func _initialize_saved_data() -> void:
 		bottlenose_dolphin_entity.swim_speed = bottlenose_dolphin_def.swim_speed
 		bottlenose_dolphin_entity.height_min = bottlenose_dolphin_def.height_min
 		bottlenose_dolphin_entity.height_max = bottlenose_dolphin_def.height_max
-		# bottlenose_dolphin_entity.surface_marker = surface_position
+		bottlenose_dolphin_entity.breathing_cooldown = bottlenose_dolphin_def.breathing_cooldown
+		bottlenose_dolphin_entity.is_young = bottlenose_dolphin_def.is_young
+		bottlenose_dolphin_entity.is_mother = bottlenose_dolphin_def.is_mother
+		bottlenose_dolphin_entity.surface_marker = surface_position
 
 		dolphins_parent.add_child(bottlenose_dolphin_entity)
 

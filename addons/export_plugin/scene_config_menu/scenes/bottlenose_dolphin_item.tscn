@@ -163,4 +163,40 @@ prefix = "z |"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Controls if the entity will swim clockwise or counter-clockwise. Default: true"
+button_pressed = true
 text = "Swim clockwise: "
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Label" type="Label" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer6/HBoxContainer2"]
+layout_mode = 2
+text = "Breathing cooldown:"
+
+[node name="BreathingCooldownSpinBox" type="SpinBox" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer6/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Controls how often dolphins will go to the surface to breathe. Default: 30 seconds."
+max_value = 300.0
+step = 0.5
+value = 30.0
+suffix = "seconds."
+
+[node name="YoungToggle" type="CheckButton" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Controls if the entity is young, which will scale the model down to 75% of the scale of an adult. Default: false"
+text = "Is young: "
+
+[node name="MotherToggle" type="CheckButton" parent="VBoxContainer/ContentContainer/VBoxContainer/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Controls if the entity is a mother, which will add a calf that swims along if enabled. Default: false"
+text = "Is mother: "

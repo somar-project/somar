@@ -21,6 +21,11 @@ extends Panel
 @onready var ocean_whales_config_editor_container : MarginContainer = %OceanWhalesConfigEditorContainer
 @onready var ocean_humpback_whale_item : HumpbackWhaleConfigItem = %OceanHumpbackWhaleItem
 @onready var ocean_blue_whale_item : BlueWhaleConfigItem = %OceanBlueWhaleItem
+@onready var ocean_general_config_editor_container : MarginContainer = %OceanGeneralConfigEditorContainer
+@onready var ocean_boat_event_delay_min_spin_box : SpinBox = %OceanBoatEventDelayMinSpinBox
+@onready var ocean_boat_event_delay_max_spin_box : SpinBox = %OceanBoatEventDelayMaxSpinBox
+@onready var ocean_whale_event_delay_spin_box : SpinBox = %OceanWhaleEventDelaySpinBox
+@onready var ocean_boat_loops_spin_box : SpinBox = %OceanBoatLoopsSpinBox
 
 # SHORE
 @onready var shore_main_container : HSplitContainer = %Shore
@@ -34,91 +39,175 @@ extends Panel
 @onready var shore_whales_config_editor_container : MarginContainer = %ShoreWhalesConfigEditorContainer
 @onready var shore_humpback_whale_item : HumpbackWhaleConfigItem = %ShoreHumpbackWhaleItem
 @onready var shore_blue_whale_item : BlueWhaleConfigItem = %ShoreBlueWhaleItem
+@onready var shore_general_config_editor_container : MarginContainer = %ShoreGeneralConfigEditorContainer
+@onready var shore_boat_event_delay_min_spin_box : SpinBox = %ShoreBoatEventDelayMinSpinBox
+@onready var shore_boat_event_delay_max_spin_box : SpinBox = %ShoreBoatEventDelayMaxSpinBox
+@onready var shore_dolphin_curiosity_duration_min_spin_box : SpinBox = %ShoreMinDolphinCuriosityDurationSpinBox
+@onready var shore_dolphin_curiosity_duration_max_spin_box : SpinBox = %ShoreMaxDolphinCuriosityDurationSpinBox
 
 const UTIL = preload("res://addons/export_plugin/scene_config_menu/util/util.gd")
 
 const SAVE_DATA_PATH : String = "res://addons/export_plugin/scene_config_menu/scene_config_data.cfg"
 
 var DEFAULT_OCEAN_DICT : Dictionary = {
-	"general": {
-		"min_boat_event_spawn_delay": 60.0,
-		"max_boat_event_spawn_delay": 90.0,
-		"min_after_boat_wildlife_return_time": 10.0,
-		"max_after_boat_wildlife_return_time": 15.0,
-		"new_cycle_delay": 10.0
-	},
-	"animals": {
-		"whales": {
-			"humpback": {
-				"enabled": true,
-				"travel_time": 180.0
-			},
-			"blue": {
-				"enabled": true,
-				"travel_time": 200.0
-			}
-		},
-		"dolphins": {
-			"bottlenose": [
-				{
-					"height_min": 0.5,
-					"height_max": 3.0,
-					"swim_speed": 8.0,
-					"min_distance_to_player": 4.0,
-					"max_distance_to_player": 8.0,
-					"clockwise": true,
-					"spawn_direction": Vector2(0.0, 0.0)
-				}
-			]
-		}
-	},
-	"boats": {
-		"inflatable_patrol": {
-			"enabled": true,
-			"speed": 28.0
-		}
-	}
+    "animals": {
+        "dolphins": {
+            "bottlenose": [{
+                    "clockwise": true,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 4.0,
+                    "height_min": 0.5,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 6.0,
+                    "min_distance_to_player": 4.0,
+                    "spawn_direction": Vector2(0.2, -0.8),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": false,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 4.0,
+                    "height_min": 0.5,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 6.0,
+                    "min_distance_to_player": 4.0,
+                    "spawn_direction": Vector2(0.8, -0.2),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": true,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 4.5,
+                    "height_min": 0.5,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 8.0,
+                    "min_distance_to_player": 4.5,
+                    "spawn_direction": Vector2(-0.3, -0.7),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": true,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 4.5,
+                    "height_min": 0.0,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 8.0,
+                    "min_distance_to_player": 4.5,
+                    "spawn_direction": Vector2(-0.5, -0.5),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": false,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 5.0,
+                    "height_min": 0.5,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 8.0,
+                    "min_distance_to_player": 4.0,
+                    "spawn_direction": Vector2(0, -1),
+                    "swim_speed": 8.2
+                }
+            ]
+        },
+        "whales": {
+            "blue": {
+                "enabled": true,
+                "travel_time": 200.0
+            },
+            "humpback": {
+                "enabled": true,
+                "travel_time": 180.0
+            }
+        }
+    },
+    "boats": {
+        "inflatable_patrol": {
+            "enabled": true,
+            "speed": 28.0
+        }
+    },
+    "general": {
+        "max_boat_event_spawn_delay": 70.0,
+        "min_boat_event_spawn_delay": 60.0,
+		"whale_event_delay": 10.0,
+		"boat_loops": 2
+    }
 }
 
 var DEFAULT_SHORE_DICT : Dictionary = {
-	"general": {
-		"min_boat_event_spawn_delay": 60.0,
-		"max_boat_event_spawn_delay": 90.0,
-		"min_after_boat_wildlife_return_time": 10.0,
-		"max_after_boat_wildlife_return_time": 15.0,
-		"new_cycle_delay": 10.0
-	},
-	"animals": {
-		"whales": {
-			"humpback": {
-				"enabled": true,
-				"travel_time": 180.0
-			},
-			"blue": {
-				"enabled": true,
-				"travel_time": 200.0
-			}
-		},
-		"dolphins": {
-			"bottlenose": [
-				{
-					"height_min": 0.5,
-					"height_max": 3.0,
-					"swim_speed": 8.0,
-					"min_distance_to_player": 4.0,
-					"max_distance_to_player": 8.0,
-					"clockwise": true,
-					"spawn_direction": Vector2(0.0, 0.0)
-				}
-			]
-		}
-	},
-	"boats": {
-		"inflatable_patrol": {
-			"enabled": true,
-			"speed": 28.0
-		}
-	}
+    "animals": {
+        "dolphins": {
+            "bottlenose": [{
+                    "clockwise": true,
+					"is_young": false,
+					"is_mother": true,
+                    "height_max": 4.0,
+                    "height_min": 0.8,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 6.0,
+                    "min_distance_to_player": 4.0,
+                    "spawn_direction": Vector2(0, 0),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": true,
+					"is_young": true,
+					"is_mother": false,
+                    "height_max": 4.0,
+                    "height_min": 0.8,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 6.0,
+                    "min_distance_to_player": 4.0,
+                    "spawn_direction": Vector2(0, 0),
+                    "swim_speed": 10.0
+                }, {
+                    "clockwise": false,
+					"is_young": false,
+					"is_mother": false,
+                    "height_max": 4.5,
+                    "height_min": 0.8,
+					"breathing_cooldown": 30.0,
+                    "max_distance_to_player": 8.0,
+                    "min_distance_to_player": 5.0,
+                    "spawn_direction": Vector2(0, 0),
+                    "swim_speed": 8.0
+                }, {
+                    "clockwise": false,
+					"is_young": false,
+					"is_mother": false,
+					"breathing_cooldown": 30.0,
+                    "height_max": 4.0,
+                    "height_min": 0.8,
+                    "max_distance_to_player": 7.0,
+                    "min_distance_to_player": 4.5,
+                    "spawn_direction": Vector2(0, 0),
+                    "swim_speed": 8.0
+                }
+            ]
+        },
+        "whales": {
+            "blue": {
+                "enabled": false,
+                "travel_time": 200.0
+            },
+            "humpback": {
+                "enabled": false,
+                "travel_time": 180.0
+            }
+        }
+    },
+    "boats": {
+        "inflatable_patrol": {
+            "enabled": true,
+            "speed": 28.0
+        }
+    },
+    "general": {
+        "max_boat_event_spawn_delay": 70.0,
+        "min_boat_event_spawn_delay": 60.0,
+		"min_dolphins_curiosity_duration": 20.0,
+		"max_dolphins_curiosity_duration": 25.0
+    }
 }
 
 const BOTTLENOSE_DOLPHIN_ITEM : PackedScene = preload("res://addons/export_plugin/scene_config_menu/scenes/bottlenose_dolphin_item.tscn")
@@ -287,6 +376,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 	var bottlenose_config_editor_container : MarginContainer = ocean_bottlenose_config_editor_container
 	var boats_config_editor_container : MarginContainer = ocean_boats_config_editor_container
 	var whales_config_editor_container : MarginContainer = ocean_whales_config_editor_container
+	var general_config_editor_container : MarginContainer = ocean_general_config_editor_container
 	var default_container : CenterContainer = ocean_default_container
 
 	if scene_type == SceneManager.PlayerContext.SHORE:
@@ -295,6 +385,7 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 		bottlenose_config_editor_container = shore_bottlenose_config_editor_container
 		boats_config_editor_container = shore_boats_config_editor_container
 		whales_config_editor_container = shore_whales_config_editor_container
+		general_config_editor_container = shore_general_config_editor_container
 		default_container = shore_default_container
 
 	var selected_item : TreeItem = tree_ref.get_selected()
@@ -305,6 +396,8 @@ func _handle_tree_item_selected(scene_type : SceneManager.PlayerContext) -> void
 			child.visible = false
 
 	match selected_item_id:
+		"ocean/general", "shore/general":
+			general_config_editor_container.visible = true
 		"ocean/animals/whales", "shore/animals/whales":
 			whales_config_editor_container.visible = true
 		"ocean/animals/dolphins/bottlenose", "shore/animals/dolphins/bottlenose":
@@ -336,6 +429,11 @@ func _get_scenes_config_save_path() -> String:
 
 func _process_saved_data() -> void:
 	# OCEAN
+	ocean_boat_event_delay_min_spin_box.value = ocean_config.general.min_boat_event_spawn_delay
+	ocean_boat_event_delay_max_spin_box.value = ocean_config.general.max_boat_event_spawn_delay
+	ocean_whale_event_delay_spin_box.value = ocean_config.general.whale_event_delay
+	ocean_boat_loops_spin_box.value = ocean_config.general.boat_loops
+
 	for current_ocean_bottlenose_item : Node in ocean_bottlenose_dolphin_items_container.get_children():
 		current_ocean_bottlenose_item.queue_free()
 
@@ -360,6 +458,11 @@ func _process_saved_data() -> void:
 	)
 
 	# SHORE
+	shore_boat_event_delay_min_spin_box.value = shore_config.general.min_boat_event_spawn_delay
+	shore_boat_event_delay_max_spin_box.value = shore_config.general.max_boat_event_spawn_delay
+	shore_dolphin_curiosity_duration_min_spin_box.value = shore_config.general.min_dolphins_curiosity_duration
+	shore_dolphin_curiosity_duration_max_spin_box.value = shore_config.general.max_dolphins_curiosity_duration
+
 	for current_shore_bottlenose_item : Node in shore_bottlenose_dolphin_items_container.get_children():
 		current_shore_bottlenose_item.queue_free()
 	
@@ -413,15 +516,8 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 		humpback_whale_item = shore_humpback_whale_item
 		blue_whale_item = shore_blue_whale_item
 	
-	# TODO: when general data is implemented, remove these defaults
 	var return_data : Dictionary = {
-		"general": {
-			"min_boat_event_spawn_delay": 60.0,
-			"max_boat_event_spawn_delay": 90.0,
-			"min_after_boat_wildlife_return_time": 10.0,
-			"max_after_boat_wildlife_return_time": 15.0,
-			"new_cycle_delay": 10.0
-		},
+		"general": {},
 		"animals": {
 			"whales": {
 				"humpback": {},
@@ -439,6 +535,21 @@ func _get_current_config_data(type : SceneManager.PlayerContext) -> Dictionary:
 	var new_bottlenose_array : Array = []
 	for bottlenose_dolphin_item : BottlenoseConfigItem in bottlenose_dolphin_items_container.get_children():
 		new_bottlenose_array.push_back(bottlenose_dolphin_item.get_data())
+
+	if type == SceneManager.PlayerContext.OCEAN:
+		return_data.general = {
+			"max_boat_event_spawn_delay": ocean_boat_event_delay_max_spin_box.value,
+			"min_boat_event_spawn_delay": ocean_boat_event_delay_min_spin_box.value,
+			"whale_event_delay": ocean_whale_event_delay_spin_box.value,
+			"boat_loops": ocean_boat_loops_spin_box.value
+		}
+	else:
+		return_data.general = {
+			"max_boat_event_spawn_delay": shore_boat_event_delay_max_spin_box.value,
+			"min_boat_event_spawn_delay": shore_boat_event_delay_min_spin_box.value,
+			"min_dolphins_curiosity_duration": shore_dolphin_curiosity_duration_min_spin_box.value,
+			"max_dolphins_curiosity_duration": shore_dolphin_curiosity_duration_max_spin_box.value
+		}
 	
 	return_data.animals.dolphins.bottlenose = new_bottlenose_array
 

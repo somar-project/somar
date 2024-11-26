@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://gs4ji44u7lso"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_unshaded.gdshader" id="1_v1m4t"]
-[ext_resource type="ArrayMesh" uid="uid://docju8om7u6l3" path="res://scenes/3d/info_plane/mesh/info_mesh_InfoPlane.res" id="1_xiv2f"]
-[ext_resource type="PackedScene" uid="uid://cqp6kw1yipv8d" path="res://scenes/2d/test/test_2d_scene.tscn" id="3_w04nx"]
+[ext_resource type="Script" path="res://scenes/3d/info_plane/info_panel.gd" id="1_xap5e"]
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_unshaded.gdshader" id="2_gj7xs"]
+[ext_resource type="ArrayMesh" uid="uid://docju8om7u6l3" path="res://scenes/3d/info_plane/mesh/info_mesh_InfoPlane.res" id="3_nlojj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tincx"]
 viewport_path = NodePath("SubViewport")
@@ -10,21 +10,21 @@ viewport_path = NodePath("SubViewport")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0276a"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("1_v1m4t")
+shader = ExtResource("2_gj7xs")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
 shader_parameter/albedo_texture = SubResource("ViewportTexture_tincx")
 
-[node name="InfoPlane" type="Node3D"]
+[node name="InfoPanel" type="Node3D"]
+script = ExtResource("1_xap5e")
 
 [node name="InfoPlane" type="MeshInstance3D" parent="."]
 material_override = SubResource("ShaderMaterial_0276a")
-mesh = ExtResource("1_xiv2f")
+mesh = ExtResource("3_nlojj")
 skeleton = NodePath("")
 
 [node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
 disable_3d = true
 transparent_bg = true
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
-
-[node name="Test2dScene" parent="SubViewport" instance=ExtResource("3_w04nx")]
+render_target_update_mode = 1
