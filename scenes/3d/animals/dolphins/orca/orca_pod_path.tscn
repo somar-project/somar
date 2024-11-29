@@ -27,6 +27,9 @@ rotation_mode = 4
 unique_name_in_owner = true
 visible = false
 
+[node name="TunaContainer" type="Node3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
 [node name="DolphinsTarget" type="Marker3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.1362, 0, -30.0966)
