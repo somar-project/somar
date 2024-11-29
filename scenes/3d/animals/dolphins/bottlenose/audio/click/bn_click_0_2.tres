@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" load_steps=4 format=3 uid="uid://4yrtqnvfk30c"]
+
+[ext_resource type="AudioStream" uid="uid://dfjmsfm37c0l8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_0.wav" id="1_bi5ac"]
+[ext_resource type="AudioStream" uid="uid://0ct8v5g2mijp" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_1.wav" id="2_egut3"]
+[ext_resource type="AudioStream" uid="uid://cyx53sgwlp7mn" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_2.wav" id="3_f614e"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_bi5ac")
+stream_1/stream = ExtResource("2_egut3")
+stream_2/stream = ExtResource("3_f614e")

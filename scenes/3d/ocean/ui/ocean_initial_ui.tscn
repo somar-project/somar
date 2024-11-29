@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://br72xt5i0kf8e"]
+[gd_scene load_steps=10 format=3 uid="uid://br72xt5i0kf8e"]
 
 [ext_resource type="Script" path="res://scenes/3d/ocean/ui/ocean_initial_ui.gd" id="1_e1wo0"]
 [ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="2_v51ky"]
-[ext_resource type="PackedScene" uid="uid://cqp6kw1yipv8d" path="res://scenes/2d/test/test_2d_scene.tscn" id="3_m5hv0"]
+[ext_resource type="PackedScene" uid="uid://b4k4skdmb4jhj" path="res://scenes/2d/ocean/ocean_initial_ui_layout.tscn" id="3_1mw2s"]
 [ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="4_cguy7"]
 [ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="5_x1vkp"]
 
@@ -21,11 +21,14 @@ size = Vector2(0.5, 0.25)
 [sub_resource type="BoxShape3D" id="BoxShape3D_2k0qx"]
 size = Vector3(0.5, 0.25, 0.015)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_squad"]
+size = Vector3(1, 2.49634, 0.0146484)
+
 [node name="InitialUI" type="Node3D"]
 script = ExtResource("1_e1wo0")
 
 [node name="InfoPanel" parent="." instance=ExtResource("2_v51ky")]
-scene = ExtResource("3_m5hv0")
+scene = ExtResource("3_1mw2s")
 
 [node name="CloseBtn" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.806571, 0)
@@ -48,9 +51,27 @@ render_priority = 2
 outline_render_priority = 1
 modulate = Color(0.160784, 0.207843, 0.537255, 1)
 outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
-text = "Close"
+text = "CLOSE_LBL"
 font_size = 128
 outline_size = 8
 
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="CloseBtn"]
 shape = SubResource("BoxShape3D_2k0qx")
+
+[node name="BGArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0404669, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.066602)
+shape = SubResource("BoxShape3D_squad")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.979443, 0, 0.062116)
+shape = SubResource("BoxShape3D_squad")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.979, 0, 0.062)
+shape = SubResource("BoxShape3D_squad")

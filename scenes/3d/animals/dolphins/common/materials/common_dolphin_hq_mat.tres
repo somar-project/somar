@@ -1,5 +1,6 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://uaf1ps1d6e64"]
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://uaf1ps1d6e64"]
 
+[ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_b5ib0"]
 [ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_metal.gdshader" id="1_qtaig"]
 [ext_resource type="Texture2D" uid="uid://c7pfrfifg4cd" path="res://scenes/3d/animals/dolphins/common/textures/Long-billed_Dolphin_albedo_1k.png" id="2_oq4y3"]
 [ext_resource type="Texture2D" uid="uid://qded7jxg6cfw" path="res://scenes/3d/animals/dolphins/common/textures/Long-billed_Dolphin_normal_1k.png" id="3_dn16x"]
@@ -7,6 +8,7 @@
 
 [resource]
 render_priority = 0
+next_pass = ExtResource("1_b5ib0")
 shader = ExtResource("1_qtaig")
 shader_parameter/albedo_color = Color(0.65098, 0.741176, 0.960784, 1)
 shader_parameter/normal_map_scale = 1.0

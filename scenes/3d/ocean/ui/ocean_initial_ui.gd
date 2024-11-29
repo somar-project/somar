@@ -15,7 +15,7 @@ func _ready() -> void:
 		scale_tween.tween_property(
 			self,
 			"scale",
-			Vector3(0.05, 0.05, 0.05),
+			Vector3(0.01, 0.01, 0.01),
 			0.5
 		)
 

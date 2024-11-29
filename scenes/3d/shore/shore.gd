@@ -6,6 +6,7 @@ extends BaseUnderwaterScene
 @export_range(0.0, 1.0) var dolphins_curious_amount_rate : float = 0.5
 
 const INFLATABLE_PATROL_BOAT_SCENE : PackedScene = preload("res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn")
+const SPEED_BOAT_SCENE : PackedScene = preload("res://scenes/3d/boats/speedboat/speed_boat.tscn")
 
 var initial_boat : BoatBase
 var secondary_boats_info : Array[Dictionary]
@@ -18,6 +19,8 @@ var final_boat_hide_signal_connected : bool = false
 
 func _ready() -> void:
 	super()
+
+	# current_boat_spawn_type = randi_range(0, BOAT_SPAWN_IDS.size()-1)
 
 	if Global.material_quality == Global.MaterialQuality.HIGH:
 		shadows_sub_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -42,13 +45,24 @@ func _start_boat_event() -> void:
 		randi_range(2, 3)
 	)
 
+	# initial_boat.initialize_at_2(
+	# 	boat_spawn_distance,
+	# 	surface_position,
+	# 	path_quadrants_parent,
+	# 	BOAT_SPAWN_IDS[current_boat_spawn_type][current_boat_spawn_idx]
+	# )
+
+	# current_boat_spawn_idx += 1
+
 	initial_boat.mid_pos_target_reached.connect(_make_dolphins_stop, CONNECT_ONE_SHOT)
 
 	# Secondary boats
 	for b_idx : int in secondary_boats_amount:
 		var rot : float = 90.0 if b_idx % 2 == 0 else -90.0
+		# var initial_boat_dir : Vector3 = -initial_boat.boat_direction
 		var initial_boat_dir : Vector3 = initial_boat.boat_direction
 		var initial_boat_pos : Vector3 = initial_boat.initial_boat_position
+		# var initial_boat_pos : Vector3 = initial_boat.final_boat_position
 		if b_idx > 0:
 			initial_boat_pos = secondary_boats_info[b_idx-1].origin
 
@@ -64,7 +78,6 @@ func _start_boat_event() -> void:
 
 
 func _make_dolphins_stop() -> void:
-	print_debug("STOPPING DOLPHINS!")
 	if not is_equal_approx(dolphins_curious_amount_rate, 1.0):
 		var total_dolphins : int = dolphins_parent.get_child_count()
 		var total_curious_dolphins : int = int(total_dolphins * dolphins_curious_amount_rate)
@@ -80,7 +93,7 @@ func _make_dolphins_stop() -> void:
 		
 		for selected_idx : int in selected_dolphin_indexes:
 			var dolphin : DolphinBase = dolphins_parent.get_child(selected_idx)
-			dolphin.breathing_cooldown *= 2.0
+			dolphin.breathing_cooldown = dolphin.breathing_cooldown * 5.0 # Basically, disable breathing
 			dolphin.force_stop = true
 			dolphin.target_reached.connect(_move_dolphin_to_boat.bind(dolphin), CONNECT_ONE_SHOT)
 		
@@ -93,14 +106,18 @@ func _make_dolphins_stop() -> void:
 				dolphin.player_position = corrected_initial_boat_pos
 				dolphin.height_max = -1.0
 				dolphin.height_min = -2.5
-				dolphin.breathing_cooldown *= 2.0
+				dolphin.breathing_cooldown = dolphin.breathing_cooldown * 5.0 # Basically, disable breathing
 	
 	else:
 		for dolphin : DolphinBase in dolphins_parent.get_children():
-			dolphin.breathing_cooldown *= 2.0
+			dolphin.breathing_cooldown = dolphin.breathing_cooldown * 5.0 # Basically, disable breathing
 			dolphin.force_stop = true
 			dolphin.target_reached.connect(_move_dolphin_to_boat.bind(dolphin), CONNECT_ONE_SHOT)
 	
+	dolphin_audio_manager.clicking_rate = 0.2
+	dolphin_audio_manager.whistling_rate = 0.75
+	dolphin_audio_manager.whistling_volume_db = 1.5
+
 	tree.create_timer(
 		randf_range(min_dolphins_curiosity_duration, max_dolphins_curiosity_duration)
 	).timeout.connect(_show_secondary_boats, CONNECT_ONE_SHOT)
@@ -149,36 +166,52 @@ func _get_closest_boat_pos(current_pos : Vector3) -> Marker3D:
 
 
 func _show_secondary_boats() -> void:
-	var added_signal : bool = false
-	for boat_info : Dictionary in secondary_boats_info:
-		var secondary_boat : BoatBase = INFLATABLE_PATROL_BOAT_SCENE.instantiate()
+	# First secondary boat
+	var l_second_b_r : PackedScene = await ResourceManager.load_resource("res://scenes/3d/shore/secondary_boats/secondary_boat.tscn")
+	var l_second_boat : Node3D = l_second_b_r.instantiate()
+	
+	boats_parent.add_child(l_second_boat)
+	l_second_boat.boat_spawn_distance = boat_spawn_distance
+	l_second_boat.global_position = initial_boat.global_position
+	l_second_boat.global_position.y = surface_position.global_position.y
+	l_second_boat.global_rotation = initial_boat.global_rotation
 
-		boats_parent.add_child(secondary_boat)
-		secondary_boat.speed += randf_range(-2.0, 2.0)
-		secondary_boat.global_position = Vector3(1000.0, 1000.0, 1000.0)
-		secondary_boat.stop_at_ratio = randf_range(initial_boat.stop_at_ratio - 0.02, initial_boat.stop_at_ratio + 0.02)
+	l_second_boat.play(true, 0)
+	# await l_second_boat.end_reached
+	await l_second_boat.total_time_defined
+	await tree.create_timer(l_second_boat.total_time * 0.5).timeout
 
-		if not added_signal:
-			added_signal = true
-			secondary_boat.signal_at_ratios.push_back(0.3) # TODO, maybe make configurable
-			secondary_boat.reached_ratio.connect(_handle_boat_ratio_reached, CONNECT_ONE_SHOT)
+	var r_second_b_r : PackedScene = await ResourceManager.load_resource("res://scenes/3d/shore/secondary_boats/secondary_boat.tscn")
+	var r_second_boat : Node3D = r_second_b_r.instantiate()
+	boats_parent.add_child(r_second_boat)
+	r_second_boat.boat_spawn_distance = boat_spawn_distance
+	r_second_boat.global_position = initial_boat.global_position
+	r_second_boat.global_position.y = surface_position.global_position.y
+	r_second_boat.global_rotation = initial_boat.global_rotation
 
-		secondary_boat.initialize_at(
-			boat_info.origin,
-			boat_info.direction,
-			boat_info.total_distance,
-			surface_position
-		)
+	r_second_boat.play(false, 1)
+
+	await r_second_boat.total_time_defined
+	await tree.create_timer(r_second_boat.total_time * 0.3).timeout
+	var jet_skis_b_r : PackedScene = await ResourceManager.load_resource("res://scenes/3d/shore/secondary_boats/shore_jet_ski.tscn")
+	var jet_skis : Node3D = jet_skis_b_r.instantiate()
+	add_child(jet_skis)
+	jet_skis.global_position = initial_boat.global_position
+	jet_skis.global_position.y = surface_position.global_position.y
+	jet_skis.global_rotation = initial_boat.global_rotation
+
+	jet_skis.middle_reached.connect(_make_dolphins_flee, CONNECT_ONE_SHOT)
 
 
 func _make_dolphins_flee() -> void:
 	making_dolphins_flee = true
 
-	var curve_points : PackedVector3Array = PERIMETER_PATH_CURVE.get_baked_points()
+	# var curve_points : PackedVector3Array = PERIMETER_PATH_CURVE.get_baked_points()
 	var quadrant : Path3D = path_quadrants_parent.get_child(randi_range(0, 1)) # Only the two quadrants in front of player
 
 	for dolphin : DolphinBase in dolphins_parent.get_children():
-		var flee_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+		# var flee_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+		var flee_position : Vector3 = quadrant.to_global(quadrant.curve.sample_baked(randf()))
 		flee_position.y = dolphin.global_position.y
 		var flee_direction : Vector3 = dolphin.global_position.direction_to(flee_position)
 		flee_position += ((boat_spawn_distance * 0.7) - CURVE_RADIUS) * flee_direction
@@ -201,33 +234,49 @@ func _handle_flee(dolphin : DolphinBase, flee_to : Vector3) -> void:
 
 
 func _make_boats_go() -> void:
-	for boat : BoatBase in boats_parent.get_children():
+	for boat : Node3D in boats_parent.get_children():
+		var boat_ref : BoatBase
+		if boat is BoatBase:
+			boat_ref = boat
+		else:
+			boat_ref = boat.boat
+
 		if not final_boat_reached_signal_connected:
 			final_boat_reached_signal_connected = true
-			boat.signal_at_ratios.push_back(0.9)
-			boat.reached_ratio.connect(_handle_boat_ratio_reached, CONNECT_ONE_SHOT)
+			boat_ref.signal_at_ratios.push_back(0.9)
+			boat_ref.reached_ratio.connect(_handle_boat_ratio_reached, CONNECT_ONE_SHOT)
 
-		boat.start_final_movement(randf_range(0.0, 1.5))
+		boat_ref.start_final_movement(randf_range(0.0, 1.5))
 
 
 func _handle_boat_ratio_reached(ratio : float) -> void:
-	# Secondary boats approaching the dolphins
-	if is_equal_approx(ratio, 0.3):
+	# Disable sounds when boat approaches
+	if is_equal_approx(ratio, 0.25):
+		pass
+		# dolphin_audio_manager.stop()
+
+	# Secondary boats approaching the dolphins, make them flee
+	elif is_equal_approx(ratio, 0.3):
 		_make_dolphins_flee()
 	
 	# Boats too far
 	elif is_equal_approx(ratio, 0.9):
-		for boat : BoatBase in boats_parent.get_children():
+		for boat : Node3D in boats_parent.get_children():
+			var boat_ref : BoatBase
+			if boat is BoatBase:
+				boat_ref = boat
+			else:
+				boat_ref = boat.boat
+
 			if not final_boat_hide_signal_connected:
 				final_boat_hide_signal_connected = true
-				boat.boat_hidden.connect(_handle_boat_hidden, CONNECT_ONE_SHOT)
+				boat_ref.boat_hidden.connect(_handle_boat_hidden, CONNECT_ONE_SHOT)
 
-			boat.hide_boat()
+			boat_ref.hide_boat()
 
 
 func _handle_boat_hidden() -> void:
 	await tree.create_timer(2.0).timeout
-	Global.player.fade(false)
-	AudioManager.fade(false, AudioManager.AudioBus.UNDERWATER)
-	await Global.player.fade_finished
-	SceneManager.switch_to_scene("map_menu")
+
+	final_ui.process_mode = Node.PROCESS_MODE_INHERIT
+	final_ui.show_panel()

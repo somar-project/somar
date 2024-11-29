@@ -1,0 +1,203 @@
+[gd_scene load_steps=30 format=3 uid="uid://dkuowkkb8smqs"]
+
+[ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_uk7d7"]
+[ext_resource type="Material" uid="uid://lbqvw0btqgoe" path="res://scenes/3d/boats/trail/materials/trail_material_v2.tres" id="2_p042n"]
+[ext_resource type="Material" uid="uid://hqwjtq758vqy" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hull_bottom_mat.tres" id="3_gl4jx"]
+[ext_resource type="AudioStream" uid="uid://e7jiofvs4p80" path="res://scenes/3d/boats/speedboat/audio/speed_boat_running.wav" id="4_a4qs7"]
+[ext_resource type="AudioStream" uid="uid://q2nyrxlieroq" path="res://scenes/3d/boats/speedboat/audio/speed_boat_stopping.wav" id="5_mc8nw"]
+[ext_resource type="AudioStream" uid="uid://cw1ft5iwxfokx" path="res://scenes/3d/boats/speedboat/audio/speed_boat_idle.wav" id="6_8je58"]
+[ext_resource type="AudioStream" uid="uid://cb4wwds6fod1f" path="res://scenes/3d/boats/speedboat/audio/speed_boat_start.wav" id="7_0shxh"]
+[ext_resource type="Shader" uid="uid://bufpt1ntjbbl4" path="res://scenes/3d/boats/inflatable_patrol/materials/boat_color_w_height_shader.tres" id="17_kttri"]
+[ext_resource type="Texture2D" uid="uid://bqncp5sfe5vw" path="res://scenes/3d/boats/speedboat/textures/speedboat_albedo_1k.png" id="18_u1d7u"]
+[ext_resource type="ArrayMesh" uid="uid://bakojohe425r0" path="res://scenes/3d/boats/speedboat/mesh/speedboat_Mesh.res" id="19_6n3bs"]
+[ext_resource type="ArrayMesh" uid="uid://bc2b1txxfdpa0" path="res://scenes/3d/boats/speedboat/mesh/speedboat_Mesh_002.res" id="20_40taa"]
+[ext_resource type="Animation" uid="uid://k0h67ej0ic7h" path="res://scenes/3d/boats/speedboat/animations/boat_movement.res" id="21_3lgo0"]
+[ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="22_do4tg"]
+[ext_resource type="Animation" uid="uid://daylx21xduo73" path="res://scenes/3d/boats/speedboat/animations/idle.res" id="22_s6ost"]
+[ext_resource type="ArrayMesh" uid="uid://couxsfsrif3n0" path="res://scenes/3d/boats/trail/mesh/inflatable_patrol_boat_foam_FoamPlane.res" id="23_c5u3o"]
+
+[sub_resource type="Curve" id="Curve_tpl33"]
+_data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_nkpm1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yo4ii"]
+render_priority = 0
+shader = ExtResource("17_kttri")
+shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/metallic = 0.3
+shader_parameter/roughness = 0.5
+shader_parameter/specular = 1.0
+shader_parameter/albedo_texture = ExtResource("18_u1d7u")
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bxgh5"]
+_data = {
+"boat_movement": ExtResource("21_3lgo0"),
+"idle": ExtResource("22_s6ost")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8j0n"]
+animation = &"speedboat/boat_movement"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kaky0"]
+animation = &"speedboat/idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nkxmu"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_otyij"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "is_state(1)"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3p3xj"]
+xfade_time = 0.5
+advance_mode = 2
+advance_expression = "is_state(0)"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_gnoc8"]
+states/boat_movement/node = SubResource("AnimationNodeAnimation_i8j0n")
+states/boat_movement/position = Vector2(571, 100)
+states/idle/node = SubResource("AnimationNodeAnimation_kaky0")
+states/idle/position = Vector2(380, 100)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_nkxmu"), "idle", "boat_movement", SubResource("AnimationNodeStateMachineTransition_otyij"), "boat_movement", "idle", SubResource("AnimationNodeStateMachineTransition_3p3xj")]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_be587"]
+graph_offset = Vector2(-142, 80)
+nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_gnoc8")
+nodes/StateMachine/position = Vector2(-20, 120)
+node_connections = [&"output", 0, &"StateMachine"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_xj251"]
+material = ExtResource("22_do4tg")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Curve" id="Curve_dpvfu"]
+min_value = 0.1
+max_value = 1.5
+_data = [Vector2(0, 0.1), 0.0, 4.32781, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_76mt0"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0551724, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="SpeedBoat" type="Node3D" node_paths=PackedStringArray("dolphin_curious_positions_parent", "bubbles_particles", "foam_plane_material_parent", "hull_bottom_material_parent")]
+script = ExtResource("1_uk7d7")
+speed = 32.0
+surface_offset = -0.293
+dolphin_curious_positions_parent = NodePath("DolphinCuriousPositions")
+stop_drift_curve = SubResource("Curve_tpl33")
+start_drift_curve = SubResource("Curve_nkpm1")
+bubbles_particles = NodePath("BoatTrail/BubblesParticles")
+foam_plane_material_parent = NodePath("BoatTrail/FoamPlane")
+hull_bottom_material_parent = NodePath("MovementPivot/speedboat/bottom")
+engine_loop_audio = ExtResource("4_a4qs7")
+engine_stop_audio = ExtResource("5_mc8nw")
+engine_idle_audio = ExtResource("6_8je58")
+engine_start_audio = ExtResource("7_0shxh")
+engine_start_offset = 3.0
+
+[node name="MovementPivot" type="Node3D" parent="."]
+transform = Transform3D(0.999407, -0.0344387, 1.42878e-06, 0.0344387, 0.999407, 5.1269e-05, -3.19357e-06, -5.11894e-05, 1, 0, -0.0541639, 0)
+
+[node name="speedboat" type="Node3D" parent="MovementPivot"]
+transform = Transform3D(-9.61651e-08, 0, 2.2, 0, 2.2, 0, -2.2, 0, -9.61651e-08, 0, 0, 0)
+
+[node name="speedboat" type="MeshInstance3D" parent="MovementPivot/speedboat"]
+material_override = SubResource("ShaderMaterial_yo4ii")
+mesh = ExtResource("19_6n3bs")
+skeleton = NodePath("")
+
+[node name="bottom" type="MeshInstance3D" parent="MovementPivot/speedboat"]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1.01, 0, 7.10543e-15, 0, 1.01, 0.00361928, -0.00538688, 1.58204e-10)
+material_override = ExtResource("3_gl4jx")
+mesh = ExtResource("20_40taa")
+skeleton = NodePath("")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"speedboat": SubResource("AnimationLibrary_bxgh5")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_be587")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="BoatTrail" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.384, -3.76767)
+
+[node name="BubblesParticles" type="CPUParticles3D" parent="BoatTrail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.8312, -0.30984, -1.2651e-07)
+extra_cull_margin = 200.0
+amount = 50
+lifetime = 2.0
+fixed_fps = 30
+visibility_aabb = AABB(-0.602425, -1.61576, -1.04763, 2.62024, 2.78173, 2.07155)
+mesh = SubResource("QuadMesh_xj251")
+emission_shape = 4
+emission_points = PackedVector3Array(0, 0.3, -0.3, 0, 0, 0, 0, 0.3, 0.3, 3.4, 0.1, 0)
+spread = 50.0
+flatness = 0.85
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.5
+scale_amount_min = 1.2
+scale_amount_max = 1.5
+scale_amount_curve = SubResource("Curve_dpvfu")
+color_ramp = SubResource("Gradient_76mt0")
+
+[node name="FoamPlane" type="MeshInstance3D" parent="BoatTrail"]
+transform = Transform3D(-2.18557e-08, 0, -0.45, 0, 1, 0, 0.5, 0, -1.96701e-08, 2.04884, -0.234706, -8.95574e-08)
+material_override = ExtResource("2_p042n")
+mesh = ExtResource("23_c5u3o")
+skeleton = NodePath("")
+
+[node name="DolphinCuriousPositions" type="Node3D" parent="."]
+
+[node name="Pos0" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.71364, 0.711619, 0)
+metadata/in_use = false
+
+[node name="Pos1" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.45509, 0.711619, -5.04452)
+metadata/in_use = false
+
+[node name="Pos2" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.62931, 0.711619, 4.69606)
+metadata/in_use = false
+
+[node name="Pos3" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 5.70906, 0.711619, 3.23705e-07)
+metadata/in_use = false
+
+[node name="Pos4" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 5.98452, 0.711797, 4.9893)
+metadata/in_use = false
+
+[node name="Pos5" type="Marker3D" parent="DolphinCuriousPositions"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 5.46057, 0.711797, -4.9896)
+metadata/in_use = false
+
+[node name="EngineLoopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_a4qs7")
+volume_db = 6.0
+unit_size = 15.0
+max_db = 6.0
+max_distance = 110.0
+bus = &"Boats"
+
+[node name="EngineStartStopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
+volume_db = 6.0
+unit_size = 15.0
+max_db = 6.0
+max_distance = 110.0
+bus = &"Boats"

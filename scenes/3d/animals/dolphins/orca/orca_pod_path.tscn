@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwi4j4ajpidby"]
+
+[ext_resource type="PackedScene" uid="uid://dsh5l72putjj3" path="res://scenes/3d/animals/dolphins/orca/orca_pod.tscn" id="1_mf6ri"]
+[ext_resource type="Script" path="res://scenes/3d/animals/dolphins/orca/orca_pod_path.gd" id="1_qbc2w"]
+
+[sub_resource type="Curve3D" id="Curve3D_q1cvs"]
+_data = {
+"points": PackedVector3Array(-35.6888, 0, 2.08891, 35.6888, 0, -2.08891, -63.646, 0, 19.7705, -12.6135, 0, 9.35841, 12.6135, 0, -9.35841, -5.77785, 0, -9.62588, -42.2554, 0, 2.24236, 42.2554, 0, -2.24236, 63.9133, 0, -30.0732),
+"tilts": PackedFloat32Array(0, 0, 0)
+}
+point_count = 3
+
+[node name="OrcaPodPath" type="Node3D"]
+script = ExtResource("1_qbc2w")
+
+[node name="Path3D" type="Path3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.30002, 0)
+curve = SubResource("Curve3D_q1cvs")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+unique_name_in_owner = true
+transform = Transform3D(0.0584313, 0, -0.998291, 0, 1, 0, 0.998291, 0, 0.0584313, -63.646, 0, 19.7705)
+rotation_mode = 4
+
+[node name="OrcaPod" parent="Path3D/PathFollow3D" instance=ExtResource("1_mf6ri")]
+unique_name_in_owner = true
+visible = false
+
+[node name="DolphinsTarget" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 63.1362, 0, -30.0966)

@@ -3,6 +3,7 @@ class_name DolphinBase
 extends Node3D
 
 signal target_reached
+signal request_water_break(at : Transform3D)
 
 @export_category("Movement")
 @export var is_young : bool = false
@@ -13,7 +14,7 @@ signal target_reached
 @export var height_max : float = 3.0
 @export var min_swim_speed : float = 4.5
 @export var max_swim_speed : float = 5.0
-@export var breathing_cooldown : float = 30.0
+@export var breathing_cooldown : float = 30.0 : set = _handle_breathing_cooldown_change
 @export var breathing_surface_offset : float = -0.1
 
 @export_category("Animation")
@@ -31,7 +32,6 @@ enum DolphinState {
 
 @export_category("Audio")
 @export var audio_stream_player : AudioStreamPlayer3D
-@export var blowhole_audio_stream_player : AudioStreamPlayer3D
 
 @export_category("Nodes")
 @export var surface_marker : Marker3D
@@ -76,6 +76,18 @@ var just_changed_direction : bool = false
 
 var breathing_timer : Timer
 var should_breathe : bool = false
+
+var initial_data : Dictionary = {
+	"clockwise": true,
+	"max_distance_to_player": 0.0,
+	"min_distance_to_player": 0.0,
+	"swim_speed": 0.0,
+	"height_min": 0.0,
+	"height_max": 0.0,
+	"breathing_cooldown": 0.0,
+	"is_young": false,
+	"is_mother": false,
+}
 
 # debug
 var debug_initial_shape : MeshInstance3D
@@ -210,6 +222,16 @@ func _correct_initial_position() -> void:
 	elif current_distance_to_player > max_distance_to_player:
 		var diff : float = current_distance_to_player - max_distance_to_player
 		global_position -= direction * diff
+
+
+func _handle_breathing_cooldown_change(new_val : float) -> void:
+	breathing_cooldown = new_val
+
+	if breathing_timer:
+		if not breathing_timer.is_stopped():
+			breathing_timer.stop()
+
+		breathing_timer.start(breathing_cooldown)
 
 
 func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector3.ZERO, random_target : bool = true, to_boat : bool = false, loop : bool = true) -> void:
@@ -403,8 +425,7 @@ func _after_swiming_to_target(loop : bool) -> void:
 
 
 func _handle_surface_reached() -> void:
-	blowhole_audio_stream_player.pitch_scale = randf_range(0.95, 1.1)
-	blowhole_audio_stream_player.play()
+	request_water_break.emit(self)
 
 
 func _pick_target(force_same_direction : bool = false) -> Vector3:
@@ -504,35 +525,41 @@ func _handle_obstacle_detected(p_obstacle_area : Area3D) -> void:
 			p_obstacle_area.owner.speed_up()
 			slow_down()
 
-func speed_up() -> void:
+func speed_up(amount : float = 1.5, initial_duration : float = 0.3, final_duration : float = 0.3) -> void:
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
 		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
+		var corrected_initial_duration : float = initial_duration
+		var corrected_final_duration : float = final_duration
+		var total_duration : float = (initial_duration + final_duration)
 
-		if time_left > 0.6:
-			obstacle_avoidance_area.set_deferred("monitoring", false)
-			obstacle_area.set_deferred("monitorable", false)
+		if time_left < total_duration:
+			corrected_initial_duration = (initial_duration / total_duration) * time_left
+			corrected_final_duration = time_left - corrected_initial_duration
+		
+		obstacle_avoidance_area.set_deferred("monitoring", false)
+		obstacle_area.set_deferred("monitorable", false)
 
-			if speed_change_tween:
-				speed_change_tween.kill()
-			
-			speed_change_tween = create_tween()
+		if speed_change_tween:
+			speed_change_tween.kill()
+		
+		speed_change_tween = create_tween()
 
-			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
-				movement_tween.set_speed_scale(new_speed_s),
-				1.0,
-				1.5,
-				0.3
-			)
-			speed_change_tween.tween_method(func(new_speed_s : float) -> void:
-				movement_tween.set_speed_scale(new_speed_s),
-				1.5,
-				1.0,
-				0.3
-			)
+		speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+			movement_tween.set_speed_scale(new_speed_s),
+			1.0,
+			amount,
+			corrected_initial_duration
+		)
+		speed_change_tween.tween_method(func(new_speed_s : float) -> void:
+			movement_tween.set_speed_scale(new_speed_s),
+			amount,
+			1.0,
+			corrected_final_duration
+		)
 
-			await speed_change_tween.finished
-			obstacle_avoidance_area.set_deferred("monitoring", true)
-			obstacle_area.set_deferred("monitorable", true)
+		await speed_change_tween.finished
+		obstacle_avoidance_area.set_deferred("monitoring", true)
+		obstacle_area.set_deferred("monitorable", true)
 
 func slow_down() -> void:
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():

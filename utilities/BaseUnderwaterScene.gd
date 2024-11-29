@@ -7,6 +7,7 @@ extends BaseScene
 @export var max_boat_event_spawn_delay : float = 70.0
 @export var min_dolphins_curiosity_duration : float = 60.0
 @export var max_dolphins_curiosity_duration : float = 70.0
+@export var loop_whales : bool = false
 enum SceneType {
 	OCEAN,
 	SHORE
@@ -26,6 +27,11 @@ const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 const COMMON_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/common/common_dolphin.tscn")
 
+const BOAT_SPAWN_IDS : Array[Array] = [
+	["q2_0-q0_1", "q3_0-q0_0", "q1_0-q3_1"],
+	["q2-1-q0_0", "q1_1-q3_0", "q1_0-q3_1"]
+]
+
 # onready
 var surface_position : Marker3D
 var path_quadrants_parent : Node3D
@@ -35,7 +41,11 @@ var boats_parent : Node3D
 var timer : Timer
 
 var whales : Array[Node3D] = []
+var current_whale : Node3D
 var whale_idx : int = 0
+
+var current_boat_spawn_type : int = 0
+var current_boat_spawn_idx : int = 0
 
 
 # This method verifies the node
@@ -82,10 +92,14 @@ func _ready() -> void:
 	AudioManager.play_submerge_sfx()
 	await tree.create_timer(1.0).timeout
 
+	Global.player.run_shader_cache()
+	await Global.player.shader_cache_finished
+
+	await tree.process_frame
+
 	Global.player.fade(true)
 	AudioManager.fade(true, AudioManager.AudioBus.UNDERWATER)
 	await Global.player.fade_finished
-	Global.player.set_underwater_particles_active(true)
 
 	_play_whale()
 
@@ -121,8 +135,11 @@ func _initialize_saved_data() -> void:
 		bottlenose_dolphin_entity.is_young = bottlenose_dolphin_def.is_young
 		bottlenose_dolphin_entity.is_mother = bottlenose_dolphin_def.is_mother
 		bottlenose_dolphin_entity.surface_marker = surface_position
+		bottlenose_dolphin_entity.initial_data = bottlenose_dolphin_def
 
 		dolphins_parent.add_child(bottlenose_dolphin_entity)
+
+		bottlenose_dolphin_entity.request_water_break.connect(spawn_water_break_effect)
 
 		if is_equal_approx(bottlenose_dolphin_def.spawn_direction.x, 0.0) \
 		and is_equal_approx(bottlenose_dolphin_def.spawn_direction.y, 0.0):
@@ -154,6 +171,7 @@ func _initialize_saved_data() -> void:
 		common_dolphin_entity.is_young = common_dolphin_def.is_young
 		common_dolphin_entity.is_mother = common_dolphin_def.is_mother
 		common_dolphin_entity.surface_marker = surface_position
+		common_dolphin_entity.initial_data = common_dolphin_def
 
 		dolphins_parent.add_child(common_dolphin_entity)
 
@@ -172,6 +190,8 @@ func _initialize_saved_data() -> void:
 				common_dolphin_def.height_min,
 				common_dolphin_def.spawn_direction.y,
 			)
+		
+		common_dolphin_entity.request_water_break.connect(spawn_water_break_effect)
 	
 	if src_data.animals.whales.humpback.enabled:
 		whales.push_back(humpback_whale_path)
@@ -187,16 +207,34 @@ func _play_whale() -> void:
 		if whale_event_delay > 0.0:
 			await tree.create_timer(whale_event_delay).timeout
 
-		var current_whale : Node3D = whales[whale_idx]
+		current_whale = whales[whale_idx]
+		current_whale.surface_marker = surface_position
 		current_whale.process_mode = Node.PROCESS_MODE_INHERIT
 		current_whale.visible = true
 		current_whale.play()
+		current_whale.whale_prebreathe.connect(_handle_whale_pre_breathe, CONNECT_ONE_SHOT)
+		current_whale.whale_breathe.connect(_handle_whale_breathe, CONNECT_ONE_SHOT)
 		current_whale.whale_path_finished.connect(_handle_whale_finished, CONNECT_ONE_SHOT)
 
-func _handle_whale_finished() -> void:
-	whale_idx += 1
+func _handle_whale_pre_breathe() -> void:
+	pass
 
-	if whale_idx >= whales.size():
-		whale_idx = 0
-	
-	_play_whale()
+func _handle_whale_breathe() -> void:
+	pass
+
+func _handle_whale_finished() -> void:
+	if loop_whales:
+		whale_idx += 1
+
+		if whale_idx >= whales.size():
+			whale_idx = 0
+		
+		_play_whale()
+
+
+func spawn_water_break_effect(dolphin : DolphinBase) -> void:
+	var effect_scene : PackedScene = load("res://scenes/3d/effects/water_break_effect.tscn")
+	var effect_scene_inst : Node3D = effect_scene.instantiate()
+
+	add_child(effect_scene_inst)
+	effect_scene_inst._show(dolphin, surface_position)

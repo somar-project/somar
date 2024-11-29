@@ -1,0 +1,203 @@
+[gd_scene load_steps=7 format=3 uid="uid://b4k4skdmb4jhj"]
+
+[ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_l36mu"]
+[ext_resource type="Theme" uid="uid://detpa4qnk63je" path="res://scenes/2d/info_plane_theme.tres" id="2_5xenw"]
+[ext_resource type="Texture2D" uid="uid://t2v5dti20rtx" path="res://scenes/2d/textures/Ratfish-Old-Wide.png" id="3_vghak"]
+[ext_resource type="FontFile" uid="uid://cvkc73nmun0us" path="res://misc_assets/fonts/inter_tight/InterTight-SemiBold.ttf" id="4_0tjdj"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
+texture = ExtResource("1_l36mu")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_b64ud"]
+color = Color(0.98, 0.725, 0.343, 0.75)
+thickness = 8
+
+[node name="OceanInitialUILayout" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yp67b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 75
+theme_override_constants/margin_bottom = 75
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"TitleLabel"
+text = "OCEAN_INITIAL_UI_LOC_NAME"
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_CONTENT"
+horizontal_alignment = 3
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/HBoxContainer/LeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxLine_b64ud")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SpeciesTitleLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"SubtitleLabel"
+text = "OCEAN_INITIAL_UI_SPECIES_LBL"
+
+[node name="SpeciesContentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_SPECIES_CONTENT"
+autowrap_mode = 2
+
+[node name="RightColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Image" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
+modulate = Color(0.68, 0.984, 1, 1)
+layout_mode = 2
+texture = ExtResource("3_vghak")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Facts" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Fact1Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.35
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
+theme_override_fonts/font = ExtResource("4_0tjdj")
+text = "UI_FACT_LBL"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact1Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.65
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_FACT_CONTENT_1"
+autowrap_mode = 2
+
+[node name="Fact2Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact2Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.35
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
+theme_override_fonts/font = ExtResource("4_0tjdj")
+text = "UI_FACT_LBL"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact2Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.65
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_FACT_CONTENT_2"
+autowrap_mode = 2
+
+[node name="Fact3Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact3Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.35
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
+theme_override_fonts/font = ExtResource("4_0tjdj")
+text = "UI_FACT_LBL"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact3Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.65
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_FACT_CONTENT_3"
+autowrap_mode = 2
+
+[node name="Fact4Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact4Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.35
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
+theme_override_fonts/font = ExtResource("4_0tjdj")
+text = "UI_FACT_LBL"
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact4Container"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+size_flags_stretch_ratio = 0.65
+theme = ExtResource("2_5xenw")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_INITIAL_UI_FACT_CONTENT_4"
+autowrap_mode = 2

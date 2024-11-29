@@ -1,0 +1,95 @@
+[gd_scene load_steps=12 format=3 uid="uid://dchup4y5cpp0u"]
+
+[ext_resource type="Script" path="res://scenes/3d/ocean/ui/ocean_final_ui.gd" id="1_nti2i"]
+[ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="1_yjx3h"]
+[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="3_35mnp"]
+[ext_resource type="PackedScene" uid="uid://cy1psjwv3hhs1" path="res://scenes/2d/ocean/ocean_final_ui_left_layout.tscn" id="3_ex5mf"]
+[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_8d5tm"]
+[ext_resource type="PackedScene" uid="uid://cpk7gak1sti04" path="res://scenes/2d/ocean/ocean_final_ui_center_layout.tscn" id="4_cs82m"]
+[ext_resource type="PackedScene" uid="uid://belpu4f406rhl" path="res://scenes/2d/ocean/ocean_final_ui_right_layout.tscn" id="5_najjd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_onmsp"]
+render_priority = 0
+shader = ExtResource("4_8d5tm")
+shader_parameter/size = Vector2(1, 0.5)
+shader_parameter/border_size = 0.02
+shader_parameter/border_fade_in = 0.0
+shader_parameter/border_fade_out = 0.0
+shader_parameter/corner_radius = 0.3
+
+[sub_resource type="QuadMesh" id="QuadMesh_nwqel"]
+size = Vector2(0.8, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wvo7t"]
+size = Vector3(0.8, 0.4, 0.015)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mkmlw"]
+size = Vector3(1, 2.49634, 0.0146484)
+
+[node name="OceanFinalUi" type="Node3D"]
+script = ExtResource("1_nti2i")
+
+[node name="LeftInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.79253, 0, 0.743557)
+scene = ExtResource("3_ex5mf")
+
+[node name="CenterInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
+scene = ExtResource("4_cs82m")
+
+[node name="RightInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.793, 0, 0.744)
+scene = ExtResource("5_najjd")
+
+[node name="ReturnBtn" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.806571, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("3_35mnp")
+
+[node name="BtnBackground" type="MeshInstance3D" parent="ReturnBtn"]
+sorting_offset = 1.0
+material_override = SubResource("ShaderMaterial_onmsp")
+mesh = SubResource("QuadMesh_nwqel")
+skeleton = NodePath("../../..")
+
+[node name="BtnLabel" type="Label3D" parent="ReturnBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+pixel_size = 0.001
+double_sided = false
+render_priority = 2
+outline_render_priority = 1
+modulate = Color(0.160784, 0.207843, 0.537255, 1)
+outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
+text = "RETURN_TO_MM_LBL"
+font_size = 128
+outline_size = 8
+
+[node name="BtnCollisionShape" type="CollisionShape3D" parent="ReturnBtn"]
+shape = SubResource("BoxShape3D_wvo7t")
+
+[node name="BGArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0404669, 0)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.066602)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.979443, 0, 0.062116)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.979, 0, 0.062)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.81199, 0, 0.542382)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.812, 0, 0.542)
+shape = SubResource("BoxShape3D_mkmlw")

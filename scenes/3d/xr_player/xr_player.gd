@@ -1,6 +1,7 @@
 extends XROrigin3D
 
 signal fade_finished
+signal shader_cache_finished
 
 const HQ_SHADER_CACHE_PATH : String = "res://utilities/shader_cache/hq_shader_cache.tscn"
 const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
@@ -12,12 +13,12 @@ const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 @onready var pointer_mesh : MeshInstance3D = %PointerMesh
 @onready var ray_pivot : Node3D = %RayPivot
 @onready var ray_mesh : MeshInstance3D = %RayMesh
-@onready var underwater_particles : CPUParticles3D = %UnderwaterParticles
 @onready var left_controller : XRController3D = %LeftController
 @onready var right_controller : XRController3D = %RightController
 @onready var splashscreen_container : Node3D = %Splashscreen
 @onready var shader_cache_container : Node3D = %ShaderCacheContainer
 @onready var shader_cache : Node3D = %ShaderCache
+@onready var particles_shader_cache : Node3D = %ParticlesShaderCache
 @onready var vignette_mesh : MeshInstance3D = %VignetteMesh
 @onready var logo_animation_player : AnimationPlayer = %LogoAnimationPlayer
 @onready var return_to_mm_btn_lbl : Label3D = %ReturnToMMBtnLbl
@@ -30,7 +31,6 @@ var GLOVE_LOW_MATERIAL : ShaderMaterial = preload("res://scenes/3d/xr_player/glo
 var WATER_CAUSTICS_MATERIAL : ShaderMaterial = preload("res://scenes/3d/shared/materials/underwater_caustics_material.tres")
 
 var current_raycast_collider : Object
-var underwater_particles_intensity_tween : Tween
 var vignette_material : ShaderMaterial
 var fade_tween : Tween
 var ambient_fade_tween : Tween
@@ -48,11 +48,13 @@ enum PointerMeshDistance {
 var pointer_mesh_distance : PointerMeshDistance = PointerMeshDistance.NEAR
 
 var hq_shader_cache : Node3D
-var shader_cache_count : int = 1
+var shader_cache_count : int = 2
 var shader_cache_finished_count : int = 0
 
 var last_menu_btn_press_time : int = 0
 var return_to_mm_lbl_timer : Timer
+
+var first_cache_run : bool = true
 
 
 func _ready() -> void:
@@ -81,33 +83,51 @@ func _ready() -> void:
 		hq_shader_cache.scale = Vector3(0.05, 0.05, 0.05)
 	
 	shader_cache.caching_finished.connect(_shader_cache_finished)
-	shader_cache.start()
+	particles_shader_cache.particles_shader_cache_finished.connect(_shader_cache_finished)
 
-	if shader_cache_count > 1:
+	if shader_cache_count > 2:
 		hq_shader_cache.caching_finished.connect(_shader_cache_finished)
-		hq_shader_cache.start()
+	
+	run_shader_cache()
 
 	logo_animation_player.play("logo_animation")
 
 
+func run_shader_cache() -> void:
+	shader_cache_finished_count = 0
+	shader_cache_container.visible = true
+
+	shader_cache.start(false)
+	particles_shader_cache.start()
+	if shader_cache_count > 2:
+		hq_shader_cache.start(false)
+
 func _shader_cache_finished() -> void:
 	shader_cache_finished_count += 1
-	if shader_cache_finished_count == shader_cache_count:
 
-		shader_cache_container.queue_free()
-		
-		if logo_animation_player.is_playing():
-			await logo_animation_player.animation_finished
-		
-		XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
+	if first_cache_run:
+		if shader_cache_finished_count == shader_cache_count:
+			first_cache_run = false
 
-		fade(false)
-		await fade_finished
+			# shader_cache_container.queue_free()
+			shader_cache_container.visible = false
+			shader_cache_finished.emit()
+			
+			if logo_animation_player.is_playing():
+				await logo_animation_player.animation_finished
+			
+			XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
-		splashscreen_container.queue_free()
+			fade(false)
+			await fade_finished
 
-		SceneManager.switch_to_scene("language_menu")
+			splashscreen_container.queue_free()
 
+			SceneManager.switch_to_scene("language_menu")
+	
+	else:
+		shader_cache_container.visible = false
+		shader_cache_finished.emit()
 
 func _process(_delta : float) -> void:
 	sun_rays.global_position = Vector3(camera.global_position.x, camera.global_position.y + 0.5, camera.global_position.z)
@@ -212,24 +232,6 @@ func _handle_input_enabled(value : bool) -> void:
 		pointer_raycast.enabled = !controller_input_enabled
 		controller_raycast.enabled = controller_input_enabled
 
-
-func set_underwater_particles_active(emitting : bool = true) -> void:
-	underwater_particles.emitting = emitting
-
-func set_underwater_particles_intensity(intensity : float = 0.02, interpolate : bool = true) -> void:
-	if underwater_particles_intensity_tween:
-		underwater_particles_intensity_tween.kill()
-	
-	if not interpolate:
-		underwater_particles.material_override.set_shader_parameter("opacity", intensity)
-	else:
-		underwater_particles_intensity_tween = create_tween()
-		underwater_particles_intensity_tween.tween_property(
-			underwater_particles.material_override,
-			"shader_parameter/opacity",
-			intensity,
-			0.2
-		)
 
 func set_glove_caustics(c_enabled : bool) -> void:
 	if c_enabled:

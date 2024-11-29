@@ -4,8 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://caitsuvwv15l4" path="res://scenes/3d/boats/trail/textures/boat_main_trail.png" id="2_ry5x5"]
 
 [resource]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_heenq")
 shader_parameter/speed = 2.0
-shader_parameter/opacity = 0.5
+shader_parameter/opacity = 1.0
 shader_parameter/albedo_texture = ExtResource("2_ry5x5")

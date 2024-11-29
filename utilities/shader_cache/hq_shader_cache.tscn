@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bww2yw01xlo75"]
+[gd_scene load_steps=26 format=3 uid="uid://bww2yw01xlo75"]
 
 [ext_resource type="Script" path="res://utilities/shader_cache/shader_cache.gd" id="1_erurk"]
 [ext_resource type="Material" uid="uid://cv1n36tnl331h" path="res://scenes/3d/animals/dolphins/bottlenose/materials/bottlenose_dolphin_hq_material.tres" id="2_x051g"]
@@ -6,122 +6,140 @@
 [ext_resource type="Material" uid="uid://ddwg6tv1r3h1x" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hq_material.tres" id="3_o7btl"]
 [ext_resource type="Material" uid="uid://bf2grlmtfsc76" path="res://scenes/3d/animals/whales/humpback/materials/humpback_whale_hq_mat.tres" id="3_qx5m2"]
 [ext_resource type="Material" uid="uid://ft218cpips15" path="res://scenes/3d/main_menu/map/materials/main_menu_map_hq_material.tres" id="4_gj2md"]
+[ext_resource type="Material" uid="uid://uaf1ps1d6e64" path="res://scenes/3d/animals/dolphins/common/materials/common_dolphin_hq_mat.tres" id="4_ssqk1"]
 [ext_resource type="Material" uid="uid://g788pbrkpdin" path="res://scenes/3d/xr_player/glove/materials/glove_material_hq.tres" id="5_61mqw"]
 [ext_resource type="Material" uid="uid://kbe54mi3ogmb" path="res://scenes/3d/shore/materials/shore_floor_hq_material.tres" id="7_coirs"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_r3i3h"]
+[sub_resource type="QuadMesh" id="QuadMesh_hu6ld"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_x1bh6"]
+[sub_resource type="QuadMesh" id="QuadMesh_70set"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_y0b21"]
+[sub_resource type="QuadMesh" id="QuadMesh_xt5hp"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_enxn2"]
+[sub_resource type="QuadMesh" id="QuadMesh_2u22l"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_2joje"]
+[sub_resource type="QuadMesh" id="QuadMesh_6b6ye"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_jkem4"]
+[sub_resource type="QuadMesh" id="QuadMesh_sxv4c"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_n5frm"]
+[sub_resource type="QuadMesh" id="QuadMesh_l1rak"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_0bqog"]
+[sub_resource type="QuadMesh" id="QuadMesh_p0ado"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_k8dq2"]
+[sub_resource type="QuadMesh" id="QuadMesh_7l7xr"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_h6p32"]
+[sub_resource type="QuadMesh" id="QuadMesh_5uf3b"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_1sog7"]
+[sub_resource type="QuadMesh" id="QuadMesh_qea8v"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_7u6c1"]
+[sub_resource type="QuadMesh" id="QuadMesh_v0aos"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_tvjqs"]
+[sub_resource type="QuadMesh" id="QuadMesh_hd217"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_76dli"]
+[sub_resource type="QuadMesh" id="QuadMesh_cd7et"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_s64wl"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_6egkr"]
 
 [node name="HqShaderCache" type="Node3D"]
+visible = false
 script = ExtResource("1_erurk")
 directory = "res://"
 skip_not_containing = "_hq"
 
-[node name="@MeshInstance3D@51004" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@25999" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("2_x051g")
-mesh = SubResource("QuadMesh_r3i3h")
+mesh = SubResource("QuadMesh_hu6ld")
 
-[node name="@MeshInstance3D@51005" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26000" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("2_x051g")
-mesh = SubResource("QuadMesh_x1bh6")
+mesh = SubResource("QuadMesh_70set")
 
-[node name="@MeshInstance3D@51006" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26001" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
+visible = false
+material_override = ExtResource("4_ssqk1")
+mesh = SubResource("QuadMesh_xt5hp")
+
+[node name="@MeshInstance3D@26002" type="MeshInstance3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
+visible = false
+material_override = ExtResource("4_ssqk1")
+mesh = SubResource("QuadMesh_2u22l")
+
+[node name="@MeshInstance3D@26003" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_6exnw")
-mesh = SubResource("QuadMesh_y0b21")
+mesh = SubResource("QuadMesh_6b6ye")
 
-[node name="@MeshInstance3D@51007" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26004" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_6exnw")
-mesh = SubResource("QuadMesh_enxn2")
+mesh = SubResource("QuadMesh_sxv4c")
 
-[node name="@MeshInstance3D@51008" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26005" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_qx5m2")
-mesh = SubResource("QuadMesh_2joje")
+mesh = SubResource("QuadMesh_l1rak")
 
-[node name="@MeshInstance3D@51009" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26006" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_qx5m2")
-mesh = SubResource("QuadMesh_jkem4")
+mesh = SubResource("QuadMesh_p0ado")
 
-[node name="@MeshInstance3D@51010" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26007" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_o7btl")
-mesh = SubResource("QuadMesh_n5frm")
+mesh = SubResource("QuadMesh_7l7xr")
 
-[node name="@MeshInstance3D@51011" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26008" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("3_o7btl")
-mesh = SubResource("QuadMesh_0bqog")
+mesh = SubResource("QuadMesh_5uf3b")
 
-[node name="@MeshInstance3D@51012" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26009" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("4_gj2md")
-mesh = SubResource("QuadMesh_k8dq2")
+mesh = SubResource("QuadMesh_qea8v")
 
-[node name="@MeshInstance3D@51013" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26010" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("4_gj2md")
-mesh = SubResource("QuadMesh_h6p32")
+mesh = SubResource("QuadMesh_v0aos")
 
-[node name="@MeshInstance3D@51014" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26011" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("7_coirs")
-mesh = SubResource("QuadMesh_1sog7")
+mesh = SubResource("QuadMesh_hd217")
 
-[node name="@MeshInstance3D@51015" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26012" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("7_coirs")
-mesh = SubResource("QuadMesh_7u6c1")
+mesh = SubResource("QuadMesh_cd7et")
 
-[node name="@MeshInstance3D@51016" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26013" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, 0)
 visible = false
 material_override = ExtResource("5_61mqw")
-mesh = SubResource("QuadMesh_tvjqs")
+mesh = SubResource("QuadMesh_s64wl")
 
-[node name="@MeshInstance3D@51017" type="MeshInstance3D" parent="."]
+[node name="@MeshInstance3D@26014" type="MeshInstance3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 0, 0)
 visible = false
 material_override = ExtResource("5_61mqw")
-mesh = SubResource("QuadMesh_76dli")
+mesh = SubResource("QuadMesh_6egkr")

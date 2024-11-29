@@ -48,9 +48,11 @@ render_priority = 2
 outline_render_priority = 1
 modulate = Color(0.160784, 0.207843, 0.537255, 1)
 outline_modulate = Color(0.160784, 0.207843, 0.537255, 1)
-text = "Return"
+text = "RETURN_TO_MM_LBL"
 font_size = 150
 outline_size = 10
+autowrap_mode = 2
+width = 600.0
 
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="ReturnToMainMenuBtn"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)

@@ -3,7 +3,6 @@
 [ext_resource type="Material" uid="uid://dp4l7aag6x7kh" path="res://scenes/3d/boats/trail/materials/trail_material.tres" id="1_d6daw"]
 [ext_resource type="Script" path="res://utilities/shader_cache/particles_shader_cache.gd" id="1_jrcbb"]
 [ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="2_7lcg2"]
-[ext_resource type="Material" uid="uid://rjdkfy8ohvi2" path="res://scenes/3d/xr_player/materials/underwater_particles_material.tres" id="4_v88ff"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_vwubc"]
 material = ExtResource("1_d6daw")
@@ -37,8 +36,15 @@ interpolation_color_space = 2
 offsets = PackedFloat32Array(0, 0.0551724, 1)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
-[sub_resource type="QuadMesh" id="QuadMesh_vgkhm"]
-size = Vector2(0.25, 0.25)
+[sub_resource type="QuadMesh" id="QuadMesh_gq60p"]
+material = ExtResource("2_7lcg2")
+size = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_r6wof"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0551724, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [node name="ParticlesShaderCache" type="Node3D"]
 visible = false
@@ -81,16 +87,20 @@ scale_amount_max = 1.4
 scale_amount_curve = SubResource("Curve_4jyn6")
 color_ramp = SubResource("Gradient_attbj")
 
-[node name="UnderwaterParticles" type="CPUParticles3D" parent="."]
-material_override = ExtResource("4_v88ff")
+[node name="BubblesParticles" type="CPUParticles3D" parent="."]
+extra_cull_margin = 200.0
 emitting = false
-amount = 3
-lifetime = 6.0
-randomness = 0.5
-fixed_fps = 45
-visibility_aabb = AABB(-4, -4, -4, 8, 8, 8)
-mesh = SubResource("QuadMesh_vgkhm")
-direction = Vector3(0, 1, 0.1)
-gravity = Vector3(0, 0.05, 0)
-initial_velocity_min = 0.05
-initial_velocity_max = 0.2
+amount = 16
+lifetime = 0.5
+fixed_fps = 30
+visibility_aabb = AABB(-0.602425, -1.61576, -1.04763, 2.62024, 2.78173, 2.07155)
+mesh = SubResource("QuadMesh_gq60p")
+emission_shape = 4
+emission_points = PackedVector3Array(0, 0, 0)
+direction = Vector3(1, 0, 1)
+spread = 180.0
+flatness = 0.85
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.5
+initial_velocity_max = 1.0
+color_ramp = SubResource("Gradient_r6wof")

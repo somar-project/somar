@@ -9,7 +9,7 @@ signal pressed
 @export var hover_press_target_click_border_size : float = 0.25
 @export var mesh_override : MeshInstance3D
 
-const HOVER_TRIGGER_TIME : float = 2.0
+const HOVER_TRIGGER_TIME : float = 1.8
 const HOVER_PRESS_DISTANCE : float = 0.5
 
 enum PressMode {

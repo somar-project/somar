@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://b3r78ktqx3n8l"]
+
+[ext_resource type="Script" path="res://scenes/3d/effects/water_break_effect.gd" id="1_r0621"]
+[ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="2_057cn"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_yk7ia"]
+material = ExtResource("2_057cn")
+size = Vector2(2.1, 2.1)
+
+[sub_resource type="Gradient" id="Gradient_my2fg"]
+interpolation_mode = 2
+interpolation_color_space = 2
+offsets = PackedFloat32Array(0, 0.0551724, 1)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
+
+[node name="WaterBreakEffect" type="Node3D"]
+script = ExtResource("1_r0621")
+
+[node name="BubblesParticles" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+extra_cull_margin = 200.0
+emitting = false
+amount = 16
+lifetime = 0.9
+fixed_fps = 30
+visibility_aabb = AABB(-0.602425, -1.61576, -1.04763, 2.62024, 2.78173, 2.07155)
+mesh = SubResource("QuadMesh_yk7ia")
+emission_shape = 4
+emission_points = PackedVector3Array(0, 0, 0)
+direction = Vector3(1, 0, 1)
+spread = 180.0
+flatness = 0.85
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 1.5
+initial_velocity_max = 3.0
+color_ramp = SubResource("Gradient_my2fg")

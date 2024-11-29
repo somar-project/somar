@@ -9,6 +9,8 @@ signal boat_hidden
 ## In km/h
 @export var speed : float = 28.0 # about 15 knots
 @export var surface_offset : float = -0.768
+
+@export_category("Other")
 @export var stop_at_ratio : float = 0.5
 @export var signal_at_ratios : Array[float] = []
 @export var dolphin_curious_positions_parent : Node3D
@@ -24,14 +26,16 @@ enum BoatState {
 
 @export_category("Effects")
 @export var bubbles_particles : CPUParticles3D
-@export var foam_plane_material : ShaderMaterial
-@export var hull_bottom_material : ShaderMaterial
+@export var foam_plane_material_parent : MeshInstance3D
+@export var hull_bottom_material_parent : MeshInstance3D
 @export_range(0.0, 1.0) var hull_bottom_material_initial_opacity : float = 0.5
 
 @export_category("Audio")
 @export var engine_loop_audio : AudioStream
 @export var engine_stop_audio : AudioStream
+@export var engine_idle_audio : AudioStream
 @export var engine_start_audio : AudioStream
+@export var engine_start_offset : float = 3.5
 
 @onready var engine_loop_audio_player : AudioStreamPlayer3D = %EngineLoopAudioPlayer
 @onready var engine_start_stop_audio_player : AudioStreamPlayer3D = %EngineStartStopAudioPlayer
@@ -44,6 +48,7 @@ var curve_points : PackedVector3Array
 
 var boat_speed_in_m_per_s : float
 
+var used_quadrants : Array[int] = []
 var boat_direction : Vector3
 var initial_boat_position : Vector3
 var final_boat_position : Vector3
@@ -67,7 +72,12 @@ func _ready() -> void:
 func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_quadrants_parent : Node3D, quadrant_idx : int = -1) -> void:
 	var quadrant : Path3D
 	if quadrant_idx < 0:
-		quadrant = path_quadrants_parent.get_child(randi_range(0, 3))
+		var selected_quadrant_idx : int = randi_range(0, 3)
+		while used_quadrants.has(selected_quadrant_idx):
+			selected_quadrant_idx = randi_range(0, 3)
+		
+		used_quadrants.push_back(selected_quadrant_idx)
+		quadrant = path_quadrants_parent.get_child(selected_quadrant_idx)
 	else:
 		quadrant = path_quadrants_parent.get_child(quadrant_idx)
 	
@@ -86,9 +96,17 @@ func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_q
 		_:
 			print_debug("ERROR: invalid quadrant id.")
 			return
+	
+	var initial_boat_position_point : int = randi_range(0, int(curve_points.size() / 4))
+	var final_boat_position_point : int = randi_range(0, int(curve_points.size() / 4))
 
-	initial_boat_position = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
-	final_boat_position = opposite_quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
+	var mode_1 : bool = randi_range(0, 1) == 1
+
+	initial_boat_position_point = initial_boat_position_point if mode_1 else ((curve_points.size() - 1) - initial_boat_position_point)
+	final_boat_position_point = final_boat_position_point if not mode_1 else ((curve_points.size() - 1) - final_boat_position_point)
+
+	initial_boat_position = quadrant.to_global(curve_points[initial_boat_position_point])
+	final_boat_position = opposite_quadrant.to_global(curve_points[final_boat_position_point])
 
 	boat_direction = initial_boat_position.direction_to(final_boat_position)
 	initial_boat_position += (boat_spawn_distance - CURVE_RADIUS) * -boat_direction
@@ -116,7 +134,6 @@ func initialize(boat_spawn_distance : float, surface_position : Marker3D, path_q
 	else:
 		_start_initial_movement_no_stop()
 
-
 func initialize_at(origin : Vector3, direction : Vector3, total_distance : float, surface_position : Marker3D) -> void:
 	initial_boat_position = origin
 	final_boat_position = initial_boat_position + (direction * total_distance)
@@ -136,6 +153,67 @@ func initialize_at(origin : Vector3, direction : Vector3, total_distance : float
 			if ratio <= stop_at_ratio:
 				var signal_distance : float = ratio * distance_between_points
 				var time_to_signal : float = signal_distance / boat_speed_in_m_per_s
+				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
+
+	if not initial_no_stop:
+		_start_initial_movement()
+	else:
+		_start_initial_movement_no_stop()
+
+func initialize_at_2(boat_spawn_distance : float, surface_position : Marker3D, path_quadrants_parent : Node3D, quadrant_id : String, delay : float = 0.0) -> void:
+	print_debug("quadrant_id: ", quadrant_id)
+	print_debug("quadrant_id[1]: ", quadrant_id[1])
+	print_debug("int(quadrant_id[1]): ", int(quadrant_id[1]))
+	if delay > 0.0:
+		await get_tree().create_timer(delay).timeout
+
+	var quadrant : Path3D = path_quadrants_parent.get_child(int(quadrant_id[1]))
+	var opposite_quadrant : Path3D = path_quadrants_parent.get_child(int(quadrant_id[6]))
+
+	# match quadrant_id:
+	# 	0:
+	# 		opposite_quadrant = path_quadrants_parent.get_child(2)
+	# 	1:
+	# 		opposite_quadrant = path_quadrants_parent.get_child(3)
+	# 	2:
+	# 		opposite_quadrant = path_quadrants_parent.get_child(0)
+	# 	3:
+	# 		opposite_quadrant = path_quadrants_parent.get_child(1)
+	# 	_:
+	# 		print_debug("ERROR: invalid quadrant id.")
+	# 		return
+	
+	var initial_boat_position_point : int = randi_range(0, int(curve_points.size() / 4))
+	var final_boat_position_point : int = randi_range(0, int(curve_points.size() / 4))
+
+	var quadrant_mode : bool = int(quadrant_id[3]) == 0
+	var opposite_quadrant_mode : bool = int(quadrant_id[8]) == 0
+
+	initial_boat_position_point = initial_boat_position_point if quadrant_mode else ((curve_points.size() - 1) - initial_boat_position_point)
+	final_boat_position_point = final_boat_position_point if opposite_quadrant_mode else ((curve_points.size() - 1) - final_boat_position_point)
+
+	initial_boat_position = quadrant.to_global(curve_points[initial_boat_position_point])
+	final_boat_position = opposite_quadrant.to_global(curve_points[final_boat_position_point])
+
+	boat_direction = initial_boat_position.direction_to(final_boat_position)
+	initial_boat_position += (boat_spawn_distance - CURVE_RADIUS) * -boat_direction
+	final_boat_position += (boat_spawn_distance - CURVE_RADIUS) * boat_direction
+
+	# Correct height
+	initial_boat_position.y = surface_position.global_position.y + surface_offset
+	final_boat_position.y = surface_position.global_position.y + surface_offset
+
+	distance_between_points = initial_boat_position.distance_to(final_boat_position)
+
+	global_position = initial_boat_position
+	look_at(final_boat_position)
+
+	if not signal_at_ratios.is_empty():
+		for ratio : float in signal_at_ratios:
+			if ratio <= stop_at_ratio:
+				var signal_distance : float = ratio * distance_between_points
+				var time_to_signal : float = signal_distance / boat_speed_in_m_per_s
+
 				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
 
 	if not initial_no_stop:
@@ -209,7 +287,7 @@ func _start_initial_movement_no_stop() -> void:
 func _stop_drift() -> void:
 	state = BoatState.IDLE
 
-	var drift_time : float = 1.0 + engine_stop_audio.get_length()
+	var drift_time : float = engine_stop_audio.get_length()
 	var drift_distance : float = boat_speed_in_m_per_s * drift_time
 	var final_pos : Vector3 = global_position + (boat_direction * drift_distance)
 
@@ -219,6 +297,13 @@ func _stop_drift() -> void:
 
 	engine_start_stop_audio_player.stream = engine_stop_audio
 	engine_start_stop_audio_player.play()
+
+	engine_start_stop_audio_player.finished.connect(func():
+		AudioManager.set_bus_volume(-3.0, AudioManager.AudioBus.BOATS, 0.3)
+
+		engine_loop_audio_player.stream = engine_idle_audio
+		engine_loop_audio_player.play()
+	, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
 
 	if boat_tween:
 		boat_tween.kill()
@@ -237,7 +322,7 @@ func _stop_drift() -> void:
 		return stop_drift_curve.sample_baked(v)
 	)
 	boat_tween.tween_property(
-		foam_plane_material,
+		foam_plane_material_parent.material_override,
 		"shader_parameter/mask_uv_x_offset",
 		1.0,
 		drift_time
@@ -245,7 +330,7 @@ func _stop_drift() -> void:
 		return stop_drift_curve.sample_baked(v)
 	)
 	boat_tween.tween_property(
-		hull_bottom_material,
+		hull_bottom_material_parent.material_override,
 		"shader_parameter/opacity",
 		0.0,
 		drift_time
@@ -261,13 +346,16 @@ func start_final_movement(delay : float = 0.0) -> void:
 	if delay > 0.0:
 		await get_tree().create_timer(delay).timeout
 
-	var drift_time : float = engine_start_audio.get_length() - 3.5 # 3.5 is idle time before moving the boat
+	var drift_time : float = engine_start_audio.get_length() - engine_start_offset # 3.5 is idle time before moving the boat
 	var drift_distance : float = boat_speed_in_m_per_s * drift_time
 	var final_pos : Vector3 = global_position + (boat_direction * drift_distance)
 
 	var distance_to_end : float = global_position.distance_to(final_boat_position)
 	var time_to_end : float = distance_to_end / boat_speed_in_m_per_s
 
+	if engine_loop_audio_player.playing:
+		engine_loop_audio_player.stop()
+	AudioManager.set_bus_volume(3.0, AudioManager.AudioBus.BOATS, 0.3)
 	engine_start_stop_audio_player.stream = engine_start_audio
 	engine_start_stop_audio_player.play()
 
@@ -281,7 +369,7 @@ func start_final_movement(delay : float = 0.0) -> void:
 				var time_to_signal : float = (signal_distance / boat_speed_in_m_per_s) - time_already_spent
 				get_tree().create_timer(time_to_signal).timeout.connect(_signal_ratio.bind(ratio), CONNECT_ONE_SHOT)
 
-	await get_tree().create_timer(3.5).timeout
+	await get_tree().create_timer(engine_start_offset).timeout
 	state = BoatState.MOVING
 
 	if boat_tween:
@@ -301,7 +389,7 @@ func start_final_movement(delay : float = 0.0) -> void:
 		return start_drift_curve.sample_baked(v)
 	)
 	boat_tween.tween_property(
-		foam_plane_material,
+		foam_plane_material_parent.material_override,
 		"shader_parameter/mask_uv_x_offset",
 		0.0,
 		(drift_time / 3.0) * 2.0
@@ -309,7 +397,7 @@ func start_final_movement(delay : float = 0.0) -> void:
 		return start_drift_curve.sample_baked(v)
 	)
 	boat_tween.tween_property(
-		hull_bottom_material,
+		hull_bottom_material_parent.material_override,
 		"shader_parameter/opacity",
 		hull_bottom_material_initial_opacity,
 		drift_time / 2.0
@@ -317,6 +405,7 @@ func start_final_movement(delay : float = 0.0) -> void:
 		return start_drift_curve.sample_baked(v)
 	)
 	boat_tween.tween_callback(func() -> void:
+		engine_loop_audio_player.stream = engine_loop_audio
 		engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
 	).set_delay(drift_time)
 	boat_tween.tween_property(
@@ -332,13 +421,13 @@ func hide_boat(time : float = 1.5) -> void:
 
 	var hide_tween : Tween = create_tween()
 	hide_tween.tween_property(
-		foam_plane_material,
+		foam_plane_material_parent.material_override,
 		"shader_parameter/mask_uv_x_offset",
 		0.0,
 		time / 2.0
 	)
 	hide_tween.tween_property(
-		hull_bottom_material,
+		hull_bottom_material_parent.material_override,
 		"shader_parameter/opacity",
 		hull_bottom_material_initial_opacity,
 		time / 2.0

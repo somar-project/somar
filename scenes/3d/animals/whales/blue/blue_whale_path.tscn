@@ -1,13 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpst4kskfr8gj"]
+[gd_scene load_steps=6 format=3 uid="uid://cpst4kskfr8gj"]
 
 [ext_resource type="Script" path="res://scenes/3d/animals/whales/whale_path.gd" id="1_3q8es"]
 [ext_resource type="AudioStream" uid="uid://8qgeb87k4r21" path="res://scenes/3d/animals/whales/blue/audio/blue_whale_call.wav" id="2_rreg3"]
 [ext_resource type="PackedScene" uid="uid://dnnemhl23km37" path="res://scenes/3d/animals/whales/blue/blue_whale.tscn" id="3_ncc35"]
-[ext_resource type="Curve3D" uid="uid://cxg5jmc653e0q" path="res://scenes/3d/animals/whales/humpback/paths/path_0.tres" id="3_u3e05"]
+[ext_resource type="Curve3D" uid="uid://creloix2juoep" path="res://scenes/3d/animals/whales/humpback/paths/path_0.tres" id="3_u3e05"]
+[ext_resource type="PackedScene" uid="uid://b3r78ktqx3n8l" path="res://scenes/3d/effects/water_break_whale_effect.tscn" id="5_126q5"]
 
-[node name="BlueWhalePath" type="Node3D"]
+[node name="BlueWhalePath" type="Node3D" node_paths=PackedStringArray("water_break_effect")]
 script = ExtResource("1_3q8es")
+stop_particles_at_ratio = 0.58
 audios = Array[AudioStream]([ExtResource("2_rreg3")])
+water_break_effect = NodePath("WaterBreakEffect")
 
 [node name="WhalePath" type="Path3D" parent="."]
 unique_name_in_owner = true
@@ -15,9 +18,8 @@ curve = ExtResource("3_u3e05")
 
 [node name="WhalePathFollow" type="PathFollow3D" parent="WhalePath"]
 unique_name_in_owner = true
-transform = Transform3D(-0.999998, 0, 0, 0, 1.00016, 0, 0, 0, -1, -45, 0, 100)
+transform = Transform3D(0.999998, 0, 0, 0, 1.00016, 0, 0, 0, 1, -45, 0, 100)
 rotation_mode = 4
-use_model_front = true
 
 [node name="Whale" parent="WhalePath/WhalePathFollow" instance=ExtResource("3_ncc35")]
 unique_name_in_owner = true
@@ -30,3 +32,8 @@ volume_db = 4.5
 unit_size = 20.0
 max_distance = 100.0
 bus = &"Whales"
+
+[node name="WaterBreakEffect" parent="." instance=ExtResource("5_126q5")]
+process_mode = 4
+top_level = true
+visible = false

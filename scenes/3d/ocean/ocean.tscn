@@ -1,40 +1,35 @@
-[gd_scene load_steps=34 format=3 uid="uid://c6y5y8pwspjr"]
+[gd_scene load_steps=36 format=3 uid="uid://c6y5y8pwspjr"]
 
 [ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_qkda0"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
-[ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="6_3vlo7"]
 [ext_resource type="Shader" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_hx7jq"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="8_aqbnn"]
 [ext_resource type="PackedScene" uid="uid://br72xt5i0kf8e" path="res://scenes/3d/ocean/ui/ocean_initial_ui.tscn" id="8_b50c8"]
 [ext_resource type="Texture2D" uid="uid://6s5pwmsl78ej" path="res://scenes/3d/shared/textures/fake_sun_gradient.png" id="8_plpqe"]
 [ext_resource type="PackedScene" uid="uid://ds3xv7eus20gg" path="res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn" id="9_omrdy"]
+[ext_resource type="PackedScene" uid="uid://dchup4y5cpp0u" path="res://scenes/3d/ocean/ui/ocean_final_ui.tscn" id="9_q1pty"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="12_xgx7v"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="13_fim7d"]
 [ext_resource type="Script" path="res://utilities/SchoolFishPathFollow3D.gd" id="13_n4p2q"]
 [ext_resource type="Script" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="16_4kyfy"]
-[ext_resource type="AudioStream" uid="uid://dfjmsfm37c0l8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_0.wav" id="17_2uqol"]
-[ext_resource type="AudioStream" uid="uid://0ct8v5g2mijp" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_1.wav" id="18_5tnc7"]
-[ext_resource type="AudioStream" uid="uid://cyx53sgwlp7mn" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_2.wav" id="19_jc3lc"]
+[ext_resource type="AudioStream" uid="uid://dmjn4cf7cyvhh" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_0.wav" id="17_ye8ud"]
+[ext_resource type="AudioStream" uid="uid://c75ny22yvsejm" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_1.wav" id="18_a4rg7"]
+[ext_resource type="AudioStream" uid="uid://u7y8r2j8oml1" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_2.wav" id="19_yg5cj"]
 [ext_resource type="AudioStream" uid="uid://csqhfox0ir51n" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_0.wav" id="20_faolv"]
+[ext_resource type="AudioStream" uid="uid://c31imfu2llmc7" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_3.wav" id="20_l8tf2"]
+[ext_resource type="AudioStream" uid="uid://csqx3yowtdrij" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_4.wav" id="21_efrot"]
 [ext_resource type="AudioStream" uid="uid://0tr3dtatj5ir" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_1.wav" id="21_psk82"]
+[ext_resource type="AudioStream" uid="uid://dxuwb67vgu5vd" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_5.wav" id="22_nlfq2"]
 [ext_resource type="AudioStream" uid="uid://bdwt8vkl5cbcb" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_2.wav" id="22_r0dbj"]
 [ext_resource type="AudioStream" uid="uid://dcan8o5l8ibpt" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_3.wav" id="23_mq2xs"]
 [ext_resource type="AudioStream" uid="uid://bs241gqauk1hg" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_4.wav" id="24_1qwch"]
 [ext_resource type="PackedScene" uid="uid://dpt6c2273vgld" path="res://scenes/3d/animals/fish/v2/SchoolOfFish.tscn" id="24_cmt7h"]
+[ext_resource type="PackedScene" uid="uid://bwi4j4ajpidby" path="res://scenes/3d/animals/dolphins/orca/orca_pod_path.tscn" id="25_v3vew"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_20yxg"]
-size = Vector2(160, 160)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b6ted"]
-transparency = 1
-shading_mode = 0
-albedo_texture = ExtResource("6_3vlo7")
-
-[sub_resource type="QuadMesh" id="QuadMesh_5wf6a"]
-material = SubResource("StandardMaterial3D_b6ted")
 size = Vector2(160, 160)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a531b"]
@@ -48,13 +43,13 @@ size = Vector2(8, 8)
 
 [sub_resource type="Curve3D" id="Curve3D_lv1u2"]
 _data = {
-"points": PackedVector3Array(1.41192, -0.696103, 2.38809, -1.41192, 0.696103, -2.38809, -4.5877, -2.95639e-05, 2.9113, -2.69581, -0.438599, 2.6372, 2.69581, 0.438599, -2.6372, -4.31468, -7.31945e-05, -5.23514, -1.24725, 0.123572, -1.32486, 1.24725, -0.123572, 1.32486, 3.23194, 0.0985596, -5.46942, -3.17962, 0.205415, -0.313628, 3.17962, -0.205415, 0.313628, 7.38161, -0.43413, -2.89505),
-"tilts": PackedFloat32Array(0, 0, 0, 0)
+"points": PackedVector3Array(1.41192, -0.696103, 2.38809, -1.41192, 0.696103, -2.38809, -7.23551, -2.95639e-05, 0.336407, -2.69581, -0.438599, 2.6372, 2.69581, 0.438599, -2.6372, -6.41535, -7.31945e-05, -6.33097, -1.24725, 0.123572, -1.32486, 1.24725, -0.123572, 1.32486, 3.23194, 0.0985596, -8.14526, -3.17962, 0.205415, -0.313628, 3.17962, -0.205415, 0.313628, 7.38161, -0.43413, -5.57089, 2.94085, 0, 0.409162, -2.94085, 0, -0.409162, 5.69575, -0.434155, -10.0759, 3.2733, 0, -1.53436, -3.2733, 0, 1.53436, -3.76667, -0.434155, -7.48541, 0.613743, 0, 0.690462, -0.613743, 0, -0.690462, -8.0071, -0.434155, -8.03099, -3.01757, 0, 0.920614, 3.01757, 0, -0.920614, -4.67194, -0.434155, -11.137, -2.58087, 0, 0.157937, 2.58087, 0, -0.157937, 5.3641, -0.434155, -6.01156, 14.735, 0, -1.90899, -14.735, 0, 1.90899, -0.773459, -0.434155, -8.95295, -1.57691, -0.696045, -0.186516, 1.57691, 0.696045, 0.186516, -7.41947, 4.88758e-05, 3.49002, 1.412, -0.696, 2.388, 0, 0, 0, -7.23556, 0, 0.336467),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 4
+point_count = 12
 
 [sub_resource type="Curve" id="Curve_tfa61"]
-_data = [Vector2(0, 0), 0.0, 1.05995, 0, 1, Vector2(0.25, 0.264986), 0.0, 0.0, 0, 0, Vector2(0.493243, 0.39782), 0.0, 0.0, 0, 0, Vector2(0.753378, 0.645777), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4363, 0.0, 1, 0]
+_data = [Vector2(0, 0), 0.0, 1.05995, 0, 1, Vector2(0.25, 0.264986), 0.0, 0.0, 0, 0, Vector2(0.5, 0.5), 0.0, 0.0, 0, 0, Vector2(0.752459, 0.713007), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.15938, 0.0, 1, 0]
 point_count = 5
 
 [sub_resource type="Curve" id="Curve_j6l5g"]
@@ -70,18 +65,20 @@ _data = {
 }
 point_count = 5
 
-[node name="Ocean" type="Node3D" node_paths=PackedStringArray("initial_dolphins_pos", "boat_intercept_pos", "school_fish_path_follow", "school_fish", "boat_idle_path", "dolphin_audio_manager", "initial_ui", "player_position")]
+[node name="Ocean" type="Node3D" node_paths=PackedStringArray("initial_dolphins_pos", "boat_intercept_pos", "school_fish_path_follow", "school_fish", "boat_idle_path", "orcas_pod_path", "dolphin_audio_manager", "initial_ui", "final_ui", "player_position")]
 script = ExtResource("1_qkda0")
 initial_dolphins_pos = NodePath("InitialDolphinsPos")
 boat_intercept_pos = NodePath("BoatInterceptPos")
 school_fish_path_follow = NodePath("FishSchoolPath3D/SchoolFishPathFollow3D")
 school_fish = NodePath("FishSchoolPath3D/SchoolFishPathFollow3D/SchoolOfFish")
 boat_idle_path = NodePath("BoatIdlePath")
+orcas_pod_path = NodePath("OrcaPodPath")
 min_boat_event_spawn_delay = 15.0
 max_boat_event_spawn_delay = 20.0
 dolphin_audio_manager = NodePath("DolphinAudioManager")
 whale_event_delay = 3.0
-initial_ui = NodePath("InitialUI")
+initial_ui = NodePath("UI/OceanInitialUI")
+final_ui = NodePath("UI/OceanFinalUi")
 player_position = NodePath("PlayerPosition")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
@@ -105,12 +102,6 @@ material_override = ExtResource("4_7wo7r")
 mesh = SubResource("QuadMesh_20yxg")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="SurfacePosition"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
-visible = false
-mesh = SubResource("QuadMesh_5wf6a")
-skeleton = NodePath("../..")
-
 [node name="FakeSun" type="MeshInstance3D" parent="SurfacePosition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 material_override = SubResource("ShaderMaterial_a531b")
@@ -124,7 +115,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.5)
 [node name="BoatInterceptPos" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -35)
 
-[node name="InitialUI" parent="." instance=ExtResource("8_b50c8")]
+[node name="UI" type="Node3D" parent="."]
+
+[node name="OceanInitialUI" parent="UI" instance=ExtResource("8_b50c8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8)
+
+[node name="OceanFinalUi" parent="UI" instance=ExtResource("9_q1pty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.8)
 
 [node name="ReturnToMainMenu" parent="." instance=ExtResource("7_jnhsx")]
@@ -179,27 +175,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 curve = SubResource("Curve3D_lv1u2")
 
 [node name="SchoolFishPathFollow3D" type="PathFollow3D" parent="FishSchoolPath3D"]
-transform = Transform3D(0.860681, 0, 0.508864, 0, 0.999993, 0, -0.508864, 0, 0.860682, -4.5877, -2.95639e-05, 2.9113)
+transform = Transform3D(0.860676, 0, 0.508861, 0, 0.999993, 0, -0.508861, 0, 0.860676, -7.23551, -1.50003, 0.336407)
+v_offset = -1.5
 rotation_mode = 1
 script = ExtResource("13_n4p2q")
 movement_curve = SubResource("Curve_tfa61")
 vertical_movement_curve = SubResource("Curve_j6l5g")
 base_v_offset = -1.5
-loops = false
-loop_time = 120.0
+loop_time = 180.0
 
 [node name="SchoolOfFish" parent="FishSchoolPath3D/SchoolFishPathFollow3D" instance=ExtResource("24_cmt7h")]
 transform = Transform3D(0.9, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-boost_time_scale_2 = null
-boost_time_scale_3 = null
 
 [node name="DolphinAudioManager" type="Node3D" parent="."]
 script = ExtResource("16_4kyfy")
-clicking_sounds = Array[AudioStream]([ExtResource("17_2uqol"), ExtResource("18_5tnc7"), ExtResource("19_jc3lc")])
-clicking_rate = 0.35
+clicking_sounds = Array[AudioStream]([ExtResource("17_ye8ud"), ExtResource("18_a4rg7"), ExtResource("19_yg5cj"), ExtResource("20_l8tf2"), ExtResource("21_efrot"), ExtResource("22_nlfq2")])
+clicking_rate = 0.75
 clicking_cooldown = 0.8
+clicking_volume_db = -1.0
 whistles_sounds = Array[AudioStream]([ExtResource("20_faolv"), ExtResource("21_psk82"), ExtResource("22_r0dbj"), ExtResource("23_mq2xs"), ExtResource("24_1qwch")])
-whistling_rate = 0.7
+whistling_rate = 0.3
+whistling_cooldown = 0.8
 
 [node name="BoatIdlePath" type="Path3D" parent="."]
 curve = SubResource("Curve3D_yolo5")
@@ -209,3 +205,5 @@ rotation_mode = 4
 
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="BoatIdlePath/PathFollow3D"]
 update_scale = false
+
+[node name="OrcaPodPath" parent="." instance=ExtResource("25_v3vew")]

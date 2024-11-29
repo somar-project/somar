@@ -1,0 +1,86 @@
+[gd_scene load_steps=5 format=3 uid="uid://dd1w1jshaimcj"]
+
+[ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_kvx4g"]
+[ext_resource type="Theme" uid="uid://detpa4qnk63je" path="res://scenes/2d/info_plane_theme.tres" id="2_0ee8c"]
+[ext_resource type="Texture2D" uid="uid://t2v5dti20rtx" path="res://scenes/2d/textures/Ratfish-Old-Wide.png" id="3_q8f5v"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
+texture = ExtResource("1_kvx4g")
+
+[node name="ShoreFinalUICenterLayout" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yp67b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 75
+theme_override_constants/margin_bottom = 75
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+
+[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_0ee8c")
+theme_type_variation = &"TitleLabel"
+text = "SHORE_FINAL_UI_C_LOC_NAME"
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_0ee8c")
+theme_type_variation = &"ContentLabel"
+text = "SHORE_FINAL_UI_C_CONTENT"
+horizontal_alignment = 3
+autowrap_mode = 2
+
+[node name="RightColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Image" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
+modulate = Color(0.68, 0.984, 1, 1)
+layout_mode = 2
+texture = ExtResource("3_q8f5v")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Image2" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
+modulate = Color(0.68, 0.984, 1, 1)
+layout_mode = 2
+texture = ExtResource("3_q8f5v")
+expand_mode = 5
+stretch_mode = 4
+
+[node name="Image3" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
+modulate = Color(0.68, 0.984, 1, 1)
+layout_mode = 2
+texture = ExtResource("3_q8f5v")
+expand_mode = 5
+stretch_mode = 4
