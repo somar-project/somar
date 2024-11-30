@@ -44,14 +44,6 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 			current_target = _pick_target(hunting)
 			flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
 	
-	# if hunting:
-	# 	var should_attack : bool = true if randi_range(0, 5) == 4 else false
-
-	# 	if should_attack:
-	# 		attacking = true
-	# 		current_target = player_position
-	# 		last_swim_dir.y = 1000.0
-	
 	if current_target.y > current_position.y:
 		state = DolphinState.SWIMMING
 	else:
@@ -59,7 +51,6 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
-	# var direction : Vector3 = current_position.direction_to(current_target)
 	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0 * clockwise_mult))
 
 	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
@@ -168,7 +159,6 @@ func _after_swiming_to_target(loop : bool) -> void:
 
 		target_reached.connect(_handle_surface_reached, CONNECT_ONE_SHOT)
 		call_deferred("swim_to_target", dir_target, new_target, false, true, true)
-		# call_deferred("swim_to_target", Vector3.ZERO, new_target, false, false, true)
 		return
 
 	if loop:

@@ -7,6 +7,8 @@ signal orcas_close
 @onready var orcas_pod : Node3D = %OrcaPod
 @onready var dolphins_target : Marker3D = %DolphinsTarget
 
+@export_range(0.0, 1.0) var close_rate : float = 0.2
+
 
 func start(total_time : float) -> void:
 	orcas_pod.visible = true
@@ -22,4 +24,4 @@ func start(total_time : float) -> void:
 	)
 	move_tween.tween_callback(func() -> void:
 		orcas_close.emit()
-	).set_delay(total_time * 0.20)
+	).set_delay(total_time * close_rate)

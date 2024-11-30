@@ -14,7 +14,6 @@ signal whale_breathe
 @export var show_particles_at_ratio : float = 0.55
 @export var stop_particles_at_ratio : float = 0.65
 @export var audios : Array[AudioStream]
-@export var water_break_effect : Node3D
 
 const PATHS : Array[Curve3D] = [
 	preload("res://scenes/3d/animals/whales/humpback/paths/path_0.tres"),
@@ -73,7 +72,3 @@ func play() -> void:
 
 func _show_water_break_particles(_duration : float) -> void:
 	whale_breathe.emit()
-	# pass
-	# if not water_break_effect.particles.emitting:
-	# 	water_break_effect.duration = duration
-	# 	water_break_effect._show(whale, surface_marker)

@@ -1,15 +1,12 @@
 extends BaseUnderwaterScene
 
 @export var shadows_sub_viewport : SubViewport
-@export var secondary_boats_amount : int = 2
-@export var secondary_boats_offset : float = 4.5
 @export_range(0.0, 1.0) var dolphins_curious_amount_rate : float = 0.5
 
 const INFLATABLE_PATROL_BOAT_SCENE : PackedScene = preload("res://scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn")
 const SPEED_BOAT_SCENE : PackedScene = preload("res://scenes/3d/boats/speedboat/speed_boat.tscn")
 
 var initial_boat : BoatBase
-var secondary_boats_info : Array[Dictionary]
 
 var making_dolphins_flee : bool = false
 var final_dolphin_reached_signal_connected : bool = false
@@ -19,8 +16,6 @@ var final_boat_hide_signal_connected : bool = false
 
 func _ready() -> void:
 	super()
-
-	# current_boat_spawn_type = randi_range(0, BOAT_SPAWN_IDS.size()-1)
 
 	if Global.material_quality == Global.MaterialQuality.HIGH:
 		shadows_sub_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -45,36 +40,7 @@ func _start_boat_event() -> void:
 		randi_range(2, 3)
 	)
 
-	# initial_boat.initialize_at_2(
-	# 	boat_spawn_distance,
-	# 	surface_position,
-	# 	path_quadrants_parent,
-	# 	BOAT_SPAWN_IDS[current_boat_spawn_type][current_boat_spawn_idx]
-	# )
-
-	# current_boat_spawn_idx += 1
-
 	initial_boat.mid_pos_target_reached.connect(_make_dolphins_stop, CONNECT_ONE_SHOT)
-
-	# Secondary boats
-	for b_idx : int in secondary_boats_amount:
-		var rot : float = 90.0 if b_idx % 2 == 0 else -90.0
-		# var initial_boat_dir : Vector3 = -initial_boat.boat_direction
-		var initial_boat_dir : Vector3 = initial_boat.boat_direction
-		var initial_boat_pos : Vector3 = initial_boat.initial_boat_position
-		# var initial_boat_pos : Vector3 = initial_boat.final_boat_position
-		if b_idx > 0:
-			initial_boat_pos = secondary_boats_info[b_idx-1].origin
-
-		var initial_point_offset : float = secondary_boats_offset * (b_idx + 1)
-		var new_initial_point : Vector3 = initial_boat_pos + (initial_boat_dir * initial_point_offset)
-		new_initial_point = Global.rotate_vector_around_pivot(new_initial_point, initial_boat_pos, deg_to_rad(rot))
-
-		secondary_boats_info.push_back({
-			"origin": new_initial_point,
-			"direction": initial_boat_dir,
-			"total_distance": initial_boat.distance_between_points
-		})
 
 
 func _make_dolphins_stop() -> void:
@@ -206,11 +172,9 @@ func _show_secondary_boats() -> void:
 func _make_dolphins_flee() -> void:
 	making_dolphins_flee = true
 
-	# var curve_points : PackedVector3Array = PERIMETER_PATH_CURVE.get_baked_points()
 	var quadrant : Path3D = path_quadrants_parent.get_child(randi_range(0, 1)) # Only the two quadrants in front of player
 
 	for dolphin : DolphinBase in dolphins_parent.get_children():
-		# var flee_position : Vector3 = quadrant.to_global(curve_points[randi_range(0, curve_points.size()-1)])
 		var flee_position : Vector3 = quadrant.to_global(quadrant.curve.sample_baked(randf()))
 		flee_position.y = dolphin.global_position.y
 		var flee_direction : Vector3 = dolphin.global_position.direction_to(flee_position)
@@ -250,17 +214,7 @@ func _make_boats_go() -> void:
 
 
 func _handle_boat_ratio_reached(ratio : float) -> void:
-	# Disable sounds when boat approaches
-	if is_equal_approx(ratio, 0.25):
-		pass
-		# dolphin_audio_manager.stop()
-
-	# Secondary boats approaching the dolphins, make them flee
-	elif is_equal_approx(ratio, 0.3):
-		_make_dolphins_flee()
-	
-	# Boats too far
-	elif is_equal_approx(ratio, 0.9):
+	if is_equal_approx(ratio, 0.9):
 		for boat : Node3D in boats_parent.get_children():
 			var boat_ref : BoatBase
 			if boat is BoatBase:

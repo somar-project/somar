@@ -97,7 +97,6 @@ var debug_target_shape : MeshInstance3D
 
 
 func _ready() -> void:
-	# set_process(false)
 	if not Engine.is_editor_hint():
 		tree = get_tree()
 		obstacle_avoidance_area.area_entered.connect(_handle_obstacle_detected)
@@ -258,7 +257,6 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
-	# var direction : Vector3 = current_position.direction_to(current_target)
 	direction = direction.rotated(Vector3(0.0, 1.0, 0.0), deg_to_rad(-90.0 * clockwise_mult))
 
 	# If this is a loop, use a mirror of the last middle point to avoid weird "snapping" effect
@@ -417,7 +415,6 @@ func _after_swiming_to_target(loop : bool) -> void:
 
 		target_reached.connect(_handle_surface_reached, CONNECT_ONE_SHOT)
 		call_deferred("swim_to_target", dir_target, new_target, false, true, true)
-		# call_deferred("swim_to_target", Vector3.ZERO, new_target, false, false, true)
 		return
 
 	if loop:
@@ -597,29 +594,9 @@ func _handle_breathing_timer_finished() -> void:
 	should_breathe = true
 
 
-func stop() -> void:
-	if movement_tween:
-		movement_tween.kill()
-
-func resume() -> void:
-	first_swim_loop = false
-	current_middle_point_1 = global_position + (3.0 * global_transform.basis.z)
-	swim_to_target()
-
-func follow(node : Node3D) -> void:
-	follow_node = node
-	state = DolphinState.SWIMMING_FAST
-	# set_process(true)
-
-func stop_following() -> void:
-	follow_node = null
-	# set_process(false)
-
 func _process(delta : float) -> void:
 	if is_mother:
 		calf.global_transform = calf.global_transform.interpolate_with(calf_target_pos.global_transform, calf_swim_speed * delta)
 
 	if is_instance_valid(follow_node):
 		global_transform = global_transform.interpolate_with(follow_node.global_transform, follow_speed * delta)
-	# else:
-	# 	set_process(false)

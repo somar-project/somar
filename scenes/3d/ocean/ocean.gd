@@ -42,14 +42,10 @@ func _ready() -> void:
 	hunting_update_rate = int(Engine.max_fps / 6.0)
 	school_fish.detecting_dolphins = true
 
-	var boat_event_delay : float = randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay)
-	# school_fish_path_follow.loop_time = boat_event_delay + 10.0
-	# school_fish_path_follow.start(true)
-
 	for dolphin : DolphinBase in dolphins_parent.get_children():
 		dolphin.hunting = true
 
-	await tree.create_timer(boat_event_delay).timeout
+	await tree.create_timer(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay)).timeout
 	_start_boat_event()
 
 
@@ -75,30 +71,14 @@ func _start_boat_event() -> void:
 
 func _handle_boat_ratio_reached(ratio : float) -> void:
 	if is_equal_approx(ratio, 0.35):
-		# school_fish_path_follow.stop()
-
-		# _move_fish_school(school_fish)
-
 		for dolphin : DolphinBase in dolphins_parent.get_children():
 			dolphin.hunting = false
 
 		hunting = false
-		# set_process(false)
 		school_fish.detecting_dolphins = false
 
 	elif is_equal_approx(ratio, 0.53):
 		_move_boat_to_whale_path()
-
-		# boat_idle_path.global_position = initial_boat.global_position
-		# boat_idle_path.global_rotation = initial_boat.global_rotation
-
-		# boat_idle_loop_time = boat_idle_path.curve.get_baked_length() / initial_boat.boat_speed_in_m_per_s
-
-		# boat_idle_path_follow = boat_idle_path.get_child(0)
-		# var rt : RemoteTransform3D = boat_idle_path_follow.get_child(0)
-		# rt.remote_path = initial_boat.get_path()
-
-		# _move_boat_idle()
 
 
 
@@ -127,39 +107,6 @@ func _move_boat_idle() -> void:
 		_move_boat_to_whale_path()
 
 
-# func _move_fish_school(fish_school : Node3D) -> void:
-# 	for dolphin : DolphinBase in dolphins_parent.get_children():
-# 		dolphin.hunting = false
-
-# 	hunting = false
-# 	# set_process(false)
-# 	school_fish.detecting_dolphins = false
-
-# 	var current_position : Vector3 = fish_school.global_position
-
-# 	var direction : Vector3 = -fish_school.global_transform.basis.z
-# 	direction.y = 0.0
-
-# 	var target_distance : float = boat_spawn_distance / 2.0
-# 	var current_target : Vector3 = current_position + (direction * target_distance)
-# 	current_target.y = fish_school.global_position.y + randf_range(-0.2, 0.2)
-
-# 	var current_swim_speed : float = target_distance / (4.0 / 3.6)
-
-# 	fish_school.look_at(current_target)
-
-# 	var fish_movement_tween : Tween = create_tween()
-# 	fish_movement_tween.tween_property(
-# 		fish_school,
-# 		"global_position",
-# 		current_target,
-# 		current_swim_speed
-# 	)
-# 	await fish_movement_tween.finished
-# 	print_debug("FINISHED!")
-# 	fish_school.queue_free()
-
-
 func _move_boat_to_whale_path() -> void:
 	var boat_current_pos : Vector3 = initial_boat.global_position
 	var boat_target_pos : Vector3 = boat_intercept_pos.global_position
@@ -173,10 +120,6 @@ func _move_boat_to_whale_path() -> void:
 	var boat_middle_point_0 : Vector3 = boat_current_pos + (boat_dir * (boat_dist / 3.0))
 	var boat_middle_point_1 : Vector3 = boat_target_pos + (dir_to_boat * (boat_dist / 3.0))
 
-	# var drift_time : float = initial_boat.engine_stop_audio.get_length()
-	# var drift_distance : float = initial_boat.boat_speed_in_m_per_s * drift_time
-
-	# var stop_emitting_bubbles_at : float = maxf((drift_time - bubbles_particles.lifetime), 0.05)
 
 	initial_boat.engine_loop_audio_player.stop()
 	initial_boat.engine_start_stop_audio_player.stream = initial_boat.engine_stop_audio
@@ -189,12 +132,7 @@ func _move_boat_to_whale_path() -> void:
 		initial_boat.engine_loop_audio_player.play()
 	, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
 
-	# var time_to_stop : float = (boat_dist - drift_distance) / initial_boat.boat_speed_in_m_per_s
 	var time_to_stop : float = (boat_dist * 1.5) / initial_boat.boat_speed_in_m_per_s
-
-	# initial_boat.engine_loop_audio_player.stop()
-	# initial_boat.engine_start_stop_audio_player.stream = initial_boat.engine_stop_audio
-	# initial_boat.engine_start_stop_audio_player.play()
 
 	var stop_emitting_bubbles_at : float = maxf((time_to_stop - initial_boat.bubbles_particles.lifetime), 0.05)
 
@@ -253,7 +191,7 @@ func _move_boat_to_whale_path() -> void:
 		dolphin.hunting = false
 
 	boat_curious = true
-	# _stop_drift()
+
 
 # Go back to hunting
 func _handle_whale_pre_breathe() -> void:
@@ -287,7 +225,6 @@ func _make_dolphins_flee() -> void:
 	dolphin_audio_manager.clicking_rate = 0.3
 	dolphin_audio_manager.whistling_rate = 0.75
 
-	# var orcas_pod_target : Vector3 = orcas_pod_path.path_3d.curve.sample_baked(0.1, true)
 	var orcas_pod_target : Vector3 = orcas_pod_path.dolphins_target.global_position
 
 	for dolphin : DolphinBase in dolphins_parent.get_children():
@@ -295,17 +232,7 @@ func _make_dolphins_flee() -> void:
 		flee_position.y = randf_range(player_position.global_position.y, surface_position.global_position.y - 1.0)
 
 		dolphin.force_stop = true
-
-		# if dolphin.target_reached.is_connected(_move_dolphin_to_boat):
-		# 	dolphin.target_reached.disconnect(_move_dolphin_to_boat)
-		
 		dolphin.target_reached.connect(_handle_flee.bind(dolphin, flee_position), CONNECT_ONE_SHOT)
-
-		# if not final_dolphin_reached_signal_connected:
-		# 	final_dolphin_reached_signal_connected = true
-		# 	dolphin.target_reached.connect(_show_end_ui, CONNECT_ONE_SHOT)
-
-		# dolphin.swim_to_target_flee(flee_position)
 
 
 func _handle_flee(dolphin : DolphinBase, flee_to : Vector3) -> void:

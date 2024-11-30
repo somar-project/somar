@@ -15,7 +15,7 @@ enum SceneType {
 @export var scene_type : SceneType = SceneType.OCEAN
 @export var dolphin_audio_manager : DolphinAudioManager
 @export var whale_event_delay : float = 0.0
-@export var boat_loops : int = 2
+@export var boat_loops : int = 2 # Un-used! But cannot remove unless config file system is updated as well.
 @export var initial_ui : Node3D
 @export var final_ui : Node3D
 
@@ -26,11 +26,6 @@ const CURVE_RADIUS : float = 20.0
 const PERIMETER_PATH_CURVE : Curve3D = preload("res://scenes/3d/shared/perimeter_path_curve.tres")
 const BOTTLENOSE_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn")
 const COMMON_DOLPHIN_SCENE : PackedScene = preload("res://scenes/3d/animals/dolphins/common/common_dolphin.tscn")
-
-const BOAT_SPAWN_IDS : Array[Array] = [
-	["q2_0-q0_1", "q3_0-q0_0", "q1_0-q3_1"],
-	["q2-1-q0_0", "q1_1-q3_0", "q1_0-q3_1"]
-]
 
 # onready
 var surface_position : Marker3D
@@ -43,9 +38,6 @@ var timer : Timer
 var whales : Array[Node3D] = []
 var current_whale : Node3D
 var whale_idx : int = 0
-
-var current_boat_spawn_type : int = 0
-var current_boat_spawn_idx : int = 0
 
 
 # This method verifies the node
@@ -233,7 +225,7 @@ func _handle_whale_finished() -> void:
 
 
 func spawn_water_break_effect(dolphin : DolphinBase) -> void:
-	var effect_scene : PackedScene = load("res://scenes/3d/effects/water_break_effect.tscn")
+	var effect_scene : PackedScene = await ResourceManager.load_resource("res://scenes/3d/effects/water_break_effect.tscn")
 	var effect_scene_inst : Node3D = effect_scene.instantiate()
 
 	add_child(effect_scene_inst)

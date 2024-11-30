@@ -103,10 +103,13 @@ func do_pulse() -> void:
 	var original_time_scale_2 : float = material.get_shader_parameter("time_scale_2")
 	var original_time_scale_3 : float = material.get_shader_parameter("time_scale_3")
 
+	var boost_duration_0 : float = (boost_duration / 3.0)
+	var boost_duration_1 : float = (boost_duration / 3.0) * 2.0
+
 	var pulse_tween : Tween = create_tween()
 
-	pulse_tween.set_trans(Tween.TRANS_CUBIC)
-	pulse_tween.set_ease(Tween.EASE_OUT)
+	# pulse_tween.set_trans(Tween.TRANS_CUBIC)
+	# pulse_tween.set_ease(Tween.EASE_OUT)
 	pulse_tween.set_parallel(true)
 
 	pulse_tween.tween_method(func(p_scale : float) -> void:
@@ -117,31 +120,31 @@ func do_pulse() -> void:
 		material,
 		"shader_parameter/time_scale_2",
 		boost_time_scale_2,
-		(boost_duration / 2.0)
+		boost_duration_0
 	)
 	pulse_tween.tween_property(
 		material,
 		"shader_parameter/time_scale_3",
 		boost_time_scale_3,
-		(boost_duration / 2.0)
+		boost_duration_0
 	)
 
 	pulse_tween.tween_method(func(p_scale : float) -> void:
 		if movement_tween and movement_tween.is_valid():
 			movement_tween.set_speed_scale(p_scale)
-	, boost_scale_max, 1.0, (boost_duration / 2.0)).set_delay((boost_duration / 2.0))
+	, boost_scale_max, 1.0, boost_duration_1).set_delay(boost_duration_0)
 	pulse_tween.tween_property(
 		material,
 		"shader_parameter/time_scale_2",
 		original_time_scale_2,
-		(boost_duration / 2.0)
-	).set_delay((boost_duration / 2.0))
+		boost_duration_1
+	).set_delay(boost_duration_0)
 	pulse_tween.tween_property(
 		material,
 		"shader_parameter/time_scale_3",
 		original_time_scale_3,
-		(boost_duration / 2.0)
-	).set_delay((boost_duration / 2.0))
+		boost_duration_1
+	).set_delay(boost_duration_0)
 	await pulse_tween.finished
 	pulsing = false
 	detecting_dolphins = true
