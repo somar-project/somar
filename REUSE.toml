@@ -1,0 +1,126 @@
+version = 1
+
+# ****************************************************
+# MESHES, ANIMATIONS and TEXTURES PURCHASED ON FAB.COM
+# DO NOT MODIFY or COPY/USE outside of this project.
+
+# dolphins, whales, boats and gloves
+# Assets purchased on Fab.com - DO NOT MODIFY or COPY/USE outside of this project!
+[[annotations]]
+path = [
+    "scenes/3d/animals/dolphins/bottlenose/mesh/**",
+    "scenes/3d/animals/dolphins/bottlenose/textures/**",
+    "scenes/3d/animals/dolphins/bottlenose/materials/**",
+    "scenes/3d/animals/dolphins/bottlenose/animations/**",
+    "scenes/3d/animals/dolphins/common/mesh/**",
+    "scenes/3d/animals/dolphins/common/textures/**",
+    "scenes/3d/animals/dolphins/common/materials/**",
+    "scenes/3d/animals/dolphins/common/animations/**",
+    "scenes/3d/animals/dolphins/orca/mesh/**",
+    "scenes/3d/animals/dolphins/orca/textures/**",
+    "scenes/3d/animals/dolphins/orca/materials/**",
+    "scenes/3d/animals/dolphins/orca/animations/**",
+    "scenes/3d/animals/whales/blue/mesh/**",
+    "scenes/3d/animals/whales/blue/textures/**",
+    "scenes/3d/animals/whales/blue/materials/**",
+    "scenes/3d/animals/whales/humpback/mesh/**",
+    "scenes/3d/animals/whales/humpback/textures/**",
+    "scenes/3d/animals/whales/humpback/materials/**",
+    "scenes/3d/animals/tunas/mesh/**",
+    "scenes/3d/animals/tunas/textures/**",
+    "scenes/3d/animals/tunas/materials/**",
+    "scenes/3d/animals/tunas/animations/**",
+    "scenes/3d/boats/inflatable_patrol/mesh/**",
+    "scenes/3d/boats/inflatable_patrol/textures/**",
+    "scenes/3d/boats/inflatable_patrol/materials/**",
+    "scenes/3d/boats/jetski/mesh/**",
+    "scenes/3d/boats/jetski/textures/**",
+    "scenes/3d/boats/speedboat/mesh/**",
+    "scenes/3d/boats/speedboat/textures/**",
+    "scenes/3d/boats/speedboat/animations/**",
+    "scenes/3d/xr_player/glove/**"
+]
+SPDX-FileCopyrightText = "Epic Systems inc."
+SPDX-License-Identifier = "LicenseRef-FAB-EULA"
+
+#
+# ************************************************
+
+# SOMAR-RECORDED UNDERWATER AUDIO CLIPS
+# Licenses under Permissive License.
+# You *may* copy and redistribute the below
+[[annotations]]
+path = [
+    "scenes/3d/animals/whales/blue/audio/**",
+    "scenes/3d/animals/whales/humpback/audio/**",
+    "scenes/3d/animals/dolphins/orca/audio/**",
+    "scenes/3d/animals/dolphins/bottlenose/audio/**",
+    "scenes/3d/animals/dolphins/common/audio/**",
+    "scenes/3d/boats/jetski/audio/**",
+    "scenes/3d/boats/speedboat/audio/**",
+    "scenes/3d/boats/inflatable_patrol/audio/**",
+]
+SPDX-FileCopyrightText = "2024 Somar org."
+SPDX-License-Identifier = "CC-BY-4.0"
+
+#
+# ************************************************
+
+# OTHER ASSETS LICENSED AS PERMISSIVE
+# You *may* copy and redistribute the below
+[[annotations]]
+path = [
+    "scenes/2d/info_plane_theme.tres",
+    "scenes/2d/ocean/**",
+    "scenes/2d/shore/**",
+    "scenes/2d/textures/**",
+    "scenes/3d/animals//**",
+    "scenes/3d/animals/fish/**",
+    "scenes/3d/animals/dolphins/bottlenose/bottlenose_dolphin.tscn",
+    "scenes/3d/animals/dolphins/common/common_dolphin.tscn",
+    "scenes/3d/animals/dolphins/orca/orca.tscn",
+    "scenes/3d/animals/dolphins/orca/orca_pod.tscn",
+    "scenes/3d/animals/dolphins/orca/orca_pod_path.tscn",
+    "scenes/3d/animals/whales/blue/blue_whale.tscn",
+    "scenes/3d/animals/whales/blue/blue_whale_path.tscn",
+    "scenes/3d/animals/whales/humpback/humpback_whale.tscn",
+    "scenes/3d/animals/whales/humpback/humpback_whale_path.tscn",
+    "scenes/3d/animals/whales/humpback/paths/path_0.tres",
+    "scenes/3d/animals/whales/humpback/paths/path_1.tres",
+    "scenes/3d/animals/tunas/tuna.tscn",
+    "scenes/3d/animals/tunas/tuna_pod.tscn",
+    "scenes/3d/boats/inflatable_patrol/inflatable_patrol_boat.tscn",
+    "scenes/3d/boats/jetski/jet_ski.tscn",
+    "scenes/3d/boats/speedboat/speed_boat.tscn",
+    "scenes/3d/boats/trail/**",
+    "scenes/3d/effects/**",
+    "scenes/3d/info_plane/**",
+    "scenes/3d/main_menu/**",
+    "scenes/3d/ocean/**",
+    "scenes/3d/shared/**",
+    "scenes/3d/shore/**",
+    "scenes/3d/xr_player/**"
+]
+SPDX-FileCopyrightText = "2024 Collabora Ltd."
+SPDX-License-Identifier = "BSL-1.0"
+
+# GODOT-RELATED FILES LICENSED AS PERMISSIVE
+# You *may* copy and redistribute the below
+[[annotations]]
+path = [
+    "addons/**",
+    "default_bus_layout.tres",
+    "export_assets/smr0002.keystore",
+    "export_presets.cfg",
+    "icon.svg",
+    "icon.svg.import",
+    "localization/**",
+    "misc_assets/**",
+    "openxr_action_map.tres",
+    "project.godot",
+    "scenes/main/main.tscn",
+    "scenes_config.cfg",
+    "utilities/**"
+]
+SPDX-FileCopyrightText = "2024 Collabora Ltd."
+SPDX-License-Identifier = "BSL-1.0"

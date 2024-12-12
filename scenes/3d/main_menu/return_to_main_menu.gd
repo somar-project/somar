@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 2024 Collabora ltd.
+#
+# SPDX-License-Identifier: BSL-1.0
+
 extends Node3D
 
 @onready var return_to_main_menu_btn : CustomBtn = %ReturnToMainMenuBtn

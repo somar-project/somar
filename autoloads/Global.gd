@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 2024 Collabora ltd.
+#
+# SPDX-License-Identifier: BSL-1.0
+
 extends Node
 
 const EDITOR_PLUGIN_SAVE_DATA_PATH : String = "res://addons/export_plugin/scene_config_menu/scene_config_data.cfg"

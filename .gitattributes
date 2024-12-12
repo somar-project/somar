@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2024 Collabora, Ltd.
+# SPDX-License-Identifier: BSL-1.0
+#
 # Normalize EOL for all files that Git considers text files.
 * text=auto eol=lf
 *.apk filter=lfs diff=lfs merge=lfs -text

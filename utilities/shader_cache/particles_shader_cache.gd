@@ -1,3 +1,7 @@
+# SPDX-FileCopyrightText: 2024 2024 Collabora ltd.
+#
+# SPDX-License-Identifier: BSL-1.0
+
 extends Node3D
 
 signal particles_shader_cache_finished
