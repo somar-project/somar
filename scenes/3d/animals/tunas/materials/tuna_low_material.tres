@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://0ynxbk35rp8l"]
+
+[ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_lykhl"]
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="1_vao67"]
+[ext_resource type="Texture2D" uid="uid://b1mu60gvajuoy" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_diff.png" id="3_a33xi"]
+
+[resource]
+render_priority = 0
+next_pass = ExtResource("1_lykhl")
+shader = ExtResource("1_vao67")
+shader_parameter/albedo_color = Color(0.65098, 0.741176, 0.960784, 1)
+shader_parameter/specular = 0.55
+shader_parameter/metallic = 0.3
+shader_parameter/roughness = 0.8
+shader_parameter/albedo_texture = ExtResource("3_a33xi")

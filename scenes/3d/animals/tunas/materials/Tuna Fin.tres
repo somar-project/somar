@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://dr0vn4jhsfoox"]
+
+[ext_resource type="Texture2D" uid="uid://b1mu60gvajuoy" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_diff.png" id="1_lsbj8"]
+[ext_resource type="Texture2D" uid="uid://bdldgtv1ci0v1" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_normal.png" id="2_k6h6b"]
+
+[resource]
+resource_name = "Tuna Fin"
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 1)
+albedo_texture = ExtResource("1_lsbj8")
+emission_enabled = true
+emission_energy_multiplier = 0.0
+normal_enabled = true
+normal_scale = 0.0
+normal_texture = ExtResource("2_k6h6b")

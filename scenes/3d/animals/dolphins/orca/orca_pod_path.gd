@@ -9,6 +9,7 @@ signal orcas_close
 @onready var path_3d : Path3D = %Path3D
 @onready var path_follow_3d : PathFollow3D = %PathFollow3D
 @onready var orcas_pod : Node3D = %OrcaPod
+@onready var tunas_pod : Node3D = %TunaPod
 @onready var dolphins_target : Marker3D = %DolphinsTarget
 
 @export_range(0.0, 1.0) var close_rate : float = 0.2
@@ -17,6 +18,8 @@ signal orcas_close
 func start(total_time : float) -> void:
 	orcas_pod.visible = true
 	orcas_pod.active = true
+	tunas_pod.visible = true
+	tunas_pod.active = true
 
 	var move_tween : Tween = create_tween()
 	move_tween.set_parallel(true)

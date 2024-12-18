@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://blcsgksh1rmo4"]
+
+[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_spec.gdshader" id="1_j4n2q"]
+[ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_n786k"]
+[ext_resource type="Texture2D" uid="uid://bdldgtv1ci0v1" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_normal.png" id="2_b06gn"]
+[ext_resource type="Texture2D" uid="uid://b1mu60gvajuoy" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_diff.png" id="3_l66vy"]
+[ext_resource type="Texture2D" uid="uid://btw3quhgmaas8" path="res://scenes/3d/animals/tunas/textures/bluefin_tuna_spec.png" id="5_dhhvq"]
+
+[resource]
+render_priority = 0
+next_pass = ExtResource("1_n786k")
+shader = ExtResource("1_j4n2q")
+shader_parameter/albedo_color = Color(0.65098, 0.741176, 0.960784, 1)
+shader_parameter/normal_map_scale = 1.0
+shader_parameter/roughness_cale = 1.0
+shader_parameter/specular_scale = 1.0
+shader_parameter/albedo_texture = ExtResource("3_l66vy")
+shader_parameter/normal_texture = ExtResource("2_b06gn")
+shader_parameter/roughness_specular_texture = ExtResource("5_dhhvq")

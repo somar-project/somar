@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwi4j4ajpidby"]
+[gd_scene load_steps=5 format=3 uid="uid://bwi4j4ajpidby"]
 
 [ext_resource type="PackedScene" uid="uid://dsh5l72putjj3" path="res://scenes/3d/animals/dolphins/orca/orca_pod.tscn" id="1_mf6ri"]
 [ext_resource type="Script" path="res://scenes/3d/animals/dolphins/orca/orca_pod_path.gd" id="1_qbc2w"]
+[ext_resource type="PackedScene" uid="uid://r2fwdd6cdg0s" path="res://scenes/3d/animals/tunas/tuna_pod.tscn" id="4_a454c"]
 
 [sub_resource type="Curve3D" id="Curve3D_q1cvs"]
 _data = {
@@ -27,8 +28,9 @@ rotation_mode = 4
 unique_name_in_owner = true
 visible = false
 
-[node name="TunaContainer" type="Node3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+[node name="TunaPod" parent="Path3D/PathFollow3D" instance=ExtResource("4_a454c")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5)
 
 [node name="DolphinsTarget" type="Marker3D" parent="."]
 unique_name_in_owner = true

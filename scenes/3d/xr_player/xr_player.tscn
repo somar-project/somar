@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dabtp6yj17yab" path="res://utilities/shader_cache/particles_shader_cache.tscn" id="6_u7mu1"]
 [ext_resource type="Material" uid="uid://6p4v5wm3wwqr" path="res://scenes/3d/xr_player/materials/vignette_material.tres" id="7_lhpba"]
 [ext_resource type="Material" uid="uid://dpalyf7rbbo6s" path="res://scenes/3d/xr_player/materials/ray_material.tres" id="7_w3nnu"]
-[ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/glove.tscn" id="8_h8gw4"]
+[ext_resource type="PackedScene" uid="uid://cmb7inmiduyap" path="res://scenes/3d/xr_player/glove/Glove.tscn" id="8_h8gw4"]
 [ext_resource type="AudioStream" uid="uid://gaxxcehek2nw" path="res://scenes/3d/xr_player/audio/background_ambient_v2.wav" id="10_fuxwj"]
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="11_bfnmn"]
 [ext_resource type="AudioStream" uid="uid://bvnq7rqm5s8nw" path="res://scenes/3d/xr_player/audio/submerge_sfx.wav" id="12_hucca"]
