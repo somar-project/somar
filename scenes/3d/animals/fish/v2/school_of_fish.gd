@@ -5,22 +5,22 @@
 @tool
 extends Node3D
 
-@export var amount : int = 50
+@export var amount : int = 1000
 @export var mesh : Mesh
 @export var material : ShaderMaterial
 
 @export_category("Shape")
-@export var inner_radius : float = 1.0
-@export var outer_radius : float = 2.0
-@export var height : float = 2.5
+@export var inner_radius : float = 0.5
+@export var outer_radius : float = 1.8
+@export var height : float = 3
 
 @export_category("Movement")
 ## The time in seconds that takes to perform a full rotation around the center.
-@export var full_rotation_time : float = 3.0
-@export var boost_scale_max : float = 4.0
-@export var boost_time_scale_2 : float = 0.1
-@export var boost_time_scale_3 : float = 1.0
-@export var boost_duration : float = 1.0
+@export var full_rotation_time : float = 4.0
+@export var boost_scale_max : float = 10.0
+@export var boost_time_scale_2 : float = 0.8
+@export var boost_time_scale_3 : float = 2.0
+@export var boost_duration : float = 0.4
 
 @export var speed_curve : Curve
 @export_range(0.0, 2.0) var speed_variation_scale : float = 1.0
@@ -157,7 +157,8 @@ func do_pulse() -> void:
 func get_random_point() -> Color:
 	var random_point : Color
 	random_point.r = randf_range(inner_radius, outer_radius)
-	random_point.g = randf_range(0.0, height)
+	#random_point.g = randf_range(0.0, height)
+	random_point.g = randfn(height / 2.0, height / 4.0)
 	random_point.b = randf_range(0.0, 2 * PI)
 	random_point.a = randf_range(0.0, 0.5)
 
