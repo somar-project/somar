@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://b4k4skdmb4jhj"]
+[gd_scene load_steps=6 format=3 uid="uid://b4k4skdmb4jhj"]
 
 [ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_l36mu"]
 [ext_resource type="Theme" uid="uid://detpa4qnk63je" path="res://scenes/2d/info_plane_theme.tres" id="2_5xenw"]
-[ext_resource type="Texture2D" uid="uid://t2v5dti20rtx" path="res://scenes/2d/textures/Ratfish-Old-Wide.png" id="3_vghak"]
-[ext_resource type="FontFile" uid="uid://cvkc73nmun0us" path="res://misc_assets/fonts/inter_tight/InterTight-SemiBold.ttf" id="4_0tjdj"]
+[ext_resource type="Texture2D" uid="uid://docjwbfxvttwq" path="res://scenes/2d/textures/Common/Common_dolphin_trans_small.png" id="3_sy6eq"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
 texture = ExtResource("1_l36mu")
@@ -94,110 +93,6 @@ alignment = 1
 [node name="Image" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
 modulate = Color(0.68, 0.984, 1, 1)
 layout_mode = 2
-texture = ExtResource("3_vghak")
+texture = ExtResource("3_sy6eq")
 expand_mode = 5
 stretch_mode = 4
-
-[node name="Facts" type="VBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Fact1Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact1Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.35
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
-theme_override_fonts/font = ExtResource("4_0tjdj")
-text = "UI_FACT_LBL"
-
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact1Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.65
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-text = "OCEAN_INITIAL_UI_FACT_CONTENT_1"
-autowrap_mode = 2
-
-[node name="Fact2Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact2Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.35
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
-theme_override_fonts/font = ExtResource("4_0tjdj")
-text = "UI_FACT_LBL"
-
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact2Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.65
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-text = "OCEAN_INITIAL_UI_FACT_CONTENT_2"
-autowrap_mode = 2
-
-[node name="Fact3Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact3Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.35
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
-theme_override_fonts/font = ExtResource("4_0tjdj")
-text = "UI_FACT_LBL"
-
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact3Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.65
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-text = "OCEAN_INITIAL_UI_FACT_CONTENT_3"
-autowrap_mode = 2
-
-[node name="Fact4Container" type="HBoxContainer" parent="MarginContainer/HBoxContainer/RightColumn/Facts"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact4Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.35
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-theme_override_colors/font_color = Color(0.652432, 0.949469, 0.911751, 1)
-theme_override_fonts/font = ExtResource("4_0tjdj")
-text = "UI_FACT_LBL"
-
-[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer/RightColumn/Facts/Fact4Container"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 1
-size_flags_stretch_ratio = 0.65
-theme = ExtResource("2_5xenw")
-theme_type_variation = &"ContentLabel"
-text = "OCEAN_INITIAL_UI_FACT_CONTENT_4"
-autowrap_mode = 2
