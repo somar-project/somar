@@ -147,7 +147,7 @@ animation = &"Long-billed_Dolphin|Long-billed_Dolphin|Swim_F_IP"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f8hej"]
 animation = &"Long-billed_Dolphin|Long-billed_Dolphin|Swim_Fast_F_IP"
 use_custom_timeline = true
-timeline_length = 0.438
+timeline_length = 0.3
 stretch_time_scale = true
 start_offset = 0.0
 loop_mode = 1

@@ -48,10 +48,14 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 			current_target = _pick_target(hunting)
 			flat_current_target = Vector3(current_target.x, 0.0, current_target.z)
 	
-	if current_target.y > current_position.y:
-		state = DolphinState.SWIMMING
-	else:
-		state = DolphinState.SWIMMING_IDLE
+	# Let's swim fast regardless if we're attacking
+	if attacking:
+		state = DolphinState.SWIMMING_FAST
+	else :
+		if current_target.y > current_position.y:
+			state = DolphinState.SWIMMING
+		else:
+			state = DolphinState.SWIMMING_IDLE
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
@@ -89,7 +93,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	
 	if attacking:
 		var current_swim_speed_mod : float = current_swim_speed - 0.1
-		call_deferred("speed_up", 2.0, current_swim_speed_mod * 0.75, current_swim_speed_mod * 0.25)
+		call_deferred("speed_up", 5.0, current_swim_speed_mod * 0.75, current_swim_speed_mod * 1.0)
 
 	if movement_tween:
 		movement_tween.kill()

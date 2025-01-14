@@ -527,15 +527,21 @@ func _handle_obstacle_detected(p_obstacle_area : Area3D) -> void:
 			slow_down()
 
 func speed_up(amount : float = 1.5, initial_duration : float = 0.3, final_duration : float = 0.3) -> void:
+	# A mother never speeds up | Too dangerous to lose the baby !
+	if is_mother:
+		return
+
 	if movement_tween and movement_tween.is_valid() and movement_tween.is_running():
 		var time_left : float = current_swim_speed - movement_tween.get_total_elapsed_time()
 		var corrected_initial_duration : float = initial_duration
 		var corrected_final_duration : float = final_duration
 		var total_duration : float = (initial_duration + final_duration)
 
+		# Make our dolphins swim fast
+		state = DolphinState.SWIMMING_FAST
+
 		if time_left < total_duration:
 			corrected_initial_duration = (initial_duration / total_duration) * time_left
-			corrected_final_duration = time_left - corrected_initial_duration
 		
 		obstacle_avoidance_area.set_deferred("monitoring", false)
 		obstacle_area.set_deferred("monitorable", false)
@@ -555,7 +561,7 @@ func speed_up(amount : float = 1.5, initial_duration : float = 0.3, final_durati
 			movement_tween.set_speed_scale(new_speed_s),
 			amount,
 			1.0,
-			corrected_final_duration
+			1.0
 		)
 
 		await speed_change_tween.finished
