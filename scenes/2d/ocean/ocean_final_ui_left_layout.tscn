@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cy1psjwv3hhs1"]
 
 [ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_lpwh7"]
+[ext_resource type="Texture2D" uid="uid://bmgqhwq7bipsg" path="res://scenes/2d/textures/final_ui/final_ui_orca.png" id="2_s3fqp"]
 [ext_resource type="Theme" uid="uid://detpa4qnk63je" path="res://scenes/2d/info_plane_theme.tres" id="2_w66t3"]
-[ext_resource type="Texture2D" uid="uid://t2v5dti20rtx" path="res://scenes/2d/textures/Ratfish-Old-Wide.png" id="3_g1ar4"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
 texture = ExtResource("1_lpwh7")
@@ -23,10 +23,10 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_yp67b")
 layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
-theme_override_constants/margin_left = 75
-theme_override_constants/margin_top = 75
-theme_override_constants/margin_right = 75
-theme_override_constants/margin_bottom = 75
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -43,37 +43,28 @@ alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ImageContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BottleNoseDolphin" type="TextureRect" parent="MarginContainer/VBoxContainer/ImageContainer"]
+layout_mode = 2
+texture = ExtResource("2_s3fqp")
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_w66t3")
 theme_type_variation = &"TitleLabel"
 text = "OCEAN_FINAL_UI_L_LOC_NAME"
+horizontal_alignment = 1
 
-[node name="ContentLabel" type="Label" parent="MarginContainer/HBoxContainer/LeftColumn/VBoxContainer"]
+[node name="ContentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_w66t3")
 theme_type_variation = &"ContentLabel"
+theme_override_font_sizes/font_size = 35
 text = "OCEAN_FINAL_UI_L_CONTENT"
-horizontal_alignment = 3
 autowrap_mode = 2
-
-[node name="RightColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.3
-theme_override_constants/separation = 40
-alignment = 1
-
-[node name="Image" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
-modulate = Color(0.68, 0.984, 1, 1)
-layout_mode = 2
-texture = ExtResource("3_g1ar4")
-expand_mode = 5
-stretch_mode = 4
-
-[node name="Image2" type="TextureRect" parent="MarginContainer/HBoxContainer/RightColumn"]
-modulate = Color(0.68, 0.984, 1, 1)
-layout_mode = 2
-texture = ExtResource("3_g1ar4")
-expand_mode = 5
-stretch_mode = 4
