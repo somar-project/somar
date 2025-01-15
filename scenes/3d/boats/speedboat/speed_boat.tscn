@@ -104,7 +104,7 @@ engine_start_audio = ExtResource("7_0shxh")
 engine_start_offset = 3.0
 
 [node name="MovementPivot" type="Node3D" parent="."]
-transform = Transform3D(0.999407, -0.0344387, 1.42878e-06, 0.0344387, 0.999407, 5.1269e-05, -3.19357e-06, -5.11894e-05, 1, 0, -0.0541639, 0)
+transform = Transform3D(0.999663, -0.0259698, -5.02759e-05, 0.0259697, 0.999661, -0.00180406, 9.711e-05, 0.00180215, 0.999998, 0, -0.0347375, 0)
 
 [node name="speedboat" type="Node3D" parent="MovementPivot"]
 transform = Transform3D(-9.61651e-08, 0, 2.2, 0, 2.2, 0, -2.2, 0, -9.61651e-08, 0, 0, 0)

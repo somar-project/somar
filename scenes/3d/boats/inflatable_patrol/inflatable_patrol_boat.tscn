@@ -243,7 +243,6 @@ states/idle/position = Vector2(380, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_nkxmu"), "idle", "boat_movement", SubResource("AnimationNodeStateMachineTransition_otyij"), "boat_movement", "idle", SubResource("AnimationNodeStateMachineTransition_3p3xj")]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_be587"]
-graph_offset = Vector2(-193, 71)
 nodes/StateMachine/node = SubResource("AnimationNodeStateMachine_gnoc8")
 nodes/StateMachine/position = Vector2(-20, 120)
 node_connections = [&"output", 0, &"StateMachine"]
