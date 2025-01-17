@@ -257,7 +257,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	if current_target.y > current_position.y:
 		state = DolphinState.SWIMMING
 	else:
-		state = DolphinState.SWIMMING_IDLE
+		state = DolphinState.SWIMMING
 
 	var distance_to_target : float = current_position.distance_to(current_target) * 0.5
 	var direction : Vector3 = (current_position - current_target).normalized()
