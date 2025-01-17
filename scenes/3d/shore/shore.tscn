@@ -200,9 +200,9 @@ move_time = 200.0
 [node name="DolphinAudioManager" type="Node3D" parent="."]
 script = ExtResource("18_t7q0w")
 clicking_sounds = Array[AudioStream]([ExtResource("21_5soph"), ExtResource("22_ut37v"), ExtResource("23_1ttxu"), ExtResource("24_sa8eq"), ExtResource("25_466ey"), ExtResource("26_8uqqu"), ExtResource("27_8iwv0"), ExtResource("28_3c110")])
-clicking_rate = 0.49
+clicking_rate = 0.4
 clicking_cooldown = 0.8
-clicking_volume_db = 5.0
 whistles_sounds = Array[AudioStream]([ExtResource("22_8p3xt"), ExtResource("23_8oaql"), ExtResource("24_7akrk"), ExtResource("25_j1kiq"), ExtResource("26_bkgtk")])
 whistling_rate = 0.75
 whistling_cooldown = 0.8
+whistling_volume_db = 5.0
