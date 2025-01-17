@@ -105,7 +105,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
 
 [node name="Splashscreen" type="Node3D" parent="XRCamera3D"]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.471853, -3)
 
 [node name="SplashScreenLogos" type="MeshInstance3D" parent="XRCamera3D/Splashscreen"]
 material_override = SubResource("ShaderMaterial_v6qvq")
