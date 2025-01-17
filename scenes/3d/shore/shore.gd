@@ -84,9 +84,9 @@ func _make_dolphins_stop() -> void:
 			dolphin.force_stop = true
 			dolphin.target_reached.connect(_move_dolphin_to_boat.bind(dolphin), CONNECT_ONE_SHOT)
 	
-	dolphin_audio_manager.clicking_rate = 0.2
+	dolphin_audio_manager.clicking_rate = 0.3
 	dolphin_audio_manager.whistling_rate = 0.75
-	dolphin_audio_manager.whistling_volume_db = 1.5
+	dolphin_audio_manager.whistling_volume_db = 4
 
 	tree.create_timer(
 		randf_range(min_dolphins_curiosity_duration, max_dolphins_curiosity_duration)
