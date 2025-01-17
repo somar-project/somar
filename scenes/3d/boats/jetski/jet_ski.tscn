@@ -15,6 +15,7 @@
 [ext_resource type="Material" uid="uid://lbqvw0btqgoe" path="res://scenes/3d/boats/trail/materials/trail_material_v2.tres" id="6_q53xe"]
 [ext_resource type="ArrayMesh" uid="uid://couxsfsrif3n0" path="res://scenes/3d/boats/trail/mesh/inflatable_patrol_boat_foam_FoamPlane.res" id="7_h38w5"]
 [ext_resource type="AudioStream" uid="uid://f5nxjqy836mh" path="res://scenes/3d/boats/inflatable_patrol/audio/starting_sfx.wav" id="7_uq88s"]
+[ext_resource type="AudioStream" uid="uid://s2xvekcu1rql" path="res://scenes/3d/boats/jetski/audio/jetski_sfx_loud.wav" id="16_60pko"]
 
 [sub_resource type="Curve" id="Curve_eagys"]
 _data = [Vector2(0, 0), 0.0, 1.4, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -186,10 +187,11 @@ metadata/in_use = false
 
 [node name="EngineLoopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("4_6wpgi")
-volume_db = 6.0
+stream = ExtResource("16_60pko")
+volume_db = 10.0
 unit_size = 50.0
 max_db = 6.0
+autoplay = true
 max_distance = 110.0
 bus = &"Boats"
 

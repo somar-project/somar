@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/3d/shore/secondary_boats/shore_jet_ski.gd" id="1_n62x3"]
 [ext_resource type="PackedScene" uid="uid://bfofa0fijqdni" path="res://scenes/3d/boats/jetski/jet_ski.tscn" id="2_giij2"]
-[ext_resource type="AudioStream" uid="uid://de4ouw83sy55j" path="res://scenes/3d/boats/jetski/audio/jetski_sfx.wav" id="3_il7vg"]
+[ext_resource type="AudioStream" uid="uid://s2xvekcu1rql" path="res://scenes/3d/boats/jetski/audio/jetski_sfx_loud.wav" id="3_8v7n1"]
 
 [sub_resource type="Curve3D" id="Curve3D_5ulwm"]
 _data = {
@@ -32,8 +32,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23725, 0, 1.29756)
 
 [node name="EngineLoopAudioPlayer" type="AudioStreamPlayer3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.26269, 0, 0)
-stream = ExtResource("3_il7vg")
-volume_db = 6.0
+stream = ExtResource("3_8v7n1")
+volume_db = 15.0
 unit_size = 20.0
 max_db = 6.0
 autoplay = true
