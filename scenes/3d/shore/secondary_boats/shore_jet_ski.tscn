@@ -26,11 +26,9 @@ rotation_mode = 4
 [node name="JetSki" parent="Path3D/PathFollow3D" instance=ExtResource("2_giij2")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.957859, 0, 0)
-engine_start_offset = 3.5
 
 [node name="JetSki2" parent="Path3D/PathFollow3D" instance=ExtResource("2_giij2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.23725, 0, 1.29756)
-engine_start_offset = 3.5
 
 [node name="EngineLoopAudioPlayer" type="AudioStreamPlayer3D" parent="Path3D/PathFollow3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.26269, 0, 0)

@@ -22,7 +22,7 @@ func _play() -> void:
 	var total_time : float = distance / (jet_ski.speed / 3.6)
 	var hide_time : float = total_time * 0.2
 
-	get_tree().create_timer(total_time / 2.0).timeout.connect(_signal_middle)
+	get_tree().create_timer(total_time / 3.0).timeout.connect(_signal_middle)
 
 	var move_tween : Tween = create_tween()
 	move_tween.set_parallel(true)
