@@ -14,10 +14,11 @@ signal whale_breathe
 @onready var whale_audio : AudioStreamPlayer3D = %WhaleAudio
 
 @export var surface_marker : Marker3D
-@export var move_time : float = 120.0
+@export var move_time : float = 150.0
 @export var show_particles_at_ratio : float = 0.55
 @export var stop_particles_at_ratio : float = 0.65
 @export var audios : Array[AudioStream]
+@export var blue : bool
 
 const PATHS : Array[Curve3D] = [
 	preload("res://scenes/3d/animals/whales/humpback/paths/path_0.tres"),
@@ -31,7 +32,10 @@ func play() -> void:
 	whale.scale = Vector3.ONE
 	whale.visible = true
 
-	path.curve = PATHS.pick_random()
+	if blue :
+		path.curve = PATHS[0]
+	else :
+		path.curve = PATHS[1]
 	whale_audio.stream = audios.pick_random()
 	whale_audio.play()
 

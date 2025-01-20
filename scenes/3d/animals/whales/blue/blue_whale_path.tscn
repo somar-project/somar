@@ -12,11 +12,12 @@ audios = Array[AudioStream]([ExtResource("2_rreg3")])
 
 [node name="WhalePath" type="Path3D" parent="."]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -8)
 curve = ExtResource("3_u3e05")
 
 [node name="WhalePathFollow" type="PathFollow3D" parent="WhalePath"]
 unique_name_in_owner = true
-transform = Transform3D(0.999998, 0, 0, 0, 1.00016, 0, 0, 0, 1, -45, 0, 100)
+transform = Transform3D(0.943677, 0.000597403, -0.330858, 0, 1.00015, 0.00180534, 0.330857, -0.00170392, 0.943679, -45.6156, -0.0410377, 100)
 rotation_mode = 4
 
 [node name="Whale" parent="WhalePath/WhalePathFollow" instance=ExtResource("3_ncc35")]

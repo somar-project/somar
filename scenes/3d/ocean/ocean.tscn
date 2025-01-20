@@ -161,14 +161,15 @@ visible = false
 unique_name_in_owner = true
 process_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 0)
-visible = false
 move_time = 180.0
 
 [node name="BlueWhalePath" parent="." instance=ExtResource("13_fim7d")]
 unique_name_in_owner = true
 process_mode = 4
-visible = false
-move_time = 200.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.71307, 0)
+move_time = 150.0
+show_particles_at_ratio = 0.55
+blue = true
 
 [node name="FishSchoolPath3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -6.0758)
@@ -207,4 +208,4 @@ rotation_mode = 4
 update_scale = false
 
 [node name="OrcaPodPath" parent="." instance=ExtResource("25_v3vew")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.403)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.916304, -10.403)
