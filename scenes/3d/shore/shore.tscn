@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=40 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://scenes/3d/shore/shore.gd" id="1_5fr5e"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
@@ -20,7 +20,6 @@
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="16_wn450"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="17_tovah"]
 [ext_resource type="Script" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="18_t7q0w"]
-[ext_resource type="AudioStream" uid="uid://4yrtqnvfk30c" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_0_2.tres" id="21_5soph"]
 [ext_resource type="AudioStream" uid="uid://csqhfox0ir51n" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_0.wav" id="22_8p3xt"]
 [ext_resource type="AudioStream" uid="uid://nyb8t33ki0i8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_3.wav" id="22_ut37v"]
 [ext_resource type="AudioStream" uid="uid://dan7wrcu671x8" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_4.wav" id="23_1ttxu"]
@@ -199,7 +198,7 @@ move_time = 200.0
 
 [node name="DolphinAudioManager" type="Node3D" parent="."]
 script = ExtResource("18_t7q0w")
-clicking_sounds = Array[AudioStream]([ExtResource("21_5soph"), ExtResource("22_ut37v"), ExtResource("23_1ttxu"), ExtResource("24_sa8eq"), ExtResource("25_466ey"), ExtResource("26_8uqqu"), ExtResource("27_8iwv0"), ExtResource("28_3c110")])
+clicking_sounds = Array[AudioStream]([ExtResource("22_ut37v"), ExtResource("23_1ttxu"), ExtResource("24_sa8eq"), ExtResource("25_466ey"), ExtResource("26_8uqqu"), ExtResource("27_8iwv0"), ExtResource("28_3c110")])
 clicking_rate = 0.3
 clicking_cooldown = 0.8
 whistles_sounds = Array[AudioStream]([ExtResource("22_8p3xt"), ExtResource("23_8oaql"), ExtResource("24_7akrk"), ExtResource("25_j1kiq"), ExtResource("26_bkgtk")])

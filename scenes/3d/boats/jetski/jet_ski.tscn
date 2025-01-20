@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bfofa0fijqdni"]
+[gd_scene load_steps=31 format=3 uid="uid://bfofa0fijqdni"]
 
 [ext_resource type="Shader" uid="uid://bufpt1ntjbbl4" path="res://scenes/3d/boats/inflatable_patrol/materials/boat_color_w_height_shader.tres" id="1_jpjfy"]
 [ext_resource type="ArrayMesh" uid="uid://cy2xjgvv5cv1c" path="res://scenes/3d/boats/jetski/mesh/jet_ski_Jet_Ski.res" id="1_s6wo2"]
@@ -103,7 +103,7 @@ engine_idle_audio = ExtResource("6_64tc6")
 engine_start_audio = ExtResource("7_uq88s")
 
 [node name="MovementPivot" type="Node3D" parent="."]
-transform = Transform3D(0.999981, -0.00616212, -1.63242e-05, 0.00616211, 0.999981, -0.000585766, 1.99335e-05, 0.000585654, 1, 0, -0.00771918, 0)
+transform = Transform3D(0.99999, 0.00418095, 8.63768e-05, -0.00418119, 0.999987, 0.00309949, -7.34168e-05, -0.00309982, 0.999995, 0, -0.00371165, 0)
 
 [node name="jet_ski" type="Node3D" parent="MovementPivot"]
 transform = Transform3D(-5.90104e-09, 0, 0.135, 0, 0.135, 0, -0.135, 0, -5.90104e-09, 0, 0.154004, 0)
