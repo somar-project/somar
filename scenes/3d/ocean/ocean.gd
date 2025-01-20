@@ -71,6 +71,7 @@ func _start_boat_event() -> void:
 		path_quadrants_parent,
 		randi_range(2, 3)
 	)
+	initial_boat.engine_loop_audio_player.play()
 
 
 func _handle_boat_ratio_reached(ratio : float) -> void:
@@ -124,17 +125,30 @@ func _move_boat_to_whale_path() -> void:
 	var boat_middle_point_0 : Vector3 = boat_current_pos + (boat_dir * (boat_dist / 3.0))
 	var boat_middle_point_1 : Vector3 = boat_target_pos + (dir_to_boat * (boat_dist / 3.0))
 
-
-	initial_boat.engine_loop_audio_player.stop()
 	initial_boat.engine_start_stop_audio_player.stream = initial_boat.engine_stop_audio
 	initial_boat.engine_start_stop_audio_player.play()
 
-	initial_boat.engine_start_stop_audio_player.finished.connect(func():
-		AudioManager.set_bus_volume(-3.0, AudioManager.AudioBus.BOATS, 0.3)
+	initial_boat.engine_idle_loop_audio_player.stream = initial_boat.engine_idle_audio
+	initial_boat.engine_idle_loop_audio_player.volume_db = -30.0
+	var engine_tween : Tween = create_tween()
+	engine_tween.tween_property(
+		initial_boat.engine_idle_loop_audio_player,
+		"volume_db",
+		0.0,
+		1.0
+	)
+	initial_boat.engine_idle_loop_audio_player.play()
 
-		initial_boat.engine_loop_audio_player.stream = initial_boat.engine_idle_audio
-		initial_boat.engine_loop_audio_player.play()
-	, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
+	var engine_tween2 : Tween = create_tween()
+	engine_tween2.tween_callback(func() -> void :
+		initial_boat.engine_loop_audio_player.stop()
+	).set_delay(1.75)
+	engine_tween2.tween_property(
+		initial_boat.engine_loop_audio_player,
+		"volume_db",
+		-30.0,
+		1.75
+	)
 
 	var time_to_stop : float = (boat_dist * 1.5) / initial_boat.boat_speed_in_m_per_s
 

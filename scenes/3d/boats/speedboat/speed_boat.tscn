@@ -104,7 +104,7 @@ engine_start_audio = ExtResource("7_0shxh")
 engine_start_offset = 3.0
 
 [node name="MovementPivot" type="Node3D" parent="."]
-transform = Transform3D(0.99968, -0.0252928, -4.99124e-05, 0.0252926, 0.999678, -0.00179102, 9.51962e-05, 0.00178918, 0.999998, 0, -0.033719, 0)
+transform = Transform3D(0.999401, -0.034618, -2.85874e-05, 0.034618, 0.999399, -0.00102581, 6.40818e-05, 0.0010242, 0.999999, 0, -0.0508777, 0)
 
 [node name="speedboat" type="Node3D" parent="MovementPivot"]
 transform = Transform3D(-9.61651e-08, 0, 2.2, 0, 2.2, 0, -2.2, 0, -9.61651e-08, 0, 0, 0)
@@ -193,6 +193,9 @@ unit_size = 15.0
 max_db = 6.0
 max_distance = 110.0
 bus = &"Boats"
+
+[node name="EngineIdleLoopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
+unique_name_in_owner = true
 
 [node name="EngineStartStopAudioPlayer" type="AudioStreamPlayer3D" parent="."]
 unique_name_in_owner = true

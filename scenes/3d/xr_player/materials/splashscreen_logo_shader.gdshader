@@ -14,7 +14,7 @@ void vertex() {
 void fragment() {
 	vec4 logo_t = texture(logo, UV);
 	vec4 logo_back_t = texture(logo_back, back_uv);
-	
+
 	if (FRONT_FACING) {
 		ALBEDO = logo_t.rgb;
 		ALPHA = logo_t.a;

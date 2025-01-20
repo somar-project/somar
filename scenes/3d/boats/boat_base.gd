@@ -42,6 +42,7 @@ enum BoatState {
 @export var engine_start_offset : float = 3.5
 
 @onready var engine_loop_audio_player : AudioStreamPlayer3D = %EngineLoopAudioPlayer
+@onready var engine_idle_loop_audio_player : AudioStreamPlayer3D = %EngineIdleLoopAudioPlayer
 @onready var engine_start_stop_audio_player : AudioStreamPlayer3D = %EngineStartStopAudioPlayer
 
 const CURVE_RADIUS : float = 20.0
@@ -149,7 +150,7 @@ func _start_initial_movement() -> void:
 	var final_pos : Vector3 = initial_boat_position + (boat_direction * stop_distance)
 	var time_to_stop : float = stop_distance / boat_speed_in_m_per_s
 
-	engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
+	engine_loop_audio_player.play()
 
 	if boat_tween:
 		boat_tween.kill()
@@ -160,7 +161,7 @@ func _start_initial_movement() -> void:
 		self,
 		"scale",
 		Vector3.ONE,
-		0.1
+		1.0
 	)
 	boat_tween.tween_property(
 		self,
@@ -170,7 +171,6 @@ func _start_initial_movement() -> void:
 	)
 
 	await boat_tween.finished
-	engine_loop_audio_player.call_deferred("stop")
 	_stop_drift()
 
 func _start_initial_movement_no_stop() -> void:
@@ -179,8 +179,6 @@ func _start_initial_movement_no_stop() -> void:
 	var stop_distance : float = (stop_at_ratio * distance_between_points)
 	var final_pos : Vector3 = initial_boat_position + (boat_direction * stop_distance)
 	var time_to_stop : float = stop_distance / boat_speed_in_m_per_s
-
-	engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
 
 	if boat_tween:
 		boat_tween.kill()
@@ -199,7 +197,6 @@ func _start_initial_movement_no_stop() -> void:
 		final_pos,
 		time_to_stop
 	)
-
 
 func _stop_drift() -> void:
 	state = BoatState.IDLE
@@ -214,13 +211,27 @@ func _stop_drift() -> void:
 
 	engine_start_stop_audio_player.stream = engine_stop_audio
 	engine_start_stop_audio_player.play()
+	engine_idle_loop_audio_player.stream = engine_idle_audio
+	engine_idle_loop_audio_player.volume_db = -30.0
+	engine_idle_loop_audio_player.play()
+	var engine_tween : Tween = create_tween()
+	engine_tween.tween_property(
+		engine_idle_loop_audio_player,
+		"volume_db",
+		0.0,
+		1.0
+	)
 
-	engine_start_stop_audio_player.finished.connect(func():
-		AudioManager.set_bus_volume(-3.0, AudioManager.AudioBus.BOATS, 0.3)
-
-		engine_loop_audio_player.stream = engine_idle_audio
-		engine_loop_audio_player.play()
-	, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
+	var engine_tween2 : Tween = create_tween()
+	engine_tween2.tween_callback(func() -> void :
+		engine_loop_audio_player.stop()
+	).set_delay(1.75)
+	engine_tween2.tween_property(
+		engine_loop_audio_player,
+		"volume_db",
+		-30.0,
+		1.75
+	)
 
 	if boat_tween:
 		boat_tween.kill()

@@ -12,11 +12,11 @@ uniform float roughness : hint_range(0.0, 1.0) = 1.0;
 
 void fragment() {
 	vec4 albedo_t = texture(albedo_texture, UV);
-	
+
 	SPECULAR = specular;
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
-	
+
 	ALBEDO = albedo_color * albedo_t.rgb;
 	ALPHA = albedo_t.a;
 	ALPHA_SCISSOR_THRESHOLD = alpha_scissor_threshold;

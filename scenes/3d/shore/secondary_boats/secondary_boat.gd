@@ -78,7 +78,7 @@ func play(left : bool, boat_type : int = -1) -> void:
 	slow_down_time = boat.engine_stop_audio.get_length()
 
 	boat.engine_loop_audio_player.stream = boat.engine_loop_audio
-	boat.engine_loop_audio_player.play(randf_range(0.0, boat.engine_loop_audio.get_length() - 0.1))
+	boat.engine_loop_audio_player.play()
 
 	if move_tween:
 		move_tween.kill()
@@ -104,14 +104,42 @@ func play(left : bool, boat_type : int = -1) -> void:
 
 	boat.final_boat_position = boat.global_position + (boat.boat_direction * boat_spawn_distance)
 
-	boat.engine_loop_audio_player.stream = boat.engine_idle_audio
-	boat.engine_loop_audio_player.play()
-
 
 func _slow_down() -> void:
-	boat.engine_loop_audio_player.stop()
+	## Smoothly stops engine audio
+	var engine_top_tween : Tween = create_tween()
+	engine_top_tween.tween_callback(func() -> void:
+		boat.engine_loop_audio_player.stop()
+	).set_delay(2.0)
+	engine_top_tween.tween_property(
+		boat.engine_loop_audio_player,
+		"volume_db",
+		-30.0,
+		1.75
+	)
+
 	boat.engine_start_stop_audio_player.stream = boat.engine_stop_audio
 	boat.engine_start_stop_audio_player.play()
+	boat.engine_idle_loop_audio_player.stream = boat.engine_idle_audio
+	boat.engine_idle_loop_audio_player.volume_db = -30.0
+	var idle_audio_tween : Tween = create_tween()
+	idle_audio_tween.tween_property(
+		boat.engine_idle_loop_audio_player,
+		"volume_db",
+		0.0,
+		1.0
+	)
+	boat.engine_loop_audio_player.play()
+	var engine_tween2 : Tween = create_tween()
+	engine_tween2.tween_callback(func() -> void:
+		boat.engine_loop_audio_player.stop()
+	).set_delay(1.75)
+	engine_tween2.tween_property(
+		boat.engine_loop_audio_player,
+		"volume_db",
+		-30.0,
+		1.75
+	)
 
 	var stop_emitting_bubbles_at : float = maxf((slow_down_time - boat.bubbles_particles.lifetime), 0.05)
 	
