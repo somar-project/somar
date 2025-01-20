@@ -93,7 +93,7 @@ func swim_to_target(boat_pos : Vector3 = Vector3.ZERO, target : Vector3 = Vector
 	
 	if attacking:
 		var current_swim_speed_mod : float = current_swim_speed - 0.1
-		call_deferred("speed_up", 5.0, current_swim_speed_mod * 0.75, current_swim_speed_mod * 1.0)
+		call_deferred("speed_up", 4.0, current_swim_speed_mod * 0.75, current_swim_speed_mod * 1.0)
 
 	if movement_tween:
 		movement_tween.kill()

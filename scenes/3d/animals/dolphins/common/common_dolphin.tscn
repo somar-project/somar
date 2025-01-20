@@ -665,6 +665,7 @@ shape = SubResource("SphereShape3D_4ort3")
 
 [node name="DolphinAudioPlayer" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.115413, 0)
+volume_db = 10.0
 unit_size = 5.0
 max_db = 0.0
 max_distance = 50.0
