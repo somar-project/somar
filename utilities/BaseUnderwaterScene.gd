@@ -18,7 +18,7 @@ enum SceneType {
 }
 @export var scene_type : SceneType = SceneType.OCEAN
 @export var dolphin_audio_manager : DolphinAudioManager
-@export var whale_event_delay : float = 0.0
+@export var whale_event_delay : float = 30.0
 @export var boat_loops : int = 2 # Un-used! But cannot remove unless config file system is updated as well.
 @export var initial_ui : Node3D
 @export var final_ui : Node3D
@@ -191,8 +191,8 @@ func _initialize_saved_data() -> void:
 	
 	if src_data.animals.whales.humpback.enabled:
 		whales.push_back(humpback_whale_path)
-	if src_data.animals.whales.blue.enabled:
-		whales.push_back(blue_whale_path)
+	#if src_data.animals.whales.blue.enabled:
+	#	whales.push_back(blue_whale_path)
 	
 	if not whales.is_empty():
 		whales.shuffle()
