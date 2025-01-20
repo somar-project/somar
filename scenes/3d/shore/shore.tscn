@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c1sswtpcofyfs"]
+[gd_scene load_steps=41 format=3 uid="uid://c1sswtpcofyfs"]
 
 [ext_resource type="Script" path="res://scenes/3d/shore/shore.gd" id="1_5fr5e"]
 [ext_resource type="Environment" uid="uid://bn8eowi3cxda3" path="res://scenes/3d/shore/shore_we.tres" id="2_l7j2l"]
@@ -32,6 +32,7 @@
 [ext_resource type="AudioStream" uid="uid://bs241gqauk1hg" path="res://scenes/3d/animals/dolphins/bottlenose/audio/whistle/bn_whistle_4.wav" id="26_bkgtk"]
 [ext_resource type="AudioStream" uid="uid://dpr81gns878vk" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_8.wav" id="27_8iwv0"]
 [ext_resource type="AudioStream" uid="uid://55ve5bo4euh0" path="res://scenes/3d/animals/dolphins/bottlenose/audio/click/bn_click_9.wav" id="28_3c110"]
+[ext_resource type="AudioStream" uid="uid://cacjucr2ob038" path="res://scenes/3d/xr_player/audio/shrimp coastal area.mp3" id="33_j1bp6"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3gmhg"]
 size = Vector2(160, 160)
@@ -205,3 +206,8 @@ whistles_sounds = Array[AudioStream]([ExtResource("22_8p3xt"), ExtResource("23_8
 whistling_rate = 0.75
 whistling_cooldown = 0.8
 whistling_volume_db = 4.0
+
+[node name="ShrimpsAudioPlayer" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("33_j1bp6")
+volume_db = -30.0

@@ -17,6 +17,8 @@ var final_dolphin_reached_signal_connected : bool = false
 var final_boat_reached_signal_connected : bool = false
 var final_boat_hide_signal_connected : bool = false
 
+@onready var ShrimpsPlayer : AudioStreamPlayer = %ShrimpsAudioPlayer
+
 
 func _ready() -> void:
 	super()
@@ -27,6 +29,16 @@ func _ready() -> void:
 	await initial_ui.ui_closed
 
 	dolphin_audio_manager.start()
+
+	var shrimp_fade_in : Tween = create_tween()
+	shrimp_fade_in.set_ease(Tween.EASE_IN)
+	shrimp_fade_in.tween_property(
+		ShrimpsPlayer,
+		"volume_db",
+		-5.0,
+		1.0
+	)
+	ShrimpsPlayer.play()
 
 	timer.timeout.connect(_start_boat_event, CONNECT_ONE_SHOT + CONNECT_DEFERRED)
 	timer.start(randf_range(min_boat_event_spawn_delay, max_boat_event_spawn_delay))
