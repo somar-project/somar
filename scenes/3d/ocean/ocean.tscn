@@ -156,6 +156,7 @@ unique_name_in_owner = true
 [node name="InflatablePatrolBoat" parent="Boats" instance=ExtResource("9_omrdy")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 visible = false
+state = 0
 
 [node name="HumpbackWhalePath" parent="." instance=ExtResource("12_xgx7v")]
 unique_name_in_owner = true

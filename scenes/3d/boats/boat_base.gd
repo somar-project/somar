@@ -24,7 +24,7 @@ enum BoatState {
 	IDLE = 0,
 	MOVING = 1
 }
-@export var state : BoatState = BoatState.IDLE
+@export var state : BoatState = BoatState.MOVING
 @export var stop_drift_curve : Curve
 @export var start_drift_curve : Curve
 
@@ -39,7 +39,7 @@ enum BoatState {
 @export var engine_stop_audio : AudioStream
 @export var engine_idle_audio : AudioStream
 @export var engine_start_audio : AudioStream
-@export var engine_start_offset : float = 3.5
+@export var engine_start_offset : float = 2.5
 
 @onready var engine_loop_audio_player : AudioStreamPlayer3D = %EngineLoopAudioPlayer
 @onready var engine_idle_loop_audio_player : AudioStreamPlayer3D = %EngineIdleLoopAudioPlayer
@@ -199,7 +199,7 @@ func _start_initial_movement_no_stop() -> void:
 	)
 
 func _stop_drift() -> void:
-	state = BoatState.IDLE
+	state = BoatState.MOVING #keep moving the propelers
 
 	var drift_time : float = engine_stop_audio.get_length()
 	var drift_distance : float = boat_speed_in_m_per_s * drift_time
@@ -283,9 +283,20 @@ func start_final_movement(delay : float = 0.0) -> void:
 
 	if engine_loop_audio_player.playing:
 		engine_loop_audio_player.stop()
-	AudioManager.set_bus_volume(3.0, AudioManager.AudioBus.BOATS, 0.3)
+	AudioManager.set_bus_volume(5.0, AudioManager.AudioBus.BOATS, 0.3)
 	engine_start_stop_audio_player.stream = engine_start_audio
 	engine_start_stop_audio_player.play()
+
+	var engine_start_tween : Tween = create_tween()
+	engine_loop_audio_player.volume_db = -30.0
+	engine_loop_audio_player.stream = engine_loop_audio
+	engine_loop_audio_player.play()
+	engine_start_tween.tween_property(
+		engine_loop_audio_player,
+		"volume_db",
+		10.0,
+		5.0
+	)
 
 	if not signal_at_ratios.is_empty():
 		for ratio : float in signal_at_ratios:
@@ -332,10 +343,6 @@ func start_final_movement(delay : float = 0.0) -> void:
 	).set_custom_interpolator(func(v : float) -> float:
 		return start_drift_curve.sample_baked(v)
 	)
-	boat_tween.tween_callback(func() -> void:
-		engine_loop_audio_player.stream = engine_loop_audio
-		engine_loop_audio_player.play(randf_range(0.0, engine_loop_audio.get_length() - 0.1))
-	).set_delay(drift_time)
 	boat_tween.tween_property(
 		self,
 		"global_position",

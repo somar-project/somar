@@ -31,7 +31,6 @@ var boat_spawn_distance : float = 160.0
 var total_time : float = 0.0
 var slow_down_time : float = 0.0
 
-
 func _debug_play(v : bool) -> void:
 	if v and Engine.is_editor_hint():
 		play(true if randi_range(0, 1) == 1 else false)
@@ -62,6 +61,8 @@ func play(left : bool, boat_type : int = -1) -> void:
 	
 	path_follow_3d.v_offset = boat.surface_offset
 	
+	boat.state = boat.BoatState.MOVING
+
 	var selected_path : Curve3D
 	if left:
 		selected_path = await ResourceManager.load_resource(PATHS.left.pick_random())

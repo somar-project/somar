@@ -281,6 +281,7 @@ colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 [node name="InflatablePatrolBoat" type="Node3D" node_paths=PackedStringArray("dolphin_curious_positions_parent", "bubbles_particles", "foam_plane_material_parent", "hull_bottom_material_parent")]
 script = ExtResource("1_mu78g")
 dolphin_curious_positions_parent = NodePath("DolphinCuriousPositions")
+state = 0
 stop_drift_curve = SubResource("Curve_tpl33")
 start_drift_curve = SubResource("Curve_nkpm1")
 bubbles_particles = NodePath("BoatTrail/BubblesParticles")
@@ -290,6 +291,7 @@ engine_loop_audio = ExtResource("15_paq1w")
 engine_stop_audio = ExtResource("3_6aigu")
 engine_idle_audio = ExtResource("19_ni2oc")
 engine_start_audio = ExtResource("6_5x6br")
+engine_start_offset = 3.5
 
 [node name="MovementPivot" type="Node3D" parent="."]
 

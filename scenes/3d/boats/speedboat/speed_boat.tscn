@@ -92,6 +92,7 @@ script = ExtResource("1_uk7d7")
 speed = 32.0
 surface_offset = -0.293
 dolphin_curious_positions_parent = NodePath("DolphinCuriousPositions")
+state = 0
 stop_drift_curve = SubResource("Curve_tpl33")
 start_drift_curve = SubResource("Curve_nkpm1")
 bubbles_particles = NodePath("BoatTrail/BubblesParticles")
