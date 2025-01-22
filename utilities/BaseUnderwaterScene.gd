@@ -191,8 +191,8 @@ func _initialize_saved_data() -> void:
 	
 	if src_data.animals.whales.humpback.enabled:
 		whales.push_back(humpback_whale_path)
-	#if src_data.animals.whales.blue.enabled:
-	#	whales.push_back(blue_whale_path)
+	if src_data.animals.whales.blue.enabled:
+		whales.push_back(blue_whale_path)
 	
 	if not whales.is_empty():
 		whales.shuffle()
