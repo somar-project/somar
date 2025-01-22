@@ -28,4 +28,3 @@ func _ready() -> void:
 		ui_closed.emit()
 		queue_free()
 	, CONNECT_ONE_SHOT)
-

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpk7gak1sti04"]
+[gd_scene load_steps=6 format=3 uid="uid://cpk7gak1sti04"]
 
 [ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_21tcd"]
 [ext_resource type="Texture2D" uid="uid://b2kulemwrqxnn" path="res://scenes/2d/textures/final_ui/final_ui_common-dolphin.png" id="2_p1tcq"]
@@ -6,6 +6,8 @@
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
 texture = ExtResource("1_21tcd")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2mq78"]
 
 [node name="OceanFinalUICenterLayout" type="Control"]
 layout_mode = 3
@@ -28,21 +30,6 @@ theme_override_constants/margin_top = 75
 theme_override_constants/margin_right = 75
 theme_override_constants/margin_bottom = 75
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 50
-
-[node name="LeftColumn" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.7
-theme_override_constants/separation = 40
-alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer/LeftColumn"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
@@ -50,7 +37,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="BottleNoseDolphin" type="TextureRect" parent="MarginContainer/VBoxContainer/ImageContainer"]
+[node name="Animal" type="TextureRect" parent="MarginContainer/VBoxContainer/ImageContainer"]
 layout_mode = 2
 texture = ExtResource("2_p1tcq")
 
@@ -61,9 +48,112 @@ theme_type_variation = &"TitleLabel"
 text = "OCEAN_FINAL_UI_C_LOC_NAME"
 horizontal_alignment = 1
 
-[node name="ContentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 41
+theme_override_styles/separator = SubResource("StyleBoxEmpty_2mq78")
+
+[node name="Size" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Size"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Size/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("2_yqu28")
+theme_type_variation = &"LabelLabel"
+text = "OCEAN_FINAL_UI_C_SIZE_LABEL"
+
+[node name="Content" type="Label" parent="MarginContainer/VBoxContainer/Size"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_yqu28")
 theme_type_variation = &"ContentLabel"
-text = "OCEAN_FINAL_UI_C_CONTENT"
+text = "OCEAN_FINAL_UI_C_SIZE_CONTENT"
+autowrap_mode = 2
+
+[node name="Weight" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Weight"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Weight/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"LabelLabel"
+text = "OCEAN_FINAL_UI_C_WEIGHT_LABEL"
+
+[node name="Content" type="Label" parent="MarginContainer/VBoxContainer/Weight"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_C_WEIGHT_CONTENT"
+autowrap_mode = 2
+
+[node name="Diet" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Diet"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Diet/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"LabelLabel"
+text = "OCEAN_FINAL_UI_C_DIET_LABEL"
+
+[node name="Content" type="Label" parent="MarginContainer/VBoxContainer/Diet"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_C_DIET_CONTENT"
+autowrap_mode = 2
+
+[node name="Habitat" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Habitat"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Habitat/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"LabelLabel"
+text = "OCEAN_FINAL_UI_C_HABITAT_LABEL"
+
+[node name="Content" type="Label" parent="MarginContainer/VBoxContainer/Habitat"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_C_HABITAT_CONTENT"
+autowrap_mode = 2
+
+[node name="Fact" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Fact"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Fact/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"LabelLabel"
+text = "OCEAN_FINAL_UI_C_FACT_LABEL"
+
+[node name="Content" type="Label" parent="MarginContainer/VBoxContainer/Fact"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("2_yqu28")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_C_FACT_CONTENT"
 autowrap_mode = 2

@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=3 uid="uid://vjvrag87vkcx"]
+
+[ext_resource type="Texture2D" uid="uid://bdocdmd6hf3da" path="res://scenes/2d/textures/info_panel_bg.png" id="1_rxo1d"]
+[ext_resource type="Theme" uid="uid://detpa4qnk63je" path="res://scenes/2d/info_plane_theme.tres" id="2_57808"]
+[ext_resource type="Texture2D" uid="uid://yafxev7i2lb" path="res://scenes/2d/textures/sound_wave.png" id="3_as3i5"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yp67b"]
+texture = ExtResource("1_rxo1d")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_b64ud"]
+color = Color(0.98, 0.725, 0.343, 0.75)
+thickness = 8
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w0sx8"]
+
+[node name="OceanFinalSoundscapeUILayout" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="BackgroundPanel" type="Panel" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yp67b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 75
+theme_override_constants/margin_right = 75
+theme_override_constants/margin_bottom = 75
+
+[node name="VBox" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.7
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBox/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBox/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"TitleLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_TITLE"
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/VBox/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_SUBTITLE"
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBox/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+texture = ExtResource("3_as3i5")
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+theme_override_styles/separator = SubResource("StyleBoxLine_b64ud")
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="MarginContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="SoundTitleLabel" type="Label" parent="MarginContainer/VBox/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"SubtitleLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_SOUNDS_LABEL"
+
+[node name="SoundContentLabel" type="Label" parent="MarginContainer/VBox/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_SOUNDS_CONTENT"
+autowrap_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBox/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 46
+theme_override_styles/separator = SubResource("StyleBoxEmpty_w0sx8")
+
+[node name="ImpactTitleLabel" type="Label" parent="MarginContainer/VBox/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"SubtitleLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_IMPACTS_LABEL"
+
+[node name="ImpactContentLabel" type="Label" parent="MarginContainer/VBox/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("2_57808")
+theme_type_variation = &"ContentLabel"
+text = "OCEAN_FINAL_UI_SOUNDSCAPE_IMPACTS_CONTENT"
+autowrap_mode = 2

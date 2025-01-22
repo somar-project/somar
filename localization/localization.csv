@@ -13,27 +13,96 @@ SHORE_INITIAL_UI_LOC_NAME;Coastal Area;Área Costeira
 SHORE_INITIAL_UI_CONTENT;Dominated by golden limestone cliffs, formed around 20 million years ago on the ocean floor. Over time, tectonic movements raised the sea floor, exposing these fossil-rich rocks that now make up the cliffs. This process led to the formation of fascinating sea caves sculpted by waves, rain and winds, which are now explored by many tourist boats. Bottlenose dolphins are frequently observed in these coastal environments searching for food and calm waters for breeding and socializing.;Dominada por falésias de calcário dourado, formadas há cerca de 20 milhões de anos no fundo do oceano. Ao longo do tempo, os movimentos tectónicos elevaram o fundo do mar, expondo estas rochas repletas de fósseis que hoje compõem as falésias. Este processo permitiu a formação de fascinantes grutas marinhas esculpidas pelas ondas, chuvas e ventos que hoje em dia são exploradas por muitos barcos de turismo.  Golfinhos roazes-corvineiros são constantemente observados nestes ambientes costeiros em busca de alimentos e águas calmas para reprodução e socialização.
 SHORE_INITIAL_UI_SPECIES_LBL;Most observed cetaceans:;Cetáceos mais observados:
 SHORE_INITIAL_UI_SPECIES_CONTENT;Bottlenose dolphin and harbour porpoise.;roaz-corvineiro e boto.
-SHORE_INITIAL_UI_FACT_CONTENT_1;Something;Algo
-SHORE_INITIAL_UI_FACT_CONTENT_2;Something;Algo
-SHORE_INITIAL_UI_FACT_CONTENT_3;Something;Algo
-SHORE_INITIAL_UI_FACT_CONTENT_4;Something;Algo
 SHORE_FINAL_UI_L_LOC_NAME;Harbour Porpoise (Phocoena phocoena);Boto (Phocoena phocoena)
-SHORE_FINAL_UI_L_CONTENT;Size: 1.50 to 1.90m in length, rarely exceeding 2m.\nWeight: 55 to 65 kg\nDiet: Typically feeds on the seafloor, catching fish between 10 - 30 cm and cephalopods.\nHabitat: Predominantly found in shallow waters (up to 200m) in subpolar and temperate regions of the Northern Hemisphere.\nFun Fact: It usually hunts alone, without cooperative behaviors.;Tamanho: 1,50 a 1,90m de comprimento, raramente passa os 2 metros.\nPeso: 55 a 65 kg\nAlimentação: Alimenta-se geralmente no fundo, capturando peixes entre 10 - 30cm e cefalópodes.\nÁrea de ocorrência: Distribuem-se predominantemente por águas rasas (até 200m) subpolares e temperadas do hemisfério Norte.\nCuriosidade: Costuma caçar seus alimentos sozinho, sem hábitos cooperativos.
+SHORE_FINAL_UI_L_SIZE_LABEL;Size: ;Tamanho: 
+SHORE_FINAL_UI_L_SIZE_CONTENT;1.50 to 1.90m in length, rarely exceeding 2m.;1,50 a 1,90m de comprimento, raramente passa os 2 metros.
+SHORE_FINAL_UI_L_WEIGHT_LABEL;Weight: ;Peso: 
+SHORE_FINAL_UI_L_WEIGHT_CONTENT;55 to 65 kg;55 a 65 kg
+SHORE_FINAL_UI_L_DIET_LABEL;Diet: ;Alimentação: 
+SHORE_FINAL_UI_L_DIET_CONTENT;Typically feeds on the seafloor, catching fish between 10 - 30 cm and cephalopods.;Alimenta-se geralmente no fundo, capturando peixes entre 10 - 30cm e cefalópodes.
+SHORE_FINAL_UI_L_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+SHORE_FINAL_UI_L_HABITAT_CONTENT;Predominantly found in shallow waters (up to 200m) in subpolar and temperate regions of the Northern Hemisphere.;Distribuem-se predominantemente por águas rasas (até 200m) subpolares e temperadas do hemisfério Norte.
+SHORE_FINAL_UI_L_FACT_LABEL;Fun Fact: ;Curiosidade: 
+SHORE_FINAL_UI_L_FACT_CONTENT;It usually hunts alone, without cooperative behaviors.;Costuma caçar seus alimentos sozinho, sem hábitos cooperativos.
 SHORE_FINAL_UI_C_LOC_NAME;Bottlenose Dolphin (Tursiops truncatus);Roaz-corvineiro (Tursiops truncatus)
-SHORE_FINAL_UI_C_CONTENT;Size: 2 to 4 m in length\nWeight: 150 to 600 kg\nDiet: Fish and cephalopods\nHabitat: Found in tropical and temperate seas worldwide. It is commonly found in coastal habitats such as beaches, estuaries, bays, mangroves, reefs, and even lower sections of rivers.\nFun Fact: It is the most internationally used species in captivity, found in dolphinariums and aquariums;Tamanho: 2 a 4m de comprimento\nPeso: 150 a 600 kg\nAlimentação: peixes e cefalópodes.\nÁrea de ocorrência: mares tropicais e temperados do planeta. É facilmente encontrada em habitats costeiros como: praias, estuários, baías, mangais, recifes e até mesmo nas secções mais baixas de rios.\nCuriosidade: é a espécie internacionalmente mais usada em cativeiro, em delfinários e parques aquáticos.
+SHORE_FINAL_UI_C_SIZE_LABEL;Size: ;Tamanho: 
+SHORE_FINAL_UI_C_SIZE_CONTENT;2 to 4m in length;2 a 4m de comprimento
+SHORE_FINAL_UI_C_WEIGHT_LABEL;Weight: ;Peso: 
+SHORE_FINAL_UI_C_WEIGHT_CONTENT;150 to 600 kg;150 a 600 kg
+SHORE_FINAL_UI_C_DIET_LABEL;Diet: ;Alimentação: 
+SHORE_FINAL_UI_C_DIET_CONTENT;Fish and cephalopods;peixes e cefalópodes.
+SHORE_FINAL_UI_C_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+SHORE_FINAL_UI_C_HABITAT_CONTENT;Found in tropical and temperate seas worldwide. It is commonly found in coastal habitats such as beaches, estuaries, bays, mangroves, reefs, and even lower sections of rivers.;mares tropicais e temperados do planeta. É facilmente encontrada em habitats costeiros como: praias, estuários, baías, mangais, recifes e até mesmo nas secções mais baixas de rios.
+SHORE_FINAL_UI_C_FACT_LABEL;Fun Fact: ;Curiosidade: 
+SHORE_FINAL_UI_C_FACT_CONTENT;It is the most internationally used species in captivity, found in dolphinariums and aquariums;é a espécie internacionalmente mais usada em cativeiro, em delfinários e parques aquáticos.
 SHORE_FINAL_UI_R_LOC_NAME;Minke Whale (Balaenoptera acutorostrata);Baleia-anã (Balaenoptera acutorostrata)
-SHORE_FINAL_UI_R_CONTENT;Size: 7 to 10m in length, the smallest representative of its taxonomic suborder: Mysticeti (baleen whales).\nWeight: 5 to 10 tons\nDiet: Small crustaceans and schooling fish.\nHabitat: Inhabit both coastal and oceanic waters in the Northern and Southern Hemispheres, from polar regions to subtropical areas.\nFun Fact: Easily identifiable by a white mark only on the left pectoral fin.;Tamanho: 7 a 10m de comprimento, é o mais pequeno representante da sua subordem taxonómica: Mysticeti (cetáceo com barbas).\nPeso: 5 a 10 toneladas\nAlimentação: Pequenos crustáceos e peixe de cardume.\nÁrea de ocorrência: Habita águas costeiras e oceânicas dos hemisférios Norte e Sul, desde as regiões polares até as regiões subtropicais.\nCuriosidades: Fácil identificação por ter uma marca branca apenas na nadadeira peitoral esquerda.
+SHORE_FINAL_UI_R_SIZE_LABEL;Size: ;Tamanho: 
+SHORE_FINAL_UI_R_SIZE_CONTENT;7 to 10m in length, the smallest representative of its taxonomic suborder: Mysticeti (baleen whales).;7 a 10m de comprimento, é o mais pequeno representante da sua subordem taxonómica: Mysticeti (cetáceo com barbas).
+SHORE_FINAL_UI_R_WEIGHT_LABEL;Weight: ;Peso: 
+SHORE_FINAL_UI_R_WEIGHT_CONTENT;5 to 10 tons;5 a 10 toneladas
+SHORE_FINAL_UI_R_DIET_LABEL;Diet: ;Alimentação: 
+SHORE_FINAL_UI_R_DIET_CONTENT;Small crustaceans and schooling fish.;Pequenos crustáceos e peixe de cardume.
+SHORE_FINAL_UI_R_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+SHORE_FINAL_UI_R_HABITAT_CONTENT;Inhabit both coastal and oceanic waters in the Northern and Southern Hemispheres, from polar regions to subtropical areas.;Habita águas costeiras e oceânicas dos hemisférios Norte e Sul, desde as regiões polares até as regiões subtropicais.
+SHORE_FINAL_UI_R_FACT_LABEL;Fun Fact: ;Curiosidade: 
+SHORE_FINAL_UI_R_FACT_CONTENT;Easily identifiable by a white mark only on the left pectoral fin.;Fácil identificação por ter uma marca branca apenas na nadadeira peitoral esquerda.
+SHORE_FINAL_UI_SOUNDSCAPE_TITLE;Acoustic Soundscape;Paisagem Acústica
+SHORE_FINAL_UI_SOUNDSCAPE_SUBTITLE;Coastal Area;Área Costeira
+SHORE_FINAL_UI_SOUNDSCAPE_SOUNDS_LABEL;Natural Environmental Sounds:;Sons naturais do ambiente:
+SHORE_FINAL_UI_SOUNDSCAPE_SOUNDS_CONTENT;• Dolphins use whistles, echolocation clicks, and burst pulsed sounds to communicate, navigate, and hunt, ensuring group cohesion and their survival.\n• Snapping shrimp clicks form the background of the acoustic soundscape in this area.;• Golfinhos usam assobios, cliques de ecolocalização e sons pulsados para se comunicar, orientar e caçar, garantindo a coesão do grupo e sua sobrevivência.\n• Estalidos dos camarões compõe a base da paisagem acústica neste local.
+SHORE_FINAL_UI_SOUNDSCAPE_IMPACTS_LABEL;Impact of Vessels:;Impacto das embarcações:
+SHORE_FINAL_UI_SOUNDSCAPE_IMPACTS_CONTENT;• Vessel noise interferes with the natural acoustic soundscape, overpowering the snapping shrimp clicks and dolphin sounds.\n• Intense noise can mask cetacean sounds, reducing the success rate of communication and echolocation.\n• An increased number of boats observing dolphins heightens stress signals, such as reduced communication, behavioural changes, and evacuation of the area.;• O ruído das embarcações interfere na paisagem acústica natural, sobrepondo os estalidos dos camarões e os sons dos golfinhos.\n• Este ruído quando muito intenso mascara os sons dos cetáceos diminuindo a taxa de sucesso da comunicação e ecolocalização.\n• Muitos barcos a observar os golfinhos aumenta os sinais de stress, como redução da comunicação, mudanças de comportamento e evasão do local. 
 OCEAN_INITIAL_UI_LOC_NAME;Continental Shelf;Plataforma Continental
 OCEAN_INITIAL_UI_CONTENT;The seafloor in these areas has been shaped over millions of years by tectonic and erosive processes, creating rock formations that are refuges for marine life, with waters rich in nutrients due to ocean currents from the deep. It is an important route for various migratory or seasonally occurring species, such as the Iberian orcas, known to chase and hunt tuna in this area, and the Fin Whales, the second largest animal on Earth. Common dolphins, during the summer months, intensely use this area for feeding, breeding, and maternity before returning to more northern regions at the beginning of winter.;O fundo do mar nesta área foi moldado ao longo de milhões de anos por processos tectónicos e erosivos que criaram formações rochosas que são refúgios para a vida marinha com águas ricas em nutrientes devido às correntes oceânicas vindas das profundezas. Rota importante para várias espécies migratórias ou de ocorrência sazonal, como as Orcas Ibéricas, conhecidas por perseguir e caçar atuns nesta área e as Baleias-comuns, o segundo maior animal do planeta. Golfinhos-comum, durante os meses de verão utilizam essa área intensamente para alimentação, reprodução e maternidade antes de regressarem para regiões mais ao norte no início do inverno.
 OCEAN_INITIAL_UI_SPECIES_LBL;Most observed cetaceans:;Cetáceos mais observados:
 OCEAN_INITIAL_UI_SPECIES_CONTENT;Common dolphin, bottlenose dolphin, striped dolphin, harbour porpoise, orca, risso’s dolphin, Fin whale, Minke whale;golfinho-comum, roaz-corvineiro, golfinho-riscado, boto, orca, grampo, baleia-comum, baleia-anã
-OCEAN_INITIAL_UI_FACT_CONTENT_1;Something;Algo
-OCEAN_INITIAL_UI_FACT_CONTENT_2;Something;Algo
-OCEAN_INITIAL_UI_FACT_CONTENT_3;Something;Algo
-OCEAN_INITIAL_UI_FACT_CONTENT_4;Something;Algo
 OCEAN_FINAL_UI_L_LOC_NAME;Iberian Orca (Orcinus orca);Orca Ibérica (Orcinus orca)
-OCEAN_FINAL_UI_L_CONTENT;Size: 5 to 6.5m in length.     Weight: 3 to 5 tons\nDiet: Primarily feeds on Atlantic bluefin tuna (Thunnus thynnus).\nHabitat: The Iberian orca distribution spans from the Strait of Gibraltar, along the coasts of Portugal and Spain. This subpopulation moves in sync with the movements of its prey, the Atlantic bluefin tuna.\nFun Fact: Orcas are the largest and most intelligent dolphins. They are not whales, as the nickname "killer whale" suggests.;Tamanho: 5 a 6,5m de comprimento.    Peso: 3 a 5 toneladas\nAlimentação: Alimentam-se principalmente de atum-rabilho-do-atlântico (Thunnus thynnus).\nÁrea de ocorrência: A distribuição da orca ibérica ocorre desde o estreito de Gibraltar, passando pela costa de Portugal e Espanha. Essa subpopulação desloca-se seguindo os movimentos da sua presa o atum rabilho do Atlântico.\nCuriosidade: As orcas são os maiores e mais inteligentes golfinhos que existem. Não são baleias como a alcunha “baleia assassina” sugere.
+OCEAN_FINAL_UI_L_SIZE_LABEL;Size: ;Tamanho: 
+OCEAN_FINAL_UI_L_SIZE_CONTENT;5 to 6.5m in length.;5 a 6,5m de comprimento.
+OCEAN_FINAL_UI_L_WEIGHT_LABEL;Weight: ;Peso: 
+OCEAN_FINAL_UI_L_WEIGHT_CONTENT;3 to 5 tons;3 a 5 toneladas
+OCEAN_FINAL_UI_L_DIET_LABEL;Diet: ;Alimentação: 
+OCEAN_FINAL_UI_L_DIET_CONTENT;Primarily feeds on Atlantic bluefin tuna (Thunnus thynnus).;Alimentam-se principalmente de atum-rabilho-do-atlântico (Thunnus thynnus).
+OCEAN_FINAL_UI_L_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+OCEAN_FINAL_UI_L_HABITAT_CONTENT;The Iberian orca distribution spans from the Strait of Gibraltar, along the coasts of Portugal and Spain. This subpopulation moves in sync with the movements of its prey, the Atlantic bluefin tuna.;A distribuição da orca ibérica ocorre desde o estreito de Gibraltar, passando pela costa de Portugal e Espanha. Essa subpopulação desloca-se seguindo os movimentos da sua presa o atum rabilho do Atlântico.
+OCEAN_FINAL_UI_L_FACT_LABEL;Fun Fact: ;Curiosidade: 
+OCEAN_FINAL_UI_L_FACT_CONTENT;Orcas are the largest and most intelligent dolphins. They are not whales, as the nickname "killer whale" suggests.;As orcas são os maiores e mais inteligentes golfinhos que existem. Não são baleias como a alcunha “baleia assassina” sugere.
 OCEAN_FINAL_UI_C_LOC_NAME;Common Dolphin (Delphinus delphis);Golfinho-comum (Delphinus delphis)
-OCEAN_FINAL_UI_C_CONTENT;Size: 1.7 to 2.4m in length\nWeight: 70 to 110 kg\nDiet: In Portugal’s coastal waters, it feeds on sardines (Sardina pilchardus) and other small pelagic fish like mackerel.\nHabitat: Found in both coastal and deep waters of tropical and temperate zones.\nFun Fact: It is the most abundant and boat interactive cetacean in mainland Portugal.;Tamanho: 1,7 a 2,4m de comprimento\nPeso: 70 a 110 kg\nAlimentação: na costa de Portugal se baseia em sardinha (Sardina pilchardus) e outros pequenos peixes pelágicos como cavala.\nÁrea de ocorrência: Áreas costeiras e profundas de zonas tropicais e temperadas.\nCuriosidade: é o cetáceo mais abundante e interativo com barcos de Portugal Continental.
+OCEAN_FINAL_UI_C_SIZE_LABEL;Size: ;Tamanho: 
+OCEAN_FINAL_UI_C_SIZE_CONTENT;1.7 to 2.4m in length;1,7 a 2,4m de comprimento
+OCEAN_FINAL_UI_C_WEIGHT_LABEL;Weight: ;Peso: 
+OCEAN_FINAL_UI_C_WEIGHT_CONTENT;70 to 110 kg;70 a 110 kg
+OCEAN_FINAL_UI_C_DIET_LABEL;Diet: ;Alimentação: 
+OCEAN_FINAL_UI_C_DIET_CONTENT;In Portugal’s coastal waters, it feeds on sardines (Sardina pilchardus) and other small pelagic fish like mackerel.;na costa de Portugal se baseia em sardinha (Sardina pilchardus) e outros pequenos peixes pelágicos como cavala.
+OCEAN_FINAL_UI_C_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+OCEAN_FINAL_UI_C_HABITAT_CONTENT;Found in both coastal and deep waters of tropical and temperate zones.;Áreas costeiras e profundas de zonas tropicais e temperadas.
+OCEAN_FINAL_UI_C_FACT_LABEL;Fun Fact: ;Curiosidade: 
+OCEAN_FINAL_UI_C_FACT_CONTENT;It is the most abundant and boat interactive cetacean in mainland Portugal.;é o cetáceo mais abundante e interativo com barcos de Portugal Continental.
 OCEAN_FINAL_UI_R_LOC_NAME;Fin whale (Balaenoptera physalus);Baleia-comum (Balaenoptera physalus)
-OCEAN_FINAL_UI_R_CONTENT;Size: 12 to 22m in length (up to 26m), the second-largest animal on Earth after the Blue whale (Balaenoptera musculus).\nWeight: 20 to 80 tons\nDiet: Small crustaceans and fish\nHabitat: Common oceanic specie in the Southern Hemisphere and less common in the tropics, occasionally entering polar waters.\nFun Fact: Easily identifiable by the asymmetrical coloring of its head, with the lower right lip being white and the left side uniformly gray.;Tamanho: 12 a 22m de comprimento (máximo 26m), é o segundo maior animal existente na Terra depois da baleia-azul (Balaenoptera musculus).\nPeso: 20 a 80 toneladas\nAlimentação: Pequenos crustáceos e peixe\nÁrea de ocorrência: Espécie oceânica comum no hemisfério Sul, menos comum nos trópicos, podendo, por vezes, entrar nas águas polares.\nCuriosidades: Facilmente identificável pela coloração assimétrica da cabeça, com o lábio inferior direito branco e o lado esquerdo uniformemente cinzento. 
+OCEAN_FINAL_UI_R_SIZE_LABEL;Size: ;Tamanho: 
+OCEAN_FINAL_UI_R_SIZE_CONTENT;12 to 22m in length (up to 26m), the second-largest animal on Earth after the Blue whale (Balaenoptera musculus).;12 a 22m de comprimento (máximo 26m), é o segundo maior animal existente na Terra depois da baleia-azul (Balaenoptera musculus).
+OCEAN_FINAL_UI_R_WEIGHT_LABEL;Weight: ;Peso: 
+OCEAN_FINAL_UI_R_WEIGHT_CONTENT;20 to 80 tons;20 a 80 toneladas
+OCEAN_FINAL_UI_R_DIET_LABEL;Diet: ;Alimentação: 
+OCEAN_FINAL_UI_R_DIET_CONTENT;Small crustaceans and fish;Pequenos crustáceos e peixe
+OCEAN_FINAL_UI_R_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+OCEAN_FINAL_UI_R_HABITAT_CONTENT;Common oceanic specie in the Southern Hemisphere and less common in the tropics, occasionally entering polar waters.;Espécie oceânica comum no hemisfério Sul, menos comum nos trópicos, podendo, por vezes, entrar nas águas polares.
+OCEAN_FINAL_UI_R_FACT_LABEL;Fun Fact: ;Curiosidade: 
+OCEAN_FINAL_UI_R_FACT_CONTENT;Easily identifiable by the asymmetrical coloring of its head, with the lower right lip being white and the left side uniformly gray.;Facilmente identificável pela coloração assimétrica da cabeça, com o lábio inferior direito branco e o lado esquerdo uniformemente cinzento.
+OCEAN_FINAL_UI_FR_LOC_NAME;Humpback whale (Megaptera novaeangliae);Baleia-de-bossa (Megaptera novaeangliae)
+OCEAN_FINAL_UI_FR_SIZE_LABEL;Size: ;Tamanho: 
+OCEAN_FINAL_UI_FR_SIZE_CONTENT;11,5 to 15m in length;11,5 a 15 m de comprimento
+OCEAN_FINAL_UI_FR_WEIGHT_LABEL;Weight: ;Peso: 
+OCEAN_FINAL_UI_FR_WEIGHT_CONTENT;25 to 30 tons;25 a 30 toneladas
+OCEAN_FINAL_UI_FR_DIET_LABEL;Diet: ;Alimentação: 
+OCEAN_FINAL_UI_FR_DIET_CONTENT;Small schooling fish, krill;Peixes pequenos de cardume, krill
+OCEAN_FINAL_UI_FR_HABITAT_LABEL;Habitat: ;Área de ocorrência: 
+OCEAN_FINAL_UI_FR_HABITAT_CONTENT;Worldwide in all major oceans. They carry out large migrations between the breeding and feeding areas.;Ao redor do mundo em todos os oceanos. Realizam grandes migrações entre as áreas de reprodução e alimentação.
+OCEAN_FINAL_UI_FR_FACT_LABEL;Fun Fact: ;Curiosidade: 
+OCEAN_FINAL_UI_FR_FACT_CONTENT;Male humpback whales produce complex songs on the breeding grounds.;As baleias-de-bossa machos produzem canções complexas nas áreas de reprodução.
+OCEAN_FINAL_UI_SOUNDSCAPE_TITLE;Acoustic Soundscape;Paisagem Acústica
+OCEAN_FINAL_UI_SOUNDSCAPE_SUBTITLE;Continental Shelf;Plataforma Continental
+OCEAN_FINAL_UI_SOUNDSCAPE_SOUNDS_LABEL;Natural Environmental Sounds:;Sons naturais do ambiente:
+OCEAN_FINAL_UI_SOUNDSCAPE_SOUNDS_CONTENT;• Continuous repetitions of intense clicks from common dolphins indicate active hunting.\n• Occasional whistles reflect communication among group members.\n• Low-frequency sounds from fin whales can travel long distances.\n• The presence of orcas transforms the acoustic scene with characteristic top predator sounds.\n• Dolphins respond to orca sounds with whistles and scatter in flight.;• Repetições contínuas de cliques intensos dos golfinhos-comuns indicam caça ativa.\n• Assobios ocasionais refletem comunicação entre membros do grupo.\n• Sons da baleia-comum são de baixa frequência, podendo percorrer grandes distâncias.\n• Aparição de orcas transforma o cenário acústico com sons característicos de predadores de topo.\n• Golfinhos respondem ao som das orcas com assobios e dispersão em fuga.
+OCEAN_FINAL_UI_SOUNDSCAPE_IMPACTS_LABEL;Impact of Vessels:;Impacto das embarcações:
+OCEAN_FINAL_UI_SOUNDSCAPE_IMPACTS_CONTENT;• As boats approach, dolphins display curiosity, interacting with the vessel but ceasing feeding activities.\n• Boat noise can lead to impacts such as reduced vocalizations and changes in animal behavior.;• Com a aproximação do barco, os golfinhos mostram curiosidade, interagindo com a embarcação, porém cessando a atividade de alimentação.\n• O ruído de barcos pode causar impactos como diminuição das vocalizações e mudança de comportamento nos animais.

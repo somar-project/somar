@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dchup4y5cpp0u"]
+[gd_scene load_steps=14 format=3 uid="uid://dchup4y5cpp0u"]
 
 [ext_resource type="Script" path="res://scenes/3d/ocean/ui/ocean_final_ui.gd" id="1_nti2i"]
 [ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="1_yjx3h"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://cy1psjwv3hhs1" path="res://scenes/2d/ocean/ocean_final_ui_left_layout.tscn" id="3_ex5mf"]
 [ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_8d5tm"]
 [ext_resource type="PackedScene" uid="uid://cpk7gak1sti04" path="res://scenes/2d/ocean/ocean_final_ui_center_layout.tscn" id="4_cs82m"]
+[ext_resource type="PackedScene" uid="uid://vjvrag87vkcx" path="res://scenes/2d/ocean/ocean_final_ui_soundscape_layout.tscn" id="5_6fcf7"]
 [ext_resource type="PackedScene" uid="uid://belpu4f406rhl" path="res://scenes/2d/ocean/ocean_final_ui_right_layout.tscn" id="5_najjd"]
+[ext_resource type="PackedScene" uid="uid://clg8f8ljkftkm" path="res://scenes/2d/ocean/ocean_final_ui_far_right_layout.tscn" id="6_3hgs5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_onmsp"]
 render_priority = 0
@@ -30,15 +32,24 @@ size = Vector3(1, 2.49634, 0.0146484)
 script = ExtResource("1_nti2i")
 
 [node name="LeftInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.79253, 0, 0.743557)
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.54855, 0, 1.98855)
 scene = ExtResource("3_ex5mf")
 
 [node name="CenterInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.80682, 0, 0.195262)
 scene = ExtResource("4_cs82m")
 
+[node name="SoundscapePanel" parent="." instance=ExtResource("1_yjx3h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.552469)
+scene = ExtResource("5_6fcf7")
+
 [node name="RightInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.793, 0, 0.744)
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.793, 0, 0.19805)
 scene = ExtResource("5_najjd")
+
+[node name="FarRightInfoPanel" parent="." instance=ExtResource("1_yjx3h")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 2.5475, 0, 1.98736)
+scene = ExtResource("6_3hgs5")
 
 [node name="ReturnBtn" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.806571, 0)
@@ -48,13 +59,14 @@ monitoring = false
 script = ExtResource("3_35mnp")
 
 [node name="BtnBackground" type="MeshInstance3D" parent="ReturnBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.54595)
 sorting_offset = 1.0
 material_override = SubResource("ShaderMaterial_onmsp")
 mesh = SubResource("QuadMesh_nwqel")
 skeleton = NodePath("../../..")
 
 [node name="BtnLabel" type="Label3D" parent="ReturnBtn"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.00219971)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.54375)
 pixel_size = 0.001
 double_sided = false
 render_priority = 2
@@ -66,6 +78,7 @@ font_size = 128
 outline_size = 8
 
 [node name="BtnCollisionShape" type="CollisionShape3D" parent="ReturnBtn"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.54595)
 shape = SubResource("BoxShape3D_wvo7t")
 
 [node name="BGArea" type="Area3D" parent="."]
@@ -75,21 +88,37 @@ collision_mask = 0
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BGArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.066602)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.612552)
 shape = SubResource("BoxShape3D_mkmlw")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="BGArea"]
-transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.979443, 0, 0.062116)
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 0.979443, 0, -0.483834)
 shape = SubResource("BoxShape3D_mkmlw")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="BGArea"]
-transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.979, 0, 0.062)
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -0.979, 0, -0.48395)
 shape = SubResource("BoxShape3D_mkmlw")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="BGArea"]
-transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.81199, 0, 0.542382)
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -1.81199, 0, -0.00356793)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.258819, 0, 0.965926, 0, 1, 0, -0.965926, 0, 0.258819, -2.29288, 0, 0.837985)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, -2.42033, 0, 1.83234)
 shape = SubResource("BoxShape3D_mkmlw")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="BGArea"]
-transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.812, 0, 0.542)
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 1.812, 0, -0.00394994)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, 2.29703, 0, 0.837603)
+shape = SubResource("BoxShape3D_mkmlw")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="BGArea"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 2.42701, 0, 1.82492)
 shape = SubResource("BoxShape3D_mkmlw")
