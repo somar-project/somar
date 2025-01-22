@@ -17,13 +17,14 @@ func _ready() -> void:
 	set_process(false)
 
 
-func _show(dolphin : Node3D, p_surface_marker : Marker3D) -> void:
+func _show(dolphin : DolphinBase, p_surface_marker : Marker3D) -> void:
 	if not Engine.is_editor_hint():
 		particles.emitting = true
 		surface_marker = p_surface_marker
 		dolphin_ref = dolphin
 		set_process(true)
-		await get_tree().create_timer(duration).timeout
+		var speed_ratio : float = min(max(dolphin.current_swim_speed - 2.5, 0.0), 6.0)/6.0
+		await get_tree().create_timer(duration * (0.9 * speed_ratio)).timeout
 		set_process(false)
 		particles.emitting = false
 		await get_tree().create_timer(particles.lifetime).timeout
