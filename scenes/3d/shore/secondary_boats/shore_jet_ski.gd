@@ -16,7 +16,7 @@ func _ready() -> void:
 	rotation.y = deg_to_rad(randf_range(0.0, 360.0))
 	path_follow_3d.v_offset = jet_ski.surface_offset
 	# Delay the jetskis a bit
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(12).timeout
 	_play()
 
 func _play() -> void:
