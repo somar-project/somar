@@ -203,7 +203,7 @@ clicking_sounds = Array[AudioStream]([ExtResource("22_ut37v"), ExtResource("23_1
 clicking_rate = 0.3
 clicking_cooldown = 0.8
 whistles_sounds = Array[AudioStream]([ExtResource("22_8p3xt"), ExtResource("23_8oaql"), ExtResource("24_7akrk"), ExtResource("25_j1kiq"), ExtResource("26_bkgtk")])
-whistling_rate = 0.75
+whistling_rate = 0.1
 whistling_cooldown = 0.8
 whistling_volume_db = 4.0
 
