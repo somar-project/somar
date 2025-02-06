@@ -188,7 +188,7 @@ func _show_secondary_boats() -> void:
 func _make_dolphins_flee() -> void:
 	making_dolphins_flee = true
 
-	var quadrant : Path3D = path_quadrants_parent.get_child(randi_range(0, 1)) # Only the two quadrants in front of player
+	var quadrant : Path3D = path_quadrants_parent.get_child(3) # Always flee towards Quadrant 3
 
 	for dolphin : DolphinBase in dolphins_parent.get_children():
 		var flee_position : Vector3 = quadrant.to_global(quadrant.curve.sample_baked(randf()))
