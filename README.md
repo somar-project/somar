@@ -61,7 +61,6 @@ If you just want to install and run the application on your XR device or Android
 ### Edit and build the application in the Godot engine
 If you are a developer and want to edit the godot project and rebuild, follow the below steps.
 
-
 ### Install Prerequisites
 - Godot engine installation properly setup for [XR development](https://www.youtube.com/watch?v=shbHGhkh4NM)
 - XR Headset or AR-compatible phone
@@ -74,7 +73,7 @@ If you are a developer and want to edit the godot project and rebuild, follow th
 - Click [Project]-[Export...] from the main menu to export the .apk for your desired platform.
 
 ## License
-SOMAR is licensed under the [MIT License](LICENSE). You are free to use, modify, and distribute this software under the terms of the license.
+Most files of the SOMAR project are licensed under [BSL-1.0 License](https://opensource.org/license/bsl-1-0) and so you are free to use, modify, and distribute except for the 3D assets contained under the scenes/3d/ subfolders, which can only be 'used' within that project. Read the REUSE.toml license file for more details. If you derive this project, you *have* to get rid of those asset files.
 
 ## Acknowledgments
 This project is a collaboration between Collabora and SOMAR. Special thanks to the teams involved in developing this application and raising awareness about marine conservation issues.
