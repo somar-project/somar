@@ -5,6 +5,7 @@ version = 1
 # DO NOT MODIFY or COPY/USE outside of this project.
 
 # dolphins, whales, boats and gloves
+# Assets made available in non-human-readable "res" format.
 # Assets purchased on Fab.com - DO NOT MODIFY or COPY/USE outside of this project!
 [[annotations]]
 path = [
@@ -70,6 +71,7 @@ SPDX-License-Identifier = "CC-BY-4.0"
 # You *may* copy and redistribute the below
 [[annotations]]
 path = [
+    "README.md",
     "scenes/2d/info_plane_theme.tres",
     "scenes/2d/ocean/**",
     "scenes/2d/shore/**",
@@ -124,3 +126,15 @@ path = [
 ]
 SPDX-FileCopyrightText = "2024 Collabora Ltd."
 SPDX-License-Identifier = "BSL-1.0"
+
+# Prebuilts
+# Assets are not extractable. Permissive license applies.
+[[annotations]]
+path = [
+    "prebuilts/MONADO_android-outOfProcess-debug.apk",
+    "prebuilts/MONADO_android-outOfProcess-release-signed.apk",
+    "prebuilts/SOMAR_application_Quest.apk",
+]
+SPDX-FileCopyrightText = "2024"
+SPDX-License-Identifier = "BSL-1.0"
+

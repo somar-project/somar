@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2024 Collabora, Ltd.
-# SPDX-License-Identifier: BSL-1.0
-
 # SOMAR
 
 SOMAR is an open-source XR application developed in collaboration with Portugal Marine Researchers SOMAR (https://somarbio.pt/somar/). The project aims to raise awareness about the negative impacts of underwater noise pollution, particularly on dolphins and whales. By leveraging immersive technology, SOMAR educates users on the detrimental effects of noise pollution caused by recreational boats and whale-watching activities.
