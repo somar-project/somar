@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=24 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" uid="uid://upsa4lm4ecna" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
@@ -13,6 +13,7 @@
 [ext_resource type="AudioStream" uid="uid://gaxxcehek2nw" path="res://scenes/3d/xr_player/audio/background_ambient_v2.wav" id="10_fuxwj"]
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="11_bfnmn"]
 [ext_resource type="AudioStream" uid="uid://bvnq7rqm5s8nw" path="res://scenes/3d/xr_player/audio/submerge_sfx.wav" id="12_hucca"]
+[ext_resource type="Material" uid="uid://j5u0ym0rk04f" path="res://scenes/3d/xr_player/materials/hand_tracking_material.tres" id="15_awdxe"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 100
@@ -195,6 +196,7 @@ pose = &"aim"
 show_when_tracked = true
 
 [node name="LGlove" parent="LeftController" instance=ExtResource("8_h8gw4")]
+unique_name_in_owner = true
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -0.003, -0.029, 0.054)
 
 [node name="ControllerRayCast" type="RayCast3D" parent="LeftController"]
@@ -215,4 +217,57 @@ pose = &"aim"
 show_when_tracked = true
 
 [node name="RGlove" parent="RightController" instance=ExtResource("8_h8gw4")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0.003, -0.029, 0.054)
+
+[node name="LeftHand" type="XRNode3D" parent="."]
+unique_name_in_owner = true
+tracker = &"/user/hand_tracker/left"
+show_when_tracked = true
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="LeftHand"]
+material = ExtResource("15_awdxe")
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="LeftHand/OpenXRFbHandTrackingMesh"]
+
+[node name="RightHand" type="XRNode3D" parent="."]
+unique_name_in_owner = true
+tracker = &"/user/hand_tracker/right"
+show_when_tracked = true
+
+[node name="OpenXRFbHandTrackingMesh" type="OpenXRFbHandTrackingMesh" parent="RightHand"]
+hand = 1
+material = ExtResource("15_awdxe")
+bones/0/name = "RightPalm"
+bones/1/name = "RightHand"
+bones/2/name = "RightThumbMetacarpal"
+bones/3/name = "RightThumbProximal"
+bones/4/name = "RightThumbDistal"
+bones/5/name = "RightThumbTip"
+bones/6/name = "RightIndexMetacarpal"
+bones/7/name = "RightIndexProximal"
+bones/8/name = "RightIndexIntermediate"
+bones/9/name = "RightIndexDistal"
+bones/10/name = "RightIndexTip"
+bones/11/name = "RightMiddleMetacarpal"
+bones/12/name = "RightMiddleProximal"
+bones/13/name = "RightMiddleIntermediate"
+bones/14/name = "RightMiddleDistal"
+bones/15/name = "RightMiddleTip"
+bones/16/name = "RightRingMetacarpal"
+bones/17/name = "RightRingProximal"
+bones/18/name = "RightRingIntermediate"
+bones/19/name = "RightRingDistal"
+bones/20/name = "RightRingTip"
+bones/21/name = "RightLittleMetacarpal"
+bones/22/name = "RightLittleProximal"
+bones/23/name = "RightLittleIntermediate"
+bones/24/name = "RightLittleDistal"
+bones/25/name = "RightLittleTip"
+
+[node name="XRHandModifier3D" type="XRHandModifier3D" parent="RightHand/OpenXRFbHandTrackingMesh"]
+hand_tracker = &"/user/hand_tracker/right"
+
+[node name="LeftHandAim" type="XRController3D" parent="."]
+unique_name_in_owner = true
+tracker = &"/user/fbhandaim/left"

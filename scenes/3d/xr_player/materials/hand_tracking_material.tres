@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://j5u0ym0rk04f"]
+
+[ext_resource type="Shader" uid="uid://bmsed34sf57qk" path="res://scenes/3d/xr_player/materials/hand_outline.gdshader" id="1_v3ajf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qesnb"]
+render_priority = 0
+shader = ExtResource("1_v3ajf")
+shader_parameter/outline_color = Color(0.26, 0.34, 0.4, 1)
+shader_parameter/outline_width = 1.6
+
+[resource]
+next_pass = SubResource("ShaderMaterial_qesnb")
+shading_mode = 0
+albedo_color = Color(6.7683867e-09, 0.01604745, 0.071115784, 1)
