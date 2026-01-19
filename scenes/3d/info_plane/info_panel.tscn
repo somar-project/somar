@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://gs4ji44u7lso"]
 
-[ext_resource type="Script" path="res://scenes/3d/info_plane/info_panel.gd" id="1_xap5e"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_unshaded.gdshader" id="2_gj7xs"]
+[ext_resource type="Script" uid="uid://c13dvym7yfrq8" path="res://scenes/3d/info_plane/info_panel.gd" id="1_xap5e"]
+[ext_resource type="Shader" uid="uid://b54hd0g5pto3t" path="res://scenes/3d/shared/materials/base_shader_col_unshaded.gdshader" id="2_gj7xs"]
 [ext_resource type="ArrayMesh" uid="uid://docju8om7u6l3" path="res://scenes/3d/info_plane/mesh/info_mesh_InfoPlane.res" id="3_nlojj"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tincx"]

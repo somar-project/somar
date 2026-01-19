@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccsw0ib80y7r2"]
 
 [ext_resource type="Material" uid="uid://b5qf4j7fccqec" path="res://scenes/3d/boats/trail/materials/foam_material.tres" id="2_nglia"]
-[ext_resource type="Script" path="res://scenes/3d/effects/water_break_effect.gd" id="3_ulrhq"]
+[ext_resource type="Script" uid="uid://cs1ng2v32oocu" path="res://scenes/3d/effects/water_break_effect.gd" id="3_ulrhq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_a7c8k"]
 material = ExtResource("2_nglia")

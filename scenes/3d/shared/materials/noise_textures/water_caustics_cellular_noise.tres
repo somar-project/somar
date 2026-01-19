@@ -9,5 +9,5 @@ cellular_return_type = 6
 
 [resource]
 resource_name = "water_caustics_cellular_noise"
-seamless = true
 noise = SubResource("FastNoiseLite_xj1j0")
+seamless = true

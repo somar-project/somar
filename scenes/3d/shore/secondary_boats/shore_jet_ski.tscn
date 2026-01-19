@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bj2rnx5gjelic"]
 
-[ext_resource type="Script" path="res://scenes/3d/shore/secondary_boats/shore_jet_ski.gd" id="1_n62x3"]
+[ext_resource type="Script" uid="uid://b1rh03nyl10wy" path="res://scenes/3d/shore/secondary_boats/shore_jet_ski.gd" id="1_n62x3"]
 [ext_resource type="PackedScene" uid="uid://bfofa0fijqdni" path="res://scenes/3d/boats/jetski/jet_ski.tscn" id="2_giij2"]
 [ext_resource type="AudioStream" uid="uid://0dtd5tu1e1rd" path="res://scenes/3d/boats/jetski/audio/jetski_sfx2_loud.wav" id="3_tn2yw"]
 
@@ -20,7 +20,7 @@ curve = SubResource("Curve3D_5ulwm")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
 unique_name_in_owner = true
-transform = Transform3D(-0.686093, 0, 0.727514, 0, 1.00007, 0, -0.727514, 0, -0.686093, 150.684, 0, -165.721)
+transform = Transform3D(-0.6860928, 0, 0.7275142, 0, 1.0000701, 0, -0.7275142, 0, -0.6860928, 150.684, 0, -165.721)
 rotation_mode = 4
 
 [node name="JetSki" parent="Path3D/PathFollow3D" instance=ExtResource("2_giij2")]

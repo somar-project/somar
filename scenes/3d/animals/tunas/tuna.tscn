@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://cs5du2hvtk00v"]
 
-[ext_resource type="Script" path="res://scenes/3d/animals/tunas/tuna.gd" id="1_84bgp"]
+[ext_resource type="Script" uid="uid://bpc3inpny3d58" path="res://scenes/3d/animals/tunas/tuna.gd" id="1_84bgp"]
 [ext_resource type="ArrayMesh" uid="uid://bu1nd4gncq5jr" path="res://scenes/3d/animals/tunas/mesh/Mesh_006.res" id="2_utlch"]
-[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="3_8byp2"]
+[ext_resource type="Script" uid="uid://urvhscoo6ev5" path="res://utilities/CustomMeshInstance3D.gd" id="3_8byp2"]
 [ext_resource type="Animation" uid="uid://base7gurbb4xn" path="res://scenes/3d/animals/tunas/animations/Fish_swim_A1.res" id="3_j3tnf"]
 [ext_resource type="Material" uid="uid://0ynxbk35rp8l" path="res://scenes/3d/animals/tunas/materials/tuna_low_material.tres" id="3_yes1r"]
 [ext_resource type="Animation" uid="uid://ddel751xbex8j" path="res://scenes/3d/animals/tunas/animations/Fish_swim_A2.res" id="4_8piur"]
@@ -10976,20 +10976,20 @@ tracks/124/keys = PackedFloat32Array(0, 1, 0.0965019, 0.0197388, 0.07434, 0.9923
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2fwh0"]
 _data = {
-"Fish|_static_pose": SubResource("Animation_88v6v"),
-"Fish|swim_A1": ExtResource("3_j3tnf"),
-"Fish|swim_A2": ExtResource("4_8piur"),
-"Fish|swim_A3": SubResource("Animation_w4idn"),
-"Fish|swim_turn_L_A1": SubResource("Animation_ahek8"),
-"Fish|swim_turn_L_A2": SubResource("Animation_hiuvd"),
-"Fish|swim_turn_L_A3": SubResource("Animation_7pp1b"),
-"Fish|swim_turn_L_end": SubResource("Animation_qgu73"),
-"Fish|swim_turn_L_start": SubResource("Animation_cram5"),
-"Fish|swim_turn_R_A1": SubResource("Animation_d1f7g"),
-"Fish|swim_turn_R_A2": SubResource("Animation_4bgxa"),
-"Fish|swim_turn_R_A3": SubResource("Animation_myxum"),
-"Fish|swim_turn_R_end": SubResource("Animation_j2n5l"),
-"Fish|swim_turn_R_start": SubResource("Animation_pbpug")
+&"Fish|_static_pose": SubResource("Animation_88v6v"),
+&"Fish|swim_A1": ExtResource("3_j3tnf"),
+&"Fish|swim_A2": ExtResource("4_8piur"),
+&"Fish|swim_A3": SubResource("Animation_w4idn"),
+&"Fish|swim_turn_L_A1": SubResource("Animation_ahek8"),
+&"Fish|swim_turn_L_A2": SubResource("Animation_hiuvd"),
+&"Fish|swim_turn_L_A3": SubResource("Animation_7pp1b"),
+&"Fish|swim_turn_L_end": SubResource("Animation_qgu73"),
+&"Fish|swim_turn_L_start": SubResource("Animation_cram5"),
+&"Fish|swim_turn_R_A1": SubResource("Animation_d1f7g"),
+&"Fish|swim_turn_R_A2": SubResource("Animation_4bgxa"),
+&"Fish|swim_turn_R_A3": SubResource("Animation_myxum"),
+&"Fish|swim_turn_R_end": SubResource("Animation_j2n5l"),
+&"Fish|swim_turn_R_start": SubResource("Animation_pbpug")
 }
 
 [node name="Tuna" type="Node3D"]
@@ -12317,6 +12317,6 @@ high_quality_materials = Array[Material]([ExtResource("5_o7fma"), ExtResource("5
 [node name="TunaAnimationPlayer" type="AnimationPlayer" parent="tuna"]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_2fwh0")
+&"": SubResource("AnimationLibrary_2fwh0")
 }
 autoplay = "Fish|swim_A1"

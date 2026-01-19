@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dp4l7aag6x7kh"]
 
-[ext_resource type="Shader" path="res://scenes/3d/boats/trail/materials/boat_trail_shader.gdshader" id="1_5jik1"]
+[ext_resource type="Shader" uid="uid://djeywh2qwrwre" path="res://scenes/3d/boats/trail/materials/boat_trail_shader.gdshader" id="1_5jik1"]
 [ext_resource type="Texture2D" uid="uid://caitsuvwv15l4" path="res://scenes/3d/boats/trail/textures/boat_main_trail.png" id="2_c5jm0"]
 [ext_resource type="Texture2D" uid="uid://d0wf06n4yl841" path="res://scenes/3d/boats/trail/textures/foam_noise_texture.png" id="2_jrmsx"]
 
@@ -8,7 +8,7 @@
 render_priority = 1
 shader = ExtResource("1_5jik1")
 shader_parameter/albedo_color = Color(0.41, 0.459167, 1, 1)
-shader_parameter/speed = 0.5
-shader_parameter/opacity = 0.8
 shader_parameter/trail_texture = ExtResource("2_c5jm0")
 shader_parameter/noise_texture = ExtResource("2_jrmsx")
+shader_parameter/speed = 0.5
+shader_parameter/opacity = 0.8

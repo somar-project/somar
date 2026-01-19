@@ -1,10 +1,10 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://rjdkfy8ohvi2"]
 
-[ext_resource type="Shader" path="res://scenes/3d/xr_player/materials/underwater_particles_shader.gdshader" id="1_1pjme"]
+[ext_resource type="Shader" uid="uid://wvc70v713ciu" path="res://scenes/3d/xr_player/materials/underwater_particles_shader.gdshader" id="1_1pjme"]
 [ext_resource type="Texture2D" uid="uid://cn0idtq6srojx" path="res://scenes/3d/xr_player/textures/camera_particles.png" id="2_un3ud"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_1pjme")
-shader_parameter/opacity = 0.02
 shader_parameter/particles_texture = ExtResource("2_un3ud")
+shader_parameter/opacity = 0.02

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://cuwcpccmansiv"]
 
-[ext_resource type="Script" path="res://scenes/3d/main_menu/return_to_main_menu.gd" id="1_0ma4e"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="2_ewjf2"]
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="3_y8lxl"]
+[ext_resource type="Script" uid="uid://cudao011r5kj3" path="res://scenes/3d/main_menu/return_to_main_menu.gd" id="1_0ma4e"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="2_ewjf2"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="3_y8lxl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_wvm6j"]
 render_priority = 0

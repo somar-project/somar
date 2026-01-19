@@ -1,10 +1,10 @@
 [gd_scene load_steps=36 format=3 uid="uid://c6y5y8pwspjr"]
 
-[ext_resource type="Script" path="res://scenes/3d/ocean/ocean.gd" id="1_qkda0"]
+[ext_resource type="Script" uid="uid://jebqlacwmhpe" path="res://scenes/3d/ocean/ocean.gd" id="1_qkda0"]
 [ext_resource type="Environment" uid="uid://yfafeqhg6bmg" path="res://scenes/3d/ocean/ocean_we.tres" id="2_hkvrg"]
 [ext_resource type="Material" uid="uid://bf2jnbmcllrpc" path="res://scenes/3d/ocean/materials/ocean_water_surface_1_material.tres" id="3_ufet6"]
 [ext_resource type="Material" uid="uid://b7ouij5aedu01" path="res://scenes/3d/ocean/materials/ocean_water_surface_2_material.tres" id="4_7wo7r"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_hx7jq"]
+[ext_resource type="Shader" uid="uid://dc2sesf708qaa" path="res://scenes/3d/shared/materials/noise_textures/fake_sun_shader.gdshader" id="7_hx7jq"]
 [ext_resource type="PackedScene" uid="uid://cuwcpccmansiv" path="res://scenes/3d/main_menu/return_to_main_menu.tscn" id="7_jnhsx"]
 [ext_resource type="Curve3D" uid="uid://c7d1gsqe0b33w" path="res://scenes/3d/shared/perimeter_path_curve.tres" id="8_aqbnn"]
 [ext_resource type="PackedScene" uid="uid://br72xt5i0kf8e" path="res://scenes/3d/ocean/ui/ocean_initial_ui.tscn" id="8_b50c8"]
@@ -13,8 +13,8 @@
 [ext_resource type="PackedScene" uid="uid://dchup4y5cpp0u" path="res://scenes/3d/ocean/ui/ocean_final_ui.tscn" id="9_q1pty"]
 [ext_resource type="PackedScene" uid="uid://d1pk5n2bivdw1" path="res://scenes/3d/animals/whales/blue/blue_whale_path.tscn" id="12_xgx7v"]
 [ext_resource type="PackedScene" uid="uid://cpst4kskfr8gj" path="res://scenes/3d/animals/whales/humpback/humpback_whale_path.tscn" id="13_fim7d"]
-[ext_resource type="Script" path="res://utilities/SchoolFishPathFollow3D.gd" id="13_n4p2q"]
-[ext_resource type="Script" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="16_4kyfy"]
+[ext_resource type="Script" uid="uid://ch5mwtsbq1ufj" path="res://utilities/SchoolFishPathFollow3D.gd" id="13_n4p2q"]
+[ext_resource type="Script" uid="uid://xan3urcfvfo5" path="res://utilities/dolphin_audio_manager/dolphin_audio_manager.gd" id="16_4kyfy"]
 [ext_resource type="AudioStream" uid="uid://dmjn4cf7cyvhh" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_0.wav" id="17_ye8ud"]
 [ext_resource type="AudioStream" uid="uid://c75ny22yvsejm" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_1.wav" id="18_a4rg7"]
 [ext_resource type="AudioStream" uid="uid://u7y8r2j8oml1" path="res://scenes/3d/animals/dolphins/common/audio/click/cd_click_2.wav" id="19_yg5cj"]
@@ -53,8 +53,7 @@ _data = [Vector2(0, 0), 0.0, 1.05995, 0, 1, Vector2(0.25, 0.264986), 0.0, 0.0, 0
 point_count = 5
 
 [sub_resource type="Curve" id="Curve_j6l5g"]
-min_value = -0.25
-max_value = 0.25
+_limits = [-0.25, 0.25, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 3.0, 0, 0, Vector2(0.1, 0.25), 0.0, 0.0, 0, 0, Vector2(0.2, 0), 0.0, 0.0, 0, 0, Vector2(0.3, -0.25), 0.0, 0.0, 0, 0, Vector2(0.4, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 0.25), 3.0, 0.0, 0, 0, Vector2(0.6, 0), 3.0, 0.0, 0, 0, Vector2(0.7, -0.25), 3.0, 0.0, 0, 0, Vector2(0.8, 0), 3.0, 0.0, 0, 0, Vector2(0.9, 0.25), 3.0, 0.0, 0, 0, Vector2(1, 0), 3.0, 0.0, 0, 0]
 point_count = 11
 
@@ -174,7 +173,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, -6.0758)
 curve = SubResource("Curve3D_lv1u2")
 
 [node name="SchoolFishPathFollow3D" type="PathFollow3D" parent="FishSchoolPath3D"]
-transform = Transform3D(0.860676, 0, 0.508861, 0, 0.999993, 0, -0.508861, 0, 0.860676, -7.23551, -1.50003, -2.66072)
+transform = Transform3D(0.86067605, 0, 0.5088609, 0, 0.999993, 0, -0.5088609, 0, 0.86067605, -7.23551, -1.5000296, -2.66072)
 v_offset = -1.5
 rotation_mode = 1
 script = ExtResource("13_n4p2q")

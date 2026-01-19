@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dyohmys8um47y"]
 
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_iyagd"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="1_pufv1"]
+[ext_resource type="Shader" uid="uid://bmief2ixwbkvu" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="1_pufv1"]
 [ext_resource type="Texture2D" uid="uid://be5fyipi2l1l5" path="res://scenes/3d/animals/dolphins/bottlenose/textures/bottlenose_dolphin_color_low.png" id="2_gkqjc"]
 
 [resource]
@@ -9,7 +9,7 @@ render_priority = 0
 next_pass = ExtResource("1_iyagd")
 shader = ExtResource("1_pufv1")
 shader_parameter/albedo_color = Color(0.649329, 0.826295, 0.959795, 1)
+shader_parameter/albedo_texture = ExtResource("2_gkqjc")
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.3
 shader_parameter/roughness = 0.9
-shader_parameter/albedo_texture = ExtResource("2_gkqjc")

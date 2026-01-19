@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpst4kskfr8gj"]
 
-[ext_resource type="Script" path="res://scenes/3d/animals/whales/whale_path.gd" id="1_3q8es"]
+[ext_resource type="Script" uid="uid://c74ywyqea22o" path="res://scenes/3d/animals/whales/whale_path.gd" id="1_3q8es"]
 [ext_resource type="AudioStream" uid="uid://dkauvdsef2s6p" path="res://scenes/3d/animals/whales/humpback/audio/NHU05094126.wav" id="2_c05ig"]
 [ext_resource type="AudioStream" uid="uid://chcjt8orm22qg" path="res://scenes/3d/animals/whales/humpback/audio/NHU05094130.wav" id="3_k5vsk"]
 [ext_resource type="Curve3D" uid="uid://creloix2juoep" path="res://scenes/3d/animals/whales/humpback/paths/path_0.tres" id="3_u3e05"]
@@ -18,7 +18,7 @@ curve = ExtResource("3_u3e05")
 
 [node name="WhalePathFollow" type="PathFollow3D" parent="WhalePath"]
 unique_name_in_owner = true
-transform = Transform3D(0.943677, 0.000597402, -0.330858, 0, 1.00015, 0.00180534, 0.330857, -0.00170392, 0.943679, -45.6156, -0.0410377, 100)
+transform = Transform3D(0.96290517, 0.0005368025, -0.26982692, 0, 1.0001496, 0.0019891278, 0.26982644, -0.0019156386, 0.9629069, -45.6156, -0.0410377, 100)
 rotation_mode = 4
 
 [node name="Whale" parent="WhalePath/WhalePathFollow" instance=ExtResource("4_lt8pq")]

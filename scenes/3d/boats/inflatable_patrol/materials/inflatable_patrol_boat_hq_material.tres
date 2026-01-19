@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ddwg6tv1r3h1x"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_metal.gdshader" id="1_nyfon"]
+[ext_resource type="Shader" uid="uid://cwrv6gebmho45" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_metal.gdshader" id="1_nyfon"]
 [ext_resource type="Texture2D" uid="uid://dv00u01hya2w2" path="res://scenes/3d/boats/inflatable_patrol/textures/MergedBake_Bake1_PBR_Diffuse_1k.png" id="2_hqitk"]
 [ext_resource type="Texture2D" uid="uid://dnpl772jl3s0v" path="res://scenes/3d/boats/inflatable_patrol/textures/MergedBake_Bake1_PBR_Normal_1k.png" id="3_fjhbn"]
 [ext_resource type="Texture2D" uid="uid://cmjc6bfvm0uok" path="res://scenes/3d/boats/inflatable_patrol/textures/MergedBake_Bake1_PBR_Roughness_Metalness.png" id="4_pv7bv"]
@@ -9,10 +9,10 @@
 render_priority = 0
 shader = ExtResource("1_nyfon")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_hqitk")
+shader_parameter/normal_texture = ExtResource("3_fjhbn")
+shader_parameter/roughness_metalness_texture = ExtResource("4_pv7bv")
 shader_parameter/normal_map_scale = 1.0
 shader_parameter/roughness_cale = 1.0
 shader_parameter/metalness_scale = 1.0
 shader_parameter/specular_scale = 0.5
-shader_parameter/albedo_texture = ExtResource("2_hqitk")
-shader_parameter/normal_texture = ExtResource("3_fjhbn")
-shader_parameter/roughness_metalness_texture = ExtResource("4_pv7bv")

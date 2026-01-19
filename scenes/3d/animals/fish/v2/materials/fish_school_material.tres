@@ -1,12 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bsi4hp2wc7giv"]
 
-[ext_resource type="Shader" path="res://scenes/3d/animals/fish/v2/materials/fish_shader.gdshader" id="1_lf2fs"]
+[ext_resource type="Shader" uid="uid://0o2cl5bkcqvn" path="res://scenes/3d/animals/fish/v2/materials/fish_shader.gdshader" id="1_lf2fs"]
 [ext_resource type="Texture2D" uid="uid://d2vnfbfmtplvt" path="res://scenes/3d/animals/fish/v2/textures/sardine_albedo_512.png" id="2_r2yj1"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_lf2fs")
 shader_parameter/albedo_color = Color(0.722241, 0.79507, 0.969131, 1)
+shader_parameter/albedo_texture = ExtResource("2_r2yj1")
 shader_parameter/specular = 0.5
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.3
@@ -22,4 +23,3 @@ shader_parameter/mask_white = 0.0
 shader_parameter/height_scale = 0.889843
 shader_parameter/width_scale = 0.834793
 shader_parameter/rotation = 0.30998
-shader_parameter/albedo_texture = ExtResource("2_r2yj1")

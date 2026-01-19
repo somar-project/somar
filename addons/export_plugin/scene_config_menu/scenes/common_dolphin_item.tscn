@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://d4muj25liclju"]
 
-[ext_resource type="Script" path="res://addons/export_plugin/scene_config_menu/scenes/common_dolphin_item.gd" id="1_ge0p6"]
+[ext_resource type="Script" uid="uid://dvqkv042y4tjs" path="res://addons/export_plugin/scene_config_menu/scenes/common_dolphin_item.gd" id="1_ge0p6"]
 [ext_resource type="Theme" uid="uid://c7osqhiu57ov4" path="res://addons/export_plugin/scene_config_menu/themes/buttons_theme.tres" id="2_x7abn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lj4ik"]

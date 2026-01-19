@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cp4tp3f8pxwgn"]
 
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_0clr7"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_0clr7"]
 
 [resource]
 render_priority = 0

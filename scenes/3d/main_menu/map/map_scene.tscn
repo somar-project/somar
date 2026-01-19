@@ -1,13 +1,13 @@
 [gd_scene load_steps=24 format=3 uid="uid://kp675oye12no"]
 
-[ext_resource type="Script" path="res://scenes/3d/main_menu/map/map_scene.gd" id="1_gmoac"]
+[ext_resource type="Script" uid="uid://cyicthcmwpts1" path="res://scenes/3d/main_menu/map/map_scene.gd" id="1_gmoac"]
 [ext_resource type="Texture2D" uid="uid://bctpc6245g6r5" path="res://scenes/3d/main_menu/map/textures/map_scene_skybox_1k.png" id="2_smvuo"]
 [ext_resource type="Material" uid="uid://ft218cpips15" path="res://scenes/3d/main_menu/map/materials/main_menu_map_hq_material.tres" id="3_8ytoh"]
 [ext_resource type="ArrayMesh" uid="uid://pmnwr0e2vnc6" path="res://scenes/3d/main_menu/map/mesh/map_subdiv_v2_MapMesh_subdiv_v2.res" id="3_72qg8"]
 [ext_resource type="Material" uid="uid://da4c7rkave6nk" path="res://scenes/3d/main_menu/map/materials/main_menu_map_low_material.tres" id="3_sv1kv"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="5_mr1yy"]
-[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="5_tjyeu"]
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="6_sbrvh"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="5_mr1yy"]
+[ext_resource type="Script" uid="uid://urvhscoo6ev5" path="res://utilities/CustomMeshInstance3D.gd" id="5_tjyeu"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="6_sbrvh"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_53ny0"]
 panorama = ExtResource("2_smvuo")
@@ -171,8 +171,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_rrcqf"]
 _data = {
-"RESET": SubResource("Animation_bmjx5"),
-"show_markers": SubResource("Animation_0ihxd")
+&"RESET": SubResource("Animation_bmjx5"),
+&"show_markers": SubResource("Animation_0ihxd")
 }
 
 [node name="MapScene" type="Node3D" node_paths=PackedStringArray("player_position") groups=["change_with_input", "menu_btn_listeners"]]
@@ -290,7 +290,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 
 shape = SubResource("CylinderShape3D_d4y56")
 
 [node name="ChooseDestinationLbl" type="Label3D" parent="UIContainer"]
-transform = Transform3D(3.61999e-06, 0, 1, 0, -1, 0, 1, 0, -3.61999e-06, 1.8, -0.607021, -1.77636e-15)
+transform = Transform3D(3.6199901e-06, 0, 1, 0, -1, 0, 1, 0, -3.6199901e-06, 1.8, -0.607021, -1.77636e-15)
 pixel_size = 0.001
 double_sided = false
 render_priority = 2
@@ -368,5 +368,5 @@ shape = SubResource("BoxShape3D_tj5yq")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_rrcqf")
+&"": SubResource("AnimationLibrary_rrcqf")
 }

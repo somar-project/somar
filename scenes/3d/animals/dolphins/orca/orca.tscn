@@ -1,11 +1,11 @@
 [gd_scene load_steps=30 format=3 uid="uid://cklg8u74xgmet"]
 
 [ext_resource type="ArrayMesh" uid="uid://dwf3km8nwfe50" path="res://scenes/3d/animals/dolphins/orca/mesh/killerwhaleBF_body.res" id="1_2wq1q"]
-[ext_resource type="Script" path="res://scenes/3d/animals/dolphins/orca/orca.gd" id="1_j4rgb"]
+[ext_resource type="Script" uid="uid://beanyo8ulresu" path="res://scenes/3d/animals/dolphins/orca/orca.gd" id="1_j4rgb"]
 [ext_resource type="Animation" uid="uid://bfw6my1337ilg" path="res://scenes/3d/animals/dolphins/orca/animations/dolphin__static_pose.res" id="2_j0omf"]
 [ext_resource type="Material" uid="uid://cilirlqyvtgb" path="res://scenes/3d/animals/dolphins/orca/materials/orca_low_material.tres" id="2_wk4og"]
 [ext_resource type="Animation" uid="uid://b5p0148xr7jja" path="res://scenes/3d/animals/dolphins/orca/animations/dolphin_attack_bite_A.res" id="3_s65fv"]
-[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="4_jlwkf"]
+[ext_resource type="Script" uid="uid://urvhscoo6ev5" path="res://utilities/CustomMeshInstance3D.gd" id="4_jlwkf"]
 [ext_resource type="Material" uid="uid://b7v2xqjocuktn" path="res://scenes/3d/animals/dolphins/orca/materials/orca_hq_material.tres" id="4_q48ul"]
 [ext_resource type="Animation" uid="uid://d31sxcq1xxepl" path="res://scenes/3d/animals/dolphins/orca/animations/dolphin_attack_tail_A.res" id="4_s1ymi"]
 [ext_resource type="Animation" uid="uid://dk83j1d0qyxmg" path="res://scenes/3d/animals/dolphins/orca/animations/dolphin_breathe_A1.res" id="5_5sxgu"]
@@ -241,28 +241,28 @@ bind/68/pose = Transform3D(1, 6.76876e-18, -5.40145e-19, -3.52577e-21, 0.0798415
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_lf8jf"]
 _data = {
-"dolphin|_static_pose": ExtResource("2_j0omf"),
-"dolphin|attack_bite_A": ExtResource("3_s65fv"),
-"dolphin|attack_tail_A": ExtResource("4_s1ymi"),
-"dolphin|breathe_A1": ExtResource("5_5sxgu"),
-"dolphin|idle_A1": ExtResource("6_g587j"),
-"dolphin|idle_A2": ExtResource("7_vg6g5"),
-"dolphin|leap_A1": ExtResource("8_wau8h"),
-"dolphin|leap_A2": ExtResource("9_d22ug"),
-"dolphin|speedup_A1": ExtResource("10_f4sn5"),
-"dolphin|speedup_A2": ExtResource("11_w2t1e"),
-"dolphin|swim_A1": ExtResource("12_xe5iw"),
-"dolphin|swim_A2": ExtResource("13_31hq4"),
-"dolphin|swim_end_A": ExtResource("14_doorj"),
-"dolphin|swim_start_A": ExtResource("15_i8u1h"),
-"dolphin|turn_L_end_A": ExtResource("16_e8kxm"),
-"dolphin|turn_L_start_A": ExtResource("17_x2oxy"),
-"dolphin|turn_L_swim_A1": ExtResource("18_0im80"),
-"dolphin|turn_R_end_A": ExtResource("19_lpyh8"),
-"dolphin|turn_R_start_A": ExtResource("20_rsmj7"),
-"dolphin|turn_R_swim_A1": ExtResource("21_7dj7y"),
-"dolphin|twist_A1": ExtResource("22_vljc7"),
-"dolphin|twist_A2": ExtResource("23_gat5a")
+&"dolphin|_static_pose": ExtResource("2_j0omf"),
+&"dolphin|attack_bite_A": ExtResource("3_s65fv"),
+&"dolphin|attack_tail_A": ExtResource("4_s1ymi"),
+&"dolphin|breathe_A1": ExtResource("5_5sxgu"),
+&"dolphin|idle_A1": ExtResource("6_g587j"),
+&"dolphin|idle_A2": ExtResource("7_vg6g5"),
+&"dolphin|leap_A1": ExtResource("8_wau8h"),
+&"dolphin|leap_A2": ExtResource("9_d22ug"),
+&"dolphin|speedup_A1": ExtResource("10_f4sn5"),
+&"dolphin|speedup_A2": ExtResource("11_w2t1e"),
+&"dolphin|swim_A1": ExtResource("12_xe5iw"),
+&"dolphin|swim_A2": ExtResource("13_31hq4"),
+&"dolphin|swim_end_A": ExtResource("14_doorj"),
+&"dolphin|swim_start_A": ExtResource("15_i8u1h"),
+&"dolphin|turn_L_end_A": ExtResource("16_e8kxm"),
+&"dolphin|turn_L_start_A": ExtResource("17_x2oxy"),
+&"dolphin|turn_L_swim_A1": ExtResource("18_0im80"),
+&"dolphin|turn_R_end_A": ExtResource("19_lpyh8"),
+&"dolphin|turn_R_start_A": ExtResource("20_rsmj7"),
+&"dolphin|turn_R_swim_A1": ExtResource("21_7dj7y"),
+&"dolphin|twist_A1": ExtResource("22_vljc7"),
+&"dolphin|twist_A2": ExtResource("23_gat5a")
 }
 
 [node name="Orca" type="Node3D"]
@@ -1002,5 +1002,5 @@ high_quality_materials = Array[Material]([ExtResource("4_q48ul"), ExtResource("4
 [node name="AnimationPlayer" type="AnimationPlayer" parent="killer_whale_AF"]
 unique_name_in_owner = true
 libraries = {
-"": SubResource("AnimationLibrary_lf8jf")
+&"": SubResource("AnimationLibrary_lf8jf")
 }

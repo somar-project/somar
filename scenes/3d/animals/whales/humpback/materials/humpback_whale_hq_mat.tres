@@ -2,7 +2,7 @@
 
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_wbftl"]
 [ext_resource type="Texture2D" uid="uid://cgnjf6bshpro" path="res://scenes/3d/animals/whales/humpback/textures/Humpbackwhale_diff.png" id="2_eqlnd"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_spec_alpha_scissor.gdshader" id="2_gjfrj"]
+[ext_resource type="Shader" uid="uid://w51gv0lippxg" path="res://scenes/3d/shared/materials/base_shader_col_nrm_rough_spec_alpha_scissor.gdshader" id="2_gjfrj"]
 [ext_resource type="Texture2D" uid="uid://by735h8sjwnbe" path="res://scenes/3d/animals/whales/humpback/textures/Humpbackwhale_normal.png" id="3_gj7lc"]
 [ext_resource type="Texture2D" uid="uid://qkmklb0p07fx" path="res://scenes/3d/animals/whales/humpback/textures/Humpbackwhale_rough_specular.png" id="4_wni05"]
 
@@ -11,10 +11,10 @@ render_priority = 0
 next_pass = ExtResource("1_wbftl")
 shader = ExtResource("2_gjfrj")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_eqlnd")
+shader_parameter/normal_texture = ExtResource("3_gj7lc")
+shader_parameter/roughness_specular_texture = ExtResource("4_wni05")
 shader_parameter/alpha_scissor_threshold = 0.3
 shader_parameter/normal_map_scale = 1.0
 shader_parameter/roughness_cale = 1.0
 shader_parameter/specular_scale = 1.0
-shader_parameter/albedo_texture = ExtResource("2_eqlnd")
-shader_parameter/normal_texture = ExtResource("3_gj7lc")
-shader_parameter/roughness_specular_texture = ExtResource("4_wni05")

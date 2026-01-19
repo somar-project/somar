@@ -1,13 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b7ouij5aedu01"]
 
-[ext_resource type="Shader" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="1_nnmum"]
+[ext_resource type="Shader" uid="uid://de5ni7qib38cp" path="res://scenes/3d/ocean/materials/water_surface_highlights_shader.gdshader" id="1_nnmum"]
 [ext_resource type="Texture2D" uid="uid://bj7yakxqu1yt6" path="res://scenes/3d/ocean/textures/ocean_surface_water_layer_0.png" id="2_k7u1s"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_nnmum")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/water_layer_0 = ExtResource("2_k7u1s")
 shader_parameter/opacity = 1.0
 shader_parameter/scale = 7.6
 shader_parameter/speed = 1.5
-shader_parameter/water_layer_0 = ExtResource("2_k7u1s")

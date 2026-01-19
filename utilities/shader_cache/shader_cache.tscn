@@ -1,6 +1,6 @@
 [gd_scene load_steps=92 format=3 uid="uid://cipgn16i6g2k3"]
 
-[ext_resource type="Script" path="res://utilities/shader_cache/shader_cache.gd" id="1_u0nwr"]
+[ext_resource type="Script" uid="uid://cxka1mw7ypxvt" path="res://utilities/shader_cache/shader_cache.gd" id="1_u0nwr"]
 [ext_resource type="Material" uid="uid://dyohmys8um47y" path="res://scenes/3d/animals/dolphins/bottlenose/materials/bottlenose_dolphin_default_material.tres" id="2_6utye"]
 [ext_resource type="Material" uid="uid://cp4tp3f8pxwgn" path="res://scenes/3d/main_menu/materials/menu_btn_material.tres" id="3_68k0l"]
 [ext_resource type="Material" uid="uid://dd6egxhyy766y" path="res://scenes/3d/animals/dolphins/common/materials/common_dolphin_low_mat.tres" id="3_lmogw"]

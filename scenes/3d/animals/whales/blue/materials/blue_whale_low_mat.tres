@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c08jd57ttiggi"]
 
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_6o8vk"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_alpha_scissor.gdshader" id="1_8cfan"]
+[ext_resource type="Shader" uid="uid://bj28fkoim3717" path="res://scenes/3d/shared/materials/base_shader_col_alpha_scissor.gdshader" id="1_8cfan"]
 [ext_resource type="Texture2D" uid="uid://c56p7mvcepk2q" path="res://scenes/3d/animals/whales/blue/textures/bluewhale_color_1k.png" id="2_u8hb6"]
 
 [resource]
@@ -9,8 +9,8 @@ render_priority = 0
 next_pass = ExtResource("1_6o8vk")
 shader = ExtResource("1_8cfan")
 shader_parameter/albedo_color = Color(0.868985, 0.868985, 0.868985, 1)
+shader_parameter/albedo_texture = ExtResource("2_u8hb6")
 shader_parameter/alpha_scissor_threshold = 0.3
 shader_parameter/specular = 0.4
 shader_parameter/metallic = 0.5
 shader_parameter/roughness = 0.85
-shader_parameter/albedo_texture = ExtResource("2_u8hb6")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://doxeemv7fo5re"]
 
-[ext_resource type="Shader" path="res://scenes/3d/boats/trail/materials/boat_trail_shader.gdshader" id="1_uh5k5"]
+[ext_resource type="Shader" uid="uid://djeywh2qwrwre" path="res://scenes/3d/boats/trail/materials/boat_trail_shader.gdshader" id="1_uh5k5"]
 [ext_resource type="Texture2D" uid="uid://caitsuvwv15l4" path="res://scenes/3d/boats/trail/textures/boat_main_trail.png" id="2_brry3"]
 
 [sub_resource type="Gradient" id="Gradient_3ihwb"]
@@ -11,8 +11,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.952, 0.952, 0.952, 1, 0, 0, 0, 1)
 gradient = SubResource("Gradient_3ihwb")
 
 [sub_resource type="Curve" id="Curve_dpvfu"]
-min_value = 0.1
-max_value = 1.5
+_limits = [0.1, 1.5, 0.0, 1.0]
 _data = [Vector2(0, 0.1), 0.0, 4.32781, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -34,17 +33,17 @@ color_ramp = SubResource("GradientTexture1D_yg315")
 fractal_type = 2
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cav8b"]
-seamless = true
 noise = SubResource("FastNoiseLite_fogyu")
+seamless = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_gfdf3"]
 render_priority = 1
 shader = ExtResource("1_uh5k5")
 shader_parameter/albedo_color = Color(0.40672, 0.692728, 0.999996, 1)
-shader_parameter/speed = 0.5
-shader_parameter/opacity = 0.75
 shader_parameter/trail_texture = ExtResource("2_brry3")
 shader_parameter/noise_texture = SubResource("NoiseTexture2D_cav8b")
+shader_parameter/speed = 0.5
+shader_parameter/opacity = 0.75
 
 [sub_resource type="QuadMesh" id="QuadMesh_2oj1d"]
 material = SubResource("ShaderMaterial_gfdf3")

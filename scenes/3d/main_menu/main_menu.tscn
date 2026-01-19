@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://p0yx1ovcqwpd"]
 
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
-[ext_resource type="Script" path="res://scenes/3d/main_menu/main_menu.gd" id="1_ybh1f"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="1_kdp3t"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="1_mi14x"]
+[ext_resource type="Script" uid="uid://eu52gr825e4s" path="res://scenes/3d/main_menu/main_menu.gd" id="1_ybh1f"]
 [ext_resource type="Texture2D" uid="uid://1cwryh8ym7jv" path="res://scenes/3d/main_menu/textures/main_menu_equi_v2_1k.png" id="2_hjdxi"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_476vf"]

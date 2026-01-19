@@ -8,5 +8,5 @@ fractal_type = 2
 
 [resource]
 resource_name = "shore_surface_water_layer_0"
-seamless = true
 noise = SubResource("FastNoiseLite_e0cat")
+seamless = true

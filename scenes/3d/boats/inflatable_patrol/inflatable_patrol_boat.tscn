@@ -1,7 +1,7 @@
 [gd_scene load_steps=39 format=3 uid="uid://ds3xv7eus20gg"]
 
 [ext_resource type="ArrayMesh" uid="uid://unt0jsnmc8df" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_016.res" id="1_e3f83"]
-[ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
+[ext_resource type="Script" uid="uid://3fh22lewp0up" path="res://scenes/3d/boats/boat_base.gd" id="1_mu78g"]
 [ext_resource type="ArrayMesh" uid="uid://8pub4evutr67" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_017.res" id="2_bcmlm"]
 [ext_resource type="AudioStream" uid="uid://cqrgdoedwl4xn" path="res://scenes/3d/boats/inflatable_patrol/audio/stopping_sfx.wav" id="3_6aigu"]
 [ext_resource type="ArrayMesh" uid="uid://dmwlasyratoc8" path="res://scenes/3d/boats/inflatable_patrol/mesh/inflatable_patrol_boat_optimized_Mesh_018.res" id="3_cbnsj"]
@@ -211,9 +211,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l4kgc"]
 _data = {
-"RESET": SubResource("Animation_43qqh"),
-"boat_movement": SubResource("Animation_taeha"),
-"idle": SubResource("Animation_v72rj")
+&"RESET": SubResource("Animation_43qqh"),
+&"boat_movement": SubResource("Animation_taeha"),
+&"idle": SubResource("Animation_v72rj")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8j0n"]
@@ -255,7 +255,7 @@ subdivide_depth = 10
 orientation = 1
 
 [sub_resource type="Curve" id="Curve_86a8y"]
-min_value = 0.1
+_limits = [0.1, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 0.1), 0.0, 2.7563, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -267,8 +267,7 @@ colors = PackedColorArray(0, 0, 0, 1, 0.952, 0.952, 0.952, 1, 0, 0, 0, 1)
 material = ExtResource("14_7pown")
 
 [sub_resource type="Curve" id="Curve_dpvfu"]
-min_value = 0.1
-max_value = 1.5
+_limits = [0.1, 1.5, 0.0, 1.0]
 _data = [Vector2(0, 0.1), 0.0, 4.32781, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -306,7 +305,7 @@ mesh = ExtResource("3_cbnsj")
 skeleton = NodePath("")
 
 [node name="propeller_L1_Baked" type="MeshInstance3D" parent="MovementPivot/inflatable_patrol_boat_optimized/engine_L_Baked"]
-transform = Transform3D(1, -1.82041e-07, -1.77191e-07, 1.85873e-07, 0.999761, 0.02187, 1.73167e-07, -0.02187, 0.999761, -0.134494, 23.5257, 39.0133)
+transform = Transform3D(1, -1.8204095e-07, -1.7719063e-07, 1.8587254e-07, 0.9997609, 0.02186996, 1.7316701e-07, -0.02186996, 0.9997609, -0.134494, 23.5257, 39.0133)
 layers = 2
 material_override = ExtResource("3_hxune")
 mesh = ExtResource("6_smf0j")
@@ -327,7 +326,7 @@ mesh = ExtResource("4_idvc1")
 skeleton = NodePath("")
 
 [node name="propeller_R1_Baked" type="MeshInstance3D" parent="MovementPivot/inflatable_patrol_boat_optimized/engine_R_Baked"]
-transform = Transform3D(1, -1.82041e-07, -1.77191e-07, 1.85873e-07, 0.999761, 0.02187, 1.73167e-07, -0.02187, 0.999761, -0.134495, 23.3457, 39.0781)
+transform = Transform3D(1, -1.8204095e-07, -1.7719063e-07, 1.8587254e-07, 0.9997609, 0.02186996, 1.7316701e-07, -0.02186996, 0.9997609, -0.134495, 23.3457, 39.0781)
 layers = 2
 material_override = ExtResource("3_hxune")
 mesh = ExtResource("5_yym5p")
@@ -358,7 +357,7 @@ skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_l4kgc")
+&"": SubResource("AnimationLibrary_l4kgc")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

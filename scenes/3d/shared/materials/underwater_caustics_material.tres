@@ -1,13 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cn7dx1ulrlcft"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/water_caustics_shader.gdshader" id="1_5lj6f"]
+[ext_resource type="Shader" uid="uid://bvic8xfyvyb1v" path="res://scenes/3d/shared/materials/water_caustics_shader.gdshader" id="1_5lj6f"]
 [ext_resource type="Texture2D" uid="uid://ccie77ae80fo2" path="res://scenes/3d/shared/textures/water_caustics_noise_joined.png" id="2_504s7"]
 
 [resource]
 render_priority = 1
 shader = ExtResource("1_5lj6f")
 shader_parameter/albedo_color = Color(0.729, 0.8544, 0.9, 1)
+shader_parameter/cellular_movement_noise_texture = ExtResource("2_504s7")
 shader_parameter/intensity = 5.0
 shader_parameter/scale = 0.45
 shader_parameter/speed = 0.18
-shader_parameter/cellular_movement_noise_texture = ExtResource("2_504s7")

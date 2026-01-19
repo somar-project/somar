@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://br72xt5i0kf8e"]
 
-[ext_resource type="Script" path="res://scenes/3d/ocean/ui/ocean_initial_ui.gd" id="1_e1wo0"]
+[ext_resource type="Script" uid="uid://nsij3wtqusc3" path="res://scenes/3d/ocean/ui/ocean_initial_ui.gd" id="1_e1wo0"]
 [ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="2_v51ky"]
 [ext_resource type="PackedScene" uid="uid://b4k4skdmb4jhj" path="res://scenes/2d/ocean/ocean_initial_ui_layout.tscn" id="3_1mw2s"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="4_cguy7"]
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="5_x1vkp"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="4_cguy7"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="5_x1vkp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qh7bd"]
 render_priority = 0

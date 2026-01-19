@@ -1,13 +1,13 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cc7p32h5uo8gp"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="2_hljbi"]
+[ext_resource type="Shader" uid="uid://bmief2ixwbkvu" path="res://scenes/3d/shared/materials/base_shader_col.gdshader" id="2_hljbi"]
 [ext_resource type="Texture2D" uid="uid://di7hb1tpuquo8" path="res://scenes/3d/xr_player/glove/textures/gloves_albedo_512.png" id="3_qhyrl"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("2_hljbi")
 shader_parameter/albedo_color = Color(0.2992, 0.378987, 0.44, 1)
+shader_parameter/albedo_texture = ExtResource("3_qhyrl")
 shader_parameter/specular = 0.3
 shader_parameter/metallic = 0.3
 shader_parameter/roughness = 0.75
-shader_parameter/albedo_texture = ExtResource("3_qhyrl")

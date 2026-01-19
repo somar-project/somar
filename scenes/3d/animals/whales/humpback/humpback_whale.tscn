@@ -3,7 +3,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dwf0cuijcjqc0" path="res://scenes/3d/animals/whales/humpback/mesh/Mesh_003.res" id="1_lmfcc"]
 [ext_resource type="Material" uid="uid://bf2grlmtfsc76" path="res://scenes/3d/animals/whales/humpback/materials/humpback_whale_hq_mat.tres" id="2_1y01r"]
 [ext_resource type="Material" uid="uid://drtfb1yyosqfu" path="res://scenes/3d/animals/whales/humpback/materials/humpback_whale_low_mat.tres" id="2_jksuj"]
-[ext_resource type="Script" path="res://utilities/CustomMeshInstance3D.gd" id="4_0r186"]
+[ext_resource type="Script" uid="uid://urvhscoo6ev5" path="res://utilities/CustomMeshInstance3D.gd" id="4_0r186"]
 
 [sub_resource type="Skin" id="Skin_sl5r8"]
 resource_name = "Skin"
@@ -17304,26 +17304,26 @@ tracks/120/keys = PackedFloat32Array(0, 1, -0.280893, 0.096415, -0.0150022, 0.95
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_trfh5"]
 _data = {
-"whale|_static_pose": SubResource("Animation_fycya"),
-"whale|idle1": SubResource("Animation_n6xcc"),
-"whale|leap1": SubResource("Animation_b4bus"),
-"whale|leap2": SubResource("Animation_ppdo8"),
-"whale|leap3": SubResource("Animation_yucc6"),
-"whale|swallow1": SubResource("Animation_gmgb1"),
-"whale|swallow2": SubResource("Animation_cbjnv"),
-"whale|swim1": SubResource("Animation_lkf2o"),
-"whale|swim2": SubResource("Animation_041cw"),
-"whale|swim3": SubResource("Animation_t8l7p"),
-"whale|swim_end": SubResource("Animation_er1vi"),
-"whale|swim_start": SubResource("Animation_vxtv0"),
-"whale|turn_L_end": SubResource("Animation_2gqr8"),
-"whale|turn_L_start": SubResource("Animation_tmhwd"),
-"whale|turn_L_swim1": SubResource("Animation_6bjnh"),
-"whale|turn_L_swim2": SubResource("Animation_e45s7"),
-"whale|turn_R_end": SubResource("Animation_2konq"),
-"whale|turn_R_start": SubResource("Animation_43l02"),
-"whale|turn_R_swim1": SubResource("Animation_4tw8k"),
-"whale|turn_R_swim2": SubResource("Animation_dooay")
+&"whale|_static_pose": SubResource("Animation_fycya"),
+&"whale|idle1": SubResource("Animation_n6xcc"),
+&"whale|leap1": SubResource("Animation_b4bus"),
+&"whale|leap2": SubResource("Animation_ppdo8"),
+&"whale|leap3": SubResource("Animation_yucc6"),
+&"whale|swallow1": SubResource("Animation_gmgb1"),
+&"whale|swallow2": SubResource("Animation_cbjnv"),
+&"whale|swim1": SubResource("Animation_lkf2o"),
+&"whale|swim2": SubResource("Animation_041cw"),
+&"whale|swim3": SubResource("Animation_t8l7p"),
+&"whale|swim_end": SubResource("Animation_er1vi"),
+&"whale|swim_start": SubResource("Animation_vxtv0"),
+&"whale|turn_L_end": SubResource("Animation_2gqr8"),
+&"whale|turn_L_start": SubResource("Animation_tmhwd"),
+&"whale|turn_L_swim1": SubResource("Animation_6bjnh"),
+&"whale|turn_L_swim2": SubResource("Animation_e45s7"),
+&"whale|turn_R_end": SubResource("Animation_2konq"),
+&"whale|turn_R_start": SubResource("Animation_43l02"),
+&"whale|turn_R_swim1": SubResource("Animation_4tw8k"),
+&"whale|turn_R_swim2": SubResource("Animation_dooay")
 }
 
 [node name="HumpbackWhale" type="Node3D"]
@@ -18210,6 +18210,6 @@ high_quality_materials = Array[Material]([ExtResource("2_1y01r"), ExtResource("2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Humpback_whale"]
 libraries = {
-"": SubResource("AnimationLibrary_trfh5")
+&"": SubResource("AnimationLibrary_trfh5")
 }
 autoplay = "whale|swim2"

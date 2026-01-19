@@ -4,5 +4,5 @@
 fractal_type = 2
 
 [resource]
-seamless = true
 noise = SubResource("FastNoiseLite_fogyu")
+seamless = true

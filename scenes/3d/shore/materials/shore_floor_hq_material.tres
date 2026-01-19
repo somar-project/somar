@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://kbe54mi3ogmb"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="1_kg3d5"]
+[ext_resource type="Shader" uid="uid://ca7so32q1cbmu" path="res://scenes/3d/shore/materials/sea_floor_shader.gdshader" id="1_kg3d5"]
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_xna8p"]
 [ext_resource type="Texture2D" uid="uid://bwwban3b8ool7" path="res://scenes/3d/shore/textures/Gravel039_1K-PNG_Color_AO.png" id="2_tmq0u"]
 [ext_resource type="Texture2D" uid="uid://cf52dgvdtgl6t" path="res://scenes/3d/shore/textures/shore_floor_mask_inv.png" id="4_jfc5c"]
@@ -11,12 +11,12 @@ render_priority = 0
 next_pass = ExtResource("1_xna8p")
 shader = ExtResource("1_kg3d5")
 shader_parameter/albedo = Color(0.64, 0.772, 1, 1)
-shader_parameter/border_color = null
+shader_parameter/border_color = Color(0, 0, 0, 1)
+shader_parameter/texture_albedo = ExtResource("2_tmq0u")
+shader_parameter/texture_mask = ExtResource("4_jfc5c")
 shader_parameter/shadow_min_opacity = 0.5
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 0.05
 shader_parameter/metallic = 0.05
 shader_parameter/uv1_scale = Vector3(12, 12, 12)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
-shader_parameter/texture_albedo = ExtResource("2_tmq0u")
-shader_parameter/texture_mask = ExtResource("4_jfc5c")

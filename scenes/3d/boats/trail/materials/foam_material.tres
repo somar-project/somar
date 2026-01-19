@@ -1,14 +1,14 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b5qf4j7fccqec"]
 
 [ext_resource type="Texture2D" uid="uid://ccie77ae80fo2" path="res://scenes/3d/shared/textures/water_caustics_noise_joined.png" id="1_4hk5o"]
-[ext_resource type="Shader" path="res://scenes/3d/boats/trail/materials/foam_shader.gdshader" id="1_cpjxf"]
+[ext_resource type="Shader" uid="uid://0ifcbn1sejsk" path="res://scenes/3d/boats/trail/materials/foam_shader.gdshader" id="1_cpjxf"]
 
 [resource]
 render_priority = 1
 shader = ExtResource("1_cpjxf")
 shader_parameter/albedo_color = Color(0.41, 0.6165, 1, 1)
+shader_parameter/trail_texture = ExtResource("1_4hk5o")
 shader_parameter/speed = 0.5
 shader_parameter/opacity = 0.9
 shader_parameter/uv_scale = 0.75
 shader_parameter/circle_radius = 1.0
-shader_parameter/trail_texture = ExtResource("1_4hk5o")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://r2fwdd6cdg0s"]
 
-[ext_resource type="Script" path="res://scenes/3d/animals/tunas/tuna_pod.gd" id="1_8i0ve"]
+[ext_resource type="Script" uid="uid://dqy7jtug88ne8" path="res://scenes/3d/animals/tunas/tuna_pod.gd" id="1_8i0ve"]
 [ext_resource type="PackedScene" uid="uid://cs5du2hvtk00v" path="res://scenes/3d/animals/tunas/tuna.tscn" id="2_47f08"]
 
 [node name="TunaPod" type="Node3D"]

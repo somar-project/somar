@@ -1,6 +1,6 @@
 [gd_scene load_steps=26 format=3 uid="uid://bww2yw01xlo75"]
 
-[ext_resource type="Script" path="res://utilities/shader_cache/shader_cache.gd" id="1_erurk"]
+[ext_resource type="Script" uid="uid://cxka1mw7ypxvt" path="res://utilities/shader_cache/shader_cache.gd" id="1_erurk"]
 [ext_resource type="Material" uid="uid://cv1n36tnl331h" path="res://scenes/3d/animals/dolphins/bottlenose/materials/bottlenose_dolphin_hq_material.tres" id="2_x051g"]
 [ext_resource type="Material" uid="uid://drwcc77rvxfr6" path="res://scenes/3d/animals/whales/blue/materials/blue_whale_hq_mat.tres" id="3_6exnw"]
 [ext_resource type="Material" uid="uid://ddwg6tv1r3h1x" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hq_material.tres" id="3_o7btl"]

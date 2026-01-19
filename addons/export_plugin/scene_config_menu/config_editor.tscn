@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dgguranxrty84"]
 
-[ext_resource type="Script" path="res://addons/export_plugin/scene_config_menu/config_editor.gd" id="1_st416"]
+[ext_resource type="Script" uid="uid://7a84ae764r3e" path="res://addons/export_plugin/scene_config_menu/config_editor.gd" id="1_st416"]
 [ext_resource type="Theme" uid="uid://c7osqhiu57ov4" path="res://addons/export_plugin/scene_config_menu/themes/buttons_theme.tres" id="2_wymsl"]
 [ext_resource type="PackedScene" uid="uid://cep7ovi0dlw2c" path="res://addons/export_plugin/scene_config_menu/scenes/inflatable_patrol_boat_item.tscn" id="3_3n0ie"]
 [ext_resource type="PackedScene" uid="uid://cebieqdl0s2ev" path="res://addons/export_plugin/scene_config_menu/scenes/humpback_whale_item.tscn" id="4_r2mo2"]

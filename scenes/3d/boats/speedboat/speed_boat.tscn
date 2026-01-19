@@ -1,6 +1,6 @@
 [gd_scene load_steps=30 format=3 uid="uid://dkuowkkb8smqs"]
 
-[ext_resource type="Script" path="res://scenes/3d/boats/boat_base.gd" id="1_uk7d7"]
+[ext_resource type="Script" uid="uid://3fh22lewp0up" path="res://scenes/3d/boats/boat_base.gd" id="1_uk7d7"]
 [ext_resource type="Material" uid="uid://lbqvw0btqgoe" path="res://scenes/3d/boats/trail/materials/trail_material_v2.tres" id="2_p042n"]
 [ext_resource type="Material" uid="uid://hqwjtq758vqy" path="res://scenes/3d/boats/inflatable_patrol/materials/inflatable_patrol_boat_hull_bottom_mat.tres" id="3_gl4jx"]
 [ext_resource type="AudioStream" uid="uid://e7jiofvs4p80" path="res://scenes/3d/boats/speedboat/audio/speed_boat_running.wav" id="4_a4qs7"]
@@ -28,15 +28,15 @@ point_count = 2
 render_priority = 0
 shader = ExtResource("17_kttri")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("18_u1d7u")
 shader_parameter/metallic = 0.3
 shader_parameter/roughness = 0.5
 shader_parameter/specular = 1.0
-shader_parameter/albedo_texture = ExtResource("18_u1d7u")
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bxgh5"]
 _data = {
-"boat_movement": ExtResource("21_3lgo0"),
-"idle": ExtResource("22_s6ost")
+&"boat_movement": ExtResource("21_3lgo0"),
+&"idle": ExtResource("22_s6ost")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_i8j0n"]
@@ -76,8 +76,7 @@ material = ExtResource("22_do4tg")
 size = Vector2(0.5, 0.5)
 
 [sub_resource type="Curve" id="Curve_dpvfu"]
-min_value = 0.1
-max_value = 1.5
+_limits = [0.1, 1.5, 0.0, 1.0]
 _data = [Vector2(0, 0.1), 0.0, 4.32781, 0, 0, Vector2(1, 1.5), 0.0, 0.0, 0, 0]
 point_count = 2
 
@@ -105,7 +104,7 @@ engine_start_audio = ExtResource("7_0shxh")
 engine_start_offset = 3.0
 
 [node name="MovementPivot" type="Node3D" parent="."]
-transform = Transform3D(0.999401, -0.034618, -2.85874e-05, 0.034618, 0.999399, -0.00102581, 6.40818e-05, 0.0010242, 0.999999, 0, -0.0508777, 0)
+transform = Transform3D(0.9999367, 0.011281721, 0.00023690096, -0.011283343, 0.99989915, 0.008500968, -0.00014097178, -0.008503094, 0.9999634, 0, -0.010468484, 0)
 
 [node name="speedboat" type="Node3D" parent="MovementPivot"]
 transform = Transform3D(-9.61651e-08, 0, 2.2, 0, 2.2, 0, -2.2, 0, -9.61651e-08, 0, 0, 0)
@@ -123,7 +122,7 @@ skeleton = NodePath("")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"speedboat": SubResource("AnimationLibrary_bxgh5")
+&"speedboat": SubResource("AnimationLibrary_bxgh5")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]

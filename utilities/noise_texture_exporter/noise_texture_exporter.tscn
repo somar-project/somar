@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://d331djvx5xufs"]
 
-[ext_resource type="Script" path="res://utilities/noise_texture_exporter/noise_texture_exporter.gd" id="1_eoec6"]
+[ext_resource type="Script" uid="uid://dnqadqyx6f6xa" path="res://utilities/noise_texture_exporter/noise_texture_exporter.gd" id="1_eoec6"]
 [ext_resource type="Texture2D" uid="uid://cfoxuy3xiw7ui" path="res://scenes/3d/boats/trail/textures/foam_noise_texture_2d.tres" id="2_o3qny"]
 
 [node name="NoiseTextureExporter" type="Node2D"]

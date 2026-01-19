@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b6bsyyd4h318g"]
 
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/sunrays_shader.gdshader" id="1_26dj2"]
+[ext_resource type="Shader" uid="uid://330pvk6gxilt" path="res://scenes/3d/shared/materials/sunrays_shader.gdshader" id="1_26dj2"]
 [ext_resource type="Texture2D" uid="uid://c5ki50ed7dfnl" path="res://scenes/3d/shore/textures/sunrays_mask.png" id="2_wm3xu"]
 
 [sub_resource type="Gradient" id="Gradient_ycvqb"]
@@ -13,10 +13,10 @@ gradient = SubResource("Gradient_ycvqb")
 [resource]
 render_priority = 0
 shader = ExtResource("1_26dj2")
+shader_parameter/sunrays_texture = SubResource("GradientTexture1D_cmssp")
+shader_parameter/sunrays_mask_texture = ExtResource("2_wm3xu")
 shader_parameter/opacity = 0.1
 shader_parameter/speed = 1.0
 shader_parameter/rotation_speed = 0.02
 shader_parameter/uv1_scale = Vector2(4, 2)
 shader_parameter/uv1_offset = Vector2(0, 0)
-shader_parameter/sunrays_texture = SubResource("GradientTexture1D_cmssp")
-shader_parameter/sunrays_mask_texture = ExtResource("2_wm3xu")

@@ -1,10 +1,10 @@
 [gd_scene load_steps=14 format=3 uid="uid://dchup4y5cpp0u"]
 
-[ext_resource type="Script" path="res://scenes/3d/ocean/ui/ocean_final_ui.gd" id="1_nti2i"]
+[ext_resource type="Script" uid="uid://c6pr0lhqsy521" path="res://scenes/3d/ocean/ui/ocean_final_ui.gd" id="1_nti2i"]
 [ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="1_yjx3h"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="3_35mnp"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="3_35mnp"]
 [ext_resource type="PackedScene" uid="uid://cy1psjwv3hhs1" path="res://scenes/2d/ocean/ocean_final_ui_left_layout.tscn" id="3_ex5mf"]
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_8d5tm"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_8d5tm"]
 [ext_resource type="PackedScene" uid="uid://cpk7gak1sti04" path="res://scenes/2d/ocean/ocean_final_ui_center_layout.tscn" id="4_cs82m"]
 [ext_resource type="PackedScene" uid="uid://vjvrag87vkcx" path="res://scenes/2d/ocean/ocean_final_ui_soundscape_layout.tscn" id="5_6fcf7"]
 [ext_resource type="PackedScene" uid="uid://belpu4f406rhl" path="res://scenes/2d/ocean/ocean_final_ui_right_layout.tscn" id="5_najjd"]

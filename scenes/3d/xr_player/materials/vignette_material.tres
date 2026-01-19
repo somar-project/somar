@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://6p4v5wm3wwqr"]
 
-[ext_resource type="Shader" path="res://scenes/3d/xr_player/materials/vignette_shader.gdshader" id="1_0hlco"]
+[ext_resource type="Shader" uid="uid://b6erryib6lj74" path="res://scenes/3d/xr_player/materials/vignette_shader.gdshader" id="1_0hlco"]
 
 [resource]
 render_priority = 30

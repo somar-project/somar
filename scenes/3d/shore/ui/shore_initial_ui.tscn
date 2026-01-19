@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://vuoju6i7tukd"]
 
-[ext_resource type="Script" path="res://scenes/3d/shore/ui/shore_initial_ui.gd" id="1_ad3is"]
+[ext_resource type="Script" uid="uid://djofnpb8h11u8" path="res://scenes/3d/shore/ui/shore_initial_ui.gd" id="1_ad3is"]
 [ext_resource type="PackedScene" uid="uid://gs4ji44u7lso" path="res://scenes/3d/info_plane/info_panel.tscn" id="1_i6drj"]
-[ext_resource type="Script" path="res://utilities/CustomBtn.gd" id="3_g5235"]
+[ext_resource type="Script" uid="uid://b3ekuaycvco88" path="res://utilities/CustomBtn.gd" id="3_g5235"]
 [ext_resource type="PackedScene" uid="uid://thv1pfe3x40t" path="res://scenes/2d/shore/shore_initial_ui_layout.tscn" id="3_y7m22"]
-[ext_resource type="Shader" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_rdp4u"]
+[ext_resource type="Shader" uid="uid://iww82arrdi6t" path="res://scenes/3d/main_menu/materials/main_menu_long_press_btn_shader.gdshader" id="4_rdp4u"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qh7bd"]
 render_priority = 0

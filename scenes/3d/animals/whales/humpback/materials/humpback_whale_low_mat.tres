@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://drtfb1yyosqfu"]
 
 [ext_resource type="Material" uid="uid://cn7dx1ulrlcft" path="res://scenes/3d/shared/materials/underwater_caustics_material.tres" id="1_5g7jn"]
-[ext_resource type="Shader" path="res://scenes/3d/shared/materials/base_shader_col_alpha_scissor.gdshader" id="2_ampsj"]
+[ext_resource type="Shader" uid="uid://bj28fkoim3717" path="res://scenes/3d/shared/materials/base_shader_col_alpha_scissor.gdshader" id="2_ampsj"]
 [ext_resource type="Texture2D" uid="uid://djddlfqnd8xw3" path="res://scenes/3d/animals/whales/humpback/textures/Humpbackwhale_diff_1k.png" id="2_mpkln"]
 
 [resource]
@@ -9,8 +9,8 @@ render_priority = 0
 next_pass = ExtResource("1_5g7jn")
 shader = ExtResource("2_ampsj")
 shader_parameter/albedo_color = Color(1, 1, 1, 1)
+shader_parameter/albedo_texture = ExtResource("2_mpkln")
 shader_parameter/alpha_scissor_threshold = 0.3
 shader_parameter/specular = 0.55
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 0.6
-shader_parameter/albedo_texture = ExtResource("2_mpkln")
