@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c6boq0tgrmmw4"]
+[gd_scene load_steps=27 format=3 uid="uid://c6boq0tgrmmw4"]
 
 [ext_resource type="Script" uid="uid://upsa4lm4ecna" path="res://scenes/3d/xr_player/xr_player.gd" id="1_wh4gs"]
 [ext_resource type="Material" uid="uid://bqhhywt0sjd07" path="res://scenes/3d/main_menu/materials/pointer_material.tres" id="2_bxq6t"]
@@ -14,6 +14,7 @@
 [ext_resource type="Material" uid="uid://b6bsyyd4h318g" path="res://scenes/3d/shared/materials/sun_rays_material.tres" id="11_bfnmn"]
 [ext_resource type="AudioStream" uid="uid://bvnq7rqm5s8nw" path="res://scenes/3d/xr_player/audio/submerge_sfx.wav" id="12_hucca"]
 [ext_resource type="Material" uid="uid://j5u0ym0rk04f" path="res://scenes/3d/xr_player/materials/hand_tracking_material.tres" id="15_awdxe"]
+[ext_resource type="Texture2D" uid="uid://bw2qnj5ma8eeh" path="res://scenes/3d/xr_player/textures/menu_icon.png" id="15_ml8d4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6qvq"]
 render_priority = 100
@@ -81,6 +82,16 @@ height = 1.8
 radial_segments = 16
 cap_top = false
 cap_bottom = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_gc58u"]
+size = Vector2(0.025, 0.025)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfus5"]
+render_priority = 100
+transparency = 1
+shading_mode = 0
+albedo_texture = ExtResource("15_ml8d4")
+billboard_mode = 1
 
 [node name="XrPlayer" type="XROrigin3D"]
 script = ExtResource("1_wh4gs")
@@ -229,6 +240,13 @@ show_when_tracked = true
 material = ExtResource("15_awdxe")
 
 [node name="XRHandModifier3D" type="XRHandModifier3D" parent="LeftHand/OpenXRFbHandTrackingMesh"]
+
+[node name="MenuIcon" type="MeshInstance3D" parent="LeftHand"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.055572636, 0.05749359, 0.07202678)
+visible = false
+mesh = SubResource("QuadMesh_gc58u")
+surface_material_override/0 = SubResource("StandardMaterial3D_qfus5")
 
 [node name="RightHand" type="XRNode3D" parent="."]
 unique_name_in_owner = true

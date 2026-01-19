@@ -24,6 +24,7 @@ const MENU_DOUBLE_PRESS_TIME_MS : int = 4000
 @onready var left_hand : XRNode3D = %LeftHand
 @onready var right_hand : XRNode3D = %RightHand
 @onready var left_hand_aim : XRController3D = %LeftHandAim
+@onready var menu_icon : MeshInstance3D = %MenuIcon
 @onready var splashscreen_container : Node3D = %Splashscreen
 @onready var shader_cache_container : Node3D = %ShaderCacheContainer
 @onready var shader_cache : Node3D = %ShaderCache
@@ -89,6 +90,7 @@ func _ready() -> void:
 	right_hand.tracking_changed.connect(_handle_hand_tracking_changed.bind(1))
 
 	left_hand_aim.button_pressed.connect(_handle_left_hand_aim_button_pressed)
+	left_hand_aim.button_released.connect(_handle_left_hand_aim_button_released)
 
 	if Global.material_quality == Global.MaterialQuality.HIGH:
 		shader_cache_count += 1
@@ -335,6 +337,14 @@ func _handle_hand_tracking_changed(tracking : bool, controller_idx : int) -> voi
 func _handle_left_hand_aim_button_pressed(button_name : String) -> void:
 	if button_name == "menu_pressed":
 		_handle_input("menu_button", 0)
+	elif button_name == "menu_gesture":
+		if OS.has_feature("androidxr"):
+			menu_icon.visible = true
+
+
+func _handle_left_hand_aim_button_released(button_name : String) -> void:
+	if button_name == "menu_gesture":
+		menu_icon.visible = false
 
 
 func _set_active_controller(idx : int) -> bool:
