@@ -20,13 +20,13 @@ The application immerses users in marine environments, demonstrating the impacts
 ## Technical Details
 - **Engine**: Developed using the [Godot Engine](https://godotengine.org/).
 - **XR Compatibility**: Built with [OpenXR](https://www.khronos.org/openxr/) for maximum compatibility.
-- **Monado Integration**: Meant at leveraging [Monado](https://gitlab.freedesktop.org/monado/monado) for AR support on phone-based platforms.
+- **Monado Integration**: Meant at leveraging [Monado](https://gitlab.freedesktop.org/monado/monado) for cardboard support on phone-based platforms.
 
 ## Supported Platforms
 1. **XR Headsets**:
    - Meta Quest 2/3
    - Other OpenXR-compatible devices
-2. **Phone AR**:
+2. **Smart phones**:
    - Pixel phones with Monado-powered Google Cardboard driver
    - Other android phones
 
@@ -34,7 +34,7 @@ The application immerses users in marine environments, demonstrating the impacts
 To explore the SOMAR experience, follow the steps below to set up the application on your device.
 
 ### Install and run application on your device
-If you just want to install and run the application on your XR device or Android Phone AR, this section is for you.
+If you just want to install and run the application on your XR device or Android Phone, this section is for you.
 
 #### Install Prerequisites
  - OpenXR-compatible XR Headset
@@ -60,7 +60,7 @@ If you are a developer and want to edit the godot project and rebuild, follow th
 
 ### Install Prerequisites
 - Godot engine installation properly setup for [XR development](https://www.youtube.com/watch?v=shbHGhkh4NM)
-- XR Headset or AR-compatible phone
+- XR Headset or Android compatible phone
 - Installed runtime for OpenXR
 
 ### Build and Run/debug on device
