@@ -102,7 +102,7 @@ engine_idle_audio = ExtResource("6_64tc6")
 engine_start_audio = ExtResource("7_uq88s")
 
 [node name="MovementPivot" type="Node3D" parent="." unique_id=1706736933]
-transform = Transform3D(0.9999955, -0.0023965174, -1.3258731e-05, 0.0023965333, 0.9999959, 0.0019686054, 8.540867e-06, -0.0019686345, 0.9999972, 0, -0.0069145653, 0)
+transform = Transform3D(0.9999287, 0.0118030375, -2.0463403e-05, -0.011802982, 0.99993044, 0.001066397, 3.3048655e-05, -0.0010660829, 0.9999985, 0, -0.031199515, 0)
 
 [node name="jet_ski" type="Node3D" parent="MovementPivot" unique_id=785791523]
 transform = Transform3D(-3.49691e-09, 0, 0.08, 0, 0.08, 0, -0.08, 0, -3.49691e-09, 0, 0.154004, 0)

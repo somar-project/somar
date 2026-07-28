@@ -20,7 +20,7 @@ curve = SubResource("Curve3D_5ulwm")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=457232210]
 unique_name_in_owner = true
-transform = Transform3D(-0.6860928, 0, 0.7275142, 0, 1.0000703, 0, -0.7275142, 0, -0.6860928, 150.684, 0, -165.721)
+transform = Transform3D(-0.6860928, 0, 0.7275142, 0, 1.0000705, 0, -0.7275142, 0, -0.6860928, 150.684, 0, -165.721)
 rotation_mode = 4
 
 [node name="JetSki" parent="Path3D/PathFollow3D" unique_id=385421409 instance=ExtResource("2_giij2")]

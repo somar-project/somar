@@ -18,5 +18,5 @@ curve = ExtResource("2_i2jum")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D" unique_id=1029621006]
 unique_name_in_owner = true
-transform = Transform3D(0.36577395, 0, 0.9307211, 0, 1.0007803, 0, -0.93070406, 0, 0.36578065, 160, 0, -108.876)
+transform = Transform3D(0.36577395, 0, 0.9307211, 0, 1.0007805, 0, -0.93070406, 0, 0.36578065, 160, 0, -108.876)
 rotation_mode = 4
