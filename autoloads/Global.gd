@@ -34,7 +34,6 @@ func _ready() -> void:
 	xr_interface = XRServer.find_interface("OpenXR")
 	if xr_interface and xr_interface.is_initialized():
 		xr_interface.session_begun.connect(_on_openxr_session_begun)
-		xr_interface.pose_recentered.connect(_recenter)
 
 		get_viewport().use_xr = true
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
@@ -89,10 +88,6 @@ func _is_quest() -> bool:
 		return true
 	
 	return false
-
-
-func _recenter() -> void:
-	XRServer.center_on_hmd(XRServer.RESET_BUT_KEEP_TILT, true)
 
 
 func quadratic_bezier(p0 : Vector3, p1 : Vector3, p2 : Vector3, t : float) -> Vector3:
